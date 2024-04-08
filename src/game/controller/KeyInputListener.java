@@ -27,30 +27,30 @@ public class KeyInputListener implements KeyListener {
     public void handleKeyPressedCombination() {
         if (pressedKeys.size() == 1) {
             if (pressedKeys.contains(KeyEvent.VK_UP)) {
-                GameController.ball.y--;
+                GameController.ball.y -= GameController.ball.dy;
             }
             else if (pressedKeys.contains(KeyEvent.VK_DOWN)) {
-                GameController.ball.y++;
+                GameController.ball.y += GameController.ball.dy;
             }else if (pressedKeys.contains(KeyEvent.VK_LEFT)) {
-                GameController.ball.x--;
+                GameController.ball.x -= GameController.ball.dx;
             }
             else if (pressedKeys.contains(KeyEvent.VK_RIGHT)) {
-                GameController.ball.x++;
+                GameController.ball.x += GameController.ball.dx;
             }
         }
         else {
             if (pressedKeys.contains(KeyEvent.VK_UP) && pressedKeys.contains(KeyEvent.VK_RIGHT)) {
-                GameController.ball.x++;
-                GameController.ball.y--;
+                GameController.ball.x += GameController.ball.dx;
+                GameController.ball.y -= GameController.ball.dy;
             } else if (pressedKeys.contains(KeyEvent.VK_UP) && pressedKeys.contains(KeyEvent.VK_LEFT)) {
-                GameController.ball.x--;
-                GameController.ball.y--;
+                GameController.ball.x -= GameController.ball.dx;
+                GameController.ball.y -= GameController.ball.dy;
             } else if (pressedKeys.contains(KeyEvent.VK_DOWN) && pressedKeys.contains(KeyEvent.VK_LEFT)) {
-                GameController.ball.x--;
-                GameController.ball.y++;
+                GameController.ball.x -= GameController.ball.dx;
+                GameController.ball.y += GameController.ball.dx;
             }else if (pressedKeys.contains(KeyEvent.VK_DOWN) && pressedKeys.contains(KeyEvent.VK_RIGHT)) {
-                GameController.ball.x++;
-                GameController.ball.y++;
+                GameController.ball.x += GameController.ball.dx;
+                GameController.ball.y += GameController.ball.dx;
             }
         }
 

@@ -1,8 +1,10 @@
 package game.frame;
 
+import game.ball.BulletModel;
 import game.controller.GameController;
 import game.ball.BallModel;
 import game.controller.KeyInputListener;
+import game.controller.MouseInputListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +16,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     static Graphics g;
     public static BallModel ball;
+    public static BulletModel bullet;
     KeyInputListener keyInputListener;
+    MouseInputListener mouseInputListener;
 
     GamePanel() {
         initPanel();
@@ -27,6 +31,8 @@ public class GamePanel extends JPanel implements Runnable {
         ball = GameController.newBall();
         keyInputListener = new KeyInputListener();
         this.addKeyListener(keyInputListener);
+        mouseInputListener = new MouseInputListener();
+        this.addMouseListener(mouseInputListener);
         this.setFocusable(true);
         this.requestFocusInWindow();
         this.setVisible(true);
@@ -55,6 +61,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public static void update() {
         GameController.updateTheBall();
+        GameController.updateBullet();
     }
 
 
@@ -87,6 +94,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         drawBall(g);
+        drawBullet(g);
     }
 
 
@@ -96,6 +104,17 @@ public class GamePanel extends JPanel implements Runnable {
             g.fillOval((int) ball.x, (int) ball.y, BallModel.ballRadius, BallModel.ballRadius);
         }
 
+    }
+
+    public static void drawBullet(Graphics g) {
+        if (!GameController.bullets.isEmpty()) {
+            for (BulletModel bullet : GameController.bullets) {
+                if (bullet.bulletHealth > 0) {
+                    g.setColor(new Color(0xEF8506));
+                    g.fillOval((int) bullet.x, (int) bullet.y, BulletModel.bulletSize, BulletModel.bulletSize);
+                }
+            }
+        }
     }
 
 }
