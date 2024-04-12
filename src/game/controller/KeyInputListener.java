@@ -1,5 +1,7 @@
 package game.controller;
 
+import game.frame.GameFrame;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashSet;
@@ -24,6 +26,9 @@ public class KeyInputListener implements KeyListener {
         pressedKeys.remove(e.getKeyCode());
     }
 
+
+
+    // this method is for checking which keys are being pressed at every moment ================================
     public void handleKeyPressedCombination() {
         if (pressedKeys.size() == 1) {
             if (pressedKeys.contains(KeyEvent.VK_UP)) {
@@ -47,12 +52,17 @@ public class KeyInputListener implements KeyListener {
                 GameController.ball.y -= GameController.ball.dy;
             } else if (pressedKeys.contains(KeyEvent.VK_DOWN) && pressedKeys.contains(KeyEvent.VK_LEFT)) {
                 GameController.ball.x -= GameController.ball.dx;
-                GameController.ball.y += GameController.ball.dx;
+                GameController.ball.y += GameController.ball.dy;
             }else if (pressedKeys.contains(KeyEvent.VK_DOWN) && pressedKeys.contains(KeyEvent.VK_RIGHT)) {
                 GameController.ball.x += GameController.ball.dx;
-                GameController.ball.y += GameController.ball.dx;
+                GameController.ball.y += GameController.ball.dy;
             }
         }
 
     }
+
+    //==============================================================================
+
+
+
 }

@@ -20,6 +20,7 @@ public class GameController {
 
     }
 
+
     public static BulletModel newBullet(Point point) {
        bullet = new BulletModel((ball.x + ((double) ball.ballRadius / 2)), (ball.y + ((double) ball.ballRadius / 2)));
         bullet.dx = ((point.x - (ball.x + (ball.ballRadius / 2))) / Math.sqrt(Math.pow((point.x - (ball.x + ((double) ball.ballRadius / 2))), 2) + Math.pow((point.y - (ball.y + ((double) ball.ballRadius / 2))), 2))) * BulletModel.bulletSpeed;
@@ -41,8 +42,13 @@ public class GameController {
                     bullet.y += bullet.dy;
                 }
             }
+
         }
     }
 
+    public static void checkCollisions() {
+        //Collision.checkBulletHitFrame();
+        //Collision.checkBallCollisionToFrame();
+    }
 
 }

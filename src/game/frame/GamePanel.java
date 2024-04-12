@@ -8,6 +8,8 @@ import game.controller.MouseInputListener;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 
@@ -26,8 +28,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void initPanel() {
         GameFrame.GameIsRunning = true;
-        this.setSize(GameFrame.width, GameFrame.height);
+        //changeGamePanelSize();
         this.setBackground(Color.BLACK);
+        this.setSize(GameFrame.width, GameFrame.height);
         ball = GameController.newBall();
         keyInputListener = new KeyInputListener();
         this.addKeyListener(keyInputListener);
@@ -62,6 +65,7 @@ public class GamePanel extends JPanel implements Runnable {
     public static void update() {
         GameController.updateTheBall();
         GameController.updateBullet();
+        GameController.checkCollisions();
     }
 
 
@@ -89,6 +93,22 @@ public class GamePanel extends JPanel implements Runnable {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+
+    public void changeGamePanelSize() {
+
+
+        // this timer reduces the frame size ========================================
+        Timer timer = new Timer(50, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setSize(GameFrame.width, GameFrame.height);
+            }
+        });
+        timer.start();
+
+
     }
 
     public void paintComponent(Graphics g) {
