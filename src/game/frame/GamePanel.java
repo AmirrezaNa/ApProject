@@ -1,10 +1,11 @@
 package game.frame;
 
-import game.ball.BulletModel;
+import game.entity.BulletModel;
 import game.controller.GameController;
-import game.ball.BallModel;
+import game.entity.BallModel;
 import game.controller.KeyInputListener;
 import game.controller.MouseInputListener;
+import game.entity.EnemyModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,9 +17,8 @@ import java.awt.event.KeyEvent;
 public class GamePanel extends JPanel implements Runnable {
 
 
-    static Graphics g;
     public static BallModel ball;
-    public static BulletModel bullet;
+    public static EnemyModel enemy;
     KeyInputListener keyInputListener;
     MouseInputListener mouseInputListener;
 
@@ -30,8 +30,9 @@ public class GamePanel extends JPanel implements Runnable {
         GameFrame.GameIsRunning = true;
         //changeGamePanelSize();
         this.setBackground(Color.BLACK);
-        this.setSize(GameFrame.width, GameFrame.height);
         ball = GameController.newBall();
+        enemy = GameController.setTimerForEnemy();
+        changeGamePanelSize();
         keyInputListener = new KeyInputListener();
         this.addKeyListener(keyInputListener);
         mouseInputListener = new MouseInputListener();
@@ -66,6 +67,7 @@ public class GamePanel extends JPanel implements Runnable {
         GameController.updateTheBall();
         GameController.updateBullet();
         GameController.checkCollisions();
+        GameController.updateEnemy();
     }
 
 
@@ -115,6 +117,7 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         drawBall(g);
         drawBullet(g);
+        drawEnemy(g);
     }
 
 
@@ -132,6 +135,17 @@ public class GamePanel extends JPanel implements Runnable {
                 if (bullet.bulletHealth > 0) {
                     g.setColor(new Color(0xEF8506));
                     g.fillOval((int) bullet.x, (int) bullet.y, BulletModel.bulletSize, BulletModel.bulletSize);
+                }
+            }
+        }
+    }
+
+    public static void drawEnemy(Graphics g) {
+        if (!GameController.enemies.isEmpty()) {
+            for (EnemyModel enemy : GameController.enemies) {
+                if (enemy.enemyHealth > 0) {
+                    g.setColor(new Color(0xEF8506));
+                    g.fillOval((int) enemy.x, (int) enemy.y, BulletModel.bulletSize, BulletModel.bulletSize);
                 }
             }
         }

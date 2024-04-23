@@ -1,6 +1,8 @@
 package game.frame;
 
 
+import game.controller.GameController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -20,13 +22,16 @@ public class GameFrame extends JFrame {
         // after minimizing all windows setting the state to normal prevents minimizing the game frame
         this.setState(JFrame.NORMAL);
         gamePanel = new GamePanel();
+        GameFrameStuff gameFrameStuff = new GameFrameStuff();
+
+
         Thread thread = new Thread(gamePanel);
         thread.start();
 
         changeGameFrameSize();
         this.setUndecorated(true);
         this.setLocationRelativeTo(null);
-        getContentPane().setBackground(Color.BLACK);
+        setBackground(new Color(0, 0, 0, 0));
         this.setLayout(null);
         this.add(gamePanel);
         this.setVisible(true);

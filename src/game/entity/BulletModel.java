@@ -1,4 +1,4 @@
-package game.ball;
+package game.entity;
 
 public class BulletModel {
     public double x;
