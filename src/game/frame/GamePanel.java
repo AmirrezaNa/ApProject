@@ -5,7 +5,8 @@ import game.controller.GameController;
 import game.entity.BallModel;
 import game.controller.KeyInputListener;
 import game.controller.MouseInputListener;
-import game.entity.EnemyModel;
+import game.entity.EnemyModel1;
+import game.entity.EnemyModel2;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +19,8 @@ public class GamePanel extends JPanel implements Runnable {
 
 
     public static BallModel ball;
-    public static EnemyModel enemy;
+    public static EnemyModel1 enemy1;
+    public static EnemyModel2 enemy2;
     KeyInputListener keyInputListener;
     MouseInputListener mouseInputListener;
 
@@ -31,7 +33,8 @@ public class GamePanel extends JPanel implements Runnable {
         //changeGamePanelSize();
         this.setBackground(Color.BLACK);
         ball = GameController.newBall();
-        enemy = GameController.setTimerForEnemy();
+        enemy1 = GameController.setTimerForEnemy1();
+        enemy2 = GameController.setTimerForEnemy2();
         changeGamePanelSize();
         keyInputListener = new KeyInputListener();
         this.addKeyListener(keyInputListener);
@@ -44,6 +47,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     @Override
     public void run() {
+
         while (GameFrame.GameIsRunning) {
 
             update();
@@ -67,7 +71,8 @@ public class GamePanel extends JPanel implements Runnable {
         GameController.updateTheBall();
         GameController.updateBullet();
         GameController.checkCollisions();
-        GameController.updateEnemy();
+        GameController.updateEnemy1();
+        GameController.updateEnemy2();
     }
 
 
@@ -117,7 +122,8 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         drawBall(g);
         drawBullet(g);
-        drawEnemy(g);
+        drawEnemy1(g);
+        drawEnemy2(g);
     }
 
 
@@ -140,9 +146,20 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    public static void drawEnemy(Graphics g) {
-        if (!GameController.enemies.isEmpty()) {
-            for (EnemyModel enemy : GameController.enemies) {
+    public static void drawEnemy1(Graphics g) {
+        if (!GameController.enemies1.isEmpty()) {
+            for (EnemyModel1 enemy : GameController.enemies1) {
+                if (enemy.enemyHealth > 0) {
+                    g.setColor(new Color(0xEF8506));
+                    g.fillOval((int) enemy.x, (int) enemy.y, BulletModel.bulletSize, BulletModel.bulletSize);
+                }
+            }
+        }
+    }
+
+    public static void drawEnemy2(Graphics g) {
+        if (!GameController.enemies2.isEmpty()) {
+            for (EnemyModel2 enemy : GameController.enemies2) {
                 if (enemy.enemyHealth > 0) {
                     g.setColor(new Color(0xEF8506));
                     g.fillOval((int) enemy.x, (int) enemy.y, BulletModel.bulletSize, BulletModel.bulletSize);
