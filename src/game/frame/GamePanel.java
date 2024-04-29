@@ -5,8 +5,8 @@ import game.controller.GameController;
 import game.entity.BallModel;
 import game.controller.KeyInputListener;
 import game.controller.MouseInputListener;
-import game.entity.EnemyModel1;
-import game.entity.EnemyModel2;
+import game.entity.enemy.EnemyModel1;
+import game.entity.enemy.EnemyModel2;
 
 import javax.swing.*;
 import java.awt.*;
@@ -147,22 +147,31 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public static void drawEnemy1(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
         if (!GameController.enemies1.isEmpty()) {
-            for (EnemyModel1 enemy : GameController.enemies1) {
-                if (enemy.enemyHealth > 0) {
-                    g.setColor(new Color(0xEF8506));
-                    g.fillOval((int) enemy.x, (int) enemy.y, BulletModel.bulletSize, BulletModel.bulletSize);
+            for (EnemyModel1 enemy1 : GameController.enemies1) {
+                if (enemy1.enemyHealth > 0) {
+                    Polygon polygon = new Polygon(new int[]{(int)enemy1.xAngles[0], (int) enemy1.xAngles[1], (int) enemy1.xAngles[2], (int) enemy1.xAngles[3]},
+                            new int[]{(int) enemy1.yAngles[0], (int) enemy1.yAngles[1], (int) enemy1.yAngles[2], (int) enemy1.yAngles[3]}, 4);
+                    g2d.setColor(new Color(0xEF8506));
+                    g2d.setStroke(new BasicStroke(4));
+                    g2d.drawPolygon(polygon);
                 }
             }
         }
     }
 
     public static void drawEnemy2(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
         if (!GameController.enemies2.isEmpty()) {
-            for (EnemyModel2 enemy : GameController.enemies2) {
-                if (enemy.enemyHealth > 0) {
-                    g.setColor(new Color(0xEF8506));
-                    g.fillOval((int) enemy.x, (int) enemy.y, BulletModel.bulletSize, BulletModel.bulletSize);
+            for (EnemyModel2 enemy2 : GameController.enemies2) {
+                if (enemy2.enemyHealth > 0) {
+                    Polygon polygon = new Polygon(new int[]{(int) enemy2.xAngles[0], (int) enemy2.xAngles[1], (int) enemy2.xAngles[2]},
+                            new int[]{(int) enemy2.yAngles[0], (int) enemy2.yAngles[1], (int) enemy2.yAngles[2]}, 3);
+                    g2d.setColor(new Color(0xEF8506));
+                    g2d.setStroke(new BasicStroke(4));
+                    g2d.drawPolygon(polygon);
+
                 }
             }
         }

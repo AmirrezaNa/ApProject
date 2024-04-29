@@ -2,8 +2,8 @@ package game.controller;
 
 import game.entity.BallModel;
 import game.entity.BulletModel;
-import game.entity.EnemyModel1;
-import game.entity.EnemyModel2;
+import game.entity.enemy.EnemyModel1;
+import game.entity.enemy.EnemyModel2;
 import game.frame.GameFrame;
 
 import java.awt.*;
@@ -81,7 +81,7 @@ public class GameController {
             TimerTask task = new TimerTask() {
                 @Override
                 public void run() {
-                    newEnemy();
+                    newEnemy1();
                 }
 
             };
@@ -101,45 +101,24 @@ public class GameController {
             TimerTask task = new TimerTask() {
                 @Override
                 public void run() {
-                    newEnemy();
+                    newEnemy2();
                 }
 
             };
-            timer.scheduleAtFixedRate(task, 0, 10000);
+            timer.scheduleAtFixedRate(task, 5000, 10000);
 
         }
         return enemy2;
     }
 
-    public static void newEnemy() {
-        enemyNumber = enemies1.size();
-        if (enemyNumber % 2 == 0) {
-            if (enemyNumber % 4 == 0) {
-                enemy1 = new EnemyModel1((double) GameFrame.width /2, (double) GameFrame.y /2, 10);
-            } else if (enemyNumber % 4 == 1) {
-                enemy1 = new EnemyModel1((double) GameFrame.x /2, (double) GameFrame.height /2, 10);
-            } else if (enemyNumber % 4 == 2) {
-                enemy1 = new EnemyModel1((double) GameFrame.width /2, (double) GameFrame.height /2, 10);
-            } else {
-                enemy1 = new EnemyModel1((double) GameFrame.width /2, (double) GameFrame.height /2, 10);
-            }
-            enemies1.add(0,enemy1);
-        }
+    public static void newEnemy1() {
+        enemy1 = new EnemyModel1(20, (double) GameFrame.height / 2, 10);
+        enemies1.add(0, enemy1);
+    }
 
-        if (enemyNumber % 2 == 1) {
-            if (enemyNumber % 4 == 0) {
-                enemy2 = new EnemyModel2((double) GameFrame.width /2, (double) GameFrame.y /2, 10);
-            } else if (enemyNumber % 4 == 1) {
-                enemy2 = new EnemyModel2((double) GameFrame.x /2, (double) GameFrame.height /2, 10);
-            } else if (enemyNumber % 4 == 2) {
-                enemy2 = new EnemyModel2((double) GameFrame.width /2, (double) GameFrame.height /2, 10);
-            } else {
-                enemy2 = new EnemyModel2((double) GameFrame.width /2, (double) GameFrame.height /2, 10);
-            }
-            enemies2.add(0,enemy2);
-        }
-
-
+    public static void newEnemy2() {
+            enemy2 = new EnemyModel2((double) GameFrame.width - 10, (double) GameFrame.height / 2, 10);
+            enemies2.add(0, enemy2);
     }
 
 
@@ -176,11 +155,14 @@ public class GameController {
 
     public static void updateEnemy1() {
         setDirectionForEnemy1();
+        //Rotation.enemy1Rotation();
         if (!GameController.enemies1.isEmpty()) {
             for (EnemyModel1 enemy : GameController.enemies1) {
                 if (enemy.enemyHealth > 0) {
                     enemy.x += enemy.dx;
                     enemy.y += enemy.dy;
+                    //enemy1.xAngles = new int[]{(int) enemy1.x, (int) (enemy1.x + enemy1.enemy1Size), (int) (enemy1.x + enemy1.enemy1Size), (int) enemy1.x};
+                    //enemy1.yAngles = new int[]{(int) enemy1.y, (int) (enemy1.y), (int) (enemy1.y + enemy1.enemy1Size), (int) enemy1.y + enemy1.enemy1Size};
                 }
             }
         }
@@ -189,11 +171,14 @@ public class GameController {
 
     public static void updateEnemy2() {
         setDirectionForEnemy2();
+        //Rotation.enemy2Rotation();
         if (!GameController.enemies2.isEmpty()) {
             for (EnemyModel2 enemy : GameController.enemies2) {
                 if (enemy.enemyHealth > 0) {
                     enemy.x += enemy.dx;
                     enemy.y += enemy.dy;
+                    //enemy2.xAngles = new int[]{(int) enemy2.x, (int) (enemy2.x + enemy2.enemy2Size), (int) (enemy2.x + (enemy2.enemy2Size / 2))};
+                    //enemy2.yAngles = new int[]{(int) enemy2.y, (int) enemy2.y, (int) (enemy2.y + (enemy2.enemy2Size))};
                 }
             }
         }
@@ -201,13 +186,12 @@ public class GameController {
     }
 
 
-
     // =======================================================================================
 
 
     public static void checkCollisions() {
         Collision.checkBulletHitFrame();
-        //Collision.checkBallCollisionToFrame();
+        Collision.checkBallCollisionToFrame();
     }
 
 }

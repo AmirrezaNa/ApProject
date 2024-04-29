@@ -2,6 +2,7 @@ package game.frame;
 
 
 import game.controller.GameController;
+import game.controller.Rotation;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +17,7 @@ public class GameFrame extends JFrame {
     public static int y = 50;
     GamePanel gamePanel;
     static boolean GameIsRunning = true;
+    Rotation rotation;
 
     public GameFrame() {
         GamePanel.closeAllWindows();
@@ -28,6 +30,8 @@ public class GameFrame extends JFrame {
         Thread thread = new Thread(gamePanel);
         thread.start();
 
+
+        rotation = new Rotation();
         changeGameFrameSize();
         this.setUndecorated(true);
         this.setLocationRelativeTo(null);
@@ -49,12 +53,16 @@ public class GameFrame extends JFrame {
                     x += 1;
                     width -= 2;
                     setBounds(x, y, width, height);
+                    gamePanel.revalidate();
+                    gamePanel.repaint();
                 }
                 if (height > 300) {
                     // reduce height gradually
                     y += 1;
                     height -= 2;
                     setBounds(x, y, width, height);
+                    gamePanel.revalidate();
+                    gamePanel.repaint();
                 }
             }
         });
