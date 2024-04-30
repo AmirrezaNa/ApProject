@@ -3,10 +3,13 @@ package game.entity.enemy;
 public class EnemyModel1 {
     public double x;
     public double y;
-    public double dx = 2;
-    public double dy = 2;
+    public double dx;
+    public double dy;
+    public double ax;
+    public double ay;
     public int enemyHealth;
     public static double enemySpeed = 0.3;
+    public static double enemyAcceleration;
     public double[] xAngles;
     public double[] yAngles;
     public int enemy1Size = 30;
@@ -18,6 +21,9 @@ public class EnemyModel1 {
         this.y = y;
         this.dx = 0;
         this.dy = 0;
+        this.ax = 0;
+        this.ay = 0;
+        enemyAcceleration = 3;
         this.enemyHealth = enemyHealth;
         this.angle = 0;
     }

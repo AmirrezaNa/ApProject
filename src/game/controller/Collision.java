@@ -15,25 +15,38 @@ public class Collision {
                     bullet.dx = 0;
                     bullet.dy = 0;
                     bullet.bulletHealth = 0;
-                    GameFrame.width += 20;
-                    GameFrame.x += 5;
+                    if (!GameFrame.countDown) {
+                        GameFrame.width += 20;
+                        GameFrame.x += 5;
+                    }
+
                 } else if (bullet.y > GameFrame.height) {
                     bullet.dx = 0;
                     bullet.dy = 0;
                     bullet.bulletHealth = 0;
-                    GameFrame.height += 20;
-                    GameFrame.y += 5;
+                    if (!GameFrame.countDown) {
+                        GameFrame.height += 20;
+                        GameFrame.y += 5;
+                    }
+
                 } else if (bullet.x < 0) {
                     bullet.dx = 0;
                     bullet.dy = 0;
                     bullet.bulletHealth = 0;
-                    GameFrame.x -= 20;
+                    if (!GameFrame.countDown) {
+                        GameFrame.x -= 20;
+                        GameFrame.width += 10;
+                    }
+
                 } else if (bullet.y < 0) {
                     bullet.dx = 0;
                     bullet.dy = 0;
                     bullet.bulletHealth = 0;
-                    GameFrame.y -= 20;
-                    GameFrame.height += 20;
+                    if (!GameFrame.countDown) {
+                        GameFrame.y -= 20;
+                        GameFrame.height += 10;
+                    }
+
                 }
 
             }
@@ -163,9 +176,7 @@ public class Collision {
                         }
                     }
                     if (collisionHappened) {
-
-                        //======================================================================
-
+                        Impact.turnOnImpact(enemy1.x, enemy1.y, enemy2.x, enemy2.y);
                     }
                 }
             }
@@ -270,7 +281,8 @@ public class Collision {
                         }
                     }
                     if (collisionHappened) {
-
+                        Impact.turnOnImpact(GameController.enemies1.get(i).x, GameController.enemies1.get(i).y,
+                                GameController.enemies1.get(j).x, GameController.enemies1.get(j).y);
 
                     }
 
@@ -328,14 +340,14 @@ public class Collision {
                         || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
 
                     for (int t = 0; t < 2; t++) {
-                        double x1 = GameController.enemies1.get(i).xAngles[t];
-                        double y1 = GameController.enemies1.get(i).yAngles[t];
-                        double x2 = GameController.enemies1.get(i).xAngles[t + 1];
-                        double y2 = GameController.enemies1.get(i).yAngles[t + 1];
-                        double x3 = GameController.enemies1.get(j).xAngles[t];
-                        double y3 = GameController.enemies1.get(j).yAngles[t];
-                        double x4 = GameController.enemies1.get(j).xAngles[t + 1];
-                        double y4 = GameController.enemies1.get(j).yAngles[t + 1];
+                        double x1 = GameController.enemies2.get(i).xAngles[t];
+                        double y1 = GameController.enemies2.get(i).yAngles[t];
+                        double x2 = GameController.enemies2.get(i).xAngles[t + 1];
+                        double y2 = GameController.enemies2.get(i).yAngles[t + 1];
+                        double x3 = GameController.enemies2.get(j).xAngles[t];
+                        double y3 = GameController.enemies2.get(j).yAngles[t];
+                        double x4 = GameController.enemies2.get(j).xAngles[t + 1];
+                        double y4 = GameController.enemies2.get(j).yAngles[t + 1];
                         collisionHappened = doLinesIntersect(x1, y1, x2, y2, x3, y3, x4, y4);
                         if (collisionHappened) {
                             break;
@@ -343,14 +355,14 @@ public class Collision {
                     }
                     if (!collisionHappened) {
                         for (int t = 0; t < 2; t++) {
-                            double x1 = GameController.enemies1.get(i).xAngles[2];
-                            double y1 = GameController.enemies1.get(i).yAngles[2];
-                            double x2 = GameController.enemies1.get(i).xAngles[0];
-                            double y2 = GameController.enemies1.get(i).yAngles[0];
-                            double x3 = GameController.enemies1.get(j).xAngles[t];
-                            double y3 = GameController.enemies1.get(j).yAngles[t];
-                            double x4 = GameController.enemies1.get(j).xAngles[t + 1];
-                            double y4 = GameController.enemies1.get(j).yAngles[t + 1];
+                            double x1 = GameController.enemies2.get(i).xAngles[2];
+                            double y1 = GameController.enemies2.get(i).yAngles[2];
+                            double x2 = GameController.enemies2.get(i).xAngles[0];
+                            double y2 = GameController.enemies2.get(i).yAngles[0];
+                            double x3 = GameController.enemies2.get(j).xAngles[t];
+                            double y3 = GameController.enemies2.get(j).yAngles[t];
+                            double x4 = GameController.enemies2.get(j).xAngles[t + 1];
+                            double y4 = GameController.enemies2.get(j).yAngles[t + 1];
                             collisionHappened = doLinesIntersect(x1, y1, x2, y2, x3, y3, x4, y4);
                             if (collisionHappened) {
                                 break;
@@ -359,14 +371,14 @@ public class Collision {
                     }
                     if (!collisionHappened) {
                         for (int t = 0; t < 2; t++) {
-                            double x1 = GameController.enemies1.get(i).xAngles[t];
-                            double y1 = GameController.enemies1.get(i).yAngles[t];
-                            double x2 = GameController.enemies1.get(i).xAngles[t + 1];
-                            double y2 = GameController.enemies1.get(i).yAngles[t + 1];
-                            double x3 = GameController.enemies1.get(j).xAngles[2];
-                            double y3 = GameController.enemies1.get(j).yAngles[2];
-                            double x4 = GameController.enemies1.get(j).xAngles[0];
-                            double y4 = GameController.enemies1.get(j).yAngles[0];
+                            double x1 = GameController.enemies2.get(i).xAngles[t];
+                            double y1 = GameController.enemies2.get(i).yAngles[t];
+                            double x2 = GameController.enemies2.get(i).xAngles[t + 1];
+                            double y2 = GameController.enemies2.get(i).yAngles[t + 1];
+                            double x3 = GameController.enemies2.get(j).xAngles[2];
+                            double y3 = GameController.enemies2.get(j).yAngles[2];
+                            double x4 = GameController.enemies2.get(j).xAngles[0];
+                            double y4 = GameController.enemies2.get(j).yAngles[0];
                             collisionHappened = doLinesIntersect(x1, y1, x2, y2, x3, y3, x4, y4);
                             if (collisionHappened) {
                                 break;
@@ -374,7 +386,8 @@ public class Collision {
                         }
                     }
                     if (collisionHappened) {
-
+                        Impact.turnOnImpact(GameController.enemies2.get(i).x, GameController.enemies2.get(i).y,
+                                GameController.enemies2.get(j).x, GameController.enemies2.get(j).y);
 
                     }
 
@@ -474,7 +487,9 @@ public class Collision {
                 }
 
                 if (collisionHappened) {
-
+                    Impact.turnOnImpact(GameController.ball.x + ((double) BallModel.ballRadius /2),
+                            GameController.ball.y + ((double) BallModel.ballRadius /2),
+                            enemy1.x + ((double) enemy1.enemy1Size /2), enemy1.y + ((double) enemy1.enemy1Size /2));
 
                 }
 
@@ -543,8 +558,8 @@ public class Collision {
 
                 if (!collisionHappened) {
                     for (int j = 0; j < 3; j++) {
-                        double x1 = enemy2.xAngles[3];
-                        double y1 = enemy2.yAngles[3];
+                        double x1 = enemy2.xAngles[2];
+                        double y1 = enemy2.yAngles[2];
                         double x2 = enemy2.xAngles[0];
                         double y2 = enemy2.yAngles[0];
                         double x3 = xAnglesBall[j];
@@ -575,7 +590,9 @@ public class Collision {
                 }
 
                 if (collisionHappened) {
-
+                    Impact.turnOnImpact(GameController.ball.x + ((double) BallModel.ballRadius /2),
+                            GameController.ball.y + ((double) BallModel.ballRadius /2),
+                            enemy2.x + ((double) enemy2.enemy2Size /2), enemy2.y + ((double) enemy2.enemy2Size /2));
 
                 }
 
@@ -594,8 +611,11 @@ public class Collision {
                                            double x3, double y3, double x4, double y4) {
         double denominator = ((x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4));
 
-        if (denominator == 0) {
-            return false; // Lines are parallel
+        if (denominator == 0) {  // Lines are parallel
+            if (x1 == x3 || y1 == y3) {
+                return true;
+            }
+            return false;
         }
 
         double intersectX = ((x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3 * x4)) / denominator;

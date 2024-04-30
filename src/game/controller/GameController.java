@@ -26,12 +26,30 @@ public class GameController {
     // creating and updating the ball ================================================
 
     public static BallModel newBall() {
-        ball = new BallModel(140, 140);
+        ball = new BallModel((double) (GameFrame.width /2) - 20, (double) (GameFrame.height /2) - 20);
         return ball;
     }
 
     public static void updateTheBall() {
+        ball.x += ball.ax;
+        ball.y += ball.ay;
 
+        if (ball.ax != 0) {
+            if (ball.ax > 0) {
+                ball.ax -= 0.05;
+            }
+            else {
+                ball.ax += 0.05;
+            }
+        }
+        if (ball.ay != 0) {
+            if (ball.ay > 0) {
+                ball.ay -= 0.05;
+            }
+            else {
+                ball.ay += 0.05;
+            }
+        }
     }
 
     // ==================================================================================
@@ -85,7 +103,7 @@ public class GameController {
                 }
 
             };
-            timer.scheduleAtFixedRate(task, 0, 10000);
+            timer.scheduleAtFixedRate(task, 10000, 5000);
 
         }
         return enemy1;
@@ -94,7 +112,6 @@ public class GameController {
     public static EnemyModel2 setTimerForEnemy2() {   // this method creates an enemy every 5 seconds
 
         boolean enemyPermission = true;
-
 
         if (enemyPermission) {
             Timer timer = new Timer();
@@ -105,19 +122,19 @@ public class GameController {
                 }
 
             };
-            timer.scheduleAtFixedRate(task, 5000, 10000);
+            timer.scheduleAtFixedRate(task, 12500, 5000);
 
         }
         return enemy2;
     }
 
     public static void newEnemy1() {
-        enemy1 = new EnemyModel1(20, (double) GameFrame.height / 2, 10);
+        enemy1 = new EnemyModel1(50, (double) GameFrame.height / 2, 10);
         enemies1.add(0, enemy1);
     }
 
     public static void newEnemy2() {
-            enemy2 = new EnemyModel2((double) GameFrame.width - 10, (double) GameFrame.height / 2, 10);
+            enemy2 = new EnemyModel2((double) GameFrame.width - 60, (double) GameFrame.height / 2, 10);
             enemies2.add(0, enemy2);
     }
 
@@ -155,14 +172,29 @@ public class GameController {
 
     public static void updateEnemy1() {
         setDirectionForEnemy1();
-        //Rotation.enemy1Rotation();
         if (!GameController.enemies1.isEmpty()) {
             for (EnemyModel1 enemy : GameController.enemies1) {
                 if (enemy.enemyHealth > 0) {
-                    enemy.x += enemy.dx;
-                    enemy.y += enemy.dy;
-                    //enemy1.xAngles = new int[]{(int) enemy1.x, (int) (enemy1.x + enemy1.enemy1Size), (int) (enemy1.x + enemy1.enemy1Size), (int) enemy1.x};
-                    //enemy1.yAngles = new int[]{(int) enemy1.y, (int) (enemy1.y), (int) (enemy1.y + enemy1.enemy1Size), (int) enemy1.y + enemy1.enemy1Size};
+                    enemy.x += enemy.dx + enemy.ax;
+                    enemy.y += enemy.dy + enemy.ay;
+                    if (enemy.ax != 0) {
+                        if (enemy.ax > 0) {
+                            enemy.ax -= 0.05;
+                        }
+                        else {
+                            enemy.ax += 0.05;
+                        }
+                    }
+                    if (enemy.ay != 0) {
+                        if (enemy.ay > 0) {
+                            enemy.ay -= 0.05;
+                        }
+                        else {
+                            enemy.ay += 0.05;
+                        }
+                    }
+                    enemy.xAngles = new double[]{enemy.x, (enemy.x + enemy.enemy1Size), (enemy.x + enemy.enemy1Size), enemy.x};
+                    enemy.yAngles = new double[]{enemy.y, (enemy.y), (enemy.y + enemy.enemy1Size), enemy.y + enemy.enemy1Size};
                 }
             }
         }
@@ -171,14 +203,30 @@ public class GameController {
 
     public static void updateEnemy2() {
         setDirectionForEnemy2();
-        //Rotation.enemy2Rotation();
         if (!GameController.enemies2.isEmpty()) {
             for (EnemyModel2 enemy : GameController.enemies2) {
                 if (enemy.enemyHealth > 0) {
-                    enemy.x += enemy.dx;
-                    enemy.y += enemy.dy;
-                    //enemy2.xAngles = new int[]{(int) enemy2.x, (int) (enemy2.x + enemy2.enemy2Size), (int) (enemy2.x + (enemy2.enemy2Size / 2))};
-                    //enemy2.yAngles = new int[]{(int) enemy2.y, (int) enemy2.y, (int) (enemy2.y + (enemy2.enemy2Size))};
+
+                    enemy.x += enemy.dx + enemy.ax;
+                    enemy.y += enemy.dy + enemy.ay;
+                    if (enemy.ax != 0) {
+                        if (enemy.ax > 0) {
+                            enemy.ax -= 0.05;
+                        }
+                        else {
+                            enemy.ax += 0.05;
+                        }
+                    }
+                    if (enemy.ay != 0) {
+                        if (enemy.ay > 0) {
+                            enemy.ay -= 0.05;
+                        }
+                        else {
+                            enemy.ay += 0.05;
+                        }
+                    }
+                    enemy.xAngles = new double[]{enemy.x, (enemy.x + enemy.enemy2Size), (enemy.x + ((double) enemy.enemy2Size / 2))};
+                    enemy.yAngles = new double[]{enemy.y, enemy.y, (enemy.y + (enemy.enemy2Size))};
                 }
             }
         }
@@ -192,6 +240,11 @@ public class GameController {
     public static void checkCollisions() {
         Collision.checkBulletHitFrame();
         Collision.checkBallCollisionToFrame();
+        Collision.checkCollisionEnemy1Enemy2();
+        Collision.checkCollisionEnemy1Enemy1();
+        Collision.checkCollisionEnemy2Enemy2();
+        Collision.checkCollisionBallEnemy1();
+        Collision.checkCollisionBallEnemy2();
     }
 
 }

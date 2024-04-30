@@ -153,8 +153,8 @@ public class GamePanel extends JPanel implements Runnable {
                 if (enemy1.enemyHealth > 0) {
                     Polygon polygon = new Polygon(new int[]{(int)enemy1.xAngles[0], (int) enemy1.xAngles[1], (int) enemy1.xAngles[2], (int) enemy1.xAngles[3]},
                             new int[]{(int) enemy1.yAngles[0], (int) enemy1.yAngles[1], (int) enemy1.yAngles[2], (int) enemy1.yAngles[3]}, 4);
-                    g2d.setColor(new Color(0xEF8506));
-                    g2d.setStroke(new BasicStroke(4));
+                    g2d.setColor(new Color(0xD71111));
+                    g2d.setStroke(new BasicStroke(2));
                     g2d.drawPolygon(polygon);
                 }
             }
@@ -168,8 +168,8 @@ public class GamePanel extends JPanel implements Runnable {
                 if (enemy2.enemyHealth > 0) {
                     Polygon polygon = new Polygon(new int[]{(int) enemy2.xAngles[0], (int) enemy2.xAngles[1], (int) enemy2.xAngles[2]},
                             new int[]{(int) enemy2.yAngles[0], (int) enemy2.yAngles[1], (int) enemy2.yAngles[2]}, 3);
-                    g2d.setColor(new Color(0xEF8506));
-                    g2d.setStroke(new BasicStroke(4));
+                    g2d.setColor(new Color(0x0271D7));
+                    g2d.setStroke(new BasicStroke(2));
                     g2d.drawPolygon(polygon);
 
                 }
