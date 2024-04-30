@@ -129,12 +129,12 @@ public class GameController {
     }
 
     public static void newEnemy1() {
-        enemy1 = new EnemyModel1(50, (double) GameFrame.height / 2, 10);
+        enemy1 = new EnemyModel1(50, (double) GameFrame.height / 2);
         enemies1.add(0, enemy1);
     }
 
     public static void newEnemy2() {
-            enemy2 = new EnemyModel2((double) GameFrame.width - 60, (double) GameFrame.height / 2, 10);
+            enemy2 = new EnemyModel2((double) GameFrame.width - 60, (double) GameFrame.height / 2);
             enemies2.add(0, enemy2);
     }
 
@@ -245,6 +245,8 @@ public class GameController {
         Collision.checkCollisionEnemy2Enemy2();
         Collision.checkCollisionBallEnemy1();
         Collision.checkCollisionBallEnemy2();
+        Collision.checkCollisionBulletEnemy1();
+        Collision.checkCollisionBulletEnemy2();
     }
 
 }
