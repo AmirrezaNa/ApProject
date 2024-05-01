@@ -2,6 +2,7 @@ package game.controller;
 
 import game.entity.BallModel;
 import game.entity.BulletModel;
+import game.entity.Collectible;
 import game.entity.enemy.EnemyModel1;
 import game.entity.enemy.EnemyModel2;
 import game.frame.GameFrame;
@@ -16,17 +17,18 @@ public class GameController {
     static BulletModel bullet;
     static EnemyModel1 enemy1;
     static EnemyModel2 enemy2;
-    static int enemyNumber;
-    static int wave2Delay = 30;
+    static Collectible collectible;
     public static ArrayList<BulletModel> bullets = new ArrayList<>();
     public static ArrayList<EnemyModel1> enemies1 = new ArrayList<>();
     public static ArrayList<EnemyModel2> enemies2 = new ArrayList<>();
+    public static ArrayList<Collectible> collectibles = new ArrayList<>();
+    static int wave = 1;
 
 
     // creating and updating the ball ================================================
 
     public static BallModel newBall() {
-        ball = new BallModel((double) (GameFrame.width /2) - 20, (double) (GameFrame.height /2) - 20);
+        ball = new BallModel((double) (GameFrame.width / 2) - 20, (double) (GameFrame.height / 2) - 20);
         return ball;
     }
 
@@ -37,16 +39,14 @@ public class GameController {
         if (ball.ax != 0) {
             if (ball.ax > 0) {
                 ball.ax -= 0.05;
-            }
-            else {
+            } else {
                 ball.ax += 0.05;
             }
         }
         if (ball.ay != 0) {
             if (ball.ay > 0) {
                 ball.ay -= 0.05;
-            }
-            else {
+            } else {
                 ball.ay += 0.05;
             }
         }
@@ -88,54 +88,160 @@ public class GameController {
 
     // creating and updating the enemies ================================================
 
+    // ========================== creating wave1 enemies ================================
+
+
 
     public static EnemyModel1 setTimerForEnemy1() {   // this method creates an enemy every 5 seconds
 
-        boolean enemyPermission = true;
-
-
-        if (enemyPermission) {
-            Timer timer = new Timer();
-            TimerTask task = new TimerTask() {
-                @Override
-                public void run() {
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                if (enemies2.size() + enemies1.size() <= 10) {
                     newEnemy1();
                 }
+                else {
+                    timer.cancel();
+                    wave++;
+                    setTimerForEnemy1wave2();
+                }
 
-            };
-            timer.scheduleAtFixedRate(task, 10000, 5000);
+            }
+        };
+        timer.scheduleAtFixedRate(task, 10000, 5000);
 
-        }
         return enemy1;
     }
 
     public static EnemyModel2 setTimerForEnemy2() {   // this method creates an enemy every 5 seconds
 
-        boolean enemyPermission = true;
-
-        if (enemyPermission) {
-            Timer timer = new Timer();
-            TimerTask task = new TimerTask() {
-                @Override
-                public void run() {
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                if (enemies1.size() + enemies2.size() <= 10) {
                     newEnemy2();
                 }
+                else {
+                    timer.cancel();
+                    setTimerForEnemy2wave2();
+                }
+            }
 
-            };
-            timer.scheduleAtFixedRate(task, 12500, 5000);
+        };
+        timer.scheduleAtFixedRate(task, 12500, 5000);
 
-        }
         return enemy2;
     }
 
+
+
+    // =========================== creating wave2 enemies =======================================
+
+    public static EnemyModel1 setTimerForEnemy1wave2() {   // this method creates an enemy every 5 seconds
+
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                if (enemies2.size() + enemies1.size() <= 25) {
+                    GameFrame.countDown = false;
+                    newEnemy1();
+                }
+                else {
+                    timer.cancel();
+                    wave++;
+                    setTimerForEnemy1wave3();
+                }
+
+            }
+        };
+        timer.scheduleAtFixedRate(task, 15000, 5000);
+
+        return enemy1;
+    }
+
+    public static EnemyModel2 setTimerForEnemy2wave2() {   // this method creates an enemy every 5 seconds
+
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                if (enemies2.size() + enemies1.size() <= 25) {
+                    GameFrame.countDown = false;
+                    newEnemy2();
+                }
+                else {
+                    timer.cancel();
+                    setTimerForEnemy2wave3();
+                }
+            }
+
+        };
+        timer.scheduleAtFixedRate(task, 17500, 5000);
+
+        return enemy2;
+    }
+
+    // =========================== creating wave3 enemies =======================================
+
+    public static EnemyModel1 setTimerForEnemy1wave3() {   // this method creates an enemy every 5 seconds
+
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                if (enemies1.size() + enemies2.size() <= 45) {
+                    GameFrame.countDown = false;
+                    newEnemy1();
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(task, 15000, 5000);
+
+        return enemy1;
+    }
+
+    public static EnemyModel2 setTimerForEnemy2wave3() {   // this method creates an enemy every 5 seconds
+
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                if (enemies1.size() + enemies2.size() <= 45) {
+                    GameFrame.countDown = false;
+                    newEnemy2();
+                }
+            }
+
+        };
+        timer.scheduleAtFixedRate(task, 17500, 5000);
+
+        return enemy2;
+    }
+
+
+    // =========================================================================================
+
+
     public static void newEnemy1() {
-        enemy1 = new EnemyModel1(50, (double) GameFrame.height / 2);
-        enemies1.add(0, enemy1);
+        if (enemies1.size() % 2 == 0) {
+            enemy1 = new EnemyModel1(50, (double) GameFrame.height / 2);
+            enemies1.add(0, enemy1);
+        }
+        else {
+            enemy1 = new EnemyModel1((double) GameFrame.width /2, 50);
+            enemy1.dash = true;
+            enemies1.add(0, enemy1);
+        }
+
     }
 
     public static void newEnemy2() {
-            enemy2 = new EnemyModel2((double) GameFrame.width - 60, (double) GameFrame.height / 2);
-            enemies2.add(0, enemy2);
+        enemy2 = new EnemyModel2((double) GameFrame.width - 60, (double) GameFrame.height / 2);
+        enemies2.add(0, enemy2);
+
     }
 
 
@@ -175,21 +281,26 @@ public class GameController {
         if (!GameController.enemies1.isEmpty()) {
             for (EnemyModel1 enemy : GameController.enemies1) {
                 if (enemy.enemyHealth > 0) {
-                    enemy.x += enemy.dx + enemy.ax;
-                    enemy.y += enemy.dy + enemy.ay;
+                    if (enemy.dash) {
+                        enemy.x += 2 * (enemy.dx + enemy.ax);
+                        enemy.y += 2 * (enemy.dy + enemy.ay);
+                    }
+                    if (!enemy.dash){
+                        enemy.x += enemy.dx + enemy.ax;
+                        enemy.y += enemy.dy + enemy.ay;
+                    }
+
                     if (enemy.ax != 0) {
                         if (enemy.ax > 0) {
                             enemy.ax -= 0.05;
-                        }
-                        else {
+                        } else {
                             enemy.ax += 0.05;
                         }
                     }
                     if (enemy.ay != 0) {
                         if (enemy.ay > 0) {
                             enemy.ay -= 0.05;
-                        }
-                        else {
+                        } else {
                             enemy.ay += 0.05;
                         }
                     }
@@ -206,22 +317,27 @@ public class GameController {
         if (!GameController.enemies2.isEmpty()) {
             for (EnemyModel2 enemy : GameController.enemies2) {
                 if (enemy.enemyHealth > 0) {
+                    double epsilonDistance = Math.sqrt(Math.pow(Math.abs(enemy.x - ball.x), 2) + Math.pow(Math.abs(enemy.y - ball.y), 2));
+                    if (epsilonDistance > 100) {
+                        enemy.x += 2 * (enemy.dx + enemy.ax);
+                        enemy.y += 2 * (enemy.dy + enemy.ay);
+                    }
+                    if (epsilonDistance <= 100) {
+                        enemy.x += enemy.dx + enemy.ax;
+                        enemy.y += enemy.dy + enemy.ay;
+                    }
 
-                    enemy.x += enemy.dx + enemy.ax;
-                    enemy.y += enemy.dy + enemy.ay;
                     if (enemy.ax != 0) {
                         if (enemy.ax > 0) {
                             enemy.ax -= 0.05;
-                        }
-                        else {
+                        } else {
                             enemy.ax += 0.05;
                         }
                     }
                     if (enemy.ay != 0) {
                         if (enemy.ay > 0) {
                             enemy.ay -= 0.05;
-                        }
-                        else {
+                        } else {
                             enemy.ay += 0.05;
                         }
                     }
@@ -247,6 +363,41 @@ public class GameController {
         Collision.checkCollisionBallEnemy2();
         Collision.checkCollisionBulletEnemy1();
         Collision.checkCollisionBulletEnemy2();
+        Collision.checkCollisionBallCollectible();
+        Collision.checkEnemy1CollisionToFrame();
+        Collision.checkEnemy2CollisionToFrame();
     }
+
+
+
+
+
+// ==================================================================================
+
+// this part is for collectibles ====================================================
+
+    public static void newCollectible(double x, double y) {
+        collectible = new Collectible(x, y);
+        collectibles.add(collectible);
+        countDownCollectible(10, collectible);//collectible will disappear in 10 seconds
+    }
+
+    public static void countDownCollectible(int seconds, Collectible collectible1) {
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            int remainingSeconds = seconds;
+
+            @Override
+            public void run() {
+                if (remainingSeconds > 0) {
+                    remainingSeconds--;
+                } else {
+                    collectible1.collectibleHealth = 0;
+                    timer.cancel();
+                }
+            }
+        }, 0, 1000);
+    }
+
 
 }

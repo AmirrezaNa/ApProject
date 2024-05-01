@@ -2,69 +2,72 @@ package game.controller;
 
 import game.entity.BallModel;
 import game.entity.BulletModel;
+import game.entity.Collectible;
 import game.entity.enemy.EnemyModel1;
 import game.entity.enemy.EnemyModel2;
 import game.frame.GameFrame;
 
 public class Collision {
     public static void checkBulletHitFrame() {
-        for (BulletModel bullet : GameController.bullets) {
-            if (bullet.bulletHealth > 0) {
+        if (!GameController.bullets.isEmpty()) {
+            for (BulletModel bullet : GameController.bullets) {
+                if (bullet.bulletHealth > 0) {
 
-                if (bullet.x > GameFrame.width) {
-                    bullet.dx = 0;
-                    bullet.dy = 0;
-                    bullet.bulletHealth = 0;
-                    if (!GameFrame.countDown) {
-                        GameFrame.width += 20;
-                        GameFrame.x += 5;
-                        Impact.turnOnImpact(bullet.x + ((double) BulletModel.bulletSize /2),
-                                bullet.y + ((double) BulletModel.bulletSize /2),
-                                bullet.x + ((double) BulletModel.bulletSize /2),
-                                bullet.y + ((double) BulletModel.bulletSize /2));
-                    }
+                    if (bullet.x > GameFrame.width) {
+                        bullet.dx = 0;
+                        bullet.dy = 0;
+                        bullet.bulletHealth = 0;
+                        if (!GameFrame.countDown) {
+                            GameFrame.width += 20;
+                            GameFrame.x += 5;
+                            Impact.turnOnImpact(bullet.x + ((double) BulletModel.bulletSize / 2),
+                                    bullet.y + ((double) BulletModel.bulletSize / 2),
+                                    bullet.x + ((double) BulletModel.bulletSize / 2),
+                                    bullet.y + ((double) BulletModel.bulletSize / 2));
+                        }
 
-                } else if (bullet.y > GameFrame.height) {
-                    bullet.dx = 0;
-                    bullet.dy = 0;
-                    bullet.bulletHealth = 0;
-                    if (!GameFrame.countDown) {
-                        GameFrame.height += 20;
-                        GameFrame.y += 5;
-                        Impact.turnOnImpact(bullet.x + ((double) BulletModel.bulletSize /2),
-                                bullet.y + ((double) BulletModel.bulletSize /2),
-                                bullet.x + ((double) BulletModel.bulletSize /2),
-                                bullet.y + ((double) BulletModel.bulletSize /2));
-                    }
+                    } else if (bullet.y > GameFrame.height) {
+                        bullet.dx = 0;
+                        bullet.dy = 0;
+                        bullet.bulletHealth = 0;
+                        if (!GameFrame.countDown) {
+                            GameFrame.height += 20;
+                            GameFrame.y += 5;
+                            Impact.turnOnImpact(bullet.x + ((double) BulletModel.bulletSize / 2),
+                                    bullet.y + ((double) BulletModel.bulletSize / 2),
+                                    bullet.x + ((double) BulletModel.bulletSize / 2),
+                                    bullet.y + ((double) BulletModel.bulletSize / 2));
+                        }
 
-                } else if (bullet.x < 0) {
-                    bullet.dx = 0;
-                    bullet.dy = 0;
-                    bullet.bulletHealth = 0;
-                    if (!GameFrame.countDown) {
-                        GameFrame.x -= 20;
-                        GameFrame.width += 10;
-                        Impact.turnOnImpact(bullet.x + ((double) BulletModel.bulletSize /2),
-                                bullet.y + ((double) BulletModel.bulletSize /2),
-                                bullet.x + ((double) BulletModel.bulletSize /2),
-                                bullet.y + ((double) BulletModel.bulletSize /2));
-                    }
+                    } else if (bullet.x < 0) {
+                        bullet.dx = 0;
+                        bullet.dy = 0;
+                        bullet.bulletHealth = 0;
+                        if (!GameFrame.countDown) {
+                            GameFrame.x -= 20;
+                            GameFrame.width += 10;
+                            Impact.turnOnImpact(bullet.x + ((double) BulletModel.bulletSize / 2),
+                                    bullet.y + ((double) BulletModel.bulletSize / 2),
+                                    bullet.x + ((double) BulletModel.bulletSize / 2),
+                                    bullet.y + ((double) BulletModel.bulletSize / 2));
+                        }
 
-                } else if (bullet.y < 0) {
-                    bullet.dx = 0;
-                    bullet.dy = 0;
-                    bullet.bulletHealth = 0;
-                    if (!GameFrame.countDown) {
-                        GameFrame.y -= 20;
-                        GameFrame.height += 10;
-                        Impact.turnOnImpact(bullet.x + ((double) BulletModel.bulletSize /2),
-                                bullet.y + ((double) BulletModel.bulletSize /2),
-                                bullet.x + ((double) BulletModel.bulletSize /2),
-                                bullet.y + ((double) BulletModel.bulletSize /2));
+                    } else if (bullet.y < 0) {
+                        bullet.dx = 0;
+                        bullet.dy = 0;
+                        bullet.bulletHealth = 0;
+                        if (!GameFrame.countDown) {
+                            GameFrame.y -= 20;
+                            GameFrame.height += 10;
+                            Impact.turnOnImpact(bullet.x + ((double) BulletModel.bulletSize / 2),
+                                    bullet.y + ((double) BulletModel.bulletSize / 2),
+                                    bullet.x + ((double) BulletModel.bulletSize / 2),
+                                    bullet.y + ((double) BulletModel.bulletSize / 2));
+                        }
+
                     }
 
                 }
-
             }
         }
     }
@@ -97,6 +100,78 @@ public class Collision {
                     GameController.ball.y,
                     GameController.ball.x + ((double) BallModel.ballRadius /2),
                     GameController.ball.y);
+        }
+    }
+
+
+    public static void checkEnemy1CollisionToFrame() {
+        if (!GameController.enemies1.isEmpty()) {
+            for (EnemyModel1 enemy1 : GameController.enemies1) {
+                if (enemy1.x + enemy1.enemy1Size >= GameFrame.width) {
+                    enemy1.x = GameFrame.width - enemy1.enemy1Size;
+                    Impact.turnOnImpact(enemy1.x + enemy1.enemy1Size,
+                            enemy1.y + ((double) enemy1.enemy1Size /2),
+                            enemy1.x + enemy1.enemy1Size,
+                            enemy1.y + ((double) enemy1.enemy1Size /2));
+                }
+                if (enemy1.x <= 0) {
+                    enemy1.x = 0;
+                    Impact.turnOnImpact(enemy1.x,
+                            enemy1.y + ((double) enemy1.enemy1Size /2),
+                            enemy1.x,
+                            enemy1.y + ((double) enemy1.enemy1Size /2));
+                }
+                if (enemy1.y + enemy1.enemy1Size >= GameFrame.height) {
+                    enemy1.y = GameFrame.height - enemy1.enemy1Size;
+                    Impact.turnOnImpact(enemy1.x + ((double) enemy1.enemy1Size /2),
+                            enemy1.y + enemy1.enemy1Size,
+                            enemy1.x + ((double) enemy1.enemy1Size /2),
+                            enemy1.y + enemy1.enemy1Size);
+                }
+                if (enemy1.y <= 0) {
+                    enemy1.y = 0;
+                    Impact.turnOnImpact(enemy1.x + ((double) enemy1.enemy1Size /2),
+                            enemy1.y,
+                            enemy1.x + ((double) enemy1.enemy1Size /2),
+                            enemy1.y);
+                }
+            }
+        }
+    }
+
+
+    public static void checkEnemy2CollisionToFrame() {
+        if (!GameController.enemies2.isEmpty()) {
+            for (EnemyModel2 enemy2 : GameController.enemies2) {
+                if (enemy2.x + enemy2.enemy2Size >= GameFrame.width) {
+                    enemy2.x = GameFrame.width - enemy2.enemy2Size;
+                    Impact.turnOnImpact(enemy2.x + enemy2.enemy2Size,
+                            enemy2.y + ((double) enemy2.enemy2Size /2),
+                            enemy2.x + enemy2.enemy2Size,
+                            enemy2.y + ((double) enemy2.enemy2Size /2));
+                }
+                if (enemy2.x <= 0) {
+                    enemy2.x = 0;
+                    Impact.turnOnImpact(enemy2.x,
+                            enemy2.y + ((double) enemy2.enemy2Size /2),
+                            enemy2.x,
+                            enemy2.y + ((double) enemy2.enemy2Size /2));
+                }
+                if (enemy2.y + enemy2.enemy2Size >= GameFrame.height) {
+                    enemy2.y = GameFrame.height - enemy2.enemy2Size;
+                    Impact.turnOnImpact(enemy2.x + ((double) enemy2.enemy2Size /2),
+                            enemy2.y + enemy2.enemy2Size,
+                            enemy2.x + ((double) enemy2.enemy2Size /2),
+                            enemy2.y + enemy2.enemy2Size);
+                }
+                if (enemy2.y <= 0) {
+                    enemy2.y = 0;
+                    Impact.turnOnImpact(enemy2.x + ((double) enemy2.enemy2Size /2),
+                            enemy2.y,
+                            enemy2.x + ((double) enemy2.enemy2Size /2),
+                            enemy2.y);
+                }
+            }
         }
     }
 
@@ -157,7 +232,7 @@ public class Collision {
                                 || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
                                 || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
                                 || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
-
+                            enemy1.dash = false;
                             Impact.turnOnImpact(enemy1.x, enemy1.y, enemy2.x, enemy2.y);
                         }
                     }
@@ -220,6 +295,8 @@ public class Collision {
                                 || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
                                 || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
 
+                            GameController.enemies1.get(i).dash = false;
+                            GameController.enemies1.get(j).dash = false;
                             Impact.turnOnImpact(GameController.enemies1.get(i).x, GameController.enemies1.get(i).y,
                                     GameController.enemies1.get(j).x, GameController.enemies1.get(j).y);
 
@@ -326,6 +403,7 @@ public class Collision {
                         || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
                         || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
 
+                    enemy1.dash = false;
                     Impact.turnOnImpact(GameController.ball.x + ((double) BallModel.ballRadius / 2),
                             GameController.ball.y + ((double) BallModel.ballRadius / 2),
                             enemy1.x + ((double) enemy1.enemy1Size / 2),
@@ -382,6 +460,8 @@ public class Collision {
         }
     }
 
+    // =================================================================================
+
     public static void checkCollisionBulletEnemy1() {
         for (BulletModel bullet : GameController.bullets) {
             if (bullet.bulletHealth > 0) {
@@ -419,6 +499,9 @@ public class Collision {
 
                             bullet.bulletHealth = 0;
                             enemy1.enemyHealth -= 5;
+                            if (enemy1.enemyHealth <= 0) {
+                                GameController.newCollectible(enemy1.x, enemy1.y);
+                            }
                             Impact.turnOnImpact(bullet.x + ((double) BulletModel.bulletSize / 2),
                                     bullet.y + ((double) BulletModel.bulletSize / 2),
                                     enemy1.x + ((double) enemy1.enemy1Size / 2),
@@ -468,6 +551,10 @@ public class Collision {
 
                             bullet.bulletHealth = 0;
                             enemy2.enemyHealth -= 5;
+                            if (enemy2.enemyHealth <= 0) {
+                                GameController.newCollectible(enemy2.x, enemy2.y);
+                                GameController.newCollectible(enemy2.x + Collectible.collectibleSize, enemy2.y + Collectible.collectibleSize);
+                            }
                             Impact.turnOnImpact(bullet.x + ((double) BulletModel.bulletSize / 2),
                                     bullet.y + ((double) BulletModel.bulletSize / 2),
                                     enemy2.x + ((double) enemy2.enemy2Size / 2),
@@ -480,4 +567,35 @@ public class Collision {
         }
     }
 
+    // ===============================================================================
+
+
+    public static void checkCollisionBallCollectible() {
+
+            double xMin1 = GameController.ball.x;
+            double xMax1 = GameController.ball.x + BallModel.ballRadius;
+            double yMin1 = GameController.ball.y;
+            double yMax1 = GameController.ball.y + BallModel.ballRadius;
+            for (Collectible collectible : GameController.collectibles) {
+                if (collectible.collectibleHealth > 0) {
+
+                    double xMin2 = collectible.x;
+                    double xMax2 = collectible.x + Collectible.collectibleSize;
+                    double yMin2 = collectible.y;
+                    double yMax2 = collectible.y + Collectible.collectibleSize;
+
+                    if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                            || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                            || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
+                            || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
+
+                        collectible.collectibleHealth = 0;
+                        GameController.ball.XP += 5;
+
+                    }
+                }
+
+            }
+
+    }
 }

@@ -5,6 +5,7 @@ import game.controller.GameController;
 import game.entity.BallModel;
 import game.controller.KeyInputListener;
 import game.controller.MouseInputListener;
+import game.entity.Collectible;
 import game.entity.enemy.EnemyModel1;
 import game.entity.enemy.EnemyModel2;
 
@@ -35,6 +36,7 @@ public class GamePanel extends JPanel implements Runnable {
         ball = GameController.newBall();
         enemy1 = GameController.setTimerForEnemy1();
         enemy2 = GameController.setTimerForEnemy2();
+
         changeGamePanelSize();
         keyInputListener = new KeyInputListener();
         this.addKeyListener(keyInputListener);
@@ -124,6 +126,7 @@ public class GamePanel extends JPanel implements Runnable {
         drawBullet(g);
         drawEnemy1(g);
         drawEnemy2(g);
+        drawCollectible(g);
     }
 
 
@@ -172,6 +175,18 @@ public class GamePanel extends JPanel implements Runnable {
                     g2d.setStroke(new BasicStroke(2));
                     g2d.drawPolygon(polygon);
 
+                }
+            }
+        }
+    }
+
+    public static void drawCollectible(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+        if (!GameController.collectibles.isEmpty()) {
+            for (Collectible collectible : GameController.collectibles) {
+                if (collectible.collectibleHealth > 0) {
+                    g2d.setColor(new Color(0xFFCF0F));
+                    g2d.fillOval((int) collectible.x, (int) collectible.y, (int) collectible.collectibleSize, (int) collectible.collectibleSize);
                 }
             }
         }

@@ -68,10 +68,12 @@ public class GameFrame extends JFrame {
 
     }
 
+    Timer timer;
     public void changeGameFrameSize() {
         if (!countDown) {
             // this timer reduces the frame size ========================================
-            Timer timer = new Timer(100, new ActionListener() {
+            timer = new Timer(100, new ActionListener() {
+
                 @Override
                 public void actionPerformed(ActionEvent e) {
 
@@ -88,6 +90,40 @@ public class GameFrame extends JFrame {
                         y += 1;
                         height -= 2;
                         setBounds(x, y, width, height);
+                        gamePanel.revalidate();
+                        gamePanel.repaint();
+                    }
+                    if (GameController.enemies1.size() + GameController.enemies2.size() == 10) {
+                        countDown = true;
+                        ((Timer) e.getSource()).stop(); // Stop the timer
+                        Timer delayTimer = new Timer(15000, new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                gamePanel.revalidate();
+                                gamePanel.repaint();
+                                ((Timer) e.getSource()).stop(); // Stop the delay timer
+                                timer.start(); // Restart the original timer
+                            }
+                        });
+                        delayTimer.setRepeats(false); // Execute the delay timer only once
+                        delayTimer.start(); // Start the delay timer
+                        gamePanel.revalidate();
+                        gamePanel.repaint();
+                    }
+                    if (GameController.enemies1.size() + GameController.enemies2.size() == 25) {
+                        countDown = true;
+                        ((Timer) e.getSource()).stop(); // Stop the timer
+                        Timer delayTimer2 = new Timer(15000, new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                gamePanel.revalidate();
+                                gamePanel.repaint();
+                                ((Timer) e.getSource()).stop(); // Stop the delay timer
+                                timer.start(); // Restart the original timer
+                            }
+                        });
+                        delayTimer2.setRepeats(false); // Execute the delay timer only once
+                        delayTimer2.start(); // Start the delay timer
                         gamePanel.revalidate();
                         gamePanel.repaint();
                     }

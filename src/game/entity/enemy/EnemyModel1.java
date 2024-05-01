@@ -14,6 +14,7 @@ public class EnemyModel1 {
     public double[] yAngles;
     public int enemy1Size = 30;
     public double angle;
+    public boolean dash;
     public EnemyModel1(double x, double y) {
         xAngles = new double[]{x, (x + enemy1Size), (x + enemy1Size), x};
         yAngles = new double[]{y, y, (y + enemy1Size), (y + enemy1Size)};
@@ -23,6 +24,7 @@ public class EnemyModel1 {
         this.dy = 0;
         this.ax = 0;
         this.ay = 0;
+        this.dash = false;
         enemyAcceleration = 3;
         this.enemyHealth = 10;
         this.angle = 0;
