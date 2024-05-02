@@ -239,8 +239,15 @@ public class GameController {
     }
 
     public static void newEnemy2() {
-        enemy2 = new EnemyModel2((double) GameFrame.width - 60, (double) GameFrame.height / 2);
-        enemies2.add(0, enemy2);
+        if (enemies2.size() % 2 == 0) {
+            enemy2 = new EnemyModel2((double) GameFrame.width - 60, (double) GameFrame.height / 2);
+            enemies2.add(0, enemy2);
+        }
+        else{
+            enemy2 = new EnemyModel2( ((double) GameFrame.width /2), GameFrame.height - 60);
+            enemies2.add(0, enemy2);
+        }
+
 
     }
 
@@ -304,8 +311,15 @@ public class GameController {
                             enemy.ay += 0.05;
                         }
                     }
-                    enemy.xAngles = new double[]{enemy.x, (enemy.x + enemy.enemy1Size), (enemy.x + enemy.enemy1Size), enemy.x};
-                    enemy.yAngles = new double[]{enemy.y, (enemy.y), (enemy.y + enemy.enemy1Size), enemy.y + enemy.enemy1Size};
+                    Rotation.enemy1Rotation();
+//                    enemy.xAngles = new double[]{enemy.x - ((double) enemy.enemy1Size /2),
+//                            (enemy.x + ((double) enemy.enemy1Size /2)),
+//                            (enemy.x + ((double) enemy.enemy1Size /2)),
+//                            enemy.x - ((double) enemy.enemy1Size /2)};
+//                    enemy.yAngles = new double[]{enemy.x - ((double) enemy.enemy1Size /2),
+//                            enemy.x - ((double) enemy.enemy1Size /2),
+//                            enemy.x + ((double) enemy.enemy1Size /2),
+//                            enemy.x + ((double) enemy.enemy1Size /2)};
                 }
             }
         }
@@ -341,8 +355,13 @@ public class GameController {
                             enemy.ay += 0.05;
                         }
                     }
-                    enemy.xAngles = new double[]{enemy.x, (enemy.x + enemy.enemy2Size), (enemy.x + ((double) enemy.enemy2Size / 2))};
-                    enemy.yAngles = new double[]{enemy.y, enemy.y, (enemy.y + (enemy.enemy2Size))};
+                    Rotation.enemy2Rotation();
+//                    enemy.xAngles = new double[]{enemy.x - ((double) enemy.enemy2Size /2),
+//                            (enemy.x + enemy.enemy2Size),
+//                            (enemy.x + ((double) enemy.enemy2Size / 2))};
+//                    enemy.yAngles = new double[]{enemy.y,
+//                            enemy.y,
+//                            (enemy.y + (enemy.enemy2Size))};
                 }
             }
         }

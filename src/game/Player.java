@@ -1,6 +1,8 @@
 package game;
 
 public class Player {
-    int XP;
+    String name;
+    public static int XP;
+    public static int HP;
 
 }

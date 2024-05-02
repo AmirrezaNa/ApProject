@@ -14,6 +14,7 @@ public class EnemyModel2 {
     public double[] yAngles;
     public int enemy2Size = 30;
     public double angle;
+    public double dAngle;
 
     public EnemyModel2(double x, double y) {
         xAngles = new double[]{x, (x + enemy2Size), (x + ((double) enemy2Size /2))};
@@ -27,5 +28,6 @@ public class EnemyModel2 {
         enemyAcceleration = 3;
         this.enemyHealth = 15;
         this.angle = 0;
+        this.dAngle = 0;
     }
 }

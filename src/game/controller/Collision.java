@@ -1,5 +1,6 @@
 package game.controller;
 
+import game.Player;
 import game.entity.BallModel;
 import game.entity.BulletModel;
 import game.entity.Collectible;
@@ -107,33 +108,50 @@ public class Collision {
     public static void checkEnemy1CollisionToFrame() {
         if (!GameController.enemies1.isEmpty()) {
             for (EnemyModel1 enemy1 : GameController.enemies1) {
-                if (enemy1.x + enemy1.enemy1Size >= GameFrame.width) {
-                    enemy1.x = GameFrame.width - enemy1.enemy1Size;
-                    Impact.turnOnImpact(enemy1.x + enemy1.enemy1Size,
-                            enemy1.y + ((double) enemy1.enemy1Size /2),
-                            enemy1.x + enemy1.enemy1Size,
-                            enemy1.y + ((double) enemy1.enemy1Size /2));
-                }
-                if (enemy1.x <= 0) {
-                    enemy1.x = 0;
-                    Impact.turnOnImpact(enemy1.x,
-                            enemy1.y + ((double) enemy1.enemy1Size /2),
-                            enemy1.x,
-                            enemy1.y + ((double) enemy1.enemy1Size /2));
-                }
-                if (enemy1.y + enemy1.enemy1Size >= GameFrame.height) {
-                    enemy1.y = GameFrame.height - enemy1.enemy1Size;
-                    Impact.turnOnImpact(enemy1.x + ((double) enemy1.enemy1Size /2),
-                            enemy1.y + enemy1.enemy1Size,
-                            enemy1.x + ((double) enemy1.enemy1Size /2),
-                            enemy1.y + enemy1.enemy1Size);
-                }
-                if (enemy1.y <= 0) {
-                    enemy1.y = 0;
-                    Impact.turnOnImpact(enemy1.x + ((double) enemy1.enemy1Size /2),
-                            enemy1.y,
-                            enemy1.x + ((double) enemy1.enemy1Size /2),
-                            enemy1.y);
+                if (enemy1.enemyHealth > 0) {
+
+                    double xMin1 = enemy1.xAngles[0];
+                    double xMax1 = enemy1.xAngles[0];
+                    double yMin1 = enemy1.yAngles[0];
+                    double yMax1 = enemy1.yAngles[0];
+                    for (int i = 0; i < 4; i++) {
+                        if (enemy1.xAngles[i] < xMin1) {
+                            xMin1 = enemy1.xAngles[i];
+                        }
+                        if (enemy1.xAngles[i] > xMax1) {
+                            xMax1 = enemy1.xAngles[i];
+                        }
+                        if (enemy1.yAngles[i] < yMin1) {
+                            yMin1 = enemy1.yAngles[i];
+                        }
+                        if (enemy1.yAngles[i] > yMax1) {
+                            yMax1 = enemy1.yAngles[i];
+                        }
+                    }
+                    if (xMax1 >= GameFrame.width) {
+                        Impact.turnOnImpact(enemy1.x + enemy1.enemy1Size,
+                                enemy1.y,
+                                enemy1.x + enemy1.enemy1Size,
+                                enemy1.y);
+                    }
+                    if (xMin1 <= 0) {
+                        Impact.turnOnImpact(enemy1.x - enemy1.enemy1Size,
+                                enemy1.y,
+                                enemy1.x - enemy1.enemy1Size,
+                                enemy1.y);
+                    }
+                    if (yMax1 >= GameFrame.height) {
+                        Impact.turnOnImpact(enemy1.x,
+                                enemy1.y + enemy1.enemy1Size,
+                                enemy1.x,
+                                enemy1.y + enemy1.enemy1Size);
+                    }
+                    if (yMin1 <= 0) {
+                        Impact.turnOnImpact(enemy1.x,
+                                enemy1.y - enemy1.enemy1Size,
+                                enemy1.x,
+                                enemy1.y - enemy1.enemy1Size);
+                    }
                 }
             }
         }
@@ -143,33 +161,50 @@ public class Collision {
     public static void checkEnemy2CollisionToFrame() {
         if (!GameController.enemies2.isEmpty()) {
             for (EnemyModel2 enemy2 : GameController.enemies2) {
-                if (enemy2.x + enemy2.enemy2Size >= GameFrame.width) {
-                    enemy2.x = GameFrame.width - enemy2.enemy2Size;
-                    Impact.turnOnImpact(enemy2.x + enemy2.enemy2Size,
-                            enemy2.y + ((double) enemy2.enemy2Size /2),
-                            enemy2.x + enemy2.enemy2Size,
-                            enemy2.y + ((double) enemy2.enemy2Size /2));
-                }
-                if (enemy2.x <= 0) {
-                    enemy2.x = 0;
-                    Impact.turnOnImpact(enemy2.x,
-                            enemy2.y + ((double) enemy2.enemy2Size /2),
-                            enemy2.x,
-                            enemy2.y + ((double) enemy2.enemy2Size /2));
-                }
-                if (enemy2.y + enemy2.enemy2Size >= GameFrame.height) {
-                    enemy2.y = GameFrame.height - enemy2.enemy2Size;
-                    Impact.turnOnImpact(enemy2.x + ((double) enemy2.enemy2Size /2),
-                            enemy2.y + enemy2.enemy2Size,
-                            enemy2.x + ((double) enemy2.enemy2Size /2),
-                            enemy2.y + enemy2.enemy2Size);
-                }
-                if (enemy2.y <= 0) {
-                    enemy2.y = 0;
-                    Impact.turnOnImpact(enemy2.x + ((double) enemy2.enemy2Size /2),
-                            enemy2.y,
-                            enemy2.x + ((double) enemy2.enemy2Size /2),
-                            enemy2.y);
+                if (enemy2.enemyHealth > 0) {
+
+                    double xMin2 = enemy2.xAngles[0];
+                    double xMax2 = enemy2.xAngles[0];
+                    double yMin2 = enemy2.yAngles[0];
+                    double yMax2 = enemy2.yAngles[0];
+                    for (int i = 0; i < 3; i++) {
+                        if (enemy2.xAngles[i] < xMin2) {
+                            xMin2 = enemy2.xAngles[i];
+                        }
+                        if (enemy2.xAngles[i] > xMax2) {
+                            xMax2 = enemy2.xAngles[i];
+                        }
+                        if (enemy2.yAngles[i] < yMin2) {
+                            yMin2 = enemy2.yAngles[i];
+                        }
+                        if (enemy2.yAngles[i] > yMax2) {
+                            yMax2 = enemy2.yAngles[i];
+                        }
+                    }
+                    if (xMax2 >= GameFrame.width) {
+                        Impact.turnOnImpact(enemy2.x + enemy2.enemy2Size,
+                                enemy2.y,
+                                enemy2.x + enemy2.enemy2Size,
+                                enemy2.y);
+                    }
+                    if (xMin2 <= 0) {
+                        Impact.turnOnImpact(enemy2.x - enemy2.enemy2Size,
+                                enemy2.y,
+                                enemy2.x - enemy2.enemy2Size,
+                                enemy2.y);
+                    }
+                    if (yMax2 >= GameFrame.height) {
+                        Impact.turnOnImpact(enemy2.x,
+                                enemy2.y + enemy2.enemy2Size,
+                                enemy2.x,
+                                enemy2.y + enemy2.enemy2Size);
+                    }
+                    if (yMin2 <= 0) {
+                        Impact.turnOnImpact(enemy2.x,
+                                enemy2.y - enemy2.enemy2Size,
+                                enemy2.x,
+                                enemy2.y - enemy2.enemy2Size);
+                    }
                 }
             }
         }
@@ -402,8 +437,21 @@ public class Collision {
                         || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
                         || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
                         || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
+                    boolean angleCollided = false;
+                    for (int i = 0; i < 4; i++) {
+                        if ((xMin1 <= enemy1.xAngles[i]) &&
+                                (xMax1 >= enemy1.xAngles[i]) &&
+                                (yMin1 <= enemy1.yAngles[i]) &&
+                                (yMax1 >= enemy1.yAngles[i])) {
+                            angleCollided = true;
+                        }
+                    }
+                    if (angleCollided) {
+                        Player.HP -= 6;
+                    }
 
                     enemy1.dash = false;
+                    enemy1.dAngle = Math.PI;
                     Impact.turnOnImpact(GameController.ball.x + ((double) BallModel.ballRadius / 2),
                             GameController.ball.y + ((double) BallModel.ballRadius / 2),
                             enemy1.x + ((double) enemy1.enemy1Size / 2),
@@ -449,6 +497,19 @@ public class Collision {
                         || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
                         || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
 
+                    boolean angleCollided = false;
+                    for (int i = 0; i < 3; i++) {
+                        if ((xMin1 <= enemy2.xAngles[i]) &&
+                                (xMax1 >= enemy2.xAngles[i]) &&
+                                (yMin1 <= enemy2.yAngles[i]) &&
+                                (yMax1 >= enemy2.yAngles[i])) {
+                            angleCollided = true;
+                        }
+                    }
+                    if (angleCollided) {
+                        Player.HP -= 10;
+                    }
+                    enemy2.dAngle = Math.PI;
                     Impact.turnOnImpact(GameController.ball.x + ((double) BallModel.ballRadius / 2),
                             GameController.ball.y + ((double) BallModel.ballRadius / 2),
                             enemy2.x + ((double) enemy2.enemy2Size / 2),
