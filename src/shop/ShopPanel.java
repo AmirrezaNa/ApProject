@@ -2,6 +2,7 @@ package shop;
 
 import GameOver.GameOverFrame;
 import game.controller.GameController;
+import startPage.EnterNamePage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,8 +20,8 @@ public class ShopPanel extends JPanel {
         g.setColor(new Color(0x8F0404));
         g.setFont(new Font("Arial", Font.PLAIN, 20));
         g.drawString("Wave : " + GameController.wave, 30, 50);
-        g.drawString("Elapsed time : " + GameController.player.XP, 150, 50);
-        g.drawString("XP : " + GameController.player.XP, 30, 100);
+        g.drawString("Elapsed time : " + EnterNamePage.player.XP, 150, 50);
+        g.drawString("XP : " + EnterNamePage.player.XP, 30, 100);
         g.drawString("HP : " + GameController.ball.HP, 150, 100);
 
     }

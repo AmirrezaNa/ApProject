@@ -2,6 +2,7 @@ package shop;
 
 import game.controller.GameController;
 import game.frame.GamePanel;
+import startPage.EnterNamePage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -83,27 +84,27 @@ public class ShopFrame extends JFrame implements ActionListener {
             this.dispose();
         }
         if (e.getSource() == Banish) {
-            if (GameController.player.XP >= 100) {
+            if (EnterNamePage.player.XP >= 100) {
                 GameController.Banish++;
-                GameController.player.XP -= 100;
+                EnterNamePage.player.XP -= 100;
             }
             else {
                 JOptionPane.showMessageDialog(null, "Not Enough XP!");
             }
         }
         if (e.getSource() == Empower) {
-            if (GameController.player.XP >= 75) {
+            if (EnterNamePage.player.XP >= 75) {
                 GameController.Empower++;
-                GameController.player.XP -= 75;
+                EnterNamePage.player.XP -= 75;
             }
             else {
                 JOptionPane.showMessageDialog(null, "Not Enough XP!");
             }
         }
         if (e.getSource() == Heal) {
-            if (GameController.player.XP >= 50) {
+            if (EnterNamePage.player.XP >= 50) {
                 GameController.ball.HP += 10;
-                GameController.player.XP -= 50;
+                EnterNamePage.player.XP -= 50;
             }
             else {
                 JOptionPane.showMessageDialog(null, "Not Enough XP!");

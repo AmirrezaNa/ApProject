@@ -2,6 +2,7 @@ package GameOver;
 
 import game.Player;
 import game.controller.GameController;
+import startPage.EnterNamePage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +21,7 @@ public class GameOverPanel extends JPanel {
         g.setColor(new Color(0x8F0404));
         g.setFont(new Font("Arial", Font.PLAIN, 28));
         g.drawString("Game Over!", 100, 150);
-        g.drawString("XP : " + GameController.player.XP, 120, 220);
+        g.drawString("XP : " + EnterNamePage.player.XP, 120, 220);
     }
 
 }

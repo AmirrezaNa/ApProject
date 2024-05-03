@@ -14,6 +14,8 @@ public class EnterNamePage extends JFrame implements ActionListener {
     final int HEIGHT = 550;
     JButton startButton;
     JTextField nameField;
+    public static Player player;
+    public static String name;
 
     public EnterNamePage() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,11 +54,14 @@ public class EnterNamePage extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == startButton) {
-            GameController.name = nameField.getText();
+            name = nameField.getText();
             this.dispose();
-            SwingUtilities.invokeLater(() -> {
-                GameFrame gameFrame = new GameFrame();
-            });
+            StartPageFrame startPageFrame = new StartPageFrame();
         }
+    }
+
+    public static void newPlayer() {
+        player = new Player();
+        EnterNamePage.player.name = name;
     }
 }

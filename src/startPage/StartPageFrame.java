@@ -3,6 +3,7 @@ package startPage;
 import game.controller.Rotation;
 import game.frame.GameFrame;
 import game.frame.GameFrame;
+import skillTree.SkillTreeFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -101,10 +102,13 @@ public class StartPageFrame extends JFrame implements ActionListener {
 
         if (e.getSource() == startButton) {
             this.dispose();
-            EnterNamePage enterNamePage = new EnterNamePage();
+            SwingUtilities.invokeLater(() -> {
+                GameFrame gameFrame = new GameFrame();
+            });
         }
         if (e.getSource() == skillTreeButton) {
-
+            this.dispose();
+            SkillTreeFrame skillTreeFrame = new SkillTreeFrame();
         }
         if (e.getSource() == guideButton) {
 

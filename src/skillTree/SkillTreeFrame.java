@@ -1,6 +1,8 @@
 package skillTree;
 
 import shop.ShopPanel;
+import startPage.EnterNamePage;
+import startPage.StartPageFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -77,6 +79,37 @@ public class SkillTreeFrame extends JFrame implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == writOfAres) {
+            if (EnterNamePage.player.XP >= 750) {
+                EnterNamePage.player.writOfAres = true;
+                EnterNamePage.player.XP -= 750;
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Not Enough XP!");
+            }
+        }
+        if (e.getSource() == writOfAceso) {
+            if (EnterNamePage.player.XP >= 500) {
+                EnterNamePage.player.writOfAceso = true;
+                EnterNamePage.player.XP -= 500;
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Not Enough XP!");
+            }
 
+        }
+        if (e.getSource() == writOfProteus) {
+            if (EnterNamePage.player.XP >= 1000) {
+                EnterNamePage.player.writOfProteus = true;
+                EnterNamePage.player.XP -= 1000;
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Not Enough XP!");
+            }
+        }
+        if (e.getSource() == Menu) {
+            this.dispose();
+            StartPageFrame startPageFrame = new StartPageFrame();
+        }
     }
 }

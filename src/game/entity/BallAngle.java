@@ -1,14 +1,16 @@
 package game.entity;
 
-public class ballAngle {
+public class BallAngle {
     public double x;
     public double y;
-    public final static int ballAngleSize = 5;
+    public final static int ballAngleRadius = 5;
     public boolean angleExists;
+    public double angle;
 
-    public ballAngle(double x, double y) {
+    public BallAngle(double x, double y) {
         this.x = x;
         this.y = y;
+        this.angle = 0;
         this.angleExists = false;
     }
 }

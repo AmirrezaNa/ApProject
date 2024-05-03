@@ -1,69 +1,68 @@
 package game.controller;
 
-import game.Player;
+import game.entity.BallAngle;
 import game.entity.BallModel;
 import game.entity.BulletModel;
 import game.entity.Collectible;
-import game.entity.enemy.EnemyModel1;
-import game.entity.enemy.EnemyModel2;
 import game.frame.GameFrame;
+import startPage.EnterNamePage;
 
 public class Collision {
     public static void checkBulletHitFrame() {
         if (!GameController.bullets.isEmpty()) {
-            for (BulletModel bullet : GameController.bullets) {
-                if (bullet.bulletHealth > 0) {
+            for (int i = 0; i < GameController.bullets.size(); i++) {
+                if (GameController.bullets.get(i).bulletHealth > 0) {
 
-                    if (bullet.x > GameFrame.width) {
-                        bullet.dx = 0;
-                        bullet.dy = 0;
-                        bullet.bulletHealth = 0;
+                    if (GameController.bullets.get(i).x > GameFrame.width) {
+                        GameController.bullets.get(i).dx = 0;
+                        GameController.bullets.get(i).dy = 0;
+                        GameController.bullets.get(i).bulletHealth = 0;
                         if (!GameFrame.countDown) {
                             GameFrame.width += 20;
                             GameFrame.x += 5;
-                            Impact.turnOnImpact(bullet.x + ((double) BulletModel.bulletSize / 2),
-                                    bullet.y + ((double) BulletModel.bulletSize / 2),
-                                    bullet.x + ((double) BulletModel.bulletSize / 2),
-                                    bullet.y + ((double) BulletModel.bulletSize / 2));
+                            Impact.turnOnImpact(GameController.bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
+                                    GameController.bullets.get(i).y + ((double) BulletModel.bulletSize / 2),
+                                    GameController.bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
+                                    GameController.bullets.get(i).y + ((double) BulletModel.bulletSize / 2));
                         }
 
-                    } else if (bullet.y > GameFrame.height) {
-                        bullet.dx = 0;
-                        bullet.dy = 0;
-                        bullet.bulletHealth = 0;
+                    } else if (GameController.bullets.get(i).y > GameFrame.height) {
+                        GameController.bullets.get(i).dx = 0;
+                        GameController.bullets.get(i).dy = 0;
+                        GameController.bullets.get(i).bulletHealth = 0;
                         if (!GameFrame.countDown) {
                             GameFrame.height += 20;
                             GameFrame.y += 5;
-                            Impact.turnOnImpact(bullet.x + ((double) BulletModel.bulletSize / 2),
-                                    bullet.y + ((double) BulletModel.bulletSize / 2),
-                                    bullet.x + ((double) BulletModel.bulletSize / 2),
-                                    bullet.y + ((double) BulletModel.bulletSize / 2));
+                            Impact.turnOnImpact(GameController.bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
+                                    GameController.bullets.get(i).y + ((double) BulletModel.bulletSize / 2),
+                                    GameController.bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
+                                    GameController.bullets.get(i).y + ((double) BulletModel.bulletSize / 2));
                         }
 
-                    } else if (bullet.x < 0) {
-                        bullet.dx = 0;
-                        bullet.dy = 0;
-                        bullet.bulletHealth = 0;
+                    } else if (GameController.bullets.get(i).x < 0) {
+                        GameController.bullets.get(i).dx = 0;
+                        GameController.bullets.get(i).dy = 0;
+                        GameController.bullets.get(i).bulletHealth = 0;
                         if (!GameFrame.countDown) {
                             GameFrame.x -= 20;
                             GameFrame.width += 10;
-                            Impact.turnOnImpact(bullet.x + ((double) BulletModel.bulletSize / 2),
-                                    bullet.y + ((double) BulletModel.bulletSize / 2),
-                                    bullet.x + ((double) BulletModel.bulletSize / 2),
-                                    bullet.y + ((double) BulletModel.bulletSize / 2));
+                            Impact.turnOnImpact(GameController.bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
+                                    GameController.bullets.get(i).y + ((double) BulletModel.bulletSize / 2),
+                                    GameController.bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
+                                    GameController.bullets.get(i).y + ((double) BulletModel.bulletSize / 2));
                         }
 
-                    } else if (bullet.y < 0) {
-                        bullet.dx = 0;
-                        bullet.dy = 0;
-                        bullet.bulletHealth = 0;
+                    } else if (GameController.bullets.get(i).y < 0) {
+                        GameController.bullets.get(i).dx = 0;
+                        GameController.bullets.get(i).dy = 0;
+                        GameController.bullets.get(i).bulletHealth = 0;
                         if (!GameFrame.countDown) {
                             GameFrame.y -= 20;
                             GameFrame.height += 10;
-                            Impact.turnOnImpact(bullet.x + ((double) BulletModel.bulletSize / 2),
-                                    bullet.y + ((double) BulletModel.bulletSize / 2),
-                                    bullet.x + ((double) BulletModel.bulletSize / 2),
-                                    bullet.y + ((double) BulletModel.bulletSize / 2));
+                            Impact.turnOnImpact(GameController.bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
+                                    GameController.bullets.get(i).y + ((double) BulletModel.bulletSize / 2),
+                                    GameController.bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
+                                    GameController.bullets.get(i).y + ((double) BulletModel.bulletSize / 2));
                         }
 
                     }
@@ -103,50 +102,50 @@ public class Collision {
 
     public static void checkEnemy1CollisionToFrame() {
         if (!GameController.enemies1.isEmpty()) {
-            for (EnemyModel1 enemy1 : GameController.enemies1) {
-                if (enemy1.enemyHealth > 0) {
+            for (int i = 0; i < GameController.enemies1.size(); i++) {
+                if (GameController.enemies1.get(i).enemyHealth > 0) {
 
-                    double xMin1 = enemy1.xAngles[0];
-                    double xMax1 = enemy1.xAngles[0];
-                    double yMin1 = enemy1.yAngles[0];
-                    double yMax1 = enemy1.yAngles[0];
-                    for (int i = 0; i < 4; i++) {
-                        if (enemy1.xAngles[i] < xMin1) {
-                            xMin1 = enemy1.xAngles[i];
+                    double xMin1 = GameController.enemies1.get(i).xAngles[0];
+                    double xMax1 = GameController.enemies1.get(i).xAngles[0];
+                    double yMin1 = GameController.enemies1.get(i).yAngles[0];
+                    double yMax1 = GameController.enemies1.get(i).yAngles[0];
+                    for (int j = 0; j < 4; j++) {
+                        if (GameController.enemies1.get(i).xAngles[j] < xMin1) {
+                            xMin1 = GameController.enemies1.get(i).xAngles[j];
                         }
-                        if (enemy1.xAngles[i] > xMax1) {
-                            xMax1 = enemy1.xAngles[i];
+                        if (GameController.enemies1.get(i).xAngles[j] > xMax1) {
+                            xMax1 = GameController.enemies1.get(i).xAngles[j];
                         }
-                        if (enemy1.yAngles[i] < yMin1) {
-                            yMin1 = enemy1.yAngles[i];
+                        if (GameController.enemies1.get(i).yAngles[j] < yMin1) {
+                            yMin1 = GameController.enemies1.get(i).yAngles[j];
                         }
-                        if (enemy1.yAngles[i] > yMax1) {
-                            yMax1 = enemy1.yAngles[i];
+                        if (GameController.enemies1.get(i).yAngles[j] > yMax1) {
+                            yMax1 = GameController.enemies1.get(i).yAngles[j];
                         }
                     }
                     if (xMax1 >= GameFrame.width) {
-                        Impact.turnOnImpact(enemy1.x + enemy1.enemy1Size,
-                                enemy1.y,
-                                enemy1.x + enemy1.enemy1Size,
-                                enemy1.y);
+                        Impact.turnOnImpact(GameController.enemies1.get(i).x + GameController.enemies1.get(i).enemy1Size,
+                                GameController.enemies1.get(i).y,
+                                GameController.enemies1.get(i).x + GameController.enemies1.get(i).enemy1Size,
+                                GameController.enemies1.get(i).y);
                     }
                     if (xMin1 <= 0) {
-                        Impact.turnOnImpact(enemy1.x - enemy1.enemy1Size,
-                                enemy1.y,
-                                enemy1.x - enemy1.enemy1Size,
-                                enemy1.y);
+                        Impact.turnOnImpact(GameController.enemies1.get(i).x - GameController.enemies1.get(i).enemy1Size,
+                                GameController.enemies1.get(i).y,
+                                GameController.enemies1.get(i).x - GameController.enemies1.get(i).enemy1Size,
+                                GameController.enemies1.get(i).y);
                     }
                     if (yMax1 >= GameFrame.height) {
-                        Impact.turnOnImpact(enemy1.x,
-                                enemy1.y + enemy1.enemy1Size,
-                                enemy1.x,
-                                enemy1.y + enemy1.enemy1Size);
+                        Impact.turnOnImpact(GameController.enemies1.get(i).x,
+                                GameController.enemies1.get(i).y + GameController.enemies1.get(i).enemy1Size,
+                                GameController.enemies1.get(i).x,
+                                GameController.enemies1.get(i).y + GameController.enemies1.get(i).enemy1Size);
                     }
                     if (yMin1 <= 0) {
-                        Impact.turnOnImpact(enemy1.x,
-                                enemy1.y - enemy1.enemy1Size,
-                                enemy1.x,
-                                enemy1.y - enemy1.enemy1Size);
+                        Impact.turnOnImpact(GameController.enemies1.get(i).x,
+                                GameController.enemies1.get(i).y - GameController.enemies1.get(i).enemy1Size,
+                                GameController.enemies1.get(i).x,
+                                GameController.enemies1.get(i).y - GameController.enemies1.get(i).enemy1Size);
                     }
                 }
             }
@@ -156,50 +155,50 @@ public class Collision {
 
     public static void checkEnemy2CollisionToFrame() {
         if (!GameController.enemies2.isEmpty()) {
-            for (EnemyModel2 enemy2 : GameController.enemies2) {
-                if (enemy2.enemyHealth > 0) {
+            for (int k = 0; k < GameController.enemies2.size(); k++) {
+                if (GameController.enemies2.get(k).enemyHealth > 0) {
 
-                    double xMin2 = enemy2.xAngles[0];
-                    double xMax2 = enemy2.xAngles[0];
-                    double yMin2 = enemy2.yAngles[0];
-                    double yMax2 = enemy2.yAngles[0];
+                    double xMin2 = GameController.enemies2.get(k).xAngles[0];
+                    double xMax2 = GameController.enemies2.get(k).xAngles[0];
+                    double yMin2 = GameController.enemies2.get(k).yAngles[0];
+                    double yMax2 = GameController.enemies2.get(k).yAngles[0];
                     for (int i = 0; i < 3; i++) {
-                        if (enemy2.xAngles[i] < xMin2) {
-                            xMin2 = enemy2.xAngles[i];
+                        if (GameController.enemies2.get(k).xAngles[i] < xMin2) {
+                            xMin2 = GameController.enemies2.get(k).xAngles[i];
                         }
-                        if (enemy2.xAngles[i] > xMax2) {
-                            xMax2 = enemy2.xAngles[i];
+                        if (GameController.enemies2.get(k).xAngles[i] > xMax2) {
+                            xMax2 = GameController.enemies2.get(k).xAngles[i];
                         }
-                        if (enemy2.yAngles[i] < yMin2) {
-                            yMin2 = enemy2.yAngles[i];
+                        if (GameController.enemies2.get(k).yAngles[i] < yMin2) {
+                            yMin2 = GameController.enemies2.get(k).yAngles[i];
                         }
-                        if (enemy2.yAngles[i] > yMax2) {
-                            yMax2 = enemy2.yAngles[i];
+                        if (GameController.enemies2.get(k).yAngles[i] > yMax2) {
+                            yMax2 = GameController.enemies2.get(k).yAngles[i];
                         }
                     }
                     if (xMax2 >= GameFrame.width) {
-                        Impact.turnOnImpact(enemy2.x + enemy2.enemy2Size,
-                                enemy2.y,
-                                enemy2.x + enemy2.enemy2Size,
-                                enemy2.y);
+                        Impact.turnOnImpact(GameController.enemies2.get(k).x + GameController.enemies2.get(k).enemy2Size,
+                                GameController.enemies2.get(k).y,
+                                GameController.enemies2.get(k).x + GameController.enemies2.get(k).enemy2Size,
+                                GameController.enemies2.get(k).y);
                     }
                     if (xMin2 <= 0) {
-                        Impact.turnOnImpact(enemy2.x - enemy2.enemy2Size,
-                                enemy2.y,
-                                enemy2.x - enemy2.enemy2Size,
-                                enemy2.y);
+                        Impact.turnOnImpact(GameController.enemies2.get(k).x - GameController.enemies2.get(k).enemy2Size,
+                                GameController.enemies2.get(k).y,
+                                GameController.enemies2.get(k).x - GameController.enemies2.get(k).enemy2Size,
+                                GameController.enemies2.get(k).y);
                     }
                     if (yMax2 >= GameFrame.height) {
-                        Impact.turnOnImpact(enemy2.x,
-                                enemy2.y + enemy2.enemy2Size,
-                                enemy2.x,
-                                enemy2.y + enemy2.enemy2Size);
+                        Impact.turnOnImpact(GameController.enemies2.get(k).x,
+                                GameController.enemies2.get(k).y + GameController.enemies2.get(k).enemy2Size,
+                                GameController.enemies2.get(k).x,
+                                GameController.enemies2.get(k).y + GameController.enemies2.get(k).enemy2Size);
                     }
                     if (yMin2 <= 0) {
-                        Impact.turnOnImpact(enemy2.x,
-                                enemy2.y - enemy2.enemy2Size,
-                                enemy2.x,
-                                enemy2.y - enemy2.enemy2Size);
+                        Impact.turnOnImpact(GameController.enemies2.get(k).x,
+                                GameController.enemies2.get(k).y - GameController.enemies2.get(k).enemy2Size,
+                                GameController.enemies2.get(k).x,
+                                GameController.enemies2.get(k).y - GameController.enemies2.get(k).enemy2Size);
                     }
                 }
             }
@@ -216,55 +215,60 @@ public class Collision {
     // a method for checking intersections between enemy1 and enemy2
 
     public static void checkCollisionEnemy1Enemy2() {
-        for (EnemyModel1 enemy1 : GameController.enemies1) {
-            if (enemy1.enemyHealth > 0) {
+        if (!GameController.enemies1.isEmpty()) {
+            for (int k = 0; k < GameController.enemies1.size(); k++) {
+                if (GameController.enemies1.get(k).enemyHealth > 0) {
 
-                double xMin1 = enemy1.xAngles[0];
-                double xMax1 = enemy1.xAngles[0];
-                double yMin1 = enemy1.yAngles[0];
-                double yMax1 = enemy1.yAngles[0];
-                for (int i = 0; i < 4; i++) {
-                    if (enemy1.xAngles[i] < xMin1) {
-                        xMin1 = enemy1.xAngles[i];
-                    }
-                    if (enemy1.xAngles[i] > xMax1) {
-                        xMax1 = enemy1.xAngles[i];
-                    }
-                    if (enemy1.yAngles[i] < yMin1) {
-                        yMin1 = enemy1.yAngles[i];
-                    }
-                    if (enemy1.yAngles[i] > yMax1) {
-                        yMax1 = enemy1.yAngles[i];
-                    }
-                }
-                for (EnemyModel2 enemy2 : GameController.enemies2) {
-                    if (enemy2.enemyHealth > 0) {
-
-                        double xMin2 = enemy2.xAngles[0];
-                        double xMax2 = enemy2.xAngles[0];
-                        double yMin2 = enemy2.yAngles[0];
-                        double yMax2 = enemy2.yAngles[0];
-                        for (int i = 0; i < 3; i++) {
-                            if (enemy2.xAngles[i] < xMin2) {
-                                xMin2 = enemy2.xAngles[i];
-                            }
-                            if (enemy2.xAngles[i] > xMax2) {
-                                xMax2 = enemy2.xAngles[i];
-                            }
-                            if (enemy2.yAngles[i] < yMin2) {
-                                yMin2 = enemy2.yAngles[i];
-                            }
-                            if (enemy2.yAngles[i] > yMax2) {
-                                yMax2 = enemy2.yAngles[i];
-                            }
+                    double xMin1 = GameController.enemies1.get(k).xAngles[0];
+                    double xMax1 = GameController.enemies1.get(k).xAngles[0];
+                    double yMin1 = GameController.enemies1.get(k).yAngles[0];
+                    double yMax1 = GameController.enemies1.get(k).yAngles[0];
+                    for (int i = 0; i < 4; i++) {
+                        if (GameController.enemies1.get(k).xAngles[i] < xMin1) {
+                            xMin1 = GameController.enemies1.get(k).xAngles[i];
                         }
+                        if (GameController.enemies1.get(k).xAngles[i] > xMax1) {
+                            xMax1 = GameController.enemies1.get(k).xAngles[i];
+                        }
+                        if (GameController.enemies1.get(k).yAngles[i] < yMin1) {
+                            yMin1 = GameController.enemies1.get(k).yAngles[i];
+                        }
+                        if (GameController.enemies1.get(k).yAngles[i] > yMax1) {
+                            yMax1 = GameController.enemies1.get(k).yAngles[i];
+                        }
+                    }
+                    for (int j = 0; j < GameController.enemies2.size(); j++) {
+                        if (GameController.enemies2.get(j).enemyHealth > 0) {
 
-                        if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
-                                || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
-                                || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
-                                || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
-                            enemy1.dash = false;
-                            Impact.turnOnImpact(enemy1.x, enemy1.y, enemy2.x, enemy2.y);
+                            double xMin2 = GameController.enemies2.get(j).xAngles[0];
+                            double xMax2 = GameController.enemies2.get(j).xAngles[0];
+                            double yMin2 = GameController.enemies2.get(j).yAngles[0];
+                            double yMax2 = GameController.enemies2.get(j).yAngles[0];
+                            for (int i = 0; i < 3; i++) {
+                                if (GameController.enemies2.get(j).xAngles[i] < xMin2) {
+                                    xMin2 = GameController.enemies2.get(j).xAngles[i];
+                                }
+                                if (GameController.enemies2.get(j).xAngles[i] > xMax2) {
+                                    xMax2 = GameController.enemies2.get(j).xAngles[i];
+                                }
+                                if (GameController.enemies2.get(j).yAngles[i] < yMin2) {
+                                    yMin2 = GameController.enemies2.get(j).yAngles[i];
+                                }
+                                if (GameController.enemies2.get(j).yAngles[i] > yMax2) {
+                                    yMax2 = GameController.enemies2.get(j).yAngles[i];
+                                }
+                            }
+
+                            if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                    || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                    || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
+                                    || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
+                                GameController.enemies1.get(k).dash = false;
+                                Impact.turnOnImpact(GameController.enemies1.get(k).x,
+                                        GameController.enemies1.get(k).y,
+                                        GameController.enemies2.get(j).x,
+                                        GameController.enemies2.get(j).y);
+                            }
                         }
                     }
                 }
@@ -328,8 +332,10 @@ public class Collision {
 
                             GameController.enemies1.get(i).dash = false;
                             GameController.enemies1.get(j).dash = false;
-                            Impact.turnOnImpact(GameController.enemies1.get(i).x, GameController.enemies1.get(i).y,
-                                    GameController.enemies1.get(j).x, GameController.enemies1.get(j).y);
+                            Impact.turnOnImpact(GameController.enemies1.get(i).x,
+                                    GameController.enemies1.get(i).y,
+                                    GameController.enemies1.get(j).x,
+                                    GameController.enemies1.get(j).y);
 
                         }
                     }
@@ -389,8 +395,10 @@ public class Collision {
                                 || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
                                 || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
 
-                            Impact.turnOnImpact(GameController.enemies2.get(i).x, GameController.enemies2.get(i).y,
-                                    GameController.enemies2.get(j).x, GameController.enemies2.get(j).y);
+                            Impact.turnOnImpact(GameController.enemies2.get(i).x,
+                                    GameController.enemies2.get(i).y,
+                                    GameController.enemies2.get(j).x,
+                                    GameController.enemies2.get(j).y);
 
                         }
                     }
@@ -407,25 +415,25 @@ public class Collision {
         double xMax1 = GameController.ball.x + BallModel.ballRadius;
         double yMin1 = GameController.ball.y - BallModel.ballRadius;
         double yMax1 = GameController.ball.y + BallModel.ballRadius;
-        for (EnemyModel1 enemy1 : GameController.enemies1) {
-            if (enemy1.enemyHealth > 0) {
+        for (int k = 0; k < GameController.enemies1.size(); k++) {
+            if (GameController.enemies1.get(k).enemyHealth > 0) {
 
-                double xMin2 = enemy1.xAngles[0];
-                double xMax2 = enemy1.xAngles[0];
-                double yMin2 = enemy1.yAngles[0];
-                double yMax2 = enemy1.yAngles[0];
+                double xMin2 = GameController.enemies1.get(k).xAngles[0];
+                double xMax2 = GameController.enemies1.get(k).xAngles[0];
+                double yMin2 = GameController.enemies1.get(k).yAngles[0];
+                double yMax2 = GameController.enemies1.get(k).yAngles[0];
                 for (int i = 0; i < 4; i++) {
-                    if (enemy1.xAngles[i] < xMin2) {
-                        xMin2 = enemy1.xAngles[i];
+                    if (GameController.enemies1.get(k).xAngles[i] < xMin2) {
+                        xMin2 = GameController.enemies1.get(k).xAngles[i];
                     }
-                    if (enemy1.xAngles[i] > xMax2) {
-                        xMax2 = enemy1.xAngles[i];
+                    if (GameController.enemies1.get(k).xAngles[i] > xMax2) {
+                        xMax2 = GameController.enemies1.get(k).xAngles[i];
                     }
-                    if (enemy1.yAngles[i] < yMin2) {
-                        yMin2 = enemy1.yAngles[i];
+                    if (GameController.enemies1.get(k).yAngles[i] < yMin2) {
+                        yMin2 = GameController.enemies1.get(k).yAngles[i];
                     }
-                    if (enemy1.yAngles[i] > yMax2) {
-                        yMax2 = enemy1.yAngles[i];
+                    if (GameController.enemies1.get(k).yAngles[i] > yMax2) {
+                        yMax2 = GameController.enemies1.get(k).yAngles[i];
                     }
                 }
 
@@ -435,10 +443,10 @@ public class Collision {
                         || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
                     boolean angleCollided = false;
                     for (int i = 0; i < 4; i++) {
-                        if ((xMin1 <= enemy1.xAngles[i]) &&
-                                (xMax1 >= enemy1.xAngles[i]) &&
-                                (yMin1 <= enemy1.yAngles[i]) &&
-                                (yMax1 >= enemy1.yAngles[i])) {
+                        if ((xMin1 <= GameController.enemies1.get(k).xAngles[i]) &&
+                                (xMax1 >= GameController.enemies1.get(k).xAngles[i]) &&
+                                (yMin1 <= GameController.enemies1.get(k).yAngles[i]) &&
+                                (yMax1 >= GameController.enemies1.get(k).yAngles[i])) {
                             angleCollided = true;
                         }
                     }
@@ -446,12 +454,12 @@ public class Collision {
                         GameController.ball.HP -= 6;
                     }
 
-                    enemy1.dash = false;
-                    enemy1.dAngle = Math.PI;
+                    GameController.enemies1.get(k).dash = false;
+                    GameController.enemies1.get(k).dAngle = Math.PI;
                     Impact.turnOnImpact(GameController.ball.x,
                             GameController.ball.y,
-                            enemy1.x,
-                            enemy1.y);
+                            GameController.enemies1.get(k).x,
+                            GameController.enemies1.get(k).y);
 
                 }
             }
@@ -466,25 +474,25 @@ public class Collision {
         double xMax1 = GameController.ball.x + BallModel.ballRadius;
         double yMin1 = GameController.ball.y - BallModel.ballRadius;
         double yMax1 = GameController.ball.y + BallModel.ballRadius;
-        for (EnemyModel2 enemy2 : GameController.enemies2) {
-            if (enemy2.enemyHealth > 0) {
+        for (int k = 0; k < GameController.enemies2.size(); k++) {
+            if (GameController.enemies2.get(k).enemyHealth > 0) {
 
-                double xMin2 = enemy2.xAngles[0];
-                double xMax2 = enemy2.xAngles[0];
-                double yMin2 = enemy2.yAngles[0];
-                double yMax2 = enemy2.yAngles[0];
+                double xMin2 = GameController.enemies2.get(k).xAngles[0];
+                double xMax2 = GameController.enemies2.get(k).xAngles[0];
+                double yMin2 = GameController.enemies2.get(k).yAngles[0];
+                double yMax2 = GameController.enemies2.get(k).yAngles[0];
                 for (int i = 0; i < 3; i++) {
-                    if (enemy2.xAngles[i] < xMin2) {
-                        xMin2 = enemy2.xAngles[i];
+                    if (GameController.enemies2.get(k).xAngles[i] < xMin2) {
+                        xMin2 = GameController.enemies2.get(k).xAngles[i];
                     }
-                    if (enemy2.xAngles[i] > xMax2) {
-                        xMax2 = enemy2.xAngles[i];
+                    if (GameController.enemies2.get(k).xAngles[i] > xMax2) {
+                        xMax2 = GameController.enemies2.get(k).xAngles[i];
                     }
-                    if (enemy2.yAngles[i] < yMin2) {
-                        yMin2 = enemy2.yAngles[i];
+                    if (GameController.enemies2.get(k).yAngles[i] < yMin2) {
+                        yMin2 = GameController.enemies2.get(k).yAngles[i];
                     }
-                    if (enemy2.yAngles[i] > yMax2) {
-                        yMax2 = enemy2.yAngles[i];
+                    if (GameController.enemies2.get(k).yAngles[i] > yMax2) {
+                        yMax2 = GameController.enemies2.get(k).yAngles[i];
                     }
                 }
 
@@ -495,21 +503,21 @@ public class Collision {
 
                     boolean angleCollided = false;
                     for (int i = 0; i < 3; i++) {
-                        if ((xMin1 <= enemy2.xAngles[i]) &&
-                                (xMax1 >= enemy2.xAngles[i]) &&
-                                (yMin1 <= enemy2.yAngles[i]) &&
-                                (yMax1 >= enemy2.yAngles[i])) {
+                        if ((xMin1 <= GameController.enemies2.get(k).xAngles[i]) &&
+                                (xMax1 >= GameController.enemies2.get(k).xAngles[i]) &&
+                                (yMin1 <= GameController.enemies2.get(k).yAngles[i]) &&
+                                (yMax1 >= GameController.enemies2.get(k).yAngles[i])) {
                             angleCollided = true;
                         }
                     }
                     if (angleCollided) {
                         GameController.ball.HP -= 10;
                     }
-                    enemy2.dAngle = Math.PI;
+                    GameController.enemies2.get(k).dAngle = Math.PI;
                     Impact.turnOnImpact(GameController.ball.x,
                             GameController.ball.y,
-                            enemy2.x,
-                            enemy2.y);
+                            GameController.enemies2.get(k).x,
+                            GameController.enemies2.get(k).y);
 
                 }
             }
@@ -520,50 +528,57 @@ public class Collision {
     // =================================================================================
 
     public static void checkCollisionBulletEnemy1() {
-        for (BulletModel bullet : GameController.bullets) {
-            if (bullet.bulletHealth > 0) {
+        if (!GameController.bullets.isEmpty()) {
+            for (int j = 0; j < GameController.bullets.size(); j++) {
+                if (GameController.bullets.get(j).bulletHealth > 0) {
 
-                double xMin1 = bullet.x;
-                double xMax1 = bullet.x + BulletModel.bulletSize;
-                double yMin1 = bullet.y;
-                double yMax1 = bullet.y + BulletModel.bulletSize;
-                for (EnemyModel1 enemy1 : GameController.enemies1) {
-                    if (enemy1.enemyHealth > 0) {
+                    double xMin1 = GameController.bullets.get(j).x;
+                    double xMax1 = GameController.bullets.get(j).x + BulletModel.bulletSize;
+                    double yMin1 = GameController.bullets.get(j).y;
+                    double yMax1 = GameController.bullets.get(j).y + BulletModel.bulletSize;
+                    for (int k = 0; k < GameController.enemies1.size(); k++) {
+                        if (GameController.enemies1.get(k).enemyHealth > 0) {
 
-                        double xMin2 = enemy1.xAngles[0];
-                        double xMax2 = enemy1.xAngles[0];
-                        double yMin2 = enemy1.yAngles[0];
-                        double yMax2 = enemy1.yAngles[0];
-                        for (int i = 0; i < 3; i++) {
-                            if (enemy1.xAngles[i] < xMin2) {
-                                xMin2 = enemy1.xAngles[i];
+                            double xMin2 = GameController.enemies1.get(k).xAngles[0];
+                            double xMax2 = GameController.enemies1.get(k).xAngles[0];
+                            double yMin2 = GameController.enemies1.get(k).yAngles[0];
+                            double yMax2 = GameController.enemies1.get(k).yAngles[0];
+                            for (int i = 0; i < 3; i++) {
+                                if (GameController.enemies1.get(k).xAngles[i] < xMin2) {
+                                    xMin2 = GameController.enemies1.get(k).xAngles[i];
+                                }
+                                if (GameController.enemies1.get(k).xAngles[i] > xMax2) {
+                                    xMax2 = GameController.enemies1.get(k).xAngles[i];
+                                }
+                                if (GameController.enemies1.get(k).yAngles[i] < yMin2) {
+                                    yMin2 = GameController.enemies1.get(k).yAngles[i];
+                                }
+                                if (GameController.enemies1.get(k).yAngles[i] > yMax2) {
+                                    yMax2 = GameController.enemies1.get(k).yAngles[i];
+                                }
                             }
-                            if (enemy1.xAngles[i] > xMax2) {
-                                xMax2 = enemy1.xAngles[i];
-                            }
-                            if (enemy1.yAngles[i] < yMin2) {
-                                yMin2 = enemy1.yAngles[i];
-                            }
-                            if (enemy1.yAngles[i] > yMax2) {
-                                yMax2 = enemy1.yAngles[i];
-                            }
-                        }
 
-                        if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
-                                || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
-                                || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
-                                || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
+                            if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                    || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                    || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
+                                    || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
 
-                            bullet.bulletHealth = 0;
-                            enemy1.enemyHealth -= 5;
-                            if (enemy1.enemyHealth <= 0) {
-                                GameController.newCollectible(enemy1.x, enemy1.y);
+                                GameController.bullets.get(j).bulletHealth = 0;
+                                if (GameController.bulletAres) {
+                                    GameController.enemies1.get(k).enemyHealth -= 7;
+                                }
+                                if (!GameController.bulletAres) {
+                                    GameController.enemies1.get(k).enemyHealth -= 5;
+                                }
+                                if (GameController.enemies1.get(k).enemyHealth <= 0) {
+                                    GameController.newCollectible(GameController.enemies1.get(k).x, GameController.enemies1.get(k).y);
+                                }
+                                Impact.turnOnImpact(GameController.bullets.get(j).x + ((double) BulletModel.bulletSize / 2),
+                                        GameController.bullets.get(j).y + ((double) BulletModel.bulletSize / 2),
+                                        GameController.enemies1.get(k).x + ((double) GameController.enemies1.get(k).enemy1Size / 2),
+                                        GameController.enemies1.get(k).y + ((double) GameController.enemies1.get(k).enemy1Size / 2));
+
                             }
-                            Impact.turnOnImpact(bullet.x + ((double) BulletModel.bulletSize / 2),
-                                    bullet.y + ((double) BulletModel.bulletSize / 2),
-                                    enemy1.x + ((double) enemy1.enemy1Size / 2),
-                                    enemy1.y + ((double) enemy1.enemy1Size / 2));
-
                         }
                     }
                 }
@@ -572,51 +587,57 @@ public class Collision {
     }
 
     public static void checkCollisionBulletEnemy2() {
-        for (BulletModel bullet : GameController.bullets) {
-            if (bullet.bulletHealth > 0) {
+        if (!GameController.bullets.isEmpty()) {
+            for (int j = 0; j < GameController.bullets.size(); j++) {
+                if (GameController.bullets.get(j).bulletHealth > 0) {
+                    double xMin1 = GameController.bullets.get(j).x;
+                    double xMax1 = GameController.bullets.get(j).x + BulletModel.bulletSize;
+                    double yMin1 = GameController.bullets.get(j).y;
+                    double yMax1 = GameController.bullets.get(j).y + BulletModel.bulletSize;
+                    for (int k = 0; k < GameController.enemies2.size(); k++) {
+                        if (GameController.enemies2.get(k).enemyHealth > 0) {
 
-                double xMin1 = bullet.x;
-                double xMax1 = bullet.x + BulletModel.bulletSize;
-                double yMin1 = bullet.y;
-                double yMax1 = bullet.y + BulletModel.bulletSize;
-                for (EnemyModel2 enemy2 : GameController.enemies2) {
-                    if (enemy2.enemyHealth > 0) {
+                            double xMin2 = GameController.enemies2.get(k).xAngles[0];
+                            double xMax2 = GameController.enemies2.get(k).xAngles[0];
+                            double yMin2 = GameController.enemies2.get(k).yAngles[0];
+                            double yMax2 = GameController.enemies2.get(k).yAngles[0];
+                            for (int i = 0; i < 3; i++) {
+                                if (GameController.enemies2.get(k).xAngles[i] < xMin2) {
+                                    xMin2 = GameController.enemies2.get(k).xAngles[i];
+                                }
+                                if (GameController.enemies2.get(k).xAngles[i] > xMax2) {
+                                    xMax2 = GameController.enemies2.get(k).xAngles[i];
+                                }
+                                if (GameController.enemies2.get(k).yAngles[i] < yMin2) {
+                                    yMin2 = GameController.enemies2.get(k).yAngles[i];
+                                }
+                                if (GameController.enemies2.get(k).yAngles[i] > yMax2) {
+                                    yMax2 = GameController.enemies2.get(k).yAngles[i];
+                                }
+                            }
 
-                        double xMin2 = enemy2.xAngles[0];
-                        double xMax2 = enemy2.xAngles[0];
-                        double yMin2 = enemy2.yAngles[0];
-                        double yMax2 = enemy2.yAngles[0];
-                        for (int i = 0; i < 3; i++) {
-                            if (enemy2.xAngles[i] < xMin2) {
-                                xMin2 = enemy2.xAngles[i];
-                            }
-                            if (enemy2.xAngles[i] > xMax2) {
-                                xMax2 = enemy2.xAngles[i];
-                            }
-                            if (enemy2.yAngles[i] < yMin2) {
-                                yMin2 = enemy2.yAngles[i];
-                            }
-                            if (enemy2.yAngles[i] > yMax2) {
-                                yMax2 = enemy2.yAngles[i];
-                            }
-                        }
+                            if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                    || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                    || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
+                                    || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
 
-                        if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
-                                || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
-                                || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
-                                || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
+                                GameController.bullets.get(j).bulletHealth = 0;
+                                if (GameController.bulletAres) {
+                                    GameController.enemies2.get(k).enemyHealth -= 7;
+                                }
+                                if (!GameController.bulletAres) {
+                                    GameController.enemies2.get(k).enemyHealth -= 5;
+                                }
+                                if (GameController.enemies2.get(k).enemyHealth <= 0) {
+                                    GameController.newCollectible(GameController.enemies2.get(k).x, GameController.enemies2.get(k).y);
+                                    GameController.newCollectible(GameController.enemies2.get(k).x + Collectible.collectibleSize, GameController.enemies2.get(k).y + Collectible.collectibleSize);
+                                }
+                                Impact.turnOnImpact(GameController.bullets.get(j).x + ((double) BulletModel.bulletSize / 2),
+                                        GameController.bullets.get(j).y + ((double) BulletModel.bulletSize / 2),
+                                        GameController.enemies2.get(k).x + ((double) GameController.enemies2.get(k).enemy2Size / 2),
+                                        GameController.enemies2.get(k).y + ((double) GameController.enemies2.get(k).enemy2Size / 2));
 
-                            bullet.bulletHealth = 0;
-                            enemy2.enemyHealth -= 5;
-                            if (enemy2.enemyHealth <= 0) {
-                                GameController.newCollectible(enemy2.x, enemy2.y);
-                                GameController.newCollectible(enemy2.x + Collectible.collectibleSize, enemy2.y + Collectible.collectibleSize);
                             }
-                            Impact.turnOnImpact(bullet.x + ((double) BulletModel.bulletSize / 2),
-                                    bullet.y + ((double) BulletModel.bulletSize / 2),
-                                    enemy2.x + ((double) enemy2.enemy2Size / 2),
-                                    enemy2.y + ((double) enemy2.enemy2Size / 2));
-
                         }
                     }
                 }
@@ -629,30 +650,138 @@ public class Collision {
 
     public static void checkCollisionBallCollectible() {
 
-            double xMin1 = GameController.ball.x - BallModel.ballRadius;
-            double xMax1 = GameController.ball.x + BallModel.ballRadius;
-            double yMin1 = GameController.ball.y - BallModel.ballRadius;
-            double yMax1 = GameController.ball.y + BallModel.ballRadius;
-            for (Collectible collectible : GameController.collectibles) {
-                if (collectible.collectibleHealth > 0) {
+        double xMin1 = GameController.ball.x - BallModel.ballRadius;
+        double xMax1 = GameController.ball.x + BallModel.ballRadius;
+        double yMin1 = GameController.ball.y - BallModel.ballRadius;
+        double yMax1 = GameController.ball.y + BallModel.ballRadius;
+        if (!GameController.collectibles.isEmpty()) {
+            for (int i = 0; i < GameController.collectibles.size(); i++) {
+                if (GameController.collectibles.get(i).collectibleHealth > 0) {
 
-                    double xMin2 = collectible.x;
-                    double xMax2 = collectible.x + Collectible.collectibleSize;
-                    double yMin2 = collectible.y;
-                    double yMax2 = collectible.y + Collectible.collectibleSize;
+                    double xMin2 = GameController.collectibles.get(i).x;
+                    double xMax2 = GameController.collectibles.get(i).x + Collectible.collectibleSize;
+                    double yMin2 = GameController.collectibles.get(i).y;
+                    double yMax2 = GameController.collectibles.get(i).y + Collectible.collectibleSize;
 
                     if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
                             || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
                             || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
                             || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
 
-                        collectible.collectibleHealth = 0;
-                        GameController.player.XP += 5;
+                        GameController.collectibles.get(i).collectibleHealth = 0;
+                        EnterNamePage.player.XP += 5;
 
                     }
                 }
 
             }
+        }
+    }
 
+
+    // ===============================================================================
+
+
+    // a method for checking intersections between enemy1 and the ballAngle
+
+    public static void checkCollisionBallAngleEnemy1() {
+        if (GameController.ballAngle.angleExists) {
+
+            double xMin1 = GameController.ballAngle.x - BallAngle.ballAngleRadius;
+            double xMax1 = GameController.ballAngle.x + BallAngle.ballAngleRadius;
+            double yMin1 = GameController.ballAngle.y - BallAngle.ballAngleRadius;
+            double yMax1 = GameController.ballAngle.y + BallAngle.ballAngleRadius;
+            for (int k = 0; k < GameController.enemies1.size(); k++) {
+                if (GameController.enemies1.get(k).enemyHealth > 0) {
+
+                    double xMin2 = GameController.enemies1.get(k).xAngles[0];
+                    double xMax2 = GameController.enemies1.get(k).xAngles[0];
+                    double yMin2 = GameController.enemies1.get(k).yAngles[0];
+                    double yMax2 = GameController.enemies1.get(k).yAngles[0];
+                    for (int i = 0; i < 4; i++) {
+                        if (GameController.enemies1.get(k).xAngles[i] < xMin2) {
+                            xMin2 = GameController.enemies1.get(k).xAngles[i];
+                        }
+                        if (GameController.enemies1.get(k).xAngles[i] > xMax2) {
+                            xMax2 = GameController.enemies1.get(k).xAngles[i];
+                        }
+                        if (GameController.enemies1.get(k).yAngles[i] < yMin2) {
+                            yMin2 = GameController.enemies1.get(k).yAngles[i];
+                        }
+                        if (GameController.enemies1.get(k).yAngles[i] > yMax2) {
+                            yMax2 = GameController.enemies1.get(k).yAngles[i];
+                        }
+                    }
+
+                    if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                            || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                            || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
+                            || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
+
+
+                        GameController.enemies1.get(k).dash = false;
+                        GameController.enemies1.get(k).dAngle = Math.PI;
+                        GameController.enemies1.get(k).enemyHealth -= 10;
+                        Impact.turnOnImpact(GameController.ball.x,
+                                GameController.ball.y,
+                                GameController.enemies1.get(k).x,
+                                GameController.enemies1.get(k).y);
+
+                    }
+                }
+            }
+        }
+    }
+
+
+    // a method for checking intersections between enemy2 and the ball
+
+    public static void checkCollisionBallAngleEnemy2() {
+        if (GameController.ballAngle.angleExists) {
+
+            double xMin1 = GameController.ballAngle.x - BallAngle.ballAngleRadius;
+            double xMax1 = GameController.ballAngle.x + BallAngle.ballAngleRadius;
+            double yMin1 = GameController.ballAngle.y - BallAngle.ballAngleRadius;
+            double yMax1 = GameController.ballAngle.y + BallAngle.ballAngleRadius;
+            for (int k = 0; k < GameController.enemies2.size(); k++) {
+                if (GameController.enemies2.get(k).enemyHealth > 0) {
+
+                    double xMin2 = GameController.enemies2.get(k).xAngles[0];
+                    double xMax2 = GameController.enemies2.get(k).xAngles[0];
+                    double yMin2 = GameController.enemies2.get(k).yAngles[0];
+                    double yMax2 = GameController.enemies2.get(k).yAngles[0];
+                    for (int i = 0; i < 3; i++) {
+                        if (GameController.enemies2.get(k).xAngles[i] < xMin2) {
+                            xMin2 = GameController.enemies2.get(k).xAngles[i];
+                        }
+                        if (GameController.enemies2.get(k).xAngles[i] > xMax2) {
+                            xMax2 = GameController.enemies2.get(k).xAngles[i];
+                        }
+                        if (GameController.enemies2.get(k).yAngles[i] < yMin2) {
+                            yMin2 = GameController.enemies2.get(k).yAngles[i];
+                        }
+                        if (GameController.enemies2.get(k).yAngles[i] > yMax2) {
+                            yMax2 = GameController.enemies2.get(k).yAngles[i];
+                        }
+                    }
+
+                    if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                            || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                            || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
+                            || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
+
+
+                        GameController.enemies2.get(k).dAngle = Math.PI;
+                        GameController.enemies2.get(k).enemyHealth -= 10;
+                        Impact.turnOnImpact(GameController.ball.x,
+                                GameController.ball.y,
+                                GameController.enemies2.get(k).x,
+                                GameController.enemies2.get(k).y);
+
+                    }
+                }
+
+            }
+        }
     }
 }

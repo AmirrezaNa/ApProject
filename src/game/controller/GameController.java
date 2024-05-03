@@ -1,31 +1,25 @@
 package game.controller;
 
-import game.Player;
-import game.entity.BallDirection;
-import game.entity.BallModel;
-import game.entity.BulletModel;
-import game.entity.Collectible;
+import game.entity.*;
 import game.entity.enemy.EnemyModel1;
 import game.entity.enemy.EnemyModel2;
 import game.frame.GameFrame;
 import game.frame.GamePanel;
 import startPage.EnterNamePage;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class GameController {
-    public static Player player;
-    public static String name;
     public static BallModel ball;
     static BulletModel bullet;
     static EnemyModel1 enemy1;
     static EnemyModel2 enemy2;
     static Collectible collectible;
     static BallDirection ballDirection;
+    static BallAngle ballAngle;
     public static ArrayList<BulletModel> bullets = new ArrayList<>();
     public static ArrayList<EnemyModel1> enemies1 = new ArrayList<>();
     public static ArrayList<EnemyModel2> enemies2 = new ArrayList<>();
@@ -33,13 +27,9 @@ public class GameController {
     public static int wave = 1;
     public static int Banish = 0;
     public static int Empower = 0;
+    public static boolean bulletAres;
 
     // ===============================================================================
-
-    public static void newPlayer() {
-        player = new Player();
-        player.name = name;
-    }
 
 
     // creating and updating the ball ================================================
@@ -75,6 +65,28 @@ public class GameController {
         return ballDirection;
     }
 
+    public static BallAngle createBallAngle() {
+        ballAngle = new BallAngle(ball.x, ball.y);
+        return ballAngle;
+    }
+
+    public static void updateBallAngle() {
+        if (ballAngle.angleExists) {
+
+            double x1 = ball.x;
+            double y1 = ball.y;
+            double x2 = MouseInputListener.x;
+            double y2 = MouseInputListener.y;
+            double deltaX = x2 - x1;
+            double deltaY = y2 - y1;
+
+            // Calculate the angle in radians
+            ballAngle.angle = Math.atan2(deltaY, deltaX);
+            ballAngle.x = ball.x + (BallModel.ballRadius * Math.cos(ballAngle.angle));
+            ballAngle.y = ball.y + (BallModel.ballRadius * Math.sin(ballAngle.angle));
+        }
+    }
+
     public static void updateBallDirection() {
 
         double x1 = ball.x;
@@ -89,6 +101,63 @@ public class GameController {
         ballDirection.x = ball.x + (10 * Math.cos(ballDirection.angle));
         ballDirection.y = ball.y + (10 * Math.sin(ballDirection.angle));
     }
+
+    public static void turnOnWritOfProteus() {
+        if (EnterNamePage.player.writOfProteus) {
+            if (!GamePanel.pause) {
+                ballAngle.angleExists = true;
+                Timer timer = new Timer();
+                int[] countDownEmpower = {300};
+                TimerTask task = new TimerTask() {
+                    @Override
+                    public void run() {
+                        if (countDownEmpower[0] > 0) {
+                            countDownEmpower[0]--;
+                            EnterNamePage.player.writOfProteus = false;
+                        } else {
+                            ballAngle.angleExists = false;
+                            EnterNamePage.player.writOfProteus = true;
+                            timer.cancel();
+                        }
+                    }
+                };
+                timer.scheduleAtFixedRate(task, 0, 1000);
+            }
+        }
+    }
+
+
+    // ==================================================================================
+
+
+
+    // ==================================================================================
+
+
+    public static void turnOnWritOfAceso() {
+        if (EnterNamePage.player.writOfAceso) {
+            if (!GamePanel.pause) {
+                Timer timer = new Timer();
+                int[] countDownEmpower = {300};
+                TimerTask task = new TimerTask() {
+                    @Override
+                    public void run() {
+                        if (countDownEmpower[0] > 0) {
+                            countDownEmpower[0]--;
+                            ball.HP++;
+                            EnterNamePage.player.writOfProteus = false;
+                        } else {
+                            EnterNamePage.player.writOfAceso = true;
+                            timer.cancel();
+                        }
+                    }
+                };
+                timer.scheduleAtFixedRate(task, 0, 1000);
+            }
+        }
+    }
+
+
 
     // ==================================================================================
 
@@ -148,6 +217,30 @@ public class GameController {
                 }
             };
             timer.scheduleAtFixedRate(task, 0, 1000);
+        }
+    }
+
+    public static void turnOnWritOfAres() {
+        if (EnterNamePage.player.writOfAres) {
+            if (!GamePanel.pause) {
+                bulletAres = true;
+                Timer timer = new Timer();
+                int[] countDownEmpower = {300};
+                TimerTask task = new TimerTask() {
+                    @Override
+                    public void run() {
+                        if (countDownEmpower[0] > 0) {
+                            countDownEmpower[0]--;
+                            EnterNamePage.player.writOfAres = false;
+                        } else {
+                            bulletAres = false;
+                            EnterNamePage.player.writOfProteus = true;
+                            timer.cancel();
+                        }
+                    }
+                };
+                timer.scheduleAtFixedRate(task, 0, 1000);
+            }
         }
     }
 
@@ -377,14 +470,6 @@ public class GameController {
                         }
                     }
                     Rotation.enemy1Rotation();
-//                    enemy.xAngles = new double[]{enemy.x - ((double) enemy.enemy1Size /2),
-//                            (enemy.x + ((double) enemy.enemy1Size /2)),
-//                            (enemy.x + ((double) enemy.enemy1Size /2)),
-//                            enemy.x - ((double) enemy.enemy1Size /2)};
-//                    enemy.yAngles = new double[]{enemy.x - ((double) enemy.enemy1Size /2),
-//                            enemy.x - ((double) enemy.enemy1Size /2),
-//                            enemy.x + ((double) enemy.enemy1Size /2),
-//                            enemy.x + ((double) enemy.enemy1Size /2)};
                 }
             }
         }
@@ -421,12 +506,6 @@ public class GameController {
                         }
                     }
                     Rotation.enemy2Rotation();
-//                    enemy.xAngles = new double[]{enemy.x - ((double) enemy.enemy2Size /2),
-//                            (enemy.x + enemy.enemy2Size),
-//                            (enemy.x + ((double) enemy.enemy2Size / 2))};
-//                    enemy.yAngles = new double[]{enemy.y,
-//                            enemy.y,
-//                            (enemy.y + (enemy.enemy2Size))};
                 }
             }
         }
@@ -451,6 +530,8 @@ public class GameController {
             Collision.checkCollisionBallCollectible();
             Collision.checkEnemy1CollisionToFrame();
             Collision.checkEnemy2CollisionToFrame();
+            Collision.checkCollisionBallAngleEnemy1();
+            Collision.checkCollisionBallAngleEnemy2();
         }
 
     }

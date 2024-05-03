@@ -18,7 +18,7 @@ public class SkillTreePanel extends JPanel {
         super.paintComponent(g);
         g.setColor(new Color(0x8F0404));
         g.setFont(new Font("Arial", Font.PLAIN, 20));
-        g.drawString("XP : " + GameController.player.XP, 30, 50);
+        //g.drawString("XP : " + GameController.player.XP, 30, 50);
 
     }
 }

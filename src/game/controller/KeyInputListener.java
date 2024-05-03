@@ -1,6 +1,6 @@
 package game.controller;
 
-import game.frame.GameFrame;
+import startPage.EnterNamePage;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -43,15 +43,28 @@ public class KeyInputListener implements KeyListener {
             else if (pressedKeys.contains(KeyEvent.VK_RIGHT)) {
                 GameController.ball.x += GameController.ball.dx;
             }
-            else if (pressedKeys.contains(KeyEvent.VK_E)) {
-
-            }
             else if (pressedKeys.contains(KeyEvent.VK_B)) {
                 Impact.banishImpact(GameController.ball.x, GameController.ball.y, GameController.ball.x, GameController.ball.y);
             }
-            else if (pressedKeys.contains(KeyEvent.VK_H)) {
-
+            else if (pressedKeys.contains(KeyEvent.VK_P)) {
+                if (EnterNamePage.player.XP >= 100) {
+                    EnterNamePage.player.XP -= 100;
+                    GameController.turnOnWritOfProteus();
+                }
             }
+            else if (pressedKeys.contains(KeyEvent.VK_S)) {
+                if (EnterNamePage.player.XP >= 100) {
+                    EnterNamePage.player.XP -= 100;
+                    GameController.turnOnWritOfAres();
+                }
+            }
+            else if (pressedKeys.contains(KeyEvent.VK_O)) {
+                if (EnterNamePage.player.XP >= 100) {
+                    EnterNamePage.player.XP -= 100;
+                    GameController.turnOnWritOfAceso();
+                }
+            }
+
         } else {
             if (pressedKeys.contains(KeyEvent.VK_UP) && pressedKeys.contains(KeyEvent.VK_RIGHT)) {
                 GameController.ball.x += GameController.ball.dx;
