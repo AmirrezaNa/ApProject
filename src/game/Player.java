@@ -1,8 +1,11 @@
 package game;
 
 public class Player {
-    String name;
-    public static int XP;
-    public static int HP;
+    public String name;
+    public int XP;
 
+    public Player() {
+        this.name = "";
+        this.XP = 0;
+    }
 }

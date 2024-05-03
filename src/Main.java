@@ -1,7 +1,7 @@
-import startPage.StartPageFrame;
+import startPage.EnterNamePage;
 
 public class Main {
     public static void main(String[] args) {
-        StartPageFrame startPageFrame = new StartPageFrame();
+        EnterNamePage enterNamePage = new EnterNamePage();
     }
 }

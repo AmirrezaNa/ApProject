@@ -101,9 +101,7 @@ public class StartPageFrame extends JFrame implements ActionListener {
 
         if (e.getSource() == startButton) {
             this.dispose();
-            SwingUtilities.invokeLater(() -> {
-                GameFrame gameFrame = new GameFrame();
-            });
+            EnterNamePage enterNamePage = new EnterNamePage();
         }
         if (e.getSource() == skillTreeButton) {
 

@@ -75,32 +75,28 @@ public class Collision {
 
     public static void checkBallCollisionToFrame() {
         if (GameController.ball.x + BallModel.ballRadius >= GameFrame.width) {
-            GameController.ball.x = GameFrame.width - BallModel.ballRadius;
             Impact.turnOnImpact(GameController.ball.x + BallModel.ballRadius,
-                    GameController.ball.y + ((double) BallModel.ballRadius /2),
+                    GameController.ball.y,
                     GameController.ball.x + BallModel.ballRadius,
-                    GameController.ball.y + ((double) BallModel.ballRadius /2));
+                    GameController.ball.y);
         }
-        if (GameController.ball.x <= 0) {
-            GameController.ball.x = 0;
-            Impact.turnOnImpact(GameController.ball.x,
-                    GameController.ball.y + ((double) BallModel.ballRadius /2),
-                    GameController.ball.x,
-                    GameController.ball.y + ((double) BallModel.ballRadius /2));
+        if (GameController.ball.x - BallModel.ballRadius <= 0) {
+            Impact.turnOnImpact(GameController.ball.x - BallModel.ballRadius,
+                    GameController.ball.y,
+                    GameController.ball.x - BallModel.ballRadius,
+                    GameController.ball.y);
         }
         if (GameController.ball.y + BallModel.ballRadius >= GameFrame.height) {
-            GameController.ball.y = GameFrame.height - BallModel.ballRadius;
-            Impact.turnOnImpact(GameController.ball.x + ((double) BallModel.ballRadius /2),
+            Impact.turnOnImpact(GameController.ball.x,
                     GameController.ball.y + BallModel.ballRadius,
-                    GameController.ball.x + ((double) BallModel.ballRadius /2),
+                    GameController.ball.x,
                     GameController.ball.y + BallModel.ballRadius);
         }
-        if (GameController.ball.y <= 0) {
-            GameController.ball.y = 0;
-            Impact.turnOnImpact(GameController.ball.x + ((double) BallModel.ballRadius /2),
-                    GameController.ball.y,
-                    GameController.ball.x + ((double) BallModel.ballRadius /2),
-                    GameController.ball.y);
+        if (GameController.ball.y - BallModel.ballRadius <= 0) {
+            Impact.turnOnImpact(GameController.ball.x,
+                    GameController.ball.y - BallModel.ballRadius,
+                    GameController.ball.x,
+                    GameController.ball.y - BallModel.ballRadius);
         }
     }
 
@@ -407,9 +403,9 @@ public class Collision {
     // a method for checking intersections between enemy1 and the ball
 
     public static void checkCollisionBallEnemy1() {
-        double xMin1 = GameController.ball.x;
+        double xMin1 = GameController.ball.x - BallModel.ballRadius;
         double xMax1 = GameController.ball.x + BallModel.ballRadius;
-        double yMin1 = GameController.ball.y;
+        double yMin1 = GameController.ball.y - BallModel.ballRadius;
         double yMax1 = GameController.ball.y + BallModel.ballRadius;
         for (EnemyModel1 enemy1 : GameController.enemies1) {
             if (enemy1.enemyHealth > 0) {
@@ -447,15 +443,15 @@ public class Collision {
                         }
                     }
                     if (angleCollided) {
-                        Player.HP -= 6;
+                        GameController.ball.HP -= 6;
                     }
 
                     enemy1.dash = false;
                     enemy1.dAngle = Math.PI;
-                    Impact.turnOnImpact(GameController.ball.x + ((double) BallModel.ballRadius / 2),
-                            GameController.ball.y + ((double) BallModel.ballRadius / 2),
-                            enemy1.x + ((double) enemy1.enemy1Size / 2),
-                            enemy1.y + ((double) enemy1.enemy1Size / 2));
+                    Impact.turnOnImpact(GameController.ball.x,
+                            GameController.ball.y,
+                            enemy1.x,
+                            enemy1.y);
 
                 }
             }
@@ -466,9 +462,9 @@ public class Collision {
     // a method for checking intersections between enemy2 and the ball
 
     public static void checkCollisionBallEnemy2() {
-        double xMin1 = GameController.ball.x;
+        double xMin1 = GameController.ball.x - BallModel.ballRadius;
         double xMax1 = GameController.ball.x + BallModel.ballRadius;
-        double yMin1 = GameController.ball.y;
+        double yMin1 = GameController.ball.y - BallModel.ballRadius;
         double yMax1 = GameController.ball.y + BallModel.ballRadius;
         for (EnemyModel2 enemy2 : GameController.enemies2) {
             if (enemy2.enemyHealth > 0) {
@@ -507,13 +503,13 @@ public class Collision {
                         }
                     }
                     if (angleCollided) {
-                        Player.HP -= 10;
+                        GameController.ball.HP -= 10;
                     }
                     enemy2.dAngle = Math.PI;
-                    Impact.turnOnImpact(GameController.ball.x + ((double) BallModel.ballRadius / 2),
-                            GameController.ball.y + ((double) BallModel.ballRadius / 2),
-                            enemy2.x + ((double) enemy2.enemy2Size / 2),
-                            enemy2.y + ((double) enemy2.enemy2Size / 2));
+                    Impact.turnOnImpact(GameController.ball.x,
+                            GameController.ball.y,
+                            enemy2.x,
+                            enemy2.y);
 
                 }
             }
@@ -633,9 +629,9 @@ public class Collision {
 
     public static void checkCollisionBallCollectible() {
 
-            double xMin1 = GameController.ball.x;
+            double xMin1 = GameController.ball.x - BallModel.ballRadius;
             double xMax1 = GameController.ball.x + BallModel.ballRadius;
-            double yMin1 = GameController.ball.y;
+            double yMin1 = GameController.ball.y - BallModel.ballRadius;
             double yMax1 = GameController.ball.y + BallModel.ballRadius;
             for (Collectible collectible : GameController.collectibles) {
                 if (collectible.collectibleHealth > 0) {
@@ -651,7 +647,7 @@ public class Collision {
                             || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
 
                         collectible.collectibleHealth = 0;
-                        GameController.ball.XP += 5;
+                        GameController.player.XP += 5;
 
                     }
                 }

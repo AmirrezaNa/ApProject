@@ -1,28 +1,45 @@
 package game.controller;
 
+import game.Player;
+import game.entity.BallDirection;
 import game.entity.BallModel;
 import game.entity.BulletModel;
 import game.entity.Collectible;
 import game.entity.enemy.EnemyModel1;
 import game.entity.enemy.EnemyModel2;
 import game.frame.GameFrame;
+import game.frame.GamePanel;
+import startPage.EnterNamePage;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class GameController {
-    static BallModel ball;
+    public static Player player;
+    public static String name;
+    public static BallModel ball;
     static BulletModel bullet;
     static EnemyModel1 enemy1;
     static EnemyModel2 enemy2;
     static Collectible collectible;
+    static BallDirection ballDirection;
     public static ArrayList<BulletModel> bullets = new ArrayList<>();
     public static ArrayList<EnemyModel1> enemies1 = new ArrayList<>();
     public static ArrayList<EnemyModel2> enemies2 = new ArrayList<>();
     public static ArrayList<Collectible> collectibles = new ArrayList<>();
-    static int wave = 1;
+    public static int wave = 1;
+    public static int Banish = 0;
+    public static int Empower = 0;
+
+    // ===============================================================================
+
+    public static void newPlayer() {
+        player = new Player();
+        player.name = name;
+    }
 
 
     // creating and updating the ball ================================================
@@ -50,6 +67,27 @@ public class GameController {
                 ball.ay += 0.05;
             }
         }
+
+    }
+
+    public static BallDirection createBallDirection() {
+        ballDirection = new BallDirection(ball.x, ball.y);
+        return ballDirection;
+    }
+
+    public static void updateBallDirection() {
+
+        double x1 = ball.x;
+        double y1 = ball.y;
+        double x2 = MouseInputListener.x;
+        double y2 = MouseInputListener.y;
+        double deltaX = x2 - x1;
+        double deltaY = y2 - y1;
+
+        // Calculate the angle in radians
+        ballDirection.angle = Math.atan2(deltaY, deltaX);
+        ballDirection.x = ball.x + (10 * Math.cos(ballDirection.angle));
+        ballDirection.y = ball.y + (10 * Math.sin(ballDirection.angle));
     }
 
     // ==================================================================================
@@ -57,21 +95,30 @@ public class GameController {
 
     // creating and updating the bullets ================================================
 
+    public static boolean empowerBullet;
+
 
     public static BulletModel newBullet(Point point) {
-        bullet = new BulletModel((ball.x + ((double) ball.ballRadius / 2)), (ball.y + ((double) ball.ballRadius / 2)));
-        bullet.dx = ((point.x - (ball.x + (ball.ballRadius / 2))) / Math.sqrt(Math.pow((point.x - (ball.x + ((double) ball.ballRadius / 2))), 2) + Math.pow((point.y - (ball.y + ((double) ball.ballRadius / 2))), 2))) * BulletModel.bulletSpeed;
-        if (bullet.y < point.y) {
-            bullet.dy = Math.sqrt(Math.pow(BulletModel.bulletSpeed, 2) - Math.pow(bullet.dx, 2));
-        } else {
-            bullet.dy = -(Math.sqrt(Math.pow(BulletModel.bulletSpeed, 2) - Math.pow(bullet.dx, 2)));
-        }
+        if (!GamePanel.pause) {
+            bullet = new BulletModel(ball.x, ball.y);
+            bullet.dx = ((point.x - (ball.x)) / Math.sqrt(Math.pow((point.x - (ball.x)), 2) + Math.pow((point.y - (ball.y)), 2))) * BulletModel.bulletSpeed;
+            if (bullet.y < point.y) {
+                bullet.dy = Math.sqrt(Math.pow(BulletModel.bulletSpeed, 2) - Math.pow(bullet.dx, 2));
+            } else {
+                bullet.dy = -(Math.sqrt(Math.pow(BulletModel.bulletSpeed, 2) - Math.pow(bullet.dx, 2)));
+            }
 
-        bullets.add(0, bullet);
-        return bullet;
+            bullets.add(0, bullet);
+            return bullet;
+        }
+        return null;
     }
 
     public static void updateBullet() {
+        if (Empower == 1) {
+            empowerBullet();
+            Empower--;
+        }
         if (!GameController.bullets.isEmpty()) {
             for (BulletModel bullet : GameController.bullets) {
                 if (bullet.bulletHealth > 0) {
@@ -79,6 +126,28 @@ public class GameController {
                     bullet.y += bullet.dy;
                 }
             }
+        }
+    }
+
+
+    public static void empowerBullet() {
+        if (!GamePanel.pause) {
+            empowerBullet = true;
+            Timer timer = new Timer();
+            int[] countDownEmpower = {10};
+            TimerTask task = new TimerTask() {
+                @Override
+                public void run() {
+                    if (countDownEmpower[0] > 0) {
+                        countDownEmpower[0]--;
+                        System.out.println("hi");
+                    } else {
+                        empowerBullet = false;
+                        timer.cancel();
+                    }
+                }
+            };
+            timer.scheduleAtFixedRate(task, 0, 1000);
         }
     }
 
@@ -91,7 +160,6 @@ public class GameController {
     // ========================== creating wave1 enemies ================================
 
 
-
     public static EnemyModel1 setTimerForEnemy1() {   // this method creates an enemy every 5 seconds
 
         Timer timer = new Timer();
@@ -100,8 +168,7 @@ public class GameController {
             public void run() {
                 if (enemies2.size() + enemies1.size() <= 10) {
                     newEnemy1();
-                }
-                else {
+                } else {
                     timer.cancel();
                     wave++;
                     setTimerForEnemy1wave2();
@@ -122,8 +189,7 @@ public class GameController {
             public void run() {
                 if (enemies1.size() + enemies2.size() <= 10) {
                     newEnemy2();
-                }
-                else {
+                } else {
                     timer.cancel();
                     setTimerForEnemy2wave2();
                 }
@@ -134,7 +200,6 @@ public class GameController {
 
         return enemy2;
     }
-
 
 
     // =========================== creating wave2 enemies =======================================
@@ -148,8 +213,7 @@ public class GameController {
                 if (enemies2.size() + enemies1.size() <= 25) {
                     GameFrame.countDown = false;
                     newEnemy1();
-                }
-                else {
+                } else {
                     timer.cancel();
                     wave++;
                     setTimerForEnemy1wave3();
@@ -171,8 +235,7 @@ public class GameController {
                 if (enemies2.size() + enemies1.size() <= 25) {
                     GameFrame.countDown = false;
                     newEnemy2();
-                }
-                else {
+                } else {
                     timer.cancel();
                     setTimerForEnemy2wave3();
                 }
@@ -226,29 +289,31 @@ public class GameController {
 
 
     public static void newEnemy1() {
-        if (enemies1.size() % 2 == 0) {
-            enemy1 = new EnemyModel1(50, (double) GameFrame.height / 2);
-            enemies1.add(0, enemy1);
-        }
-        else {
-            enemy1 = new EnemyModel1((double) GameFrame.width /2, 50);
-            enemy1.dash = true;
-            enemies1.add(0, enemy1);
-        }
+        if (!GamePanel.pause) {
 
+            if (enemies1.size() % 2 == 0) {
+                enemy1 = new EnemyModel1(50, (double) GameFrame.height / 2);
+                enemies1.add(0, enemy1);
+            } else {
+                enemy1 = new EnemyModel1((double) GameFrame.width / 2, 50);
+                enemy1.dash = true;
+                enemies1.add(0, enemy1);
+            }
+        }
     }
 
     public static void newEnemy2() {
-        if (enemies2.size() % 2 == 0) {
-            enemy2 = new EnemyModel2((double) GameFrame.width - 60, (double) GameFrame.height / 2);
-            enemies2.add(0, enemy2);
-        }
-        else{
-            enemy2 = new EnemyModel2( ((double) GameFrame.width /2), GameFrame.height - 60);
-            enemies2.add(0, enemy2);
-        }
+        if (!GamePanel.pause) {
 
+            if (enemies2.size() % 2 == 0) {
+                enemy2 = new EnemyModel2((double) GameFrame.width - 60, (double) GameFrame.height / 2);
+                enemies2.add(0, enemy2);
+            } else {
+                enemy2 = new EnemyModel2(((double) GameFrame.width / 2), GameFrame.height - 60);
+                enemies2.add(0, enemy2);
+            }
 
+        }
     }
 
 
@@ -292,7 +357,7 @@ public class GameController {
                         enemy.x += 2 * (enemy.dx + enemy.ax);
                         enemy.y += 2 * (enemy.dy + enemy.ay);
                     }
-                    if (!enemy.dash){
+                    if (!enemy.dash) {
                         enemy.x += enemy.dx + enemy.ax;
                         enemy.y += enemy.dy + enemy.ay;
                     }
@@ -373,22 +438,22 @@ public class GameController {
 
 
     public static void checkCollisions() {
-        Collision.checkBulletHitFrame();
-        Collision.checkBallCollisionToFrame();
-        Collision.checkCollisionEnemy1Enemy2();
-        Collision.checkCollisionEnemy1Enemy1();
-        Collision.checkCollisionEnemy2Enemy2();
-        Collision.checkCollisionBallEnemy1();
-        Collision.checkCollisionBallEnemy2();
-        Collision.checkCollisionBulletEnemy1();
-        Collision.checkCollisionBulletEnemy2();
-        Collision.checkCollisionBallCollectible();
-        Collision.checkEnemy1CollisionToFrame();
-        Collision.checkEnemy2CollisionToFrame();
+        if (!GamePanel.pause) {
+            Collision.checkBulletHitFrame();
+            Collision.checkBallCollisionToFrame();
+            Collision.checkCollisionEnemy1Enemy2();
+            Collision.checkCollisionEnemy1Enemy1();
+            Collision.checkCollisionEnemy2Enemy2();
+            Collision.checkCollisionBallEnemy1();
+            Collision.checkCollisionBallEnemy2();
+            Collision.checkCollisionBulletEnemy1();
+            Collision.checkCollisionBulletEnemy2();
+            Collision.checkCollisionBallCollectible();
+            Collision.checkEnemy1CollisionToFrame();
+            Collision.checkEnemy2CollisionToFrame();
+        }
+
     }
-
-
-
 
 
 // ==================================================================================
@@ -416,6 +481,19 @@ public class GameController {
                 }
             }
         }, 0, 1000);
+    }
+
+    // =============================================================================
+
+    // restarting the game
+
+    public static void restartGame() {
+        bullets.clear();
+        enemies2.clear();
+        enemies1.clear();
+        bullets.clear();
+        collectibles.clear();
+        ball.HP = 100;
     }
 
 

@@ -1,5 +1,7 @@
 package game.frame;
 
+import shop.ShopFrame;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,7 +18,7 @@ public class GameFrameStuff extends JFrame implements ActionListener {
         this.setLocationRelativeTo(null);
         setBackground(new Color(0, 0, 0, 0));
         this.setLayout(null);
-        this.setBounds(1150, 10, 200, 150);
+        this.setBounds(1250, 10, 150, 150);
 
 
         storeButton = new JButton();
@@ -31,7 +33,6 @@ public class GameFrameStuff extends JFrame implements ActionListener {
 
 
 
-
         this.add(storeButton);
         this.setVisible(true);
     }
@@ -39,5 +40,9 @@ public class GameFrameStuff extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        if (e.getSource() == storeButton) {
+            GamePanel.pause = true;
+            ShopFrame shopFrame = new ShopFrame();
+        }
     }
 }

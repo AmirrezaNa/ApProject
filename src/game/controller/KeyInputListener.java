@@ -10,6 +10,7 @@ import java.util.Set;
 public class KeyInputListener implements KeyListener {
 
     Set<Integer> pressedKeys = new HashSet<>();
+
     @Override
     public void keyTyped(KeyEvent e) {
 
@@ -27,7 +28,6 @@ public class KeyInputListener implements KeyListener {
     }
 
 
-
     // this method is for checking which keys are being pressed at every moment ================================
     public void handleKeyPressedCombination() {
         if (pressedKeys.size() == 1) {
@@ -36,14 +36,23 @@ public class KeyInputListener implements KeyListener {
             }
             else if (pressedKeys.contains(KeyEvent.VK_DOWN)) {
                 GameController.ball.y += GameController.ball.dy;
-            }else if (pressedKeys.contains(KeyEvent.VK_LEFT)) {
+            }
+            else if (pressedKeys.contains(KeyEvent.VK_LEFT)) {
                 GameController.ball.x -= GameController.ball.dx;
             }
             else if (pressedKeys.contains(KeyEvent.VK_RIGHT)) {
                 GameController.ball.x += GameController.ball.dx;
             }
-        }
-        else {
+            else if (pressedKeys.contains(KeyEvent.VK_E)) {
+
+            }
+            else if (pressedKeys.contains(KeyEvent.VK_B)) {
+                Impact.banishImpact(GameController.ball.x, GameController.ball.y, GameController.ball.x, GameController.ball.y);
+            }
+            else if (pressedKeys.contains(KeyEvent.VK_H)) {
+
+            }
+        } else {
             if (pressedKeys.contains(KeyEvent.VK_UP) && pressedKeys.contains(KeyEvent.VK_RIGHT)) {
                 GameController.ball.x += GameController.ball.dx;
                 GameController.ball.y -= GameController.ball.dy;
@@ -53,7 +62,7 @@ public class KeyInputListener implements KeyListener {
             } else if (pressedKeys.contains(KeyEvent.VK_DOWN) && pressedKeys.contains(KeyEvent.VK_LEFT)) {
                 GameController.ball.x -= GameController.ball.dx;
                 GameController.ball.y += GameController.ball.dy;
-            }else if (pressedKeys.contains(KeyEvent.VK_DOWN) && pressedKeys.contains(KeyEvent.VK_RIGHT)) {
+            } else if (pressedKeys.contains(KeyEvent.VK_DOWN) && pressedKeys.contains(KeyEvent.VK_RIGHT)) {
                 GameController.ball.x += GameController.ball.dx;
                 GameController.ball.y += GameController.ball.dy;
             }
@@ -62,7 +71,6 @@ public class KeyInputListener implements KeyListener {
     }
 
     //==============================================================================
-
 
 
 }

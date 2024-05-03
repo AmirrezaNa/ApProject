@@ -1,5 +1,6 @@
 package game.frame;
 
+import game.entity.BallDirection;
 import game.entity.BulletModel;
 import game.controller.GameController;
 import game.entity.BallModel;
@@ -20,10 +21,12 @@ public class GamePanel extends JPanel implements Runnable {
 
 
     public static BallModel ball;
+    public static BallDirection ballDirection;
     public static EnemyModel1 enemy1;
     public static EnemyModel2 enemy2;
     KeyInputListener keyInputListener;
     MouseInputListener mouseInputListener;
+    public static boolean pause;
 
     GamePanel() {
         initPanel();
@@ -34,6 +37,8 @@ public class GamePanel extends JPanel implements Runnable {
         //changeGamePanelSize();
         this.setBackground(Color.BLACK);
         ball = GameController.newBall();
+        GameController.newPlayer();
+        ballDirection = GameController.createBallDirection();
         enemy1 = GameController.setTimerForEnemy1();
         enemy2 = GameController.setTimerForEnemy2();
 
@@ -42,6 +47,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.addKeyListener(keyInputListener);
         mouseInputListener = new MouseInputListener();
         this.addMouseListener(mouseInputListener);
+        this.addMouseMotionListener(mouseInputListener);
         this.setFocusable(true);
         this.requestFocusInWindow();
         this.setVisible(true);
@@ -51,6 +57,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void run() {
 
         while (GameFrame.GameIsRunning) {
+
 
             update();
 
@@ -66,15 +73,19 @@ public class GamePanel extends JPanel implements Runnable {
                 throw new RuntimeException(e);
             }
         }
+
     }
 
 
     public static void update() {
-        GameController.updateTheBall();
-        GameController.updateBullet();
-        GameController.checkCollisions();
-        GameController.updateEnemy1();
-        GameController.updateEnemy2();
+        if (!pause) {
+            GameController.updateTheBall();
+            GameController.updateBallDirection();
+            GameController.updateBullet();
+            GameController.checkCollisions();
+            GameController.updateEnemy1();
+            GameController.updateEnemy2();
+        }
     }
 
 
@@ -123,6 +134,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         drawBall(g);
+        drawBallDirection(g);
         drawBullet(g);
         drawEnemy1(g);
         drawEnemy2(g);
@@ -133,9 +145,17 @@ public class GamePanel extends JPanel implements Runnable {
     public static void drawBall(Graphics g) {
         if (ball != null) {
             g.setColor(new Color(0x1C8F09));
-            g.fillOval((int) ball.x, (int) ball.y, BallModel.ballRadius, BallModel.ballRadius);
+            g.fillOval((int) ball.x - BallModel.ballRadius, (int) ball.y - BallModel.ballRadius,
+                    2 * BallModel.ballRadius, 2 * BallModel.ballRadius);
         }
 
+    }
+
+    public static void drawBallDirection(Graphics g) {
+        if (ballDirection != null) {
+            g.setColor(new Color(0x132F46));
+            g.fillOval((int) (ballDirection.x - 5), (int) (ballDirection.y - 5), 10, 10);
+        }
     }
 
     public static void drawBullet(Graphics g) {
@@ -154,7 +174,7 @@ public class GamePanel extends JPanel implements Runnable {
         if (!GameController.enemies1.isEmpty()) {
             for (EnemyModel1 enemy1 : GameController.enemies1) {
                 if (enemy1.enemyHealth > 0) {
-                    Polygon polygon = new Polygon(new int[]{(int)enemy1.xAngles[0], (int) enemy1.xAngles[1], (int) enemy1.xAngles[2], (int) enemy1.xAngles[3]},
+                    Polygon polygon = new Polygon(new int[]{(int) enemy1.xAngles[0], (int) enemy1.xAngles[1], (int) enemy1.xAngles[2], (int) enemy1.xAngles[3]},
                             new int[]{(int) enemy1.yAngles[0], (int) enemy1.yAngles[1], (int) enemy1.yAngles[2], (int) enemy1.yAngles[3]}, 4);
                     g2d.setColor(new Color(0xD71111));
                     g2d.setStroke(new BasicStroke(2));

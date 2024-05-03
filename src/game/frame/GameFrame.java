@@ -1,8 +1,10 @@
 package game.frame;
 
 
+import GameOver.GameOverFrame;
 import game.controller.GameController;
 import game.controller.Rotation;
+import startPage.StartPageFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,14 +20,15 @@ public class GameFrame extends JFrame {
     public static int y = 50;
     GamePanel gamePanel;
     static boolean GameIsRunning = true;
-    Rotation rotation;
+    GameFrameStuff gameFrameStuff;
 
     public GameFrame() {
+        GamePanel.pause = false;
         GamePanel.closeAllWindows();
         // after minimizing all windows setting the state to normal prevents minimizing the game frame
         this.setState(JFrame.NORMAL);
         gamePanel = new GamePanel();
-        GameFrameStuff gameFrameStuff = new GameFrameStuff();
+        gameFrameStuff = new GameFrameStuff();
 
 
         Thread thread = new Thread(gamePanel);
@@ -45,6 +48,7 @@ public class GameFrame extends JFrame {
 
     int count = 0;
     public static boolean countDown = true;
+
     public void countToTenSeconds() {
 
         if (countDown) {
@@ -69,6 +73,7 @@ public class GameFrame extends JFrame {
     }
 
     Timer timer;
+
     public void changeGameFrameSize() {
         if (!countDown) {
             // this timer reduces the frame size ========================================
@@ -76,8 +81,9 @@ public class GameFrame extends JFrame {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    checkGameOver();
 
-                    if (width > 300) {
+                    if (width > 300 && !GamePanel.pause) {
                         // reduce width gradually
                         x += 1;
                         width -= 2;
@@ -85,7 +91,7 @@ public class GameFrame extends JFrame {
                         gamePanel.revalidate();
                         gamePanel.repaint();
                     }
-                    if (height > 300) {
+                    if (height > 300 && !GamePanel.pause) {
                         // reduce height gradually
                         y += 1;
                         height -= 2;
@@ -135,6 +141,17 @@ public class GameFrame extends JFrame {
             // ==========================================================================
         }
 
+    }
+
+    public void checkGameOver() {
+        if (GameController.ball != null) {
+            if (GameController.ball.HP <= 0) {
+                gameFrameStuff.dispose();
+                this.dispose();
+                GameController.restartGame();
+                GameOverFrame gameOverFrame = new GameOverFrame();
+            }
+        }
     }
 
 }

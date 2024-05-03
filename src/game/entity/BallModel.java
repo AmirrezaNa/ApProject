@@ -9,15 +9,13 @@ public class BallModel {
     public double ax = 0;
     public double ay = 0;
     public static double ballAcceleration;
-    public final static int ballRadius = 40;
-    public int XP;
+    public final static int ballRadius = 20;
     public int HP;
 
     public BallModel(double x, double y) {
         this.x = x;
         this.y = y;
         ballAcceleration = 3;
-        this.XP = 0;
         this.HP = 100;
     }
 }
