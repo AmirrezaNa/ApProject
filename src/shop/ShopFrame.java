@@ -20,7 +20,7 @@ public class ShopFrame extends JFrame implements ActionListener {
     ShopPanel shopPanel;
 
     public ShopFrame() {
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setUndecorated(true);
         this.setSize(WIDTH, HEIGHT);
         this.setLocationRelativeTo(null);
         this.setResizable(false);

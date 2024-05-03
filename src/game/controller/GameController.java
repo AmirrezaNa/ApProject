@@ -189,10 +189,10 @@ public class GameController {
             Empower--;
         }
         if (!GameController.bullets.isEmpty()) {
-            for (BulletModel bullet : GameController.bullets) {
-                if (bullet.bulletHealth > 0) {
-                    bullet.x += bullet.dx;
-                    bullet.y += bullet.dy;
+            for (int i = 0; i < bullets.size(); i++) {
+                if (bullets.get(i).bulletHealth > 0) {
+                    bullets.get(i).x += bullets.get(i).dx;
+                    bullets.get(i).y += bullets.get(i).dy;
                 }
             }
         }
@@ -412,13 +412,13 @@ public class GameController {
 
     public static void setDirectionForEnemy1() {
         if (!GameController.enemies1.isEmpty()) {
-            for (EnemyModel1 enemy : GameController.enemies1) {
-                if (enemy.enemyHealth > 0) {
-                    enemy.dx = -((enemy.x - (ball.x + (ball.ballRadius / 2))) / Math.sqrt(Math.pow((enemy.x - (ball.x + ((double) ball.ballRadius / 2))), 2) + Math.pow((enemy.y - (ball.y + ((double) ball.ballRadius / 2))), 2))) * EnemyModel1.enemySpeed;
-                    if (ball.y < enemy.y) {
-                        enemy.dy = -Math.sqrt(Math.pow(EnemyModel1.enemySpeed, 2) - Math.pow(enemy.dx, 2));
+            for (int i = 0; i < enemies1.size(); i++) {
+                if (enemies1.get(i).enemyHealth > 0) {
+                    enemies1.get(i).dx = -((enemies1.get(i).x - ball.x) / Math.sqrt(Math.pow((enemies1.get(i).x - ball.x), 2) + Math.pow((enemies1.get(i).y - ball.y), 2))) * EnemyModel1.enemySpeed;
+                    if (ball.y < enemies1.get(i).y) {
+                        enemies1.get(i).dy = -Math.sqrt(Math.pow(EnemyModel1.enemySpeed, 2) - Math.pow(enemies1.get(i).dx, 2));
                     } else {
-                        enemy.dy = Math.sqrt(Math.pow(EnemyModel1.enemySpeed, 2) - Math.pow(enemy.dx, 2));
+                        enemies1.get(i).dy = Math.sqrt(Math.pow(EnemyModel1.enemySpeed, 2) - Math.pow(enemies1.get(i).dx, 2));
                     }
                 }
             }
@@ -427,13 +427,13 @@ public class GameController {
 
     public static void setDirectionForEnemy2() {
         if (!GameController.enemies2.isEmpty()) {
-            for (EnemyModel2 enemy : GameController.enemies2) {
-                if (enemy.enemyHealth > 0) {
-                    enemy.dx = -((enemy.x - (ball.x + (ball.ballRadius / 2))) / Math.sqrt(Math.pow((enemy.x - (ball.x + ((double) ball.ballRadius / 2))), 2) + Math.pow((enemy.y - (ball.y + ((double) ball.ballRadius / 2))), 2))) * EnemyModel2.enemySpeed;
-                    if (ball.y < enemy.y) {
-                        enemy.dy = -Math.sqrt(Math.pow(EnemyModel2.enemySpeed, 2) - Math.pow(enemy.dx, 2));
+            for (int i = 0; i < enemies2.size(); i++) {
+                if (enemies2.get(i).enemyHealth > 0) {
+                    enemies2.get(i).dx = -((enemies2.get(i).x - ball.x) / Math.sqrt(Math.pow((enemies2.get(i).x - ball.x), 2) + Math.pow((enemies2.get(i).y - ball.y), 2))) * EnemyModel2.enemySpeed;
+                    if (ball.y < enemies2.get(i).y) {
+                        enemies2.get(i).dy = -Math.sqrt(Math.pow(EnemyModel2.enemySpeed, 2) - Math.pow(enemies2.get(i).dx, 2));
                     } else {
-                        enemy.dy = Math.sqrt(Math.pow(EnemyModel2.enemySpeed, 2) - Math.pow(enemy.dx, 2));
+                        enemies2.get(i).dy = Math.sqrt(Math.pow(EnemyModel2.enemySpeed, 2) - Math.pow(enemies2.get(i).dx, 2));
                     }
                 }
             }
@@ -444,29 +444,29 @@ public class GameController {
     public static void updateEnemy1() {
         setDirectionForEnemy1();
         if (!GameController.enemies1.isEmpty()) {
-            for (EnemyModel1 enemy : GameController.enemies1) {
-                if (enemy.enemyHealth > 0) {
-                    if (enemy.dash) {
-                        enemy.x += 2 * (enemy.dx + enemy.ax);
-                        enemy.y += 2 * (enemy.dy + enemy.ay);
+            for (int i = 0; i < enemies1.size(); i++) {
+                if (enemies1.get(i).enemyHealth > 0) {
+                    if (enemies1.get(i).dash) {
+                        enemies1.get(i).x += 2 * (enemies1.get(i).dx + enemies1.get(i).ax);
+                        enemies1.get(i).y += 2 * (enemies1.get(i).dy + enemies1.get(i).ay);
                     }
-                    if (!enemy.dash) {
-                        enemy.x += enemy.dx + enemy.ax;
-                        enemy.y += enemy.dy + enemy.ay;
+                    if (!enemies1.get(i).dash) {
+                        enemies1.get(i).x += enemies1.get(i).dx + enemies1.get(i).ax;
+                        enemies1.get(i).y += enemies1.get(i).dy + enemies1.get(i).ay;
                     }
 
-                    if (enemy.ax != 0) {
-                        if (enemy.ax > 0) {
-                            enemy.ax -= 0.05;
+                    if (enemies1.get(i).ax != 0) {
+                        if (enemies1.get(i).ax > 0) {
+                            enemies1.get(i).ax -= 0.05;
                         } else {
-                            enemy.ax += 0.05;
+                            enemies1.get(i).ax += 0.05;
                         }
                     }
-                    if (enemy.ay != 0) {
-                        if (enemy.ay > 0) {
-                            enemy.ay -= 0.05;
+                    if (enemies1.get(i).ay != 0) {
+                        if (enemies1.get(i).ay > 0) {
+                            enemies1.get(i).ay -= 0.05;
                         } else {
-                            enemy.ay += 0.05;
+                            enemies1.get(i).ay += 0.05;
                         }
                     }
                     Rotation.enemy1Rotation();
@@ -479,30 +479,30 @@ public class GameController {
     public static void updateEnemy2() {
         setDirectionForEnemy2();
         if (!GameController.enemies2.isEmpty()) {
-            for (EnemyModel2 enemy : GameController.enemies2) {
-                if (enemy.enemyHealth > 0) {
-                    double epsilonDistance = Math.sqrt(Math.pow(Math.abs(enemy.x - ball.x), 2) + Math.pow(Math.abs(enemy.y - ball.y), 2));
+            for (int i = 0; i < enemies2.size(); i++) {
+                if (enemies2.get(i).enemyHealth > 0) {
+                    double epsilonDistance = Math.sqrt(Math.pow(Math.abs(enemies2.get(i).x - ball.x), 2) + Math.pow(Math.abs(enemies2.get(i).y - ball.y), 2));
                     if (epsilonDistance > 100) {
-                        enemy.x += 2 * (enemy.dx + enemy.ax);
-                        enemy.y += 2 * (enemy.dy + enemy.ay);
+                        enemies2.get(i).x += 2 * (enemies2.get(i).dx + enemies2.get(i).ax);
+                        enemies2.get(i).y += 2 * (enemies2.get(i).dy + enemies2.get(i).ay);
                     }
                     if (epsilonDistance <= 100) {
-                        enemy.x += enemy.dx + enemy.ax;
-                        enemy.y += enemy.dy + enemy.ay;
+                        enemies2.get(i).x += enemies2.get(i).dx + enemies2.get(i).ax;
+                        enemies2.get(i).y += enemies2.get(i).dy + enemies2.get(i).ay;
                     }
 
-                    if (enemy.ax != 0) {
-                        if (enemy.ax > 0) {
-                            enemy.ax -= 0.05;
+                    if (enemies2.get(i).ax != 0) {
+                        if (enemies2.get(i).ax > 0) {
+                            enemies2.get(i).ax -= 0.05;
                         } else {
-                            enemy.ax += 0.05;
+                            enemies2.get(i).ax += 0.05;
                         }
                     }
-                    if (enemy.ay != 0) {
-                        if (enemy.ay > 0) {
-                            enemy.ay -= 0.05;
+                    if (enemies2.get(i).ay != 0) {
+                        if (enemies2.get(i).ay > 0) {
+                            enemies2.get(i).ay -= 0.05;
                         } else {
-                            enemy.ay += 0.05;
+                            enemies2.get(i).ay += 0.05;
                         }
                     }
                     Rotation.enemy2Rotation();

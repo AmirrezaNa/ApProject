@@ -12,6 +12,6 @@ public class Player {
         this.XP = 0;
         this.writOfAres = false;
         this.writOfAceso = false;
-        this.writOfProteus = true;
+        this.writOfProteus = false;
     }
 }

@@ -2,14 +2,18 @@ package game.frame;
 
 
 import GameOver.GameOverFrame;
+import game.DataManager;
 import game.controller.GameController;
 import game.controller.Rotation;
+import startPage.EnterNamePage;
 import startPage.StartPageFrame;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.TimerTask;
 
 public class GameFrame extends JFrame {
@@ -44,6 +48,7 @@ public class GameFrame extends JFrame {
         setBounds(x, y, width, height);
         this.setVisible(true);
         countToTenSeconds();
+        check();
     }
 
     int count = 0;
@@ -81,7 +86,11 @@ public class GameFrame extends JFrame {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    checkGameOver();
+                    try {
+                        checkGameOver();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
 
                     if (width > 300 && !GamePanel.pause) {
                         // reduce width gradually
@@ -143,12 +152,34 @@ public class GameFrame extends JFrame {
 
     }
 
-    public void checkGameOver() {
+
+    public void check() {
+        Timer timer1 = new Timer(100, new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    checkGameOver();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
+        timer1.start();
+
+    }
+
+    public void checkGameOver() throws IOException {
         if (GameController.ball != null) {
             if (GameController.ball.HP <= 0) {
                 gameFrameStuff.dispose();
                 this.dispose();
                 GameController.restartGame();
+                if (DataManager.checkPlayerExists(EnterNamePage.player.name)) {
+                    DataManager.updatePlayerData();
+                } else {
+                    DataManager.createPlayerData(EnterNamePage.player);
+                }
                 GameOverFrame gameOverFrame = new GameOverFrame();
             }
         }

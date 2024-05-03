@@ -35,7 +35,6 @@ public class GamePanel extends JPanel implements Runnable {
         GameFrame.GameIsRunning = true;
         //changeGamePanelSize();
         this.setBackground(Color.BLACK);
-        EnterNamePage.newPlayer();
         ball = GameController.newBall();
         ballDirection = GameController.createBallDirection();
         ballAngle = GameController.createBallAngle();

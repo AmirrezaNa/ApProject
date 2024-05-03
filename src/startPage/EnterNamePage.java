@@ -1,13 +1,13 @@
 package startPage;
 
+import game.DataManager;
 import game.Player;
-import game.controller.GameController;
-import game.frame.GameFrame;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 
 public class EnterNamePage extends JFrame implements ActionListener {
     final int WIDTH = 350;
@@ -54,7 +54,15 @@ public class EnterNamePage extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == startButton) {
-            name = nameField.getText();
+            newPlayer();
+            player.name = nameField.getText();
+            try {
+                if (DataManager.checkPlayerExists(player.name)) {
+                    DataManager.loadPlayerData(player.name);
+                }
+            } catch (FileNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
             this.dispose();
             StartPageFrame startPageFrame = new StartPageFrame();
         }
@@ -62,6 +70,5 @@ public class EnterNamePage extends JFrame implements ActionListener {
 
     public static void newPlayer() {
         player = new Player();
-        EnterNamePage.player.name = name;
     }
 }
