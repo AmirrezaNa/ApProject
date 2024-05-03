@@ -111,7 +111,7 @@ public class GameFrame extends JFrame {
                     if (GameController.enemies1.size() + GameController.enemies2.size() == 10) {
                         countDown = true;
                         ((Timer) e.getSource()).stop(); // Stop the timer
-                        Timer delayTimer = new Timer(15000, new ActionListener() {
+                        Timer delayTimer = new Timer(20000, new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
                                 gamePanel.revalidate();
@@ -128,7 +128,7 @@ public class GameFrame extends JFrame {
                     if (GameController.enemies1.size() + GameController.enemies2.size() == 25) {
                         countDown = true;
                         ((Timer) e.getSource()).stop(); // Stop the timer
-                        Timer delayTimer2 = new Timer(15000, new ActionListener() {
+                        Timer delayTimer2 = new Timer(20000, new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
                                 gamePanel.revalidate();
