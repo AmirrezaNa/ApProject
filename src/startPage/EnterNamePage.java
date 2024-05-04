@@ -2,6 +2,7 @@ package startPage;
 
 import game.DataManager;
 import game.Player;
+import game.SoundEffects;
 
 import javax.swing.*;
 import java.awt.*;

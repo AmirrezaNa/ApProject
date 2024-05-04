@@ -1,5 +1,6 @@
 package startPage;
 
+import game.SoundEffects;
 import game.controller.Rotation;
 import game.frame.GameFrame;
 import game.frame.GameFrame;

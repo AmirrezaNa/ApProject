@@ -1,5 +1,6 @@
 package game.controller;
 
+import game.SoundEffects;
 import game.entity.BallAngle;
 import game.entity.BallModel;
 import game.entity.BulletModel;
@@ -452,6 +453,7 @@ public class Collision {
                     }
                     if (angleCollided) {
                         GameController.ball.HP -= 6;
+                        SoundEffects.playSound("hurt.wav");
                     }
 
                     GameController.enemies1.get(k).dash = false;
@@ -512,6 +514,7 @@ public class Collision {
                     }
                     if (angleCollided) {
                         GameController.ball.HP -= 10;
+                        SoundEffects.playSound("hurt.wav");
                     }
                     GameController.enemies2.get(k).dAngle = Math.PI;
                     Impact.turnOnImpact(GameController.ball.x,
@@ -570,7 +573,9 @@ public class Collision {
                                 if (!GameController.bulletAres) {
                                     GameController.enemies1.get(k).enemyHealth -= 5;
                                 }
+                                SoundEffects.playSound("hurt.wav");
                                 if (GameController.enemies1.get(k).enemyHealth <= 0) {
+                                    SoundEffects.playSound("hit.wav");
                                     GameController.newCollectible(GameController.enemies1.get(k).x, GameController.enemies1.get(k).y);
                                 }
                                 Impact.turnOnImpact(GameController.bullets.get(j).x + ((double) BulletModel.bulletSize / 2),
@@ -628,7 +633,9 @@ public class Collision {
                                 if (!GameController.bulletAres) {
                                     GameController.enemies2.get(k).enemyHealth -= 5;
                                 }
+                                SoundEffects.playSound("hurt.wav");
                                 if (GameController.enemies2.get(k).enemyHealth <= 0) {
+                                    SoundEffects.playSound("hit.wav");
                                     GameController.newCollectible(GameController.enemies2.get(k).x, GameController.enemies2.get(k).y);
                                     GameController.newCollectible(GameController.enemies2.get(k).x + Collectible.collectibleSize, GameController.enemies2.get(k).y + Collectible.collectibleSize);
                                 }
@@ -722,6 +729,10 @@ public class Collision {
                         GameController.enemies1.get(k).dash = false;
                         GameController.enemies1.get(k).dAngle = Math.PI;
                         GameController.enemies1.get(k).enemyHealth -= 10;
+                        SoundEffects.playSound("hurt.wav");
+                        if (GameController.enemies1.get(k).enemyHealth <= 0) {
+                            SoundEffects.playSound("hit.wav");
+                        }
                         Impact.turnOnImpact(GameController.ball.x,
                                 GameController.ball.y,
                                 GameController.enemies1.get(k).x,
@@ -773,6 +784,10 @@ public class Collision {
 
                         GameController.enemies2.get(k).dAngle = Math.PI;
                         GameController.enemies2.get(k).enemyHealth -= 10;
+                        SoundEffects.playSound("hurt.wav");
+                        if (GameController.enemies2.get(k).enemyHealth <= 0) {
+                            SoundEffects.playSound("hit.wav");
+                        }
                         Impact.turnOnImpact(GameController.ball.x,
                                 GameController.ball.y,
                                 GameController.enemies2.get(k).x,

@@ -1,5 +1,6 @@
 package game.controller;
 
+import game.SoundEffects;
 import game.entity.*;
 import game.entity.enemy.EnemyModel1;
 import game.entity.enemy.EnemyModel2;
@@ -385,9 +386,11 @@ public class GameController {
         if (!GamePanel.pause) {
 
             if (enemies1.size() % 2 == 0) {
+                SoundEffects.playSound("enemyEnter.wav");
                 enemy1 = new EnemyModel1(50, (double) GameFrame.height / 2);
                 enemies1.add(0, enemy1);
             } else {
+                SoundEffects.playSound("enemyEnter.wav");
                 enemy1 = new EnemyModel1((double) GameFrame.width / 2, 50);
                 enemy1.dash = true;
                 enemies1.add(0, enemy1);
@@ -399,9 +402,11 @@ public class GameController {
         if (!GamePanel.pause) {
 
             if (enemies2.size() % 2 == 0) {
+                SoundEffects.playSound("enemyEnter.wav");
                 enemy2 = new EnemyModel2((double) GameFrame.width - 60, (double) GameFrame.height / 2);
                 enemies2.add(0, enemy2);
             } else {
+                SoundEffects.playSound("enemyEnter.wav");
                 enemy2 = new EnemyModel2(((double) GameFrame.width / 2), GameFrame.height - 60);
                 enemies2.add(0, enemy2);
             }

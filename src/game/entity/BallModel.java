@@ -9,7 +9,7 @@ public class BallModel {
     public double ax = 0;
     public double ay = 0;
     public static double ballAcceleration;
-    public final static int ballRadius = 20;
+    public static int ballRadius = 20;
     public int HP;
 
     public BallModel(double x, double y) {
