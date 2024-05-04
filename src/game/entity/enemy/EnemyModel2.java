@@ -12,7 +12,7 @@ public class EnemyModel2 {
     public static double enemyAcceleration;
     public double[] xAngles;
     public double[] yAngles;
-    public int enemy2Size = 30;
+    public static int enemy2Size = 30;
     public double angle;
     public double dAngle;
 

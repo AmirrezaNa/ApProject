@@ -580,6 +580,11 @@ public class GameController {
         bullets.clear();
         collectibles.clear();
         ball.HP = 100;
+        GameFrame.count = 0;
+        GameFrame.x = 300;
+        GameFrame.y = 50;
+        GameFrame.width = 600;
+        GameFrame.height = 600;
     }
 
 

@@ -10,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 
+import static game.SoundEffects.playSong;
+
 public class EnterNamePage extends JFrame implements ActionListener {
     final int WIDTH = 350;
     final int HEIGHT = 550;

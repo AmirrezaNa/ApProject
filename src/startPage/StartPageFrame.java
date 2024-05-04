@@ -4,12 +4,15 @@ import game.SoundEffects;
 import game.controller.Rotation;
 import game.frame.GameFrame;
 import game.frame.GameFrame;
+import settings.SettingsFrame;
 import skillTree.SkillTreeFrame;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import static game.SoundEffects.playSong;
 
 public class StartPageFrame extends JFrame implements ActionListener {
 
@@ -102,6 +105,10 @@ public class StartPageFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == startButton) {
+            Thread soundThread = new Thread(() -> {
+                playSong("gameSong.wav");
+            });
+            soundThread.start();
             this.dispose();
             SwingUtilities.invokeLater(() -> {
                 GameFrame gameFrame = new GameFrame();
@@ -115,7 +122,8 @@ public class StartPageFrame extends JFrame implements ActionListener {
 
         }
         if (e.getSource() == settingsButton) {
-
+            this.dispose();
+            SettingsFrame settingsFrame = new SettingsFrame();
         }
         if (e.getSource() == exitButton) {
             System.exit(0);

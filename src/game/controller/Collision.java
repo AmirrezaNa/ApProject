@@ -6,6 +6,7 @@ import game.entity.BallModel;
 import game.entity.BulletModel;
 import game.entity.Collectible;
 import game.frame.GameFrame;
+import settings.SettingsPanel;
 import startPage.EnterNamePage;
 
 public class Collision {
@@ -452,7 +453,16 @@ public class Collision {
                         }
                     }
                     if (angleCollided) {
-                        GameController.ball.HP -= 6;
+                        if (SettingsPanel.level == 1) {
+                            GameController.ball.HP -= 4;
+                        }
+                        if (SettingsPanel.level == 2) {
+                            GameController.ball.HP -= 6;
+                        }
+                        if (SettingsPanel.level == 3) {
+                            GameController.ball.HP -= 8;
+                        }
+
                         SoundEffects.playSound("hurt.wav");
                     }
 
@@ -513,7 +523,15 @@ public class Collision {
                         }
                     }
                     if (angleCollided) {
-                        GameController.ball.HP -= 10;
+                        if (SettingsPanel.level == 1) {
+                            GameController.ball.HP -= 8;
+                        }
+                        if (SettingsPanel.level == 2) {
+                            GameController.ball.HP -= 10;
+                        }
+                        if (SettingsPanel.level == 2) {
+                            GameController.ball.HP -= 12;
+                        }
                         SoundEffects.playSound("hurt.wav");
                     }
                     GameController.enemies2.get(k).dAngle = Math.PI;

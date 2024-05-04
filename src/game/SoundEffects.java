@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class SoundEffects {
+    public static double volume = 0.5;
     public static void playSound(String soundFilePath) {
         File soundFile = new File(soundFilePath);
         if (!soundFile.exists()) {
@@ -16,6 +17,7 @@ public class SoundEffects {
             Clip clip = AudioSystem.getClip();
             clip.open(audioIn);
             clip.start();
+            setVolume(clip, volume);
         } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
             e.printStackTrace();
         }
@@ -38,4 +40,15 @@ public class SoundEffects {
             e.printStackTrace();
         }
     }
+
+    public static void setVolume(Clip clip, double volume) {
+        if (volume < 0.0 || volume > 1.0) {
+            throw new IllegalArgumentException("Volume should be between 0.0 and 1.0");
+        }
+
+        FloatControl control = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+        float dB = (float) (Math.log(volume) / Math.log(10.0) * 20.0);
+        control.setValue(dB);
+    }
+
 }

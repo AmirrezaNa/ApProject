@@ -54,7 +54,7 @@ public class GameFrame extends JFrame {
         check();
     }
 
-    int count = 0;
+    public static int count = 0;
     public static boolean countDown = true;
 
     public void countToTenSeconds() {
@@ -179,11 +179,13 @@ public class GameFrame extends JFrame {
 
     public void checkGameOver() throws IOException {
         if (GameController.ball != null) {
-            if (GameController.ball.HP <= -1000) {
+            if (GameController.ball.HP <= 0) {
                 gameFrameStuff.dispose();
                 GamePanel.pause = true;
                 this.dispose();
                 GameController.restartGame();
+                gamePanel.revalidate();
+                gamePanel.repaint();
                 if (DataManager.checkPlayerExists(EnterNamePage.player.name)) {
                     DataManager.updatePlayerData();
                 } else {
@@ -263,22 +265,22 @@ public class GameFrame extends JFrame {
 
     public void displayWinnerWindow() {
         if (GameController.ball != null) {
-            if (GameController.ball.HP >= 0) {
-                gameFrameStuff.dispose();
-                GamePanel.pause = true;
-                GameController.restartGame();
-                try {
-                    if (DataManager.checkPlayerExists(EnterNamePage.player.name)) {
-                        DataManager.updatePlayerData();
-                    } else {
-                        DataManager.createPlayerData(EnterNamePage.player);
-                    }
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
+            gameFrameStuff.dispose();
+            GamePanel.pause = true;
+            GameController.restartGame();
+            gamePanel.revalidate();
+            gamePanel.repaint();
+            try {
+                if (DataManager.checkPlayerExists(EnterNamePage.player.name)) {
+                    DataManager.updatePlayerData();
+                } else {
+                    DataManager.createPlayerData(EnterNamePage.player);
                 }
-                SoundEffects.playSound("winnerSound.wav");
-                WinnerFrame winnerFrame = new WinnerFrame();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
             }
+            SoundEffects.playSound("winnerSound.wav");
+            WinnerFrame winnerFrame = new WinnerFrame();
         }
     }
 
