@@ -26,7 +26,7 @@ public class SettingsPanel extends JPanel implements ChangeListener {
         this.setLayout(null);
 
 
-        volume = new JSlider(0, 100, 50);
+        volume = new JSlider(0, 100, (int) (100 * SoundEffects.volume));
         volume.setBounds(70, 80, 200, 30);
         volume.setPaintTicks(true);
         volume.setMinorTickSpacing(10);
@@ -37,7 +37,7 @@ public class SettingsPanel extends JPanel implements ChangeListener {
 
 
 
-        gameLevel = new JSlider(1, 3, 2);
+        gameLevel = new JSlider(1, 3, level);
         gameLevel.setBounds(70, 180, 200, 30);
         gameLevel.setPaintTicks(true);
         gameLevel.setMinorTickSpacing(1);
@@ -49,7 +49,7 @@ public class SettingsPanel extends JPanel implements ChangeListener {
 
 
 
-        sensitivity = new JSlider(1, 3, 2);
+        sensitivity = new JSlider(1, 3, sense);
         sensitivity.setBounds(70, 280, 200, 30);
         sensitivity.setPaintTicks(true);
         sensitivity.setMinorTickSpacing(1);
