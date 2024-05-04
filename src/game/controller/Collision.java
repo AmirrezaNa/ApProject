@@ -674,25 +674,36 @@ public class Collision {
 
 
     public static void checkCollisionBallCollectible() {
-
         double xMin1 = GameController.ball.x - BallModel.ballRadius;
         double xMax1 = GameController.ball.x + BallModel.ballRadius;
         double yMin1 = GameController.ball.y - BallModel.ballRadius;
         double yMax1 = GameController.ball.y + BallModel.ballRadius;
+        if (SettingsPanel.level == 1) {
+            xMin1 = GameController.ball.x - ((double) (BallModel.ballRadius * 3) /2);
+            xMax1 = GameController.ball.x + ((double) (BallModel.ballRadius * 3) /2);
+            yMin1 = GameController.ball.y - ((double) (BallModel.ballRadius * 3) /2);
+            yMax1 = GameController.ball.y + ((double) (BallModel.ballRadius * 3) /2);
+        }
+
         if (!GameController.collectibles.isEmpty()) {
             for (int i = 0; i < GameController.collectibles.size(); i++) {
                 if (GameController.collectibles.get(i).collectibleHealth > 0) {
-
                     double xMin2 = GameController.collectibles.get(i).x;
                     double xMax2 = GameController.collectibles.get(i).x + Collectible.collectibleSize;
                     double yMin2 = GameController.collectibles.get(i).y;
                     double yMax2 = GameController.collectibles.get(i).y + Collectible.collectibleSize;
 
-                    if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
-                            || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
-                            || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
-                            || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
+                    if (SettingsPanel.level == 1) {
+                        xMin2 = GameController.collectibles.get(i).x - (Collectible.collectibleSize/2);
+                        xMax2 = GameController.collectibles.get(i).x + (Collectible.collectibleSize * 3/2);
+                        yMin2 = GameController.collectibles.get(i).y - (Collectible.collectibleSize/2);
+                        yMax2 = GameController.collectibles.get(i).y + (Collectible.collectibleSize * 3/2);
+                    }
 
+                    if (((xMin2 >= xMin1 && xMin2 <= xMax1) && (yMin2 >= yMin1 && yMin2 <= yMax1))
+                            || ((xMin2 <= xMin1 && xMax2 >= xMin1) && (yMin2 >= yMin1 && yMin2 <= yMax1))
+                            || ((xMin2 >= xMin1 && xMin2 <= xMax1) && (yMax2 >= yMin1 && yMax2 <= yMax1))
+                            || ((xMin2 <= xMin1 && xMax2 >= xMin1) && (yMax2 >= yMin1 && yMax2 <= yMax1))) {
                         GameController.collectibles.get(i).collectibleHealth = 0;
                         EnterNamePage.player.XP += 5;
 

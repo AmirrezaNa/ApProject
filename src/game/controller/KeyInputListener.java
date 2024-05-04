@@ -24,11 +24,6 @@ public class KeyInputListener implements KeyListener {
     public static int writOfProteusKey = KeyEvent.VK_P;
 
 
-
-
-
-
-
     @Override
     public void keyTyped(KeyEvent e) {
 

@@ -16,21 +16,13 @@ public class KeyBindingFrame  extends JFrame implements ActionListener , KeyList
     KeyBindingPanel keyBindingPanel;
 
     JTextField up;
-    boolean upKey;
     JTextField down;
-    boolean downKey;
     JTextField left;
-    boolean leftKey;
     JTextField right;
-    boolean rightKey;
     JTextField banish;
-    boolean banishKey;
     JTextField writOfAres;
-    boolean writOfAresKey;
     JTextField writOfAceso;
-    boolean writOfAcesoKey;
     JTextField writOfProteus;
-    boolean writOfProteusKey;
 
     public KeyBindingFrame() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,7 +33,7 @@ public class KeyBindingFrame  extends JFrame implements ActionListener , KeyList
         getContentPane().setBackground(Color.BLACK);
 
 
-        up = new JTextField();
+        up = new JTextField(KeyEvent.getKeyText(KeyInputListener.upKey).charAt(0));
         up.setBounds(135, 30, 170, 40);
         up.setFont(new Font("Consolas", Font.PLAIN, 17));
         up.setForeground(Color.BLACK);
@@ -51,7 +43,7 @@ public class KeyBindingFrame  extends JFrame implements ActionListener , KeyList
 
 
 
-        down = new JTextField();
+        down = new JTextField(KeyEvent.getKeyText(KeyInputListener.downKey).charAt(0));
         down.setBounds(135, 80, 170, 40);
         down.setFont(new Font("Consolas", Font.PLAIN, 17));
         down.setForeground(Color.BLACK);
@@ -63,7 +55,7 @@ public class KeyBindingFrame  extends JFrame implements ActionListener , KeyList
 
 
 
-        left = new JTextField();
+        left = new JTextField(KeyEvent.getKeyText(KeyInputListener.leftKey).charAt(0));
         left.setBounds(135, 130, 170, 40);
         left.setFont(new Font("Consolas", Font.PLAIN, 17));
         left.setForeground(Color.BLACK);
@@ -74,7 +66,7 @@ public class KeyBindingFrame  extends JFrame implements ActionListener , KeyList
 
 
 
-        right = new JTextField();
+        right = new JTextField(KeyEvent.getKeyText(KeyInputListener.rightKey).charAt(0));
         right.setBounds(135, 180, 170, 40);
         right.setFont(new Font("Consolas", Font.PLAIN, 17));
         right.setForeground(Color.BLACK);
@@ -86,7 +78,7 @@ public class KeyBindingFrame  extends JFrame implements ActionListener , KeyList
 
 
 
-        banish = new JTextField();
+        banish = new JTextField(KeyEvent.getKeyText(KeyInputListener.banishKey).charAt(0));
         banish.setBounds(135, 230, 170, 40);
         banish.setFont(new Font("Consolas", Font.PLAIN, 17));
         banish.setForeground(Color.BLACK);
@@ -98,7 +90,7 @@ public class KeyBindingFrame  extends JFrame implements ActionListener , KeyList
 
 
 
-        writOfAres = new JTextField();
+        writOfAres = new JTextField(KeyEvent.getKeyText(KeyInputListener.writOfAresKey).charAt(0));
         writOfAres.setBounds(135, 280, 170, 40);
         writOfAres.setFont(new Font("Consolas", Font.PLAIN, 17));
         writOfAres.setForeground(Color.BLACK);
@@ -110,7 +102,7 @@ public class KeyBindingFrame  extends JFrame implements ActionListener , KeyList
 
 
 
-        writOfAceso = new JTextField();
+        writOfAceso = new JTextField(KeyEvent.getKeyText(KeyInputListener.writOfAcesoKey).charAt(0));
         writOfAceso.setBounds(135, 330, 170, 40);
         writOfAceso.setFont(new Font("Consolas", Font.PLAIN, 17));
         writOfAceso.setForeground(Color.BLACK);
@@ -122,7 +114,7 @@ public class KeyBindingFrame  extends JFrame implements ActionListener , KeyList
 
 
 
-        writOfProteus = new JTextField();
+        writOfProteus = new JTextField(KeyEvent.getKeyText(KeyInputListener.writOfProteusKey).charAt(0));
         writOfProteus.setBounds(135, 380, 170, 40);
         writOfProteus.setFont(new Font("Consolas", Font.PLAIN, 17));
         writOfProteus.setForeground(Color.BLACK);
