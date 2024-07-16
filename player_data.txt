@@ -1,4 +1,0 @@
-
-Mohammad,85,false,false,false
-Amir,5,false,false,false
-Name,50,false,false,false
