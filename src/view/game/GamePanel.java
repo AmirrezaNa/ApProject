@@ -24,8 +24,6 @@ import java.awt.event.KeyEvent;
 
 
 public class GamePanel extends JPanel implements Runnable {
-    GameController gameController = new GameController();
-    WaveController waveController = new WaveController();
 
 
     public static BallModel ball;
@@ -45,11 +43,11 @@ public class GamePanel extends JPanel implements Runnable {
         GameFrame.GameIsRunning = true;
         //changeGamePanelSize();
         this.setBackground(Color.BLACK);
-        ball = gameController.newBall();
-        ballDirection = gameController.createBallDirection();
-        ballAngle = gameController.createBallAngle();
-        waveController.setTimerForEnemy1();
-        waveController.setTimerForEnemy2();
+        ball = GameController.newBall();
+        ballDirection = GameController.createBallDirection();
+        ballAngle = GameController.createBallAngle();
+        enemy1 = WaveController.setTimerForEnemy1();
+        enemy2 = WaveController.setTimerForEnemy2();
 
         changeGamePanelSize();
         keyInputListener = new KeyInputListener();
@@ -85,26 +83,17 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
 
-    BallController ballController = new BallController();
-    BallDirectionController ballDirectionController = new BallDirectionController();
-    BallAngleController ballAngleController = new BallAngleController();
-    BulletController bulletController = new BulletController();
-    ObjectCollision objectCollision = new ObjectCollision();
-    FrameCollision frameCollision = new FrameCollision();
-    Enemy1Controller enemy1Controller = new Enemy1Controller();
-    Enemy2Controller enemy2Controller = new Enemy2Controller();
 
-
-    public void update() {
+    public static void update() {
         if (!pause) {
-            ballController.updateTheBall();
-            ballDirectionController.updateBallDirection();
-            ballAngleController.updateBallAngle();
-            bulletController.updateBullet();
-            objectCollision.checkObjectsCollisions();
-            frameCollision.checkFrameCollisions();
-            enemy1Controller.updateEnemy1();
-            enemy2Controller.updateEnemy2();
+            BallController.updateTheBall();
+            BallDirectionController.updateBallDirection();
+            BallAngleController.updateBallAngle();
+            BulletController.updateBullet();
+            FrameCollision.checkFrameCollisions();
+            ObjectCollision.checkObjectsCollisions();
+            Enemy1Controller.updateEnemy1();
+            Enemy2Controller.updateEnemy2();
         }
     }
 
@@ -163,63 +152,62 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
 
-    public void drawBall(Graphics g) {
-        if (gameController.getBall() != null) {
+    public static void drawBall(Graphics g) {
+        if (ball != null) {
             g.setColor(new Color(0x1C8F09));
-            g.fillOval((int) gameController.getBall().getX() - BallModel.getBallRadius(), (int) gameController.getBall().getY() - BallModel.getBallRadius(),
-                    2 * BallModel.getBallRadius(), 2 * BallModel.getBallRadius());
+            g.fillOval((int) ball.x - BallModel.ballRadius, (int) ball.y - BallModel.ballRadius,
+                    2 * BallModel.ballRadius, 2 * BallModel.ballRadius);
         }
 
     }
 
-    public void drawBallDirection(Graphics g) {
-        if (gameController.getBallDirection() != null) {
+    public static void drawBallDirection(Graphics g) {
+        if (ballDirection != null) {
             g.setColor(new Color(0x132F46));
-            g.fillOval((int) (gameController.getBallDirection().getX() - 5), (int) (gameController.getBallDirection().getY() - 5), 10, 10);
+            g.fillOval((int) (ballDirection.x - 5), (int) (ballDirection.y - 5), 10, 10);
         }
     }
 
-    public void drawBallAngle(Graphics g) {
-        if (gameController.getBallAngle() != null) {
-            if (ballAngle.isAngleExists()) {
+    public static void drawBallAngle(Graphics g) {
+        if (ballAngle != null) {
+            if (ballAngle.angleExists) {
                 g.setColor(new Color(0xE5E5E5));
-                g.fillOval((int) (gameController.getBallAngle().getX() - BallAngle.getBallAngleRadius()),
-                        (int) (gameController.getBallAngle().getY() - BallAngle.getBallAngleRadius()),
-                        2 * BallAngle.getBallAngleRadius(),
-                        2 * BallAngle.getBallAngleRadius());
+                g.fillOval((int) (ballAngle.x - BallAngle.ballAngleRadius),
+                        (int) (ballAngle.y - BallAngle.ballAngleRadius),
+                        2 * BallAngle.ballAngleRadius,
+                        2 * BallAngle.ballAngleRadius);
             }
         }
     }
 
-    public void drawBullet(Graphics g) {
-        if (!gameController.getBullets().isEmpty()) {
-            for (int i = 0; i < gameController.getBullets().size(); i++) {
-                if (gameController.getBullets().get(i).getBulletHealth() > 0) {
+    public static void drawBullet(Graphics g) {
+        if (!GameController.bullets.isEmpty()) {
+            for (int i = 0; i < GameController.bullets.size(); i++) {
+                if (GameController.bullets.get(i).bulletHealth > 0) {
                     g.setColor(new Color(0xEF8506));
-                    g.fillOval((int) gameController.getBullets().get(i).getX(),
-                            (int) gameController.getBullets().get(i).getY(),
-                            BulletModel.getBulletSize(),
-                            BulletModel.getBulletSize());
+                    g.fillOval((int) GameController.bullets.get(i).x,
+                            (int) GameController.bullets.get(i).y,
+                            BulletModel.bulletSize,
+                            BulletModel.bulletSize);
                 }
             }
         }
     }
 
-    public void drawEnemy1(Graphics g) {
+    public static void drawEnemy1(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        if (!gameController.getEnemies1().isEmpty()) {
-            for (int i = 0; i < gameController.getEnemies1().size(); i++) {
-                EnemyModel1 enemy = gameController.getEnemies1().get(i);
-                if (enemy.getEnemyHealth() > 0) {
+        if (!GameController.enemies1.isEmpty()) {
+            for (int i = 0; i < GameController.enemies1.size(); i++) {
+                if (GameController.enemies1.get(i).enemyHealth > 0) {
                     Polygon polygon = new Polygon(
-                            new int[]{(int) enemy.getxAngles()[0],
-                                    (int) enemy.getxAngles()[1],
-                                    (int) enemy.getxAngles()[2],
-                                    (int) enemy.getxAngles()[3]},
-                            new int[]{(int) enemy.getyAngles()[0],
-                                    (int) enemy.getyAngles()[1],
-                                    (int) enemy.getyAngles()[2],
-                                    (int) enemy.getyAngles()[3]},
+                            new int[]{(int) GameController.enemies1.get(i).xAngles[0],
+                                    (int) GameController.enemies1.get(i).xAngles[1],
+                                    (int) GameController.enemies1.get(i).xAngles[2],
+                                    (int) GameController.enemies1.get(i).xAngles[3]},
+                            new int[]{(int) GameController.enemies1.get(i).yAngles[0],
+                                    (int) GameController.enemies1.get(i).yAngles[1],
+                                    (int) GameController.enemies1.get(i).yAngles[2],
+                                    (int) GameController.enemies1.get(i).yAngles[3]},
                             4);
                     g2d.setColor(new Color(0xD71111));
                     g2d.setStroke(new BasicStroke(2));
@@ -229,19 +217,18 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    public void drawEnemy2(Graphics g) {
+    public static void drawEnemy2(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        if (!gameController.getEnemies2().isEmpty()) {
-            for (int i = 0; i < gameController.getEnemies2().size(); i++) {
-                EnemyModel2 enemy = gameController.getEnemies2().get(i);
-                if (enemy.getEnemyHealth() > 0) {
+        if (!GameController.enemies2.isEmpty()) {
+            for (int i = 0; i < GameController.enemies2.size(); i++) {
+                if (GameController.enemies2.get(i).enemyHealth > 0) {
                     Polygon polygon = new Polygon(
-                            new int[]{(int) enemy.getxAngles()[0],
-                                    (int) enemy.getxAngles()[1],
-                                    (int) enemy.getxAngles()[2]},
-                            new int[]{(int) enemy.getyAngles()[0],
-                                    (int) enemy.getyAngles()[1],
-                                    (int) enemy.getyAngles()[2]},
+                            new int[]{(int) GameController.enemies2.get(i).xAngles[0],
+                                    (int) GameController.enemies2.get(i).xAngles[1],
+                                    (int) GameController.enemies2.get(i).xAngles[2]},
+                            new int[]{(int) GameController.enemies2.get(i).yAngles[0],
+                                    (int) GameController.enemies2.get(i).yAngles[1],
+                                    (int) GameController.enemies2.get(i).yAngles[2]},
                             3);
                     g2d.setColor(new Color(0x0271D7));
                     g2d.setStroke(new BasicStroke(2));
@@ -252,17 +239,16 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    public void drawCollectible(Graphics g) {
+    public static void drawCollectible(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        if (!gameController.getCollectibles().isEmpty()) {
-            for (int i = 0; i < gameController.getCollectibles().size(); i++) {
-                Collectible collectible = gameController.getCollectibles().get(i);
-                if (collectible.getCollectibleHealth() > 0) {
+        if (!GameController.collectibles.isEmpty()) {
+            for (int i = 0; i < GameController.collectibles.size(); i++) {
+                if (GameController.collectibles.get(i).collectibleHealth > 0) {
                     g2d.setColor(new Color(0xFFCF0F));
-                    g2d.fillOval((int) collectible.getX(),
-                            (int) collectible.getY(),
-                            (int) Collectible.getCollectibleSize(),
-                            (int) Collectible.getCollectibleSize());
+                    g2d.fillOval((int) GameController.collectibles.get(i).x,
+                            (int) GameController.collectibles.get(i).y,
+                            (int) Collectible.collectibleSize,
+                            (int) Collectible.collectibleSize);
                 }
             }
         }

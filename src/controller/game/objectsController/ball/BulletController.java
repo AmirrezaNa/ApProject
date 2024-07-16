@@ -7,30 +7,32 @@ import view.game.GamePanel;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static controller.game.GameController.Empower;
+import static controller.game.GameController.bullets;
+
 public class BulletController {
     GameController gameController = new GameController();
 
 
-    public void updateBullet() {
-        if (gameController.getEmpower() == 1) {
+    public static void updateBullet() {
+        if (Empower == 1) {
             empowerBullet();
-            gameController.setEmpower(gameController.getEmpower()-1);
+            Empower--;
         }
-        if (!gameController.getBullets().isEmpty()) {
-            for (int i = 0; i < gameController.getBullets().size(); i++) {
-                BulletModel bullet = gameController.getBullets().get(i);
-                if (bullet.getBulletHealth() > 0) {
-                    bullet.setX(bullet.getX() + bullet.getDx());
-                    bullet.setY(bullet.getY() + bullet.getDy());
+        if (!bullets.isEmpty()) {
+            for (int i = 0; i < bullets.size(); i++) {
+                if (bullets.get(i).bulletHealth > 0) {
+                    bullets.get(i).x += bullets.get(i).dx;
+                    bullets.get(i).y += bullets.get(i).dy;
                 }
             }
         }
     }
 
 
-    public void empowerBullet() {
+    public static void empowerBullet() {
         if (!GamePanel.pause) {
-            gameController.setEmpowerBullet(true);
+            GameController.empowerBullet = true;
             Timer timer = new Timer();
             int[] countDownEmpower = {10};
             TimerTask task = new TimerTask() {
@@ -38,8 +40,9 @@ public class BulletController {
                 public void run() {
                     if (countDownEmpower[0] > 0) {
                         countDownEmpower[0]--;
+                        System.out.println("hi");
                     } else {
-                        gameController.setEmpowerBullet(false);
+                        GameController.empowerBullet = false;
                         timer.cancel();
                     }
                 }

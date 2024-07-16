@@ -1,5 +1,6 @@
 package view.settings;
 
+import controller.Constants;
 import view.GameOver.GameOverFrame;
 import controller.data.controller.SoundEffects;
 import model.entity.BallModel;
@@ -21,7 +22,7 @@ public class SettingsPanel extends JPanel implements ChangeListener {
 
     SettingsPanel() {
         this.setBackground(Color.BLACK);
-        this.setSize(GameOverFrame.WIDTH, GameOverFrame.HEIGHT);
+        this.setSize(Constants.WIDTH, Constants.HEIGHT);
         this.setLayout(null);
 
 
@@ -82,17 +83,17 @@ public class SettingsPanel extends JPanel implements ChangeListener {
 
     public void changeGameData() {
         if (level == 1) {
-            BallModel.setBallRadius(10);
-            EnemyModel1.setEnemy1Size(40);
-            EnemyModel2.setEnemy2Size(40);
-            EnemyModel1.setEnemySpeed(0.2);
-            EnemyModel2.setEnemySpeed(0.2);
+            BallModel.ballRadius = 10;
+            EnemyModel1.enemy1Size = 40;
+            EnemyModel2.enemy2Size = 40;
+            EnemyModel1.enemySpeed = 0.2;
+            EnemyModel2.enemySpeed = 0.2;
         }
         if (level == 3) {
-            EnemyModel1.setEnemy1Size(20);
-            EnemyModel2.setEnemy2Size(20);
-            EnemyModel1.setEnemySpeed(0.6);
-            EnemyModel2.setEnemySpeed(0.6);
+            EnemyModel1.enemy1Size = 20;
+            EnemyModel2.enemy2Size = 20;
+            EnemyModel1.enemySpeed = 0.6;
+            EnemyModel2.enemySpeed = 0.6;
         }
     }
 }

@@ -1,5 +1,6 @@
 package view.gameWinner;
 
+import controller.Constants;
 import view.GameOver.GameOverFrame;
 import view.startPage.EnterNamePage;
 
@@ -9,7 +10,7 @@ import java.awt.*;
 public class WinnerPanel extends JPanel {
     WinnerPanel() {
         this.setBackground(Color.BLACK);
-        this.setSize(GameOverFrame.WIDTH, GameOverFrame.HEIGHT);
+        this.setSize(Constants.WIDTH, Constants.HEIGHT);
         this.setLayout(null);
         this.setVisible(true);
     }

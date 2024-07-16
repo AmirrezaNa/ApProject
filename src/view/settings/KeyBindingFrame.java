@@ -1,5 +1,6 @@
 package view.settings;
 
+import controller.Constants;
 import controller.game.listener.KeyInputListener;
 
 import javax.swing.*;
@@ -9,8 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KeyBindingFrame  extends JFrame implements ActionListener , KeyListener {
-    public static final int WIDTH = 350;
-    public static final int HEIGHT = 550;
+
     JButton ok;
     KeyBindingPanel keyBindingPanel;
 
@@ -25,7 +25,7 @@ public class KeyBindingFrame  extends JFrame implements ActionListener , KeyList
 
     public KeyBindingFrame() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(WIDTH, HEIGHT);
+        this.setSize(Constants.WIDTH, Constants.HEIGHT);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setLayout(null);

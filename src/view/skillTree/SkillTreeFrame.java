@@ -1,5 +1,6 @@
 package view.skillTree;
 
+import controller.Constants;
 import view.shop.ShopPanel;
 import view.startPage.EnterNamePage;
 import view.startPage.StartPageFrame;
@@ -11,8 +12,6 @@ import java.awt.event.ActionListener;
 
 public class SkillTreeFrame extends JFrame implements ActionListener {
 
-    public static final int WIDTH = 350;
-    public static final int HEIGHT = 550;
     JButton Menu;
     JButton writOfAres;
     JButton writOfAceso;
@@ -21,7 +20,7 @@ public class SkillTreeFrame extends JFrame implements ActionListener {
 
     public SkillTreeFrame() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(WIDTH, HEIGHT);
+        this.setSize(Constants.WIDTH, Constants.HEIGHT);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setLayout(null);

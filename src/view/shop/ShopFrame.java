@@ -1,5 +1,6 @@
 package view.shop;
 
+import controller.Constants;
 import controller.game.GameController;
 import view.game.GameFrame;
 import view.game.GamePanel;
@@ -12,8 +13,6 @@ import java.awt.event.ActionListener;
 
 public class ShopFrame extends JFrame implements ActionListener {
 
-    public static final int WIDTH = 350;
-    public static final int HEIGHT = 550;
     GameController gameController = new GameController();
     JButton Resume;
     JButton Banish;
@@ -23,7 +22,7 @@ public class ShopFrame extends JFrame implements ActionListener {
 
     public ShopFrame() {
         this.setUndecorated(true);
-        this.setSize(WIDTH, HEIGHT);
+        this.setSize(Constants.WIDTH, Constants.HEIGHT);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setLayout(null);
@@ -87,7 +86,7 @@ public class ShopFrame extends JFrame implements ActionListener {
         }
         if (e.getSource() == Banish) {
             if (EnterNamePage.player.getXP() >= 100) {
-                gameController.setBanish(gameController.getBanish()+1);
+                GameController.Banish++;
                 EnterNamePage.player.setXP(EnterNamePage.player.getXP()-100);
             }
             else {
@@ -96,7 +95,7 @@ public class ShopFrame extends JFrame implements ActionListener {
         }
         if (e.getSource() == Empower) {
             if (EnterNamePage.player.getXP() >= 75) {
-                gameController.setEmpower(gameController.getEmpower()+1);
+                GameController.Empower++;
                 EnterNamePage.player.setXP(EnterNamePage.player.getXP()-75);
             }
             else {
@@ -105,7 +104,7 @@ public class ShopFrame extends JFrame implements ActionListener {
         }
         if (e.getSource() == Heal) {
             if (EnterNamePage.player.getXP() >= 50) {
-                gameController.getBall().setHP(gameController.getBall().getHP()+10);
+                GameController.ball.HP += 10;
                 EnterNamePage.player.setXP(EnterNamePage.player.getXP()-50);
             }
             else {

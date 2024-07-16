@@ -1,5 +1,7 @@
 package view.startPage;
 
+import controller.Constants;
+import controller.HandleFramesThread;
 import view.game.GameFrame;
 import view.settings.SettingsFrame;
 import view.skillTree.SkillTreeFrame;
@@ -13,8 +15,7 @@ import static controller.data.controller.SoundEffects.playSong;
 
 public class StartPageFrame extends JFrame implements ActionListener {
 
-    final int WIDTH = 350;
-    final int HEIGHT = 550;
+
     JButton startButton;
     JButton skillTreeButton;
     JButton guideButton;
@@ -23,13 +24,11 @@ public class StartPageFrame extends JFrame implements ActionListener {
 
     public StartPageFrame() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(WIDTH, HEIGHT);
+        this.setSize(Constants.WIDTH, Constants.HEIGHT);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setLayout(null);
         getContentPane().setBackground(Color.BLACK);
-
-
 
 
         startButton = new JButton();
@@ -42,7 +41,6 @@ public class StartPageFrame extends JFrame implements ActionListener {
         startButton.setBorder(BorderFactory.createEtchedBorder());
 
 
-
         skillTreeButton = new JButton();
         skillTreeButton.setFocusable(false);
         skillTreeButton.setBackground(new Color(0x8F0404));
@@ -51,8 +49,6 @@ public class StartPageFrame extends JFrame implements ActionListener {
         skillTreeButton.setBounds(175, 125, 100, 50);
         skillTreeButton.addActionListener(this);
         skillTreeButton.setBorder(BorderFactory.createEtchedBorder());
-
-
 
 
         guideButton = new JButton();
@@ -65,8 +61,6 @@ public class StartPageFrame extends JFrame implements ActionListener {
         guideButton.setBorder(BorderFactory.createEtchedBorder());
 
 
-
-
         settingsButton = new JButton();
         settingsButton.setFocusable(false);
         settingsButton.setBackground(new Color(0x8F0404));
@@ -75,7 +69,6 @@ public class StartPageFrame extends JFrame implements ActionListener {
         settingsButton.setBounds(175, 295, 100, 50);
         settingsButton.addActionListener(this);
         settingsButton.setBorder(BorderFactory.createEtchedBorder());
-
 
 
         exitButton = new JButton();
@@ -88,7 +81,6 @@ public class StartPageFrame extends JFrame implements ActionListener {
         exitButton.setBorder(BorderFactory.createEtchedBorder());
 
 
-
         this.add(startButton);
         this.add(skillTreeButton);
         this.add(guideButton);
@@ -98,18 +90,20 @@ public class StartPageFrame extends JFrame implements ActionListener {
 
     }
 
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == startButton) {
             Thread soundThread = new Thread(() -> {
-                playSong("E:\\java projects\\ApProjectPhase1\\src\\controller\\data\\store\\gameSong.wav");
+                playSong(Constants.GAME_SONG_PATH);
             });
             soundThread.start();
             this.dispose();
-            SwingUtilities.invokeLater(() -> {
-                GameFrame gameFrame = new GameFrame();
-            });
+            HandleFramesThread handleFramesThread = new HandleFramesThread();
+            Thread thread = new Thread(handleFramesThread);
+            thread.start();
+
         }
         if (e.getSource() == skillTreeButton) {
             this.dispose();

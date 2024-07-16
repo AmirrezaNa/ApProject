@@ -5,27 +5,25 @@ import controller.game.listener.MouseInputListener;
 import model.entity.BallModel;
 
 import static view.game.GamePanel.ball;
+import static view.game.GamePanel.ballDirection;
 
 public class BallDirectionController {
 
     GameController gameController = new GameController();
 
-    public void updateBallDirection() {
-        if (gameController.getBall() != null) {
-            BallModel ball = gameController.getBall();
+    public static void updateBallDirection() {
 
-            double x1 = ball.getX();
-            double y1 = ball.getY();
-            double x2 = MouseInputListener.x;
-            double y2 = MouseInputListener.y;
-            double deltaX = x2 - x1;
-            double deltaY = y2 - y1;
+        double x1 = ball.x;
+        double y1 = ball.y;
+        double x2 = MouseInputListener.x;
+        double y2 = MouseInputListener.y;
+        double deltaX = x2 - x1;
+        double deltaY = y2 - y1;
 
-            // Calculate the angle in radians
-            gameController.getBallDirection().setAngle(Math.atan2(deltaY, deltaX));
-            gameController.getBallDirection().setX(ball.getX() + (10 * Math.cos(gameController.getBallDirection().getAngle())));
-            gameController.getBallDirection().setY(ball.getY() + (10 * Math.sin(gameController.getBallDirection().getAngle())));
-        }
+        // Calculate the angle in radians
+        ballDirection.angle = Math.atan2(deltaY, deltaX);
+        ballDirection.x = ball.x + (10 * Math.cos(ballDirection.angle));
+        ballDirection.y = ball.y + (10 * Math.sin(ballDirection.angle));
     }
 }
 

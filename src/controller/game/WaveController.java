@@ -7,6 +7,8 @@ import model.entity.enemy.EnemyModel2;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static controller.game.GameController.*;
+
 public class WaveController {
     GameController gameController = new GameController();
 
@@ -14,17 +16,17 @@ public class WaveController {
     // ========================== creating wave1 enemies ================================
 
 
-    public void setTimerForEnemy1() {   // this method creates an enemy every 5 seconds
+    public static EnemyModel1 setTimerForEnemy1() {   // this method creates an enemy every 5 seconds
 
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (gameController.getEnemies1().size() + gameController.getEnemies2().size() <= 10) {
-                    gameController.newEnemy1();
+                if (enemies2.size() + enemies1.size() <= 10) {
+                    newEnemy1();
                 } else {
                     timer.cancel();
-                    gameController.setWave(gameController.getWave()+1);
+                    wave++;
                     setTimerForEnemy1wave2();
                 }
 
@@ -32,16 +34,17 @@ public class WaveController {
         };
         timer.scheduleAtFixedRate(task, 10000, 5000);
 
+        return enemy1;
     }
 
-    public void setTimerForEnemy2() {   // this method creates an enemy every 5 seconds
+    public static EnemyModel2 setTimerForEnemy2() {   // this method creates an enemy every 5 seconds
 
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (gameController.getEnemies1().size() + gameController.getEnemies2().size() <= 10) {
-                    gameController.newEnemy2();
+                if (enemies1.size() + enemies2.size() <= 10) {
+                    newEnemy2();
                 } else {
                     timer.cancel();
                     setTimerForEnemy2wave2();
@@ -51,23 +54,24 @@ public class WaveController {
         };
         timer.scheduleAtFixedRate(task, 12500, 5000);
 
+        return enemy2;
     }
 
 
     // =========================== creating wave2 enemies =======================================
 
-    public EnemyModel1 setTimerForEnemy1wave2() {   // this method creates an enemy every 5 seconds
+    public static EnemyModel1 setTimerForEnemy1wave2() {   // this method creates an enemy every 5 seconds
 
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (gameController.getEnemies1().size() + gameController.getEnemies2().size() <= 25) {
+                if (enemies2.size() + enemies1.size() <= 25) {
                     GameFrame.countDown = false;
-                    gameController.newEnemy1();
+                    newEnemy1();
                 } else {
                     timer.cancel();
-                    gameController.setWave(gameController.getWave()+1);
+                    wave++;
                     setTimerForEnemy1wave3();
                 }
 
@@ -75,18 +79,18 @@ public class WaveController {
         };
         timer.scheduleAtFixedRate(task, 15000, 5000);
 
-        return gameController.getEnemy1();
+        return enemy1;
     }
 
-    public EnemyModel2 setTimerForEnemy2wave2() {   // this method creates an enemy every 5 seconds
+    public static EnemyModel2 setTimerForEnemy2wave2() {   // this method creates an enemy every 5 seconds
 
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (gameController.getEnemies1().size() + gameController.getEnemies2().size() <= 25) {
+                if (enemies2.size() + enemies1.size() <= 25) {
                     GameFrame.countDown = false;
-                    gameController.newEnemy2();
+                    newEnemy2();
                 } else {
                     timer.cancel();
                     setTimerForEnemy2wave3();
@@ -96,43 +100,43 @@ public class WaveController {
         };
         timer.scheduleAtFixedRate(task, 17500, 5000);
 
-        return gameController.getEnemy2();
+        return enemy2;
     }
 
     // =========================== creating wave3 enemies =======================================
 
-    public EnemyModel1 setTimerForEnemy1wave3() {   // this method creates an enemy every 5 seconds
+    public static EnemyModel1 setTimerForEnemy1wave3() {   // this method creates an enemy every 5 seconds
 
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (gameController.getEnemies1().size() + gameController.getEnemies2().size() <= 45) {
+                if (enemies1.size() + enemies2.size() <= 45) {
                     GameFrame.countDown = false;
-                    gameController.newEnemy1();
+                    newEnemy1();
                 }
             }
         };
         timer.scheduleAtFixedRate(task, 15000, 5000);
 
-        return gameController.getEnemy1();
+        return enemy1;
     }
 
-    public EnemyModel2 setTimerForEnemy2wave3() {   // this method creates an enemy every 5 seconds
+    public static EnemyModel2 setTimerForEnemy2wave3() {   // this method creates an enemy every 5 seconds
 
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (gameController.getEnemies1().size() + gameController.getEnemies2().size() <= 45) {
+                if (enemies1.size() + enemies2.size() <= 45) {
                     GameFrame.countDown = false;
-                    gameController.newEnemy2();
+                    newEnemy2();
                 }
             }
 
         };
         timer.scheduleAtFixedRate(task, 17500, 5000);
 
-        return gameController.getEnemy2();
+        return enemy2;
     }
 }

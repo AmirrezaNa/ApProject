@@ -21,7 +21,7 @@ public class CollectibleController {
                 if (remainingSeconds > 0) {
                     remainingSeconds--;
                 } else {
-                    collectible1.setCollectibleHealth(0);
+                    collectible1.collectibleHealth = 0;
                     timer.cancel();
                 }
             }

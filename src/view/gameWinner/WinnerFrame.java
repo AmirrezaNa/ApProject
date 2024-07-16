@@ -1,5 +1,6 @@
 package view.gameWinner;
 
+import controller.Constants;
 import view.GameOver.GameOverPanel;
 import view.startPage.StartPageFrame;
 
@@ -10,14 +11,13 @@ import java.awt.event.ActionListener;
 
 public class WinnerFrame extends JFrame implements ActionListener {
 
-    public static final int WIDTH = 350;
-    public static final int HEIGHT = 550;
+
     JButton Menu;
     WinnerPanel winnerPanel;
 
     public WinnerFrame() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(WIDTH, HEIGHT);
+        this.setSize(Constants.WIDTH, Constants.HEIGHT);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setLayout(null);

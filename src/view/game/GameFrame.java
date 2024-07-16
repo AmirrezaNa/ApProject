@@ -1,6 +1,8 @@
 package view.game;
 
 
+import controller.Constants;
+import controller.game.GameRestart;
 import view.GameOver.GameOverFrame;
 import controller.data.controller.DataManager;
 import controller.data.controller.SoundEffects;
@@ -22,12 +24,10 @@ public class GameFrame extends JFrame {
     public static int x = 300;
     public static int y = 50;
     GamePanel gamePanel;
-    GameController gameController;
     static boolean GameIsRunning = true;
     GameFrameStuff gameFrameStuff;
 
     public GameFrame() {
-        gameController = new GameController();
         GamePanel.pause = false;
         GamePanel.closeAllWindows();
         // after minimizing all windows setting the state to normal prevents minimizing the game frame
@@ -109,9 +109,9 @@ public class GameFrame extends JFrame {
                         gamePanel.revalidate();
                         gamePanel.repaint();
                     }
-                    if (gameController.getEnemies1().size() + gameController.getEnemies2().size() == 10) {
+                    if (GameController.enemies1.size() + GameController.enemies2.size() == 10) {
                         countDown = true;
-                        SoundEffects.playSound("changeWave.wav");
+                        SoundEffects.playSound(Constants.CHANGE_WAVE_SOUND_PATH);
                         ((Timer) e.getSource()).stop(); // Stop the timer
                         Timer delayTimer = new Timer(20000, new ActionListener() {
                             @Override
@@ -127,9 +127,9 @@ public class GameFrame extends JFrame {
                         gamePanel.revalidate();
                         gamePanel.repaint();
                     }
-                    if (gameController.getEnemies1().size() + gameController.getEnemies2().size() == 25) {
+                    if (GameController.enemies1.size() + GameController.enemies2.size() == 25) {
                         countDown = true;
-                        SoundEffects.playSound("changeWave.wav");
+                        SoundEffects.playSound(Constants.CHANGE_WAVE_SOUND_PATH);
                         ((Timer) e.getSource()).stop(); // Stop the timer
                         Timer delayTimer2 = new Timer(20000, new ActionListener() {
                             @Override
@@ -176,12 +176,12 @@ public class GameFrame extends JFrame {
     }
 
     public void checkGameOver() throws IOException {
-        if (gameController.getBall() != null) {
-            if (gameController.getBall().getHP() <= 0) {
+        if (GameController.ball != null) {
+            if (GameController.ball.HP <= 0) {
                 gameFrameStuff.dispose();
                 GamePanel.pause = true;
                 this.dispose();
-                gameController.restartGame();
+                GameRestart.restartGame();
                 gamePanel.revalidate();
                 gamePanel.repaint();
                 if (DataManager.checkPlayerExists(EnterNamePage.player.getName())) {
@@ -189,26 +189,26 @@ public class GameFrame extends JFrame {
                 } else {
                     DataManager.createPlayerData(EnterNamePage.player);
                 }
-                SoundEffects.playSound("endSound.wav");
+                SoundEffects.playSound(Constants.END_SOUND_PATH);
                 GameOverFrame gameOverFrame = new GameOverFrame();
             }
         }
     }
 
     public void checkWinner() {
-        if (gameController.getBall() != null) {
+        if (GameController.ball != null) {
             boolean playerHasWon = true;
-            if (gameController.getEnemies1().size() + gameController.getEnemies2().size() < 35) {
+            if (GameController.enemies1.size() + GameController.enemies2.size() < 35) {
                 playerHasWon = false;
             }
-            if (gameController.getEnemies1().size() + gameController.getEnemies2().size() == 35) {
-                for (int i = 0; i < gameController.getEnemies1().size(); i++) {
-                    if (gameController.getEnemies1().get(i).getEnemyHealth() > 0) {
+            if (GameController.enemies1.size() + GameController.enemies2.size() == 35) {
+                for (int i = 0; i < GameController.enemies1.size(); i++) {
+                    if (GameController.enemies1.get(i).enemyHealth > 0) {
                         playerHasWon = false;
                     }
                 }
-                for (int j = 0; j < gameController.getEnemies2().size(); j++) {
-                    if (gameController.getEnemies2().get(j).getEnemyHealth() > 0) {
+                for (int j = 0; j < GameController.enemies2.size(); j++) {
+                    if (GameController.enemies2.get(j).enemyHealth > 0) {
                         playerHasWon = false;
                     }
                 }
@@ -234,7 +234,7 @@ public class GameFrame extends JFrame {
                     if (width >= 0) {
                         // reduce width gradually
                         x += 1;
-                        BallModel.setBallRadius(BallModel.getBallRadius()+1);
+                        BallModel.ballRadius++;
                         width -= 2;
                         setBounds(x, y, width, height);
                         gamePanel.revalidate();
@@ -242,7 +242,7 @@ public class GameFrame extends JFrame {
                     }
                     if (height >= 0) {
                         // reduce height gradually
-                        BallModel.setBallRadius(BallModel.getBallRadius()+1);
+                        BallModel.ballRadius++;
                         y += 1;
                         height -= 2;
                         setBounds(x, y, width, height);
@@ -262,10 +262,10 @@ public class GameFrame extends JFrame {
 
 
     public void displayWinnerWindow() {
-        if (gameController.getBall() != null) {
+        if (GameController.ball != null) {
             gameFrameStuff.dispose();
             GamePanel.pause = true;
-            gameController.restartGame();
+            GameRestart.restartGame();
             gamePanel.revalidate();
             gamePanel.repaint();
             try {
@@ -277,7 +277,7 @@ public class GameFrame extends JFrame {
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
-            SoundEffects.playSound("winnerSound.wav");
+            SoundEffects.playSound(Constants.WINNER_SOUND_PATH);
             WinnerFrame winnerFrame = new WinnerFrame();
         }
     }

@@ -1,5 +1,6 @@
 package view.skillTree;
 
+import controller.Constants;
 import view.GameOver.GameOverFrame;
 
 import javax.swing.*;
@@ -8,7 +9,7 @@ import java.awt.*;
 public class SkillTreePanel extends JPanel {
     SkillTreePanel() {
         this.setBackground(Color.BLACK);
-        this.setSize(GameOverFrame.WIDTH, GameOverFrame.HEIGHT);
+        this.setSize(Constants.WIDTH, Constants.HEIGHT);
         this.setLayout(null);
         this.setVisible(true);
     }

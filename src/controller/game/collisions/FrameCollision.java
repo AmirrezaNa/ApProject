@@ -11,11 +11,9 @@ import view.game.GameFrame;
 
 public class FrameCollision {
 
-    GameController gameController = new GameController();
-    Impact impact = new Impact();
 
 
-    public void checkFrameCollisions() {
+    public static void checkFrameCollisions() {
         if (!GamePanel.pause) {
             checkBulletHitFrame();
             checkBallCollisionToFrame();
@@ -25,153 +23,144 @@ public class FrameCollision {
     }
 
 
-    public  void checkBulletHitFrame() {
-        if (!gameController.getBullets().isEmpty()) {
-            for (int i = 0; i < gameController.getBullets().size(); i++) {
-                BulletModel bullet = gameController.getBullets().get(i);
-                if (bullet.getBulletHealth() > 0) {
+    public static void checkBulletHitFrame() {
+        if (!GameController.bullets.isEmpty()) {
+            for (int i = 0; i < GameController.bullets.size(); i++) {
+                if (GameController.bullets.get(i).bulletHealth > 0) {
 
-                    if (bullet.getX() > GameFrame.width) {
-                        bullet.setDx(0);
-                        bullet.setDy(0);
-                        bullet.setBulletHealth(0);
+                    if (GameController.bullets.get(i).x > GameFrame.width) {
+                        GameController.bullets.get(i).dx = 0;
+                        GameController.bullets.get(i).dy = 0;
+                        GameController.bullets.get(i).bulletHealth = 0;
                         if (!GameFrame.countDown) {
                             GameFrame.width += 20;
                             GameFrame.x += 5;
-                            impact.turnOnImpact(bullet.getX() + ((double) BulletModel.getBulletSize() / 2),
-                                    bullet.getY() + ((double) BulletModel.getBulletSize() / 2),
-                                    bullet.getX() + ((double) BulletModel.getBulletSize() / 2),
-                                    bullet.getY() + ((double) BulletModel.getBulletSize() / 2));
+                            Impact.turnOnImpact(GameController.bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
+                                    GameController.bullets.get(i).y + ((double) BulletModel.bulletSize / 2),
+                                    GameController.bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
+                                    GameController.bullets.get(i).y + ((double) BulletModel.bulletSize / 2));
                         }
 
-                    } else if (bullet.getY() > GameFrame.height) {
-                        bullet.setDx(0);
-                        bullet.setDy(0);
-                        bullet.setBulletHealth(0);
+                    } else if (GameController.bullets.get(i).y > GameFrame.height) {
+                        GameController.bullets.get(i).dx = 0;
+                        GameController.bullets.get(i).dy = 0;
+                        GameController.bullets.get(i).bulletHealth = 0;
                         if (!GameFrame.countDown) {
                             GameFrame.height += 20;
                             GameFrame.y += 5;
-                            impact.turnOnImpact(bullet.getX() + ((double) BulletModel.getBulletSize() / 2),
-                                    bullet.getY() + ((double) BulletModel.getBulletSize() / 2),
-                                    bullet.getX() + ((double) BulletModel.getBulletSize() / 2),
-                                    bullet.getY() + ((double) BulletModel.getBulletSize() / 2));
+                            Impact.turnOnImpact(GameController.bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
+                                    GameController.bullets.get(i).y + ((double) BulletModel.bulletSize / 2),
+                                    GameController.bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
+                                    GameController.bullets.get(i).y + ((double) BulletModel.bulletSize / 2));
                         }
 
-                    } else if (bullet.getX() < 0) {
-                        bullet.setDx(0);
-                        bullet.setDy(0);
-                        bullet.setBulletHealth(0);
+                    } else if (GameController.bullets.get(i).x < 0) {
+                        GameController.bullets.get(i).dx = 0;
+                        GameController.bullets.get(i).dy = 0;
+                        GameController.bullets.get(i).bulletHealth = 0;
                         if (!GameFrame.countDown) {
                             GameFrame.x -= 20;
                             GameFrame.width += 10;
-                            impact.turnOnImpact(bullet.getX() + ((double) BulletModel.getBulletSize() / 2),
-                                    bullet.getY() + ((double) BulletModel.getBulletSize() / 2),
-                                    bullet.getX() + ((double) BulletModel.getBulletSize() / 2),
-                                    bullet.getY() + ((double) BulletModel.getBulletSize() / 2));
+                            Impact.turnOnImpact(GameController.bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
+                                    GameController.bullets.get(i).y + ((double) BulletModel.bulletSize / 2),
+                                    GameController.bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
+                                    GameController.bullets.get(i).y + ((double) BulletModel.bulletSize / 2));
                         }
 
-                    } else if (bullet.getY() < 0) {
-                        bullet.setDx(0);
-                        bullet.setDy(0);
-                        bullet.setBulletHealth(0);
+                    } else if (GameController.bullets.get(i).y < 0) {
+                        GameController.bullets.get(i).dx = 0;
+                        GameController.bullets.get(i).dy = 0;
+                        GameController.bullets.get(i).bulletHealth = 0;
                         if (!GameFrame.countDown) {
                             GameFrame.y -= 20;
                             GameFrame.height += 10;
-                            impact.turnOnImpact(bullet.getX() + ((double) BulletModel.getBulletSize() / 2),
-                                    bullet.getY() + ((double) BulletModel.getBulletSize() / 2),
-                                    bullet.getX() + ((double) BulletModel.getBulletSize() / 2),
-                                    bullet.getY() + ((double) BulletModel.getBulletSize() / 2));
+                            Impact.turnOnImpact(GameController.bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
+                                    GameController.bullets.get(i).y + ((double) BulletModel.bulletSize / 2),
+                                    GameController.bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
+                                    GameController.bullets.get(i).y + ((double) BulletModel.bulletSize / 2));
                         }
 
                     }
 
                 }
-
-                gameController.getBullets().set(i, bullet);
             }
         }
     }
 
-    public void checkBallCollisionToFrame() {
-        if (gameController.getBall() != null) {
-
-            BallModel ball = gameController.getBall();
-
-            if (ball.getX() + BallModel.getBallRadius() >= GameFrame.width) {
-                impact.turnOnImpact(ball.getX() + BallModel.getBallRadius(),
-                        ball.getY(),
-                        ball.getX() + BallModel.getBallRadius(),
-                        ball.getY());
-            }
-            if (ball.getX() - BallModel.getBallRadius() <= 0) {
-                impact.turnOnImpact(ball.getX() - BallModel.getBallRadius(),
-                        ball.getY(),
-                        ball.getX() - BallModel.getBallRadius(),
-                        ball.getY());
-            }
-            if (ball.getY() + BallModel.getBallRadius() >= GameFrame.height) {
-                impact.turnOnImpact(ball.getX(),
-                        ball.getY() + BallModel.getBallRadius(),
-                        ball.getX(),
-                        ball.getY() + BallModel.getBallRadius());
-            }
-            if (ball.getY() - BallModel.getBallRadius() <= 0) {
-                impact.turnOnImpact(ball.getX(),
-                        ball.getY() - BallModel.getBallRadius(),
-                        ball.getX(),
-                        ball.getY() - BallModel.getBallRadius());
-            }
+    public static void checkBallCollisionToFrame() {
+        if (GameController.ball.x + BallModel.ballRadius >= GameFrame.width) {
+            Impact.turnOnImpact(GameController.ball.x + BallModel.ballRadius,
+                    GameController.ball.y,
+                    GameController.ball.x + BallModel.ballRadius,
+                    GameController.ball.y);
+        }
+        if (GameController.ball.x - BallModel.ballRadius <= 0) {
+            Impact.turnOnImpact(GameController.ball.x - BallModel.ballRadius,
+                    GameController.ball.y,
+                    GameController.ball.x - BallModel.ballRadius,
+                    GameController.ball.y);
+        }
+        if (GameController.ball.y + BallModel.ballRadius >= GameFrame.height) {
+            Impact.turnOnImpact(GameController.ball.x,
+                    GameController.ball.y + BallModel.ballRadius,
+                    GameController.ball.x,
+                    GameController.ball.y + BallModel.ballRadius);
+        }
+        if (GameController.ball.y - BallModel.ballRadius <= 0) {
+            Impact.turnOnImpact(GameController.ball.x,
+                    GameController.ball.y - BallModel.ballRadius,
+                    GameController.ball.x,
+                    GameController.ball.y - BallModel.ballRadius);
         }
     }
 
 
-    public void checkEnemy1CollisionToFrame() {
-        if (!gameController.getEnemies1().isEmpty()) {
-            for (int i = 0; i < gameController.getEnemies1().size(); i++) {
-                EnemyModel1 enemy1 = gameController.getEnemies1().get(i);
-                if (enemy1.getEnemyHealth() > 0) {
+    public static void checkEnemy1CollisionToFrame() {
+        if (!GameController.enemies1.isEmpty()) {
+            for (int i = 0; i < GameController.enemies1.size(); i++) {
+                if (GameController.enemies1.get(i).enemyHealth > 0) {
 
-                    double xMin1 = enemy1.getxAngles()[0];
-                    double xMax1 = enemy1.getxAngles()[0];
-                    double yMin1 = enemy1.getyAngles()[0];
-                    double yMax1 = enemy1.getyAngles()[0];
+                    double xMin1 = GameController.enemies1.get(i).xAngles[0];
+                    double xMax1 = GameController.enemies1.get(i).xAngles[0];
+                    double yMin1 = GameController.enemies1.get(i).yAngles[0];
+                    double yMax1 = GameController.enemies1.get(i).yAngles[0];
                     for (int j = 0; j < 4; j++) {
-                        if (enemy1.getxAngles()[j] < xMin1) {
-                            xMin1 = enemy1.getxAngles()[j];
+                        if (GameController.enemies1.get(i).xAngles[j] < xMin1) {
+                            xMin1 = GameController.enemies1.get(i).xAngles[j];
                         }
-                        if (enemy1.getxAngles()[j] > xMax1) {
-                            xMax1 = enemy1.getxAngles()[j];
+                        if (GameController.enemies1.get(i).xAngles[j] > xMax1) {
+                            xMax1 = GameController.enemies1.get(i).xAngles[j];
                         }
-                        if (enemy1.getyAngles()[j] < yMin1) {
-                            yMin1 = enemy1.getyAngles()[j];
+                        if (GameController.enemies1.get(i).yAngles[j] < yMin1) {
+                            yMin1 = GameController.enemies1.get(i).yAngles[j];
                         }
-                        if (enemy1.getyAngles()[j] > yMax1) {
-                            yMax1 = enemy1.getyAngles()[j];
+                        if (GameController.enemies1.get(i).yAngles[j] > yMax1) {
+                            yMax1 = GameController.enemies1.get(i).yAngles[j];
                         }
                     }
                     if (xMax1 >= GameFrame.width) {
-                        impact.turnOnImpact(enemy1.getX() + EnemyModel1.getEnemy1Size(),
-                                enemy1.getY(),
-                                enemy1.getX() + EnemyModel1.getEnemy1Size(),
-                                enemy1.getY());
+                        Impact.turnOnImpact(GameController.enemies1.get(i).x + GameController.enemies1.get(i).enemy1Size,
+                                GameController.enemies1.get(i).y,
+                                GameController.enemies1.get(i).x + GameController.enemies1.get(i).enemy1Size,
+                                GameController.enemies1.get(i).y);
                     }
                     if (xMin1 <= 0) {
-                        impact.turnOnImpact(enemy1.getX() - EnemyModel1.getEnemy1Size(),
-                                enemy1.getY(),
-                                enemy1.getX() - EnemyModel1.getEnemy1Size(),
-                                enemy1.getY());
+                        Impact.turnOnImpact(GameController.enemies1.get(i).x - GameController.enemies1.get(i).enemy1Size,
+                                GameController.enemies1.get(i).y,
+                                GameController.enemies1.get(i).x - GameController.enemies1.get(i).enemy1Size,
+                                GameController.enemies1.get(i).y);
                     }
                     if (yMax1 >= GameFrame.height) {
-                        impact.turnOnImpact(enemy1.getX(),
-                                enemy1.getY() + EnemyModel1.getEnemy1Size(),
-                                enemy1.getX(),
-                                enemy1.getY() + EnemyModel1.getEnemy1Size());
+                        Impact.turnOnImpact(GameController.enemies1.get(i).x,
+                                GameController.enemies1.get(i).y + GameController.enemies1.get(i).enemy1Size,
+                                GameController.enemies1.get(i).x,
+                                GameController.enemies1.get(i).y + GameController.enemies1.get(i).enemy1Size);
                     }
                     if (yMin1 <= 0) {
-                        impact.turnOnImpact(enemy1.getX(),
-                                enemy1.getY() - EnemyModel1.getEnemy1Size(),
-                                enemy1.getX(),
-                                enemy1.getY() - EnemyModel1.getEnemy1Size());
+                        Impact.turnOnImpact(GameController.enemies1.get(i).x,
+                                GameController.enemies1.get(i).y - GameController.enemies1.get(i).enemy1Size,
+                                GameController.enemies1.get(i).x,
+                                GameController.enemies1.get(i).y - GameController.enemies1.get(i).enemy1Size);
                     }
                 }
             }
@@ -179,53 +168,52 @@ public class FrameCollision {
     }
 
 
-    public void checkEnemy2CollisionToFrame() {
-        if (!gameController.getEnemies2().isEmpty()) {
-            for (int k = 0; k < gameController.getEnemies2().size(); k++) {
-                EnemyModel2 enemy2 = gameController.getEnemies2().get(k);
-                if (enemy2.getEnemyHealth() > 0) {
+    public static void checkEnemy2CollisionToFrame() {
+        if (!GameController.enemies2.isEmpty()) {
+            for (int k = 0; k < GameController.enemies2.size(); k++) {
+                if (GameController.enemies2.get(k).enemyHealth > 0) {
 
-                    double xMin2 = enemy2.getxAngles()[0];
-                    double xMax2 = enemy2.getxAngles()[0];
-                    double yMin2 = enemy2.getyAngles()[0];
-                    double yMax2 = enemy2.getyAngles()[0];
+                    double xMin2 = GameController.enemies2.get(k).xAngles[0];
+                    double xMax2 = GameController.enemies2.get(k).xAngles[0];
+                    double yMin2 = GameController.enemies2.get(k).yAngles[0];
+                    double yMax2 = GameController.enemies2.get(k).yAngles[0];
                     for (int i = 0; i < 3; i++) {
-                        if (enemy2.getxAngles()[i] < xMin2) {
-                            xMin2 = enemy2.getxAngles()[i];
+                        if (GameController.enemies2.get(k).xAngles[i] < xMin2) {
+                            xMin2 = GameController.enemies2.get(k).xAngles[i];
                         }
-                        if (enemy2.getxAngles()[i] > xMax2) {
-                            xMax2 = enemy2.getxAngles()[i];
+                        if (GameController.enemies2.get(k).xAngles[i] > xMax2) {
+                            xMax2 = GameController.enemies2.get(k).xAngles[i];
                         }
-                        if (enemy2.getyAngles()[i] < yMin2) {
-                            yMin2 = enemy2.getyAngles()[i];
+                        if (GameController.enemies2.get(k).yAngles[i] < yMin2) {
+                            yMin2 = GameController.enemies2.get(k).yAngles[i];
                         }
-                        if (enemy2.getyAngles()[i] > yMax2) {
-                            yMax2 = enemy2.getyAngles()[i];
+                        if (GameController.enemies2.get(k).yAngles[i] > yMax2) {
+                            yMax2 = GameController.enemies2.get(k).yAngles[i];
                         }
                     }
                     if (xMax2 >= GameFrame.width) {
-                        impact.turnOnImpact(enemy2.getX() + EnemyModel2.getEnemy2Size(),
-                                enemy2.getY(),
-                                enemy2.getX() + EnemyModel2.getEnemy2Size(),
-                                enemy2.getY());
+                        Impact.turnOnImpact(GameController.enemies2.get(k).x + GameController.enemies2.get(k).enemy2Size,
+                                GameController.enemies2.get(k).y,
+                                GameController.enemies2.get(k).x + GameController.enemies2.get(k).enemy2Size,
+                                GameController.enemies2.get(k).y);
                     }
                     if (xMin2 <= 0) {
-                        impact.turnOnImpact(enemy2.getX() - EnemyModel2.getEnemy2Size(),
-                                enemy2.getY(),
-                                enemy2.getX() - EnemyModel2.getEnemy2Size(),
-                                enemy2.getY());
+                        Impact.turnOnImpact(GameController.enemies2.get(k).x - GameController.enemies2.get(k).enemy2Size,
+                                GameController.enemies2.get(k).y,
+                                GameController.enemies2.get(k).x - GameController.enemies2.get(k).enemy2Size,
+                                GameController.enemies2.get(k).y);
                     }
                     if (yMax2 >= GameFrame.height) {
-                        impact.turnOnImpact(enemy2.getX(),
-                                enemy2.getY() + EnemyModel2.getEnemy2Size(),
-                                enemy2.getX(),
-                                enemy2.getY() + EnemyModel2.getEnemy2Size());
+                        Impact.turnOnImpact(GameController.enemies2.get(k).x,
+                                GameController.enemies2.get(k).y + GameController.enemies2.get(k).enemy2Size,
+                                GameController.enemies2.get(k).x,
+                                GameController.enemies2.get(k).y + GameController.enemies2.get(k).enemy2Size);
                     }
                     if (yMin2 <= 0) {
-                        impact.turnOnImpact(enemy2.getX(),
-                                enemy2.getY() - EnemyModel2.getEnemy2Size(),
-                                enemy2.getX(),
-                                enemy2.getY() - EnemyModel2.getEnemy2Size());
+                        Impact.turnOnImpact(GameController.enemies2.get(k).x,
+                                GameController.enemies2.get(k).y - GameController.enemies2.get(k).enemy2Size,
+                                GameController.enemies2.get(k).x,
+                                GameController.enemies2.get(k).y - GameController.enemies2.get(k).enemy2Size);
                     }
                 }
             }

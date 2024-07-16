@@ -1,5 +1,6 @@
 package view.startPage;
 
+import controller.Constants;
 import controller.data.controller.DataManager;
 import model.Player;
 
@@ -10,8 +11,6 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 
 public class EnterNamePage extends JFrame implements ActionListener {
-    final int WIDTH = 350;
-    final int HEIGHT = 550;
     JButton startButton;
     JTextField nameField;
     public static Player player;
@@ -19,7 +18,7 @@ public class EnterNamePage extends JFrame implements ActionListener {
 
     public EnterNamePage() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(WIDTH, HEIGHT);
+        this.setSize(Constants.WIDTH, Constants.HEIGHT);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setLayout(null);

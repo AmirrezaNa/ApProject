@@ -6,8 +6,9 @@ import view.startPage.EnterNamePage;
 import java.io.*;
 import java.util.Scanner;
 
+
 public class DataManager {
-    static File dataFile = new File("E:\\java projects\\ApProjectPhase1\\src\\controller\\data\\store\\player_data.txt");
+    static File dataFile = new File("player_data.txt");
     Scanner scanner = new Scanner(System.in);
 
     public static boolean checkPlayerExists(String name) throws FileNotFoundException {

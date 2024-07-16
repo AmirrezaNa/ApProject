@@ -1,5 +1,6 @@
 package view.GameOver;
 
+import controller.Constants;
 import view.startPage.EnterNamePage;
 
 import javax.swing.*;
@@ -9,7 +10,7 @@ public class GameOverPanel extends JPanel {
 
     GameOverPanel() {
         this.setBackground(Color.BLACK);
-        this.setSize(GameOverFrame.WIDTH, GameOverFrame.HEIGHT);
+        this.setSize(Constants.WIDTH, Constants.HEIGHT);
         this.setLayout(null);
         this.setVisible(true);
     }

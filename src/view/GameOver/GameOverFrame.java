@@ -1,5 +1,6 @@
 package view.GameOver;
 
+import controller.Constants;
 import view.startPage.StartPageFrame;
 
 import javax.swing.*;
@@ -8,14 +9,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GameOverFrame extends JFrame implements ActionListener {
-    public static final int WIDTH = 350;
-    public static final int HEIGHT = 550;
+
     JButton Menu;
     GameOverPanel gameOverPanel;
 
     public GameOverFrame() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(WIDTH, HEIGHT);
+        this.setSize(Constants.WIDTH, Constants.HEIGHT);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setLayout(null);

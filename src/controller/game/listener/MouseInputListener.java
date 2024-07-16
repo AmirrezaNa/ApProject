@@ -9,7 +9,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MouseInputListener implements MouseListener , MouseMotionListener {
-    GameController gameController = new GameController();
 
     public static double x = 0;
     public static double y = 0;
@@ -24,13 +23,13 @@ public class MouseInputListener implements MouseListener , MouseMotionListener {
     public void mousePressed(MouseEvent e) {
         x = e.getX();
         y = e.getY();
-        if (gameController.isEmpowerBullet()) {
+        if (GameController.empowerBullet) {
             Timer timer = new Timer();
             final int[] counter = {0};
             TimerTask task = new TimerTask() {
                 @Override
                 public void run() {
-                    gameController.newBullet(e.getPoint());
+                    GameController.newBullet(e.getPoint());
                     counter[0]++;
                     if (counter[0] == 3) {
                         timer.cancel();
@@ -41,7 +40,7 @@ public class MouseInputListener implements MouseListener , MouseMotionListener {
 
         }
         else {
-            gameController.newBullet(e.getPoint());
+            GameController.newBullet(e.getPoint());
         }
     }
 

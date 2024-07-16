@@ -12,9 +12,6 @@ import java.awt.event.KeyListener;
 import java.util.*;
 
 public class KeyInputListener implements KeyListener {
-    GameController gameController = new GameController();
-    SkillTreeController skillTreeController = new SkillTreeController();
-    Impact impact = new Impact();
 
     Set<Integer> pressedKeys = new HashSet<>();
 
@@ -48,137 +45,138 @@ public class KeyInputListener implements KeyListener {
 
     // this method is for checking which keys are being pressed at every moment ================================
     public void handleKeyPressedCombination() {
-        if (gameController.getBall() != null) {
-            BallModel ball = gameController.getBall();
-            if (pressedKeys.size() == 1) {
+        if (pressedKeys.size() == 1) {
 
-                if (pressedKeys.contains(upKey)) {
-                    if (SettingsPanel.sense == 1) {
-                        ball.setY(ball.getY() - (ball.getDy() / 2));
-                    }
-                    if (SettingsPanel.sense == 2) {
-                        ball.setY(ball.getY() - ball.getDy());
-                    }
-                    if (SettingsPanel.sense == 3) {
-                        ball.setY(ball.getY() - (2 * ball.getDy()));
-                    }
-
-                } else if (pressedKeys.contains(downKey)) {
-                    if (SettingsPanel.sense == 1) {
-                        ball.setY(ball.getY() + (ball.getDy() / 2));
-                    }
-                    if (SettingsPanel.sense == 2) {
-                        ball.setY(ball.getY() + ball.getDy());
-                    }
-                    if (SettingsPanel.sense == 3) {
-                        ball.setY(ball.getY() + (2 * ball.getDy()));
-                    }
-
-                } else if (pressedKeys.contains(leftKey)) {
-                    if (SettingsPanel.sense == 1) {
-                        ball.setX(ball.getX() - (ball.getDx() / 2));
-                    }
-                    if (SettingsPanel.sense == 2) {
-                        ball.setX(ball.getX() - ball.getDx());
-                    }
-                    if (SettingsPanel.sense == 3) {
-                        ball.setX(ball.getX() - (2 * ball.getDx()));
-                    }
-
-                } else if (pressedKeys.contains(rightKey)) {
-                    if (SettingsPanel.sense == 1) {
-                        ball.setX(ball.getX() + (ball.getDx() / 2));
-                    }
-                    if (SettingsPanel.sense == 2) {
-                        ball.setX(ball.getX() + ball.getDx());
-                    }
-                    if (SettingsPanel.sense == 3) {
-                        ball.setX(ball.getX() + (2 * ball.getDx()));
-                    }
-
-                } else if (pressedKeys.contains(banishKey)) {
-                    impact.banishImpact(ball.getX(), ball.getY(), ball.getX(), ball.getY());
-                } else if (pressedKeys.contains(writOfProteusKey)) {
-                    if (EnterNamePage.player.getXP() >= 100) {
-                        EnterNamePage.player.setXP(EnterNamePage.player.getXP() - 100);
-                        skillTreeController.turnOnWritOfProteus();
-                    }
-                } else if (pressedKeys.contains(writOfAresKey)) {
-                    if (EnterNamePage.player.getXP() >= 100) {
-                        EnterNamePage.player.setXP(EnterNamePage.player.getXP() - 100);
-                        skillTreeController.turnOnWritOfAres();
-                    }
-                } else if (pressedKeys.contains(writOfAcesoKey)) {
-                    if (EnterNamePage.player.getXP() >= 100) {
-                        EnterNamePage.player.setXP(EnterNamePage.player.getXP() - 100);
-                        skillTreeController.turnOnWritOfAceso();
-                    }
+            if (pressedKeys.contains(upKey)) {
+                if (SettingsPanel.sense == 1) {
+                    GameController.ball.y -= GameController.ball.dy/2;
+                }
+                if (SettingsPanel.sense == 2) {
+                    GameController.ball.y -= GameController.ball.dy;
+                }
+                if (SettingsPanel.sense == 3) {
+                    GameController.ball.y -= 2 * GameController.ball.dy;
                 }
 
-            } else {
-                if (pressedKeys.contains(upKey) && pressedKeys.contains(rightKey)) {
-                    if (SettingsPanel.sense == 1) {
-                        ball.setX(ball.getX() + (ball.getDx() / 2));
-                        ball.setY(ball.getY() - (ball.getDy() / 2));
-                    }
-                    if (SettingsPanel.sense == 2) {
-                        ball.setX(ball.getX() + ball.getDx());
-                        ball.setY(ball.getY() - ball.getDy());
-                    }
-                    if (SettingsPanel.sense == 3) {
-                        ball.setX(ball.getX() + (2 * ball.getDx()));
-                        ball.setY(ball.getY() - (2 * ball.getDy()));
-                    }
+            }
+            else if (pressedKeys.contains(downKey)) {
+                if (SettingsPanel.sense == 1) {
+                    GameController.ball.y += GameController.ball.dy/2;
+                }
+                if (SettingsPanel.sense == 2) {
+                    GameController.ball.y += GameController.ball.dy;
+                }
+                if (SettingsPanel.sense == 3) {
+                    GameController.ball.y += 2 * GameController.ball.dy;
+                }
 
-                } else if (pressedKeys.contains(upKey) && pressedKeys.contains(leftKey)) {
-                    if (SettingsPanel.sense == 1) {
-                        ball.setX(ball.getX() - (ball.getDx() / 2));
-                        ball.setY(ball.getY() - (ball.getDy() / 2));
-                    }
-                    if (SettingsPanel.sense == 2) {
-                        ball.setX(ball.getX() - ball.getDx());
-                        ball.setY(ball.getY() - ball.getDy());
-                    }
-                    if (SettingsPanel.sense == 3) {
-                        ball.setX(ball.getX() - (2 * ball.getDx()));
-                        ball.setY(ball.getY() - (2 * ball.getDy()));
-                    }
+            }
+            else if (pressedKeys.contains(leftKey)) {
+                if (SettingsPanel.sense == 1) {
+                    GameController.ball.x -= GameController.ball.dx/2;
+                }
+                if (SettingsPanel.sense == 2) {
+                    GameController.ball.x -= GameController.ball.dx;
+                }
+                if (SettingsPanel.sense == 3) {
+                    GameController.ball.x -= 2 * GameController.ball.dx;
+                }
 
-                } else if (pressedKeys.contains(downKey) && pressedKeys.contains(leftKey)) {
-                    if (SettingsPanel.sense == 1) {
-                        ball.setX(ball.getX() - (ball.getDx() / 2));
-                        ball.setY(ball.getY() + (ball.getDy() / 2));
-                    }
-                    if (SettingsPanel.sense == 2) {
-                        ball.setX(ball.getX() - ball.getDx());
-                        ball.setY(ball.getY() + ball.getDy());
-                    }
-                    if (SettingsPanel.sense == 3) {
-                        ball.setX(ball.getX() - (2 * ball.getDx()));
-                        ball.setY(ball.getY() + (2 * ball.getDy()));
-                    }
+            }
+            else if (pressedKeys.contains(rightKey)) {
+                if (SettingsPanel.sense == 1) {
+                    GameController.ball.x += GameController.ball.dx/2;
+                }
+                if (SettingsPanel.sense == 2) {
+                    GameController.ball.x += GameController.ball.dx;
+                }
+                if (SettingsPanel.sense == 3) {
+                    GameController.ball.x += 2 * GameController.ball.dx;
+                }
 
-                } else if (pressedKeys.contains(downKey) && pressedKeys.contains(rightKey)) {
-                    if (SettingsPanel.sense == 1) {
-                        ball.setX(ball.getX() + (ball.getDx() / 2));
-                        ball.setY(ball.getY() + (ball.getDy() / 2));
-                    }
-                    if (SettingsPanel.sense == 2) {
-                        ball.setX(ball.getX() + ball.getDx());
-                        ball.setY(ball.getY() + ball.getDy());
-                    }
-                    if (SettingsPanel.sense == 3) {
-                        ball.setX(ball.getX() + (2 * ball.getDx()));
-                        ball.setY(ball.getY() + (2 * ball.getDy()));
-                    }
-
-
+            }
+            else if (pressedKeys.contains(banishKey)) {
+                Impact.banishImpact(GameController.ball.x, GameController.ball.y, GameController.ball.x, GameController.ball.y);
+            }
+            else if (pressedKeys.contains(writOfProteusKey)) {
+                if (EnterNamePage.player.getXP() >= 100) {
+                    EnterNamePage.player.setXP(EnterNamePage.player.getXP() - 100);
+                    SkillTreeController.turnOnWritOfProteus();
+                }
+            }
+            else if (pressedKeys.contains(writOfAresKey)) {
+                if (EnterNamePage.player.getXP() >= 100) {
+                    EnterNamePage.player.setXP(EnterNamePage.player.getXP() - 100);
+                    SkillTreeController.turnOnWritOfAres();
+                }
+            }
+            else if (pressedKeys.contains(writOfAcesoKey)) {
+                if (EnterNamePage.player.getXP() >= 100) {
+                    EnterNamePage.player.setXP(EnterNamePage.player.getXP() - 100);
+                    SkillTreeController.turnOnWritOfAceso();
                 }
             }
 
-            gameController.setBall(ball);
+        } else {
+            if (pressedKeys.contains(upKey) && pressedKeys.contains(rightKey)) {
+                if (SettingsPanel.sense == 1) {
+                    GameController.ball.x += GameController.ball.dx/2;
+                    GameController.ball.y -= GameController.ball.dy/2;
+                }
+                if (SettingsPanel.sense == 2) {
+                    GameController.ball.x += GameController.ball.dx;
+                    GameController.ball.y -= GameController.ball.dy;
+                }
+                if (SettingsPanel.sense == 3) {
+                    GameController.ball.x += 2 * GameController.ball.dx;
+                    GameController.ball.y -= 2 * GameController.ball.dy;
+                }
 
+            } else if (pressedKeys.contains(upKey) && pressedKeys.contains(leftKey)) {
+                if (SettingsPanel.sense == 1) {
+                    GameController.ball.x -= GameController.ball.dx/2;
+                    GameController.ball.y -= GameController.ball.dy/2;
+                }
+                if (SettingsPanel.sense == 2) {
+                    GameController.ball.x -= GameController.ball.dx;
+                    GameController.ball.y -= GameController.ball.dy;
+                }
+                if (SettingsPanel.sense == 3) {
+                    GameController.ball.x -= 2 * GameController.ball.dx;
+                    GameController.ball.y -= 2 * GameController.ball.dy;
+                }
+
+            } else if (pressedKeys.contains(downKey) && pressedKeys.contains(leftKey)) {
+                if (SettingsPanel.sense == 1) {
+                    GameController.ball.x -= GameController.ball.dx/2;
+                    GameController.ball.y += GameController.ball.dy/2;
+                }
+                if (SettingsPanel.sense == 2) {
+                    GameController.ball.x -= GameController.ball.dx;
+                    GameController.ball.y += GameController.ball.dy;
+                }
+                if (SettingsPanel.sense == 3) {
+                    GameController.ball.x -= 2 * GameController.ball.dx;
+                    GameController.ball.y += 2 * GameController.ball.dy;
+                }
+
+            } else if (pressedKeys.contains(downKey) && pressedKeys.contains(rightKey)) {
+                if (SettingsPanel.sense == 1) {
+                    GameController.ball.x += GameController.ball.dx/2;
+                    GameController.ball.y += GameController.ball.dy/2;
+                }
+                if (SettingsPanel.sense == 2) {
+                    GameController.ball.x += GameController.ball.dx;
+                    GameController.ball.y += GameController.ball.dy;
+                }
+                if (SettingsPanel.sense == 3) {
+                    GameController.ball.x += 2 * GameController.ball.dx;
+                    GameController.ball.y += 2 * GameController.ball.dy;
+                }
+
+            }
         }
+
     }
 
     //==============================================================================
