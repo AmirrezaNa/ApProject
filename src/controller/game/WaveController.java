@@ -1,6 +1,6 @@
 package controller.game;
 
-import view.game.GameFrame;
+import view.phase1.GameFrame;
 import model.entity.enemy.EnemyModel1;
 import model.entity.enemy.EnemyModel2;
 
@@ -11,6 +11,8 @@ import static controller.game.GameController.*;
 
 public class WaveController {
     GameController gameController = new GameController();
+
+    public static boolean stopWave;
 
 
     // ========================== creating wave1 enemies ================================
@@ -28,6 +30,9 @@ public class WaveController {
                     timer.cancel();
                     wave++;
                     setTimerForEnemy1wave2();
+                }
+                if (stopWave) {
+                    timer.cancel();
                 }
 
             }
@@ -48,6 +53,9 @@ public class WaveController {
                 } else {
                     timer.cancel();
                     setTimerForEnemy2wave2();
+                }
+                if (stopWave) {
+                    timer.cancel();
                 }
             }
 
@@ -74,6 +82,9 @@ public class WaveController {
                     wave++;
                     setTimerForEnemy1wave3();
                 }
+                if (stopWave) {
+                    timer.cancel();
+                }
 
             }
         };
@@ -95,6 +106,9 @@ public class WaveController {
                     timer.cancel();
                     setTimerForEnemy2wave3();
                 }
+                if (stopWave) {
+                    timer.cancel();
+                }
             }
 
         };
@@ -115,6 +129,9 @@ public class WaveController {
                     GameFrame.countDown = false;
                     newEnemy1();
                 }
+                if (stopWave) {
+                    timer.cancel();
+                }
             }
         };
         timer.scheduleAtFixedRate(task, 15000, 5000);
@@ -131,6 +148,9 @@ public class WaveController {
                 if (enemies1.size() + enemies2.size() <= 45) {
                     GameFrame.countDown = false;
                     newEnemy2();
+                }
+                if (stopWave) {
+                    timer.cancel();
                 }
             }
 

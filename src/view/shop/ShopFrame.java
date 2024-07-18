@@ -2,8 +2,7 @@ package view.shop;
 
 import controller.Constants;
 import controller.game.GameController;
-import view.game.GameFrame;
-import view.game.GamePanel;
+import view.phase1.GamePanel;
 import view.startPage.EnterNamePage;
 
 import javax.swing.*;
@@ -81,7 +80,7 @@ public class ShopFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == Resume) {
-            GamePanel.pause = false;
+            GamePanel.phase1over = false;
             this.dispose();
         }
         if (e.getSource() == Banish) {

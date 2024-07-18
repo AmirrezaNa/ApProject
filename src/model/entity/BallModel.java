@@ -12,10 +12,20 @@ public class BallModel {
     public static int ballRadius = 20;
     public int HP;
 
-    public BallModel(double x, double y) {
+    private static BallModel instance;
+
+    private BallModel(double x, double y) {
         this.x = x;
         this.y = y;
         ballAcceleration = 3;
         this.HP = 100;
+    }
+
+    // Static method to get the singleton instance
+    public synchronized static BallModel getInstance(double x, double y) {
+        if (instance == null) {
+            instance = new BallModel(x, y);
+        }
+        return instance;
     }
 }

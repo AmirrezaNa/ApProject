@@ -4,7 +4,7 @@ import controller.Constants;
 import controller.data.controller.SoundEffects;
 import controller.game.GameController;
 import controller.game.Impact;
-import view.game.GamePanel;
+import view.phase1.GamePanel;
 import model.entity.BallAngle;
 import model.entity.BallModel;
 import model.entity.BulletModel;
@@ -20,7 +20,7 @@ public class ObjectCollision {
 
 
     public static void checkObjectsCollisions() {
-        if (!GamePanel.pause) {
+        if (!GamePanel.phase1over) {
             checkCollisionEnemy1Enemy2();
             checkCollisionEnemy1Enemy1();
             checkCollisionEnemy2Enemy2();

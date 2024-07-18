@@ -2,28 +2,43 @@ package controller.game.objectsController.ball;
 
 import controller.game.GameController;
 import controller.game.listener.MouseInputListener;
-import model.entity.BallModel;
+import view.phase1.GamePanel;
+import view.phase2.GamePanel2;
 
-import static view.game.GamePanel.ball;
-import static view.game.GamePanel.ballDirection;
+import static view.phase1.GamePanel.ball;
+import static view.phase1.GamePanel.ballDirection;
 
 public class BallDirectionController {
 
-    GameController gameController = new GameController();
 
     public static void updateBallDirection() {
 
-        double x1 = ball.x;
-        double y1 = ball.y;
+        double x1 = GamePanel.ball.x;
+        double y1 = GamePanel.ball.y;
         double x2 = MouseInputListener.x;
         double y2 = MouseInputListener.y;
         double deltaX = x2 - x1;
         double deltaY = y2 - y1;
 
         // Calculate the angle in radians
-        ballDirection.angle = Math.atan2(deltaY, deltaX);
-        ballDirection.x = ball.x + (10 * Math.cos(ballDirection.angle));
-        ballDirection.y = ball.y + (10 * Math.sin(ballDirection.angle));
+        GamePanel.ballDirection.angle = Math.atan2(deltaY, deltaX);
+        GamePanel.ballDirection.x = GamePanel.ball.x + (10 * Math.cos(GamePanel.ballDirection.angle));
+        GamePanel.ballDirection.y = GamePanel.ball.y + (10 * Math.sin(GamePanel.ballDirection.angle));
+    }
+
+    public static void updateBallDirectionPanel2() {
+
+        double x1 = GamePanel2.ball.x;
+        double y1 = GamePanel2.ball.y;
+        double x2 = MouseInputListener.x;
+        double y2 = MouseInputListener.y;
+        double deltaX = x2 - x1;
+        double deltaY = y2 - y1;
+
+        // Calculate the angle in radians
+        GamePanel2.ballDirection.angle = Math.atan2(deltaY, deltaX);
+        GamePanel2.ballDirection.x = GamePanel2.ball.x + (10 * Math.cos(GamePanel2.ballDirection.angle));
+        GamePanel2.ballDirection.y = GamePanel2.ball.y + (10 * Math.sin(GamePanel2.ballDirection.angle));
     }
 }
 

@@ -1,14 +1,13 @@
-package view.game;
+package view.phase1;
 
 
 import controller.Constants;
 import controller.game.GameRestart;
-import view.GameOver.GameOverFrame;
 import controller.data.controller.DataManager;
 import controller.data.controller.SoundEffects;
 import controller.game.GameController;
 import model.entity.BallModel;
-import view.gameWinner.WinnerFrame;
+import view.phase2.GameFrame2;
 import view.startPage.EnterNamePage;
 
 import javax.swing.*;
@@ -26,9 +25,10 @@ public class GameFrame extends JFrame {
     GamePanel gamePanel;
     static boolean GameIsRunning = true;
     GameFrameStuff gameFrameStuff;
+    public static Thread thread;
 
     public GameFrame() {
-        GamePanel.pause = false;
+        GamePanel.phase1over = false;
         GamePanel.closeAllWindows();
         // after minimizing all windows setting the state to normal prevents minimizing the game frame
         this.setState(JFrame.NORMAL);
@@ -36,13 +36,12 @@ public class GameFrame extends JFrame {
         gameFrameStuff = new GameFrameStuff();
 
 
-        Thread thread = new Thread(gamePanel);
+        thread = new Thread(gamePanel);
         thread.start();
 
 
-        //rotation = new Rotation();
         this.setUndecorated(true);
-        this.setLocationRelativeTo(null);
+//        this.setLocationRelativeTo(null);
         setBackground(new Color(0, 0, 0, 0));
         this.setLayout(null);
         this.add(gamePanel);
@@ -93,7 +92,7 @@ public class GameFrame extends JFrame {
                         throw new RuntimeException(ex);
                     }
 
-                    if (width > 300 && !GamePanel.pause) {
+                    if (width > 300 && !GamePanel.phase1over) {
                         // reduce width gradually
                         x += 1;
                         width -= 2;
@@ -101,7 +100,7 @@ public class GameFrame extends JFrame {
                         gamePanel.revalidate();
                         gamePanel.repaint();
                     }
-                    if (height > 300 && !GamePanel.pause) {
+                    if (height > 300 && !GamePanel.phase1over) {
                         // reduce height gradually
                         y += 1;
                         height -= 2;
@@ -179,7 +178,7 @@ public class GameFrame extends JFrame {
         if (GameController.ball != null) {
             if (GameController.ball.HP <= 0) {
                 gameFrameStuff.dispose();
-                GamePanel.pause = true;
+                GamePanel.phase1over = true;
                 this.dispose();
                 GameRestart.restartGame();
                 gamePanel.revalidate();
@@ -190,7 +189,8 @@ public class GameFrame extends JFrame {
                     DataManager.createPlayerData(EnterNamePage.player);
                 }
                 SoundEffects.playSound(Constants.END_SOUND_PATH);
-                GameOverFrame gameOverFrame = new GameOverFrame();
+//                GameOverFrame gameOverFrame = new GameOverFrame();
+                GameFrame2 gameFrame2 = new GameFrame2();
             }
         }
     }
@@ -225,7 +225,7 @@ public class GameFrame extends JFrame {
     boolean isAnimationComplete = false;
 
     public void displayWin() {
-        GamePanel.pause = true;
+        GamePanel.phase1over = true;
         timer1 = new Timer(100, new ActionListener() {
 
             @Override
@@ -264,7 +264,7 @@ public class GameFrame extends JFrame {
     public void displayWinnerWindow() {
         if (GameController.ball != null) {
             gameFrameStuff.dispose();
-            GamePanel.pause = true;
+            GamePanel.phase1over = true;
             GameRestart.restartGame();
             gamePanel.revalidate();
             gamePanel.repaint();
@@ -278,7 +278,8 @@ public class GameFrame extends JFrame {
                 throw new RuntimeException(ex);
             }
             SoundEffects.playSound(Constants.WINNER_SOUND_PATH);
-            WinnerFrame winnerFrame = new WinnerFrame();
+
+//            WinnerFrame winnerFrame = new WinnerFrame();
         }
     }
 

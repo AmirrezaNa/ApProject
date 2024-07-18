@@ -2,19 +2,18 @@ package controller.game.collisions;
 
 import controller.game.GameController;
 import controller.game.Impact;
-import model.entity.enemy.EnemyModel1;
-import model.entity.enemy.EnemyModel2;
-import view.game.GamePanel;
+import view.phase1.GamePanel;
 import model.entity.BallModel;
 import model.entity.BulletModel;
-import view.game.GameFrame;
+import view.phase1.GameFrame;
+
+import static view.phase2.GameInternalFrame.createdFrames;
 
 public class FrameCollision {
 
 
-
     public static void checkFrameCollisions() {
-        if (!GamePanel.pause) {
+        if (!GamePanel.phase1over) {
             checkBulletHitFrame();
             checkBallCollisionToFrame();
             checkEnemy1CollisionToFrame();
@@ -214,6 +213,73 @@ public class FrameCollision {
                                 GameController.enemies2.get(k).y - GameController.enemies2.get(k).enemy2Size,
                                 GameController.enemies2.get(k).x,
                                 GameController.enemies2.get(k).y - GameController.enemies2.get(k).enemy2Size);
+                    }
+                }
+            }
+        }
+    }
+
+
+    public static void checkBulletHitFrame2() {
+        if (!GameController.bullets.isEmpty()) {
+            for (int j = 0; j < createdFrames.length; j++) {
+                for (int i = 0; i < GameController.bullets.size(); i++) {
+                    if (GameController.bullets.get(i).bulletHealth > 0) {
+
+                        if (GameController.bullets.get(i).x > createdFrames[j].width) {
+                            GameController.bullets.get(i).dx = 0;
+                            GameController.bullets.get(i).dy = 0;
+                            GameController.bullets.get(i).bulletHealth = 0;
+                            if (!GameFrame.countDown) {
+                                GameFrame.width += 20;
+                                GameFrame.x += 5;
+                                Impact.turnOnImpact(GameController.bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
+                                        GameController.bullets.get(i).y + ((double) BulletModel.bulletSize / 2),
+                                        GameController.bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
+                                        GameController.bullets.get(i).y + ((double) BulletModel.bulletSize / 2));
+                            }
+
+                        } else if (GameController.bullets.get(i).y > GameFrame.height) {
+                            GameController.bullets.get(i).dx = 0;
+                            GameController.bullets.get(i).dy = 0;
+                            GameController.bullets.get(i).bulletHealth = 0;
+                            if (!GameFrame.countDown) {
+                                GameFrame.height += 20;
+                                GameFrame.y += 5;
+                                Impact.turnOnImpact(GameController.bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
+                                        GameController.bullets.get(i).y + ((double) BulletModel.bulletSize / 2),
+                                        GameController.bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
+                                        GameController.bullets.get(i).y + ((double) BulletModel.bulletSize / 2));
+                            }
+
+                        } else if (GameController.bullets.get(i).x < 0) {
+                            GameController.bullets.get(i).dx = 0;
+                            GameController.bullets.get(i).dy = 0;
+                            GameController.bullets.get(i).bulletHealth = 0;
+                            if (!GameFrame.countDown) {
+                                GameFrame.x -= 20;
+                                GameFrame.width += 10;
+                                Impact.turnOnImpact(GameController.bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
+                                        GameController.bullets.get(i).y + ((double) BulletModel.bulletSize / 2),
+                                        GameController.bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
+                                        GameController.bullets.get(i).y + ((double) BulletModel.bulletSize / 2));
+                            }
+
+                        } else if (GameController.bullets.get(i).y < 0) {
+                            GameController.bullets.get(i).dx = 0;
+                            GameController.bullets.get(i).dy = 0;
+                            GameController.bullets.get(i).bulletHealth = 0;
+                            if (!GameFrame.countDown) {
+                                GameFrame.y -= 20;
+                                GameFrame.height += 10;
+                                Impact.turnOnImpact(GameController.bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
+                                        GameController.bullets.get(i).y + ((double) BulletModel.bulletSize / 2),
+                                        GameController.bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
+                                        GameController.bullets.get(i).y + ((double) BulletModel.bulletSize / 2));
+                            }
+
+                        }
+
                     }
                 }
             }

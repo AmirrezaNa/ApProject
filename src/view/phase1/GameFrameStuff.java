@@ -1,4 +1,4 @@
-package view.game;
+package view.phase1;
 
 import view.shop.ShopFrame;
 
@@ -41,7 +41,7 @@ public class GameFrameStuff extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == storeButton) {
-            GamePanel.pause = true;
+            GamePanel.phase1over = true;
             ShopFrame shopFrame = new ShopFrame();
         }
     }

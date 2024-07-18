@@ -1,8 +1,7 @@
 package view.startPage;
 
 import controller.Constants;
-import controller.HandleFramesThread;
-import view.game.GameFrame;
+import view.phase1.GameFrame;
 import view.settings.SettingsFrame;
 import view.skillTree.SkillTreeFrame;
 
@@ -100,9 +99,9 @@ public class StartPageFrame extends JFrame implements ActionListener {
             });
             soundThread.start();
             this.dispose();
-            HandleFramesThread handleFramesThread = new HandleFramesThread();
-            Thread thread = new Thread(handleFramesThread);
-            thread.start();
+            SwingUtilities.invokeLater(() -> {
+                GameFrame gameFrame = new GameFrame();
+            });
 
         }
         if (e.getSource() == skillTreeButton) {

@@ -1,8 +1,7 @@
 package controller.game.objectsController.ball;
 
 import controller.game.GameController;
-import model.entity.BulletModel;
-import view.game.GamePanel;
+import view.phase1.GamePanel;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -31,7 +30,7 @@ public class BulletController {
 
 
     public static void empowerBullet() {
-        if (!GamePanel.pause) {
+        if (!GamePanel.phase1over) {
             GameController.empowerBullet = true;
             Timer timer = new Timer();
             int[] countDownEmpower = {10};

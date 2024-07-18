@@ -1,6 +1,6 @@
 package controller.game;
 
-import view.game.GamePanel;
+import view.phase1.GamePanel;
 import view.startPage.EnterNamePage;
 
 import java.util.Timer;
@@ -15,7 +15,7 @@ public class SkillTreeController {
 
     public static void turnOnWritOfProteus() {
         if (EnterNamePage.player.isWritOfProteus()) {
-            if (!GamePanel.pause) {
+            if (!GamePanel.phase1over) {
                 ballAngle.angleExists = true;
                 Timer timer = new Timer();
                 int[] countDownEmpower = {300};
@@ -40,7 +40,7 @@ public class SkillTreeController {
 
     public static void turnOnWritOfAceso() {
         if (EnterNamePage.player.isWritOfAceso()) {
-            if (!GamePanel.pause) {
+            if (!GamePanel.phase1over) {
                 Timer timer = new Timer();
                 int[] countDownEmpower = {300};
                 TimerTask task = new TimerTask() {
@@ -63,7 +63,7 @@ public class SkillTreeController {
 
     public static void turnOnWritOfAres() {
         if (EnterNamePage.player.isWritOfAres()) {
-            if (!GamePanel.pause) {
+            if (!GamePanel.phase1over) {
                 GameController.bulletAres = true;
                 Timer timer = new Timer();
                 int[] countDownEmpower = {300};

@@ -1,4 +1,4 @@
-package view.game;
+package view.phase1;
 
 import controller.game.WaveController;
 import controller.game.collisions.FrameCollision;
@@ -33,7 +33,7 @@ public class GamePanel extends JPanel implements Runnable {
     public static EnemyModel2 enemy2;
     KeyInputListener keyInputListener;
     MouseInputListener mouseInputListener;
-    public static boolean pause;
+    public static boolean phase1over;
 
     GamePanel() {
         initPanel();
@@ -69,7 +69,6 @@ public class GamePanel extends JPanel implements Runnable {
             update();
 
 
-            draw();
 
 
             repaint();
@@ -85,7 +84,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 
     public static void update() {
-        if (!pause) {
+        if (!phase1over) {
             BallController.updateTheBall();
             BallDirectionController.updateBallDirection();
             BallAngleController.updateBallAngle();
@@ -97,10 +96,6 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-
-    public static void draw() {
-
-    }
 
 
     // a method to close all windows at the start =====================================

@@ -1,12 +1,9 @@
 package controller.game.objectsController.ball;
 
-import controller.game.GameController;
-import model.entity.BallModel;
-
 import static controller.game.GameController.ball;
+import static view.phase2.GameInternalFrame.createdFrames;
 
 public class BallController {
-    GameController gameController = new GameController();
 
     public static void updateTheBall() {
         ball.x += ball.ax;
@@ -27,5 +24,10 @@ public class BallController {
             }
         }
 
+    }
+
+    public static void getBallIntoFrame2() {
+        ball.x = createdFrames[0].x + ((double) createdFrames[0].width /2);
+        ball.y = createdFrames[0].y + ((double) createdFrames[0].height /2);
     }
 }

@@ -6,8 +6,8 @@ import controller.game.objectsController.ball.CollectibleController;
 import model.entity.*;
 import model.entity.enemy.EnemyModel1;
 import model.entity.enemy.EnemyModel2;
-import view.game.GameFrame;
-import view.game.GamePanel;
+import view.phase1.GameFrame;
+import view.phase1.GamePanel;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -29,14 +29,15 @@ public class GameController {
     public static int Banish = 0;
     public static int Empower = 0;
     public static boolean bulletAres;
+    public static boolean gameOver;
 
     // ===============================================================================
 
 
     // creating and updating the ball ================================================
 
-    public static BallModel newBall() {
-        ball = new BallModel((double) (GameFrame.width / 2) - 20, (double) (GameFrame.height / 2) - 20);
+    public synchronized static BallModel newBall() {
+        ball = BallModel.getInstance((double) (GameFrame.width / 2) - 20, (double) (GameFrame.height / 2) - 20);
         return ball;
     }
 
@@ -58,7 +59,7 @@ public class GameController {
 
 
     public static BulletModel newBullet(Point point) {
-        if (!GamePanel.pause) {
+        if (!gameOver) {
             bullet = new BulletModel(ball.x, ball.y);
             bullet.dx = ((point.x - (ball.x)) / Math.sqrt(Math.pow((point.x - (ball.x)), 2) + Math.pow((point.y - (ball.y)), 2))) * BulletModel.bulletSpeed;
             if (bullet.y < point.y) {
@@ -77,7 +78,7 @@ public class GameController {
     // creating the enemies ================================================
 
     public static void newEnemy1() {
-        if (!GamePanel.pause) {
+        if (!GamePanel.phase1over) {
 
             if (enemies1.size() % 2 == 0) {
                 SoundEffects.playSound(Constants.ENEMY_ENTER_SOUND_PATH);
@@ -93,7 +94,7 @@ public class GameController {
     }
 
     public static void newEnemy2() {
-        if (!GamePanel.pause) {
+        if (!GamePanel.phase1over) {
 
             if (enemies2.size() % 2 == 0) {
                 SoundEffects.playSound(Constants.ENEMY_ENTER_SOUND_PATH);

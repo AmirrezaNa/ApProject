@@ -1,5 +1,6 @@
 package controller.data.controller;
 
+import controller.Constants;
 import model.Player;
 import view.startPage.EnterNamePage;
 
@@ -8,7 +9,7 @@ import java.util.Scanner;
 
 
 public class DataManager {
-    static File dataFile = new File("player_data.txt");
+    static File dataFile = new File(Constants.PLAYER_DATA_FILE_PATH);
     Scanner scanner = new Scanner(System.in);
 
     public static boolean checkPlayerExists(String name) throws FileNotFoundException {

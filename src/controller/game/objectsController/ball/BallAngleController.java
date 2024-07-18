@@ -5,7 +5,7 @@ import controller.game.listener.MouseInputListener;
 import model.entity.BallModel;
 
 import static controller.game.GameController.ballAngle;
-import static view.game.GamePanel.ball;
+import static view.phase1.GamePanel.ball;
 
 public class BallAngleController {
 
