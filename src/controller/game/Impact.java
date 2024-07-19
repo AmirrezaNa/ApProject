@@ -9,6 +9,14 @@ public class Impact {
         double xImpactPoint = (x1 + x2) / 2;
         double yImpactPoint = (y1 + y2) / 2;
 
+
+        impactEnemy1(xImpactPoint, yImpactPoint);
+        impactEnemy2(xImpactPoint, yImpactPoint);
+        impactBall(xImpactPoint, yImpactPoint);
+    }
+
+
+    public static void impactEnemy1(double xImpactPoint, double yImpactPoint) {
         for (EnemyModel1 enemy1 : GameController.enemies1) {
             if (enemy1.enemyHealth > 0) {
                 if (Math.pow((Math.abs(enemy1.x) - Math.abs(xImpactPoint)), 2) + Math.pow((Math.abs(enemy1.y) - Math.abs(yImpactPoint)), 2) < 8100) {
@@ -21,7 +29,9 @@ public class Impact {
                 }
             }
         }
+    }
 
+    public static void impactEnemy2(double xImpactPoint, double yImpactPoint) {
         for (EnemyModel2 enemy2 : GameController.enemies2) {
             if (enemy2.enemyHealth > 0) {
                 if (Math.pow((Math.abs(enemy2.x) - Math.abs(xImpactPoint)), 2) + Math.pow((Math.abs(enemy2.y) - Math.abs(yImpactPoint)), 2) < 8100) {
@@ -34,7 +44,9 @@ public class Impact {
                 }
             }
         }
+    }
 
+    public static void impactBall(double xImpactPoint, double yImpactPoint) {
         double xBallCenter = GameController.ball.x;
         double yBallCenter = GameController.ball.y;
         if (Math.pow((Math.abs(xBallCenter) - Math.abs(xImpactPoint)), 2) +

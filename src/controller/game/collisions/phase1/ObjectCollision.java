@@ -1,4 +1,4 @@
-package controller.game.collisions;
+package controller.game.collisions.phase1;
 
 import controller.Constants;
 import controller.data.controller.SoundEffects;

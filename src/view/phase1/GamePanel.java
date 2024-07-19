@@ -1,8 +1,8 @@
 package view.phase1;
 
 import controller.game.WaveController;
-import controller.game.collisions.FrameCollision;
-import controller.game.collisions.ObjectCollision;
+import controller.game.collisions.phase1.FrameCollision;
+import controller.game.collisions.phase1.ObjectCollision;
 import controller.game.objectsController.ball.BallAngleController;
 import controller.game.objectsController.ball.BallController;
 import controller.game.objectsController.ball.BallDirectionController;

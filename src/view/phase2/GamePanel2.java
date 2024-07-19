@@ -1,6 +1,9 @@
 package view.phase2;
 
+import controller.game.FrameOfObject;
 import controller.game.GameController;
+import controller.game.collisions.phase2.FrameCollisions2;
+import controller.game.collisions.phase2.ObjectCollisions2;
 import controller.game.listener.KeyInputListener;
 import controller.game.listener.MouseInputListener;
 import controller.game.objectsController.ball.BallAngleController;
@@ -11,8 +14,7 @@ import model.entity.BallAngle;
 import model.entity.BallDirection;
 import model.entity.BallModel;
 import model.entity.BulletModel;
-import model.entity.enemy.EnemyModel1;
-import model.entity.enemy.EnemyModel2;
+import model.entity.enemy.*;
 import view.phase1.GameFrame;
 
 import javax.swing.*;
@@ -23,8 +25,12 @@ public class GamePanel2 extends JPanel implements Runnable {
     public static BallModel ball;
     public static BallDirection ballDirection;
     public static BallAngle ballAngle;
-    public static EnemyModel1 enemy1;
-    public static EnemyModel2 enemy2;
+    public static ArchmireModel archmire;
+    public static BarricadosModel barricados;
+    public static BlackOrbModel blackOrb;
+    public static OmenoctModel omenoct;
+    public static WyrmModel wyrm;
+    public static NecropickModel necropick;
     KeyInputListener keyInputListener;
     MouseInputListener mouseInputListener;
     public static boolean pause;
@@ -32,6 +38,8 @@ public class GamePanel2 extends JPanel implements Runnable {
     GameInternalFrame gameInternalFrame;
 
     public static boolean framesCreated;
+    public static boolean ballBetweenFrames;
+    public static int mainFrame;//shows the frame of the ball
     public GamePanel2() {
         this.setBounds(0, 0, GameFrame2.width, GameFrame2.height);
 
@@ -83,10 +91,13 @@ public class GamePanel2 extends JPanel implements Runnable {
 
 
     public void update() {
+        mainFrame = FrameOfObject.getFrameOfBall();
         BallController.updateTheBall();
         BallDirectionController.updateBallDirectionPanel2();
         BallAngleController.updateBallAngle();
         BulletController.updateBullet();
+        FrameOfObject.FrameOfBullet();
+        FrameCollisions2.checkFramesCollisions2();
         revalidate();
         repaint();
     }
@@ -121,51 +132,60 @@ public class GamePanel2 extends JPanel implements Runnable {
     }
 
     public void drawBall(Graphics g) {
-        if (ball != null) {
-            g.setColor(new Color(0x1C8F09));
-            g.fillOval((int) ball.x - BallModel.ballRadius, (int) ball.y - BallModel.ballRadius,
-                    2 * BallModel.ballRadius, 2 * BallModel.ballRadius);
+        if (BallController.checkIfBallIsInFrame() || ballBetweenFrames) {
+            if (ball != null) {
+                g.setColor(new Color(0x1C8F09));
+                g.fillOval((int) ball.x - BallModel.ballRadius, (int) ball.y - BallModel.ballRadius,
+                        2 * BallModel.ballRadius, 2 * BallModel.ballRadius);
+            }
+            revalidate();
+            repaint();
         }
-        revalidate();
-        repaint();
-
     }
 
     public void drawBallDirection(Graphics g) {
-        if (ballDirection != null) {
-            g.setColor(new Color(0x132F46));
-            g.fillOval((int) (ballDirection.x - 5), (int) (ballDirection.y - 5), 10, 10);
+        if (BallController.checkIfBallIsInFrame() || ballBetweenFrames) {
+            if (ballDirection != null) {
+                g.setColor(new Color(0x132F46));
+                g.fillOval((int) (ballDirection.x - 5), (int) (ballDirection.y - 5), 10, 10);
+            }
+            revalidate();
+            repaint();
         }
-        revalidate();
-        repaint();
     }
 
     public void drawBallAngle(Graphics g) {
-        if (ballAngle != null) {
-            if (ballAngle.angleExists) {
-                g.setColor(new Color(0xE5E5E5));
-                g.fillOval((int) (ballAngle.x - BallAngle.ballAngleRadius),
-                        (int) (ballAngle.y - BallAngle.ballAngleRadius),
-                        2 * BallAngle.ballAngleRadius,
-                        2 * BallAngle.ballAngleRadius);
+        if (BallController.checkIfBallIsInFrame() || ballBetweenFrames) {
+            if (ballAngle != null) {
+                if (ballAngle.angleExists) {
+                    g.setColor(new Color(0xE5E5E5));
+                    g.fillOval((int) (ballAngle.x - BallAngle.ballAngleRadius),
+                            (int) (ballAngle.y - BallAngle.ballAngleRadius),
+                            2 * BallAngle.ballAngleRadius,
+                            2 * BallAngle.ballAngleRadius);
+                }
             }
+            revalidate();
+            repaint();
         }
-        revalidate();
-        repaint();
     }
 
-    public static void drawBullet(Graphics g) {
+    public void drawBullet(Graphics g) {
         if (!GameController.bullets.isEmpty()) {
             for (int i = 0; i < GameController.bullets.size(); i++) {
                 if (GameController.bullets.get(i).bulletHealth > 0) {
-                    g.setColor(new Color(0xEF8506));
-                    g.fillOval((int) GameController.bullets.get(i).x,
-                            (int) GameController.bullets.get(i).y,
-                            BulletModel.bulletSize,
-                            BulletModel.bulletSize);
+                    if (BulletController.isBulletInAFrame(GameController.bullets.get(i))) {
+                        g.setColor(new Color(0xEF8506));
+                        g.fillOval((int) GameController.bullets.get(i).x,
+                                (int) GameController.bullets.get(i).y,
+                                BulletModel.bulletSize,
+                                BulletModel.bulletSize);
+                    }
                 }
             }
         }
+        repaint();
+        repaint();
     }
 
 }

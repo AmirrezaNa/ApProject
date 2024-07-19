@@ -1,16 +1,18 @@
 package controller.game.objectsController.ball;
 
 import controller.game.GameController;
+import model.entity.BallModel;
+import model.entity.BulletModel;
 import view.phase1.GamePanel;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static controller.game.GameController.Empower;
-import static controller.game.GameController.bullets;
+import static controller.game.GameController.*;
+import static controller.game.GameController.ball;
+import static view.phase2.GameInternalFrame.createdFrames;
 
 public class BulletController {
-    GameController gameController = new GameController();
 
 
     public static void updateBullet() {
@@ -39,7 +41,6 @@ public class BulletController {
                 public void run() {
                     if (countDownEmpower[0] > 0) {
                         countDownEmpower[0]--;
-                        System.out.println("hi");
                     } else {
                         GameController.empowerBullet = false;
                         timer.cancel();
@@ -48,5 +49,20 @@ public class BulletController {
             };
             timer.scheduleAtFixedRate(task, 0, 1000);
         }
+    }
+
+
+    public static boolean isBulletInAFrame(BulletModel bullet) {
+        for (int i = 0; i < createdFrames.length; i++) {
+            int x = createdFrames[i].x;
+            int y = createdFrames[i].y;
+            int width = createdFrames[i].width;
+            int height = createdFrames[i].height;
+            if ((bullet.x >= x) && (bullet.x <= (x + width - BulletModel.bulletSize))
+                    && (bullet.y > y) && (bullet.y < (y + height - BulletModel.bulletSize))) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -4,8 +4,7 @@ import controller.Constants;
 import controller.data.controller.SoundEffects;
 import controller.game.objectsController.ball.CollectibleController;
 import model.entity.*;
-import model.entity.enemy.EnemyModel1;
-import model.entity.enemy.EnemyModel2;
+import model.entity.enemy.*;
 import view.phase1.GameFrame;
 import view.phase1.GamePanel;
 
@@ -18,12 +17,24 @@ public class GameController {
     static BulletModel bullet;
     static EnemyModel1 enemy1;
     static EnemyModel2 enemy2;
+    static ArchmireModel archmire;
+    static BarricadosModel barricados;
+    static BlackOrbModel blackOrb;
+    static OmenoctModel omenoct;
+    static WyrmModel wyrm;
+    static NecropickModel necropick;
     static Collectible collectible;
     static BallDirection ballDirection;
     public static BallAngle ballAngle;
     public static ArrayList<BulletModel> bullets = new ArrayList<>();
     public static ArrayList<EnemyModel1> enemies1 = new ArrayList<>();
     public static ArrayList<EnemyModel2> enemies2 = new ArrayList<>();
+    public static ArrayList<ArchmireModel> archmireEnemies = new ArrayList<>();
+    public static ArrayList<BarricadosModel> barricadosEnemies = new ArrayList<>();
+    public static ArrayList<BlackOrbModel> blackOrbEnemies = new ArrayList<>();
+    public static ArrayList<OmenoctModel> omenoctEnemies = new ArrayList<>();
+    public static ArrayList<WyrmModel> wyrmEnemies = new ArrayList<>();
+    public static ArrayList<NecropickModel> necropickEnemies = new ArrayList<>();
     public static ArrayList<Collectible> collectibles = new ArrayList<>();
     public static int wave = 1;
     public static int Banish = 0;
@@ -107,6 +118,34 @@ public class GameController {
             }
 
         }
+    }
+
+
+    public static void newArchmire() {
+
+    }
+
+    public static void newBarricados() {
+
+    }
+
+
+    public static void newBlackOrb() {
+
+    }
+
+
+    public static void newOmenoct() {
+
+    }
+
+
+    public static void newWyrm() {
+
+    }
+
+    public static void newNecropick() {
+
     }
 
 

@@ -39,7 +39,7 @@ public class KeyInputListener implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        pressedKeys.remove(e.getKeyCode());
+        pressedKeys.clear();
     }
 
 
