@@ -15,7 +15,6 @@ public class BlackOrbModel {
     public static int blackOrbSize = 20;
     public double angle;
     public double dAngle;
-    public static String imageIcon = "E:\\java projects\\ApProjectPhase1\\src\\controller\\data\\store\\apIcons\\blackOrb.png";
 
 
     public BlackOrbModel(double x, double y) {

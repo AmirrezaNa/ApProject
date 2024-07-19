@@ -1,8 +1,8 @@
 package controller.game;
 
+import controller.game.objectsController.ball.enemies.NecropickController;
+import model.entity.enemy.*;
 import view.phase1.GameFrame;
-import model.entity.enemy.EnemyModel1;
-import model.entity.enemy.EnemyModel2;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -161,5 +161,75 @@ public class WaveController {
     }
 
 
+
+    // =================       creating wave 4 and 5 enemies     =========================================
+
+
+    public static OmenoctModel setTimerForOmenoct() {
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                if (omenoctEnemies.isEmpty()) {
+                    newOmenoct();
+                }
+                if (!omenoctEnemies.isEmpty()) {
+                    boolean createNewOne = true;
+                    for (int i = 0; i < omenoctEnemies.size(); i++) {
+                        if (omenoctEnemies.get(i).enemyHealth > 0) {
+                            createNewOne = false;
+                            break;
+                        }
+                    }
+                    if (createNewOne) {
+                        newOmenoct();
+                    }
+
+                }
+//                if (stopWave) {
+//                    timer.cancel();
+//                }
+            }
+
+        };
+        timer.scheduleAtFixedRate(task, 500, 5000);
+
+        return omenoct;
+    }
+
+
+    public static NecropickModel setTimerForNecropick() {
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                if (necropickEnemies.isEmpty()) {
+                    newNecropick();
+                    NecropickController.setNecropickHidingTime();
+                }
+                if (!necropickEnemies.isEmpty()) {
+                    boolean createNewOne = true;
+                    for (int i = 0; i < necropickEnemies.size(); i++) {
+                        if (necropickEnemies.get(i).enemyHealth > 0) {
+                            createNewOne = false;
+                            break;
+                        }
+                    }
+                    if (createNewOne) {
+                        newNecropick();
+                        NecropickController.setNecropickHidingTime();
+                    }
+
+                }
+//                if (stopWave) {
+//                    timer.cancel();
+//                }
+            }
+
+        };
+        timer.scheduleAtFixedRate(task, 500, 5000);
+
+        return necropick;
+    }
 
 }

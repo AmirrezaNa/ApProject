@@ -17,23 +17,25 @@ public class FrameOfObject {
                 continue;
             }
             int k = getFrameOfBall();
-            int xMini = createdFrames[i].x + 3;
-            int yMini = createdFrames[i].y + 3;
-            int xMaxi = createdFrames[i].x + createdFrames[i].width - 3;
-            int yMaxi = createdFrames[i].y + createdFrames[i].height - 3;
+            if (k != -1) {
+                int xMini = createdFrames[i].x + 3;
+                int yMini = createdFrames[i].y + 3;
+                int xMaxi = createdFrames[i].x + createdFrames[i].width - 3;
+                int yMaxi = createdFrames[i].y + createdFrames[i].height - 3;
 
 
-            int xMink = createdFrames[k].x + 3;
-            int yMink = createdFrames[k].y + 3;
-            int xMaxk = createdFrames[k].x + createdFrames[k].width - 3;
-            int yMaxk = createdFrames[k].y + createdFrames[k].height - 3;
+                int xMink = createdFrames[k].x + 3;
+                int yMink = createdFrames[k].y + 3;
+                int xMaxk = createdFrames[k].x + createdFrames[k].width - 3;
+                int yMaxk = createdFrames[k].y + createdFrames[k].height - 3;
 
-            if (((xMini >= xMink && xMini <= xMaxk) || (xMink >= xMini && xMink <= xMaxi))
-                    && ((yMini >= yMink && yMini <= yMaxk) || (yMink >= yMini && yMink <= yMaxi))) {
-                GameInternalFrame.collidedFrames.add(i);
-            } else {
-                if (GameInternalFrame.collidedFrames.contains(i)) {
-                    GameInternalFrame.collidedFrames.remove(i);
+                if (((xMini >= xMink && xMini <= xMaxk) || (xMink >= xMini && xMink <= xMaxi))
+                        && ((yMini >= yMink && yMini <= yMaxk) || (yMink >= yMini && yMink <= yMaxi))) {
+                    GameInternalFrame.collidedFrames.add(i);
+                } else {
+                    if (GameInternalFrame.collidedFrames.contains(i)) {
+                        GameInternalFrame.collidedFrames.remove(i);
+                    }
                 }
             }
         }

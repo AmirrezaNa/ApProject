@@ -30,6 +30,17 @@ public class BulletController {
         }
     }
 
+    public static void updateEnemyBullet() {
+        if (!enemyBullets.isEmpty()) {
+            for (int i = 0; i < enemyBullets.size(); i++) {
+                if (enemyBullets.get(i).bulletHealth > 0) {
+                    enemyBullets.get(i).x += enemyBullets.get(i).dx;
+                    enemyBullets.get(i).y += enemyBullets.get(i).dy;
+                }
+            }
+        }
+    }
+
 
     public static void empowerBullet() {
         if (!GamePanel.phase1over) {

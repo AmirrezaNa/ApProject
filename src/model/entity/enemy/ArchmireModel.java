@@ -1,5 +1,10 @@
 package model.entity.enemy;
 
+import javax.swing.*;
+import java.awt.*;
+
+import static model.entity.enemy.OmenoctModel.imageIconAdress;
+
 public class ArchmireModel {
     public double x;
     public double y;
@@ -14,6 +19,7 @@ public class ArchmireModel {
     public double angle;
     public double dAngle;
     public static String imageIcon = "E:\\java projects\\ApProjectPhase1\\src\\controller\\data\\store\\apIcons\\archmire.png";
+    public static Image image = new ImageIcon(imageIconAdress).getImage();
 
     public ArchmireModel(double x, double y) {
         this.x = x;

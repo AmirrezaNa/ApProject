@@ -3,6 +3,7 @@ package controller.game;
 import controller.Constants;
 import controller.data.controller.SoundEffects;
 import controller.game.objectsController.ball.CollectibleController;
+import controller.game.objectsController.ball.enemies.OmenoctController;
 import model.entity.*;
 import model.entity.enemy.*;
 import view.phase1.GameFrame;
@@ -10,6 +11,8 @@ import view.phase1.GamePanel;
 
 import java.awt.*;
 import java.util.ArrayList;
+
+import static view.phase2.GameInternalFrame.createdFrames;
 
 public class GameController {
 
@@ -27,6 +30,7 @@ public class GameController {
     static BallDirection ballDirection;
     public static BallAngle ballAngle;
     public static ArrayList<BulletModel> bullets = new ArrayList<>();
+    public static ArrayList<BulletModel> enemyBullets = new ArrayList<>();
     public static ArrayList<EnemyModel1> enemies1 = new ArrayList<>();
     public static ArrayList<EnemyModel2> enemies2 = new ArrayList<>();
     public static ArrayList<ArchmireModel> archmireEnemies = new ArrayList<>();
@@ -78,12 +82,42 @@ public class GameController {
             } else {
                 bullet.dy = -(Math.sqrt(Math.pow(BulletModel.bulletSpeed, 2) - Math.pow(bullet.dx, 2)));
             }
-
             bullets.add(0, bullet);
             return bullet;
         }
         return null;
     }
+
+    public static BulletModel newOmenoctBullet(Point point) {
+        if (!gameOver) {
+            bullet = new BulletModel(point.x, point.y);
+            bullet.dx = -((point.x - (ball.x)) / Math.sqrt(Math.pow((point.x - (ball.x)), 2) + Math.pow((point.y - (ball.y)), 2))) * BulletModel.bulletSpeed;
+            if (ball.y > point.y) {
+                bullet.dy = Math.sqrt(Math.pow(BulletModel.bulletSpeed, 2) - Math.pow(bullet.dx, 2));
+            } else {
+                bullet.dy = -(Math.sqrt(Math.pow(BulletModel.bulletSpeed, 2) - Math.pow(bullet.dx, 2)));
+            }
+            enemyBullets.add(0, bullet);
+            return bullet;
+        }
+        return null;
+    }
+
+    public static BulletModel newNecropickBullet(Point point, Point goal) {
+        if (!gameOver) {
+            bullet = new BulletModel(point.x, point.y);
+            bullet.dx = -((point.x - (goal.x)) / Math.sqrt(Math.pow((point.x - (goal.x)), 2) + Math.pow((point.y - (goal.y)), 2))) * BulletModel.bulletSpeed;
+            if (goal.y > point.y) {
+                bullet.dy = Math.sqrt(Math.pow(BulletModel.bulletSpeed, 2) - Math.pow(bullet.dx, 2));
+            } else {
+                bullet.dy = -(Math.sqrt(Math.pow(BulletModel.bulletSpeed, 2) - Math.pow(bullet.dx, 2)));
+            }
+            enemyBullets.add(0, bullet);
+            return bullet;
+        }
+        return null;
+    }
+
 
 
     // creating the enemies ================================================
@@ -123,6 +157,7 @@ public class GameController {
 
     public static void newArchmire() {
 
+
     }
 
     public static void newBarricados() {
@@ -136,7 +171,16 @@ public class GameController {
 
 
     public static void newOmenoct() {
-
+        if (GamePanel.phase1over) {
+            SoundEffects.playSound(Constants.ENEMY_ENTER_SOUND_PATH);
+            int x = createdFrames[FrameOfObject.getFrameOfBall()].x + createdFrames[FrameOfObject.getFrameOfBall()].width - (ArchmireModel.archmireSize / 2);
+            int y = createdFrames[FrameOfObject.getFrameOfBall()].y + createdFrames[FrameOfObject.getFrameOfBall()].height/2;
+            omenoct = new OmenoctModel(x, y);
+            if (omenoctEnemies.isEmpty()) {
+                OmenoctController.shotBullet();
+            }
+            omenoctEnemies.add(omenoct);
+        }
     }
 
 
@@ -145,7 +189,11 @@ public class GameController {
     }
 
     public static void newNecropick() {
-
+        if (GamePanel.phase1over) {
+            SoundEffects.playSound(Constants.ENEMY_ENTER_SOUND_PATH);
+            necropick = new NecropickModel((int) (ball.x - 200), (int) ball.y);
+            necropickEnemies.add(necropick);
+        }
     }
 
 

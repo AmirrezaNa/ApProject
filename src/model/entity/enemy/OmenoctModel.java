@@ -1,5 +1,8 @@
 package model.entity.enemy;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class OmenoctModel {
     public double x;
     public double y;
@@ -16,7 +19,8 @@ public class OmenoctModel {
     public static int distanceToCenter = (int) ((omenoctSize/2)/Math.sin(Math.PI/8));
     public double angle;
     public double dAngle;
-    public static String imageIcon = "E:\\java projects\\ApProjectPhase1\\src\\controller\\data\\store\\apIcons\\omenoct.png";
+    public static String imageIconAdress = "E:\\java projects\\ApProjectPhase1\\src\\controller\\data\\store\\apIcons\\omenoct.png";
+    public static Image image = new ImageIcon(imageIconAdress).getImage();
 
 
     // the position of omenoct is based on the top angle
@@ -37,7 +41,7 @@ public class OmenoctModel {
         this.ax = 0;
         this.ay = 0;
         enemyAcceleration = 3;
-        this.enemyHealth = 15;
+        this.enemyHealth = 20;
         this.angle = 0;
         this.dAngle = 0;
     }

@@ -6,14 +6,21 @@ import controller.game.objectsController.ball.BallController;
 import controller.game.objectsController.ball.BulletController;
 import model.entity.BallModel;
 import model.entity.BulletModel;
+import view.phase2.GameFrame2;
 import view.phase2.GameInternalFrame;
 import view.phase2.GamePanel2;
 
-import static controller.game.GameController.ball;
-import static controller.game.GameController.bullets;
+import static controller.game.GameController.*;
 import static view.phase2.GameInternalFrame.createdFrames;
 
 public class FrameCollisions2 {
+
+    public static void checkFramesCollisions2() {
+        FrameOfObject.getCollidedFrames();
+        checkBulletHitFrames();
+        checkBallCollisionToFrames2();
+        checkEnemyBulletOut();
+    }
 
     public static int frameCollided(int k) {//this method checks if a frame has a collision with another frame
         for (int i = 0; i < createdFrames.length; i++) {
@@ -40,12 +47,6 @@ public class FrameCollisions2 {
     }
 
 
-    public static void checkFramesCollisions2() {
-        FrameOfObject.getCollidedFrames();
-        checkBulletHitFrames();
-        checkBallCollisionToFrames2();
-    }
-
     public static void checkBulletHitFrames() {
         if (!bullets.isEmpty()) {
             for (int i = 0; i < bullets.size(); i++) {
@@ -56,62 +57,64 @@ public class FrameCollisions2 {
                     } else {
                         k = FrameOfObject.getFrameOfBall();
                     }
+                    if (k != -1) {
 
-                    if (bullets.get(i).x > createdFrames[k].x + createdFrames[k].width) {
-                        if (!BulletController.isBulletInAFrame(bullets.get(i))) {
-                            bullets.get(i).dx = 0;
-                            bullets.get(i).dy = 0;
-                            bullets.get(i).bulletHealth = 0;
+                        if (bullets.get(i).x > createdFrames[k].x + createdFrames[k].width) {
+                            if (!BulletController.isBulletInAFrame(bullets.get(i))) {
+                                bullets.get(i).dx = 0;
+                                bullets.get(i).dy = 0;
+                                bullets.get(i).bulletHealth = 0;
 
-                            createdFrames[k].width += 20;
-                            createdFrames[k].x += 5;
-                            Impact.turnOnImpact(bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
-                                    bullets.get(i).y + ((double) BulletModel.bulletSize / 2),
-                                    bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
-                                    bullets.get(i).y + ((double) BulletModel.bulletSize / 2));
+                                createdFrames[k].width += 20;
+                                createdFrames[k].x += 5;
+                                Impact.turnOnImpact(bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
+                                        bullets.get(i).y + ((double) BulletModel.bulletSize / 2),
+                                        bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
+                                        bullets.get(i).y + ((double) BulletModel.bulletSize / 2));
+                            }
+
+                        } else if (bullets.get(i).y > createdFrames[k].y + createdFrames[k].height) {
+                            if (!BulletController.isBulletInAFrame(bullets.get(i))) {
+                                bullets.get(i).dx = 0;
+                                bullets.get(i).dy = 0;
+                                bullets.get(i).bulletHealth = 0;
+
+                                createdFrames[k].height += 20;
+                                createdFrames[k].y += 5;
+                                Impact.turnOnImpact(bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
+                                        bullets.get(i).y + ((double) BulletModel.bulletSize / 2),
+                                        bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
+                                        bullets.get(i).y + ((double) BulletModel.bulletSize / 2));
+                            }
+
+                        } else if (bullets.get(i).x < createdFrames[k].x) {
+                            if (!BulletController.isBulletInAFrame(bullets.get(i))) {
+                                bullets.get(i).dx = 0;
+                                bullets.get(i).dy = 0;
+                                bullets.get(i).bulletHealth = 0;
+
+                                createdFrames[k].x -= 20;
+                                createdFrames[k].width += 10;
+                                Impact.turnOnImpact(bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
+                                        bullets.get(i).y + ((double) BulletModel.bulletSize / 2),
+                                        bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
+                                        bullets.get(i).y + ((double) BulletModel.bulletSize / 2));
+                            }
+
+                        } else if (bullets.get(i).y < createdFrames[k].y) {
+                            if (!BulletController.isBulletInAFrame(bullets.get(i))) {
+                                bullets.get(i).dx = 0;
+                                bullets.get(i).dy = 0;
+                                bullets.get(i).bulletHealth = 0;
+                                createdFrames[k].y -= 20;
+                                createdFrames[k].height += 10;
+                                Impact.turnOnImpact(bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
+                                        bullets.get(i).y + ((double) BulletModel.bulletSize / 2),
+                                        bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
+                                        bullets.get(i).y + ((double) BulletModel.bulletSize / 2));
+                            }
+
                         }
-
-                    } else if (bullets.get(i).y > createdFrames[k].y + createdFrames[k].height) {
-                        if (!BulletController.isBulletInAFrame(bullets.get(i))) {
-                            bullets.get(i).dx = 0;
-                            bullets.get(i).dy = 0;
-                            bullets.get(i).bulletHealth = 0;
-
-                            createdFrames[k].height += 20;
-                            createdFrames[k].y += 5;
-                            Impact.turnOnImpact(bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
-                                    bullets.get(i).y + ((double) BulletModel.bulletSize / 2),
-                                    bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
-                                    bullets.get(i).y + ((double) BulletModel.bulletSize / 2));
-                        }
-
-                    } else if (bullets.get(i).x < createdFrames[k].x) {
-                        if (!BulletController.isBulletInAFrame(bullets.get(i))) {
-                            bullets.get(i).dx = 0;
-                            bullets.get(i).dy = 0;
-                            bullets.get(i).bulletHealth = 0;
-
-                            createdFrames[k].x -= 20;
-                            createdFrames[k].width += 10;
-                            Impact.turnOnImpact(bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
-                                    bullets.get(i).y + ((double) BulletModel.bulletSize / 2),
-                                    bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
-                                    bullets.get(i).y + ((double) BulletModel.bulletSize / 2));
-                        }
-
-                    } else if (bullets.get(i).y < createdFrames[k].y) {
-                        if (!BulletController.isBulletInAFrame(bullets.get(i))) {
-                            bullets.get(i).dx = 0;
-                            bullets.get(i).dy = 0;
-                            bullets.get(i).bulletHealth = 0;
-                            createdFrames[k].y -= 20;
-                            createdFrames[k].height += 10;
-                            Impact.turnOnImpact(bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
-                                    bullets.get(i).y + ((double) BulletModel.bulletSize / 2),
-                                    bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
-                                    bullets.get(i).y + ((double) BulletModel.bulletSize / 2));
-                        }
-
                     }
 
                 }
@@ -183,6 +186,18 @@ public class FrameCollisions2 {
                 break;
             } else {
                 GamePanel2.ballBetweenFrames = false;
+            }
+        }
+    }
+
+
+    public static void checkEnemyBulletOut() {
+        if (!enemyBullets.isEmpty()) {
+            for (int i = 0; i < enemyBullets.size(); i++) {
+                if (enemyBullets.get(i).x < 0 || enemyBullets.get(i).x > GameFrame2.width
+                        || enemyBullets.get(i).y < 0 || enemyBullets.get(i).y > GameFrame2.height) {
+                    enemyBullets.get(i).bulletHealth = 0;
+                }
             }
         }
     }

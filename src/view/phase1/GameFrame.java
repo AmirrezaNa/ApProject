@@ -164,7 +164,7 @@ public class GameFrame extends JFrame {
                     gamePanel.revalidate();
                     gamePanel.repaint();
                     checkGameOver();
-                    checkWinner();
+                    checkPhase1Over();
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -195,25 +195,25 @@ public class GameFrame extends JFrame {
         }
     }
 
-    public void checkWinner() {
+    public void checkPhase1Over() {
         if (GameController.ball != null) {
-            boolean playerHasWon = true;
+            boolean playerHasPassedPhase1 = true;
             if (GameController.enemies1.size() + GameController.enemies2.size() < 35) {
-                playerHasWon = false;
+                playerHasPassedPhase1 = false;
             }
             if (GameController.enemies1.size() + GameController.enemies2.size() == 35) {
                 for (int i = 0; i < GameController.enemies1.size(); i++) {
                     if (GameController.enemies1.get(i).enemyHealth > 0) {
-                        playerHasWon = false;
+                        playerHasPassedPhase1 = false;
                     }
                 }
                 for (int j = 0; j < GameController.enemies2.size(); j++) {
                     if (GameController.enemies2.get(j).enemyHealth > 0) {
-                        playerHasWon = false;
+                        playerHasPassedPhase1 = false;
                     }
                 }
             }
-            if (playerHasWon) {
+            if (playerHasPassedPhase1) {
                 displayWin();
             }
 
@@ -252,7 +252,8 @@ public class GameFrame extends JFrame {
                     if (width <= 0 && height <= 0) {
                         isAnimationComplete = true;
                         ((Timer) e.getSource()).stop();
-                        displayWinnerWindow();
+                        displayEndOfPhase1();
+                        GameFrame2 gameFrame2 = new GameFrame2();
                     }
                 }
             }
@@ -261,25 +262,14 @@ public class GameFrame extends JFrame {
     }
 
 
-    public void displayWinnerWindow() {
+    public void displayEndOfPhase1() {
         if (GameController.ball != null) {
+            this.dispose();
             gameFrameStuff.dispose();
             GamePanel.phase1over = true;
             GameRestart.restartGame();
             gamePanel.revalidate();
             gamePanel.repaint();
-            try {
-                if (DataManager.checkPlayerExists(EnterNamePage.player.getName())) {
-                    DataManager.updatePlayerData();
-                } else {
-                    DataManager.createPlayerData(EnterNamePage.player);
-                }
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-            SoundEffects.playSound(Constants.WINNER_SOUND_PATH);
-
-//            WinnerFrame winnerFrame = new WinnerFrame();
         }
     }
 

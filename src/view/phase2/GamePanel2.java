@@ -2,6 +2,7 @@ package view.phase2;
 
 import controller.game.FrameOfObject;
 import controller.game.GameController;
+import controller.game.WaveController;
 import controller.game.collisions.phase2.FrameCollisions2;
 import controller.game.collisions.phase2.ObjectCollisions2;
 import controller.game.listener.KeyInputListener;
@@ -10,12 +11,10 @@ import controller.game.objectsController.ball.BallAngleController;
 import controller.game.objectsController.ball.BallController;
 import controller.game.objectsController.ball.BallDirectionController;
 import controller.game.objectsController.ball.BulletController;
-import model.entity.BallAngle;
-import model.entity.BallDirection;
-import model.entity.BallModel;
-import model.entity.BulletModel;
+import controller.game.objectsController.ball.enemies.NecropickController;
+import controller.game.objectsController.ball.enemies.OmenoctController;
+import model.entity.*;
 import model.entity.enemy.*;
-import view.phase1.GameFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,6 +50,8 @@ public class GamePanel2 extends JPanel implements Runnable {
         BallController.getBallIntoFrame2();
         ballDirection = GameController.createBallDirection();
         ballAngle = GameController.createBallAngle();
+        omenoct = WaveController.setTimerForOmenoct();
+        necropick = WaveController.setTimerForNecropick();
 
 
 
@@ -96,8 +97,12 @@ public class GamePanel2 extends JPanel implements Runnable {
         BallDirectionController.updateBallDirectionPanel2();
         BallAngleController.updateBallAngle();
         BulletController.updateBullet();
+        BulletController.updateEnemyBullet();
+        OmenoctController.updateOmenoct();
+        NecropickController.update();
         FrameOfObject.FrameOfBullet();
         FrameCollisions2.checkFramesCollisions2();
+        ObjectCollisions2.checkCollisionsPhase2();
         revalidate();
         repaint();
     }
@@ -109,11 +114,28 @@ public class GamePanel2 extends JPanel implements Runnable {
         drawBallAngle(g);
         drawBallDirection(g);
         drawBullet(g);
-//        drawEnemy1(g);
-//        drawEnemy2(g);
-//        drawCollectible(g);
+        drawEnemyBullet(g);
+        drawOmenoct(g);
+        drawNecropick(g);
+        drawCollectible(g);
         revalidate();
         repaint();
+    }
+
+
+    public static void drawCollectible(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+        if (!GameController.collectibles.isEmpty()) {
+            for (int i = 0; i < GameController.collectibles.size(); i++) {
+                if (GameController.collectibles.get(i).collectibleHealth > 0) {
+                    g2d.setColor(new Color(0xFFCF0F));
+                    g2d.fillOval((int) GameController.collectibles.get(i).x,
+                            (int) GameController.collectibles.get(i).y,
+                            (int) Collectible.collectibleSize,
+                            (int) Collectible.collectibleSize);
+                }
+            }
+        }
     }
 
 
@@ -181,6 +203,64 @@ public class GamePanel2 extends JPanel implements Runnable {
                                 BulletModel.bulletSize,
                                 BulletModel.bulletSize);
                     }
+                }
+            }
+        }
+        repaint();
+        repaint();
+    }
+
+    public void drawEnemyBullet(Graphics g) {
+        if (!GameController.enemyBullets.isEmpty()) {
+            for (int i = 0; i < GameController.enemyBullets.size(); i++) {
+                if (GameController.enemyBullets.get(i).bulletHealth > 0) {
+                    if (BulletController.isBulletInAFrame(GameController.enemyBullets.get(i))) {
+                        g.setColor(new Color(0x8C0101));
+                        g.fillOval((int) GameController.enemyBullets.get(i).x,
+                                (int) GameController.enemyBullets.get(i).y,
+                                BulletModel.bulletSize,
+                                BulletModel.bulletSize);
+                    }
+                }
+            }
+        }
+        repaint();
+        repaint();
+    }
+
+
+
+
+    public void drawOmenoct(Graphics g) {
+        if (!GameController.omenoctEnemies.isEmpty()) {
+            for (int i = 0; i < GameController.omenoctEnemies.size(); i++) {
+                if (GameController.omenoctEnemies.get(i).enemyHealth > 0) {
+                    super.paintComponent(g);
+                    g.drawImage(OmenoctModel.image,
+                            (int)GameController.omenoctEnemies.get(i).x - OmenoctModel.distanceToCenter,
+                            (int)GameController.omenoctEnemies.get(i).y,
+                            2*OmenoctModel.distanceToCenter,
+                            2*OmenoctModel.distanceToCenter,
+                            null);
+                }
+            }
+        }
+        repaint();
+        repaint();
+    }
+
+    public void drawNecropick(Graphics g) {
+        if (!GameController.necropickEnemies.isEmpty()) {
+            for (int i = 0; i < GameController.necropickEnemies.size(); i++) {
+                if (GameController.necropickEnemies.get(i).enemyHealth > 0 &&
+                        !GameController.necropickEnemies.get(i).hide) {
+                    super.paintComponent(g);
+                    g.drawImage(NecropickModel.image,
+                            (int)GameController.necropickEnemies.get(i).x,
+                            (int)GameController.necropickEnemies.get(i).y,
+                            NecropickModel.necropickSize,
+                            NecropickModel.necropickSize,
+                            null);
                 }
             }
         }
