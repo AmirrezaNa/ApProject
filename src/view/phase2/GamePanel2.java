@@ -58,6 +58,7 @@ public class GamePanel2 extends JPanel implements Runnable {
         wyrm = WaveController.setTimerForWyrm();
         barricados1 = WaveController.setTimerForBarricados1();
         barricados2 = WaveController.setTimerForBarricados2();
+        blackOrb = WaveController.setTimerForBlackOrb();
 
 
 
@@ -112,6 +113,7 @@ public class GamePanel2 extends JPanel implements Runnable {
         WyrmController.updateWyrm();
         BarricadosController1.updateBarricados1();
         BarricadosController2.updateBarricados2();
+        BlackOrbController.updateBlackOrb();
 
         FrameOfObject.FrameOfBullet();
         FrameCollisions2.checkFramesCollisions2();
@@ -142,6 +144,7 @@ public class GamePanel2 extends JPanel implements Runnable {
         drawWyrm(g);
         drawBarricados1(g);
         drawBarricados2(g);
+        drawBlackOrb(g);
 
 
         revalidate();
@@ -250,7 +253,7 @@ public class GamePanel2 extends JPanel implements Runnable {
                 size = 10;
             }
             else {
-                size = GameController.bullets.size();
+                size = GameController.enemyBullets.size();
             }
             for (int i = 0; i < size; i++) {
                 if (GameController.enemyBullets.get(i).bulletHealth > 0) {
@@ -398,5 +401,61 @@ public class GamePanel2 extends JPanel implements Runnable {
         repaint();
         repaint();
     }
+
+
+    public void drawBlackOrb(Graphics g) {
+        if (!GameController.blackOrbEnemies.isEmpty()) {
+            for (int i = 0; i < GameController.blackOrbEnemies.size(); i++) {
+                if (GameController.blackOrbEnemies.get(i).enemyHealth > 0) {
+                    int x = (int) GameController.blackOrbEnemies.get(i).x;
+                    int y = (int) GameController.blackOrbEnemies.get(i).y;
+                    int x1 = x;
+                    int x2 = (int) (x + (BlackOrbModel.blackOrbSize * Math.cos(Math.PI/10)));
+                    int x3 = (int) (x + (BlackOrbModel.blackOrbSize * Math.sin(Math.PI/10)));
+                    int x4 = (int) (x - (BlackOrbModel.blackOrbSize * Math.sin(Math.PI/10)));
+                    int x5 = (int) (x - (BlackOrbModel.blackOrbSize * Math.cos(Math.PI/10)));
+                    int y1 = (int) y - BlackOrbModel.blackOrbSize;
+                    int y2 = (int) (y - (BlackOrbModel.blackOrbSize * Math.sin(Math.PI/10)));
+                    int y3 = (int) (y + (BlackOrbModel.blackOrbSize * Math.cos(Math.PI/10)));
+                    int y4 = (int) (y + (BlackOrbModel.blackOrbSize * Math.cos(Math.PI/10)));
+                    int y5 = (int) (y - (BlackOrbModel.blackOrbSize * Math.sin(Math.PI/10)));
+                    super.paintComponent(g);
+                    g.setColor(new Color(0x575555));
+                    Graphics2D g2d = (Graphics2D) g;
+                    if (GameController.blackOrbEnemies.get(i).draw1) {
+                        g2d.fillOval(x1 - 5, y1 - 5, 10, 10);
+                    }
+                    if (GameController.blackOrbEnemies.get(i).draw2) {
+                        g2d.fillOval(x2 - 5, y2 - 5, 10, 10);
+                    }
+                    if (GameController.blackOrbEnemies.get(i).draw3) {
+                        g2d.fillOval(x3 - 5, y3 - 5, 10, 10);
+                    }
+                    if (GameController.blackOrbEnemies.get(i).draw4) {
+                        g2d.fillOval(x4 - 5, y4 - 5, 10, 10);
+                    }
+                    if (GameController.blackOrbEnemies.get(i).draw5) {
+                        g2d.fillOval(x5 - 5, y5 - 5, 10, 10);
+
+                        g2d.setColor(new Color(0x9D15DC));
+                        g2d.setStroke(new BasicStroke(2));
+                        Polygon polygon = new Polygon(new int[]{x1, x2, x3, x4, x5},
+                                new int[]{y1, y2, y3, y4, y5}, 5);
+                        g2d.drawPolygon(polygon);
+
+                        Polygon polygon1 = new Polygon(new int[]{x4, x1, x3, x5, x2, x4},
+                                new int[]{y4, y1, y3, y5, y2, y4}, 6);
+                        g2d.drawPolygon(polygon1);
+
+                    }
+
+                }
+            }
+        }
+        repaint();
+        repaint();
+    }
+
+
 
 }

@@ -171,10 +171,8 @@ public class GameController {
             int x = createdFrames[2].x + (createdFrames[2].width/2);
             int y = createdFrames[2].y + createdFrames[2].height - (BarricadosModel1.barricadosSize/2);
             barricados1 = new BarricadosModel1(x, y);
-            if (barricadosEnemies1.isEmpty()) {
-                BarricadosController1.setTimerForBarricados1(barricados1);
-            }
             barricadosEnemies1.add(barricados1);
+            BarricadosController1.setTimerForBarricados1(barricados1);
         }
     }
 
@@ -184,16 +182,21 @@ public class GameController {
             int x = createdFrames[1].x + (createdFrames[1].width/2);
             int y = createdFrames[1].y + createdFrames[1].height - (BarricadosModel2.barricadosSize/2);
             barricados2 = new BarricadosModel2(x, y);
-            if (barricadosEnemies2.isEmpty()) {
-                BarricadosController2.setTimerForBarricados2(barricados2);
-            }
             barricadosEnemies2.add(barricados2);
+            BarricadosController2.setTimerForBarricados2(barricados2);
         }
     }
 
 
     public static void newBlackOrb() {
-
+        if (GamePanel.phase1over) {
+            SoundEffects.playSound(Constants.ENEMY_ENTER_SOUND_PATH);
+            int x = createdFrames[3].x + (createdFrames[3].width/2);
+            int y = createdFrames[3].y + (createdFrames[3].height/2);
+            blackOrb = new BlackOrbModel(x, y);
+            blackOrbEnemies.add(blackOrb);
+            BlackOrbController.setTimerForCreatingBlackOrb(blackOrb);
+        }
     }
 
 
@@ -203,10 +206,10 @@ public class GameController {
             int x = createdFrames[FrameOfObject.getFrameOfBall()].x + createdFrames[FrameOfObject.getFrameOfBall()].width - (ArchmireModel.archmireSize / 2);
             int y = createdFrames[FrameOfObject.getFrameOfBall()].y + createdFrames[FrameOfObject.getFrameOfBall()].height/2;
             omenoct = new OmenoctModel(x, y);
-            if (omenoctEnemies.isEmpty()) {
+            omenoctEnemies.add(omenoct);
+            if (omenoctEnemies.size() == 1) {
                 OmenoctController.shotBullet();
             }
-            omenoctEnemies.add(omenoct);
         }
     }
 
@@ -217,10 +220,10 @@ public class GameController {
             int x = createdFrames[3].x + (createdFrames[3].width/2);
             int y = createdFrames[3].y + createdFrames[3].height - (WyrmModel.wyrmSize/2);
             wyrm = new WyrmModel(x, y);
-            if (wyrmEnemies.isEmpty()) {
+            wyrmEnemies.add(wyrm);
+            if (wyrmEnemies.size() == 1) {
                 WyrmController.shotBullet();
             }
-            wyrmEnemies.add(wyrm);
         }
     }
 

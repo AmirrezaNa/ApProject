@@ -347,4 +347,37 @@ public class WaveController {
         return barricados2;
     }
 
+
+    public static BlackOrbModel setTimerForBlackOrb() {
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                if (blackOrbEnemies.isEmpty()) {
+                    newBlackOrb();
+                }
+                if (!blackOrbEnemies.isEmpty()) {
+                    boolean createNewOne = true;
+                    for (int i = 0; i < blackOrbEnemies.size(); i++) {
+                        if (blackOrbEnemies.get(i).enemyHealth > 0) {
+                            createNewOne = false;
+                            break;
+                        }
+                    }
+                    if (createNewOne) {
+                        newBlackOrb();
+                    }
+
+                }
+//                if (stopWave) {
+//                    timer.cancel();
+//                }
+            }
+
+        };
+        timer.scheduleAtFixedRate(task, 1000, 5000);
+
+        return blackOrb;
+    }
+
 }

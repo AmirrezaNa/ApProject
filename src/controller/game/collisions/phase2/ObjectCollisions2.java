@@ -309,7 +309,7 @@ public class ObjectCollisions2 {
                                 SoundEffects.playSound(Constants.HURT_SOUND_PATH);
                                 if (wyrmEnemies.get(k).enemyHealth <= 0) {
                                     SoundEffects.playSound(Constants.HIT_SOUND_PATH);
-                                    GameController.newCollectible(archmireEnemies.get(k).x, archmireEnemies.get(k).y);
+                                    GameController.newCollectible(wyrmEnemies.get(k).x, wyrmEnemies.get(k).y);
                                 }
                                 Impact.turnOnImpact(GameController.bullets.get(j).x + ((double) BulletModel.bulletSize / 2),
                                         GameController.bullets.get(j).y + ((double) BulletModel.bulletSize / 2),

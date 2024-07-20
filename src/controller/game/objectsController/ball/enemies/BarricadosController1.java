@@ -31,7 +31,7 @@ public class BarricadosController1 {
         if (!GameController.barricadosEnemies1.isEmpty()) {
             for (int i = 0; i < barricadosEnemies1.size(); i++) {
                 if (barricadosEnemies1.get(i).enemyTimer > 0) {
-                    double epsilonDistance = Math.sqrt(Math.pow(Math.abs(barricadosEnemies1.get(i).x - ball.x), 2) + Math.pow(Math.abs(barricadosEnemies2.get(i).y - ball.y), 2));
+                    double epsilonDistance = Math.sqrt(Math.pow(Math.abs(barricadosEnemies1.get(i).x - ball.x), 2) + Math.pow(Math.abs(barricadosEnemies1.get(i).y - ball.y), 2));
                     if (epsilonDistance > 150) {
                         barricadosEnemies1.get(i).x += barricadosEnemies1.get(i).dx + barricadosEnemies1.get(i).ax;
                         barricadosEnemies1.get(i).y += barricadosEnemies1.get(i).dy + barricadosEnemies1.get(i).ay;
