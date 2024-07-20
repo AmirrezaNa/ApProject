@@ -3,6 +3,7 @@ package controller.game;
 import controller.Constants;
 import controller.data.controller.SoundEffects;
 import controller.game.objectsController.ball.CollectibleController;
+import controller.game.objectsController.ball.enemies.ArchmireController;
 import controller.game.objectsController.ball.enemies.OmenoctController;
 import model.entity.*;
 import model.entity.enemy.*;
@@ -34,6 +35,7 @@ public class GameController {
     public static ArrayList<EnemyModel1> enemies1 = new ArrayList<>();
     public static ArrayList<EnemyModel2> enemies2 = new ArrayList<>();
     public static ArrayList<ArchmireModel> archmireEnemies = new ArrayList<>();
+    public static ArrayList<ArchmirePoints> archmirePoints = new ArrayList<>();
     public static ArrayList<BarricadosModel> barricadosEnemies = new ArrayList<>();
     public static ArrayList<BlackOrbModel> blackOrbEnemies = new ArrayList<>();
     public static ArrayList<OmenoctModel> omenoctEnemies = new ArrayList<>();
@@ -124,13 +126,11 @@ public class GameController {
 
     public static void newEnemy1() {
         if (!GamePanel.phase1over) {
-
+            SoundEffects.playSound(Constants.ENEMY_ENTER_SOUND_PATH);
             if (enemies1.size() % 2 == 0) {
-                SoundEffects.playSound(Constants.ENEMY_ENTER_SOUND_PATH);
                 enemy1 = new EnemyModel1(50, (double) GameFrame.height / 2);
                 enemies1.add(0, enemy1);
             } else {
-                SoundEffects.playSound(Constants.ENEMY_ENTER_SOUND_PATH);
                 enemy1 = new EnemyModel1((double) GameFrame.width / 2, 50);
                 enemy1.dash = true;
                 enemies1.add(0, enemy1);
@@ -140,13 +140,11 @@ public class GameController {
 
     public static void newEnemy2() {
         if (!GamePanel.phase1over) {
-
+            SoundEffects.playSound(Constants.ENEMY_ENTER_SOUND_PATH);
             if (enemies2.size() % 2 == 0) {
-                SoundEffects.playSound(Constants.ENEMY_ENTER_SOUND_PATH);
                 enemy2 = new EnemyModel2((double) GameFrame.width - 60, (double) GameFrame.height / 2);
                 enemies2.add(0, enemy2);
             } else {
-                SoundEffects.playSound(Constants.ENEMY_ENTER_SOUND_PATH);
                 enemy2 = new EnemyModel2(((double) GameFrame.width / 2), GameFrame.height - 60);
                 enemies2.add(0, enemy2);
             }
@@ -156,7 +154,13 @@ public class GameController {
 
 
     public static void newArchmire() {
-
+        for (int i = 0; i < 4; i++) {
+            ArchmireModel archmireModel = new ArchmireModel(createdFrames[i].x + (double) (createdFrames[i].width / 2),
+                    createdFrames[i].y + (double) (createdFrames[i].height / 2));
+            ArchmireController.setTrace(archmireModel);
+            archmireEnemies.add(archmireModel);
+        }
+        SoundEffects.playSound(Constants.ENEMY_ENTER_SOUND_PATH);
 
     }
 
@@ -202,7 +206,6 @@ public class GameController {
     public static void newCollectible(double x, double y) {
         collectible = new Collectible(x, y);
         collectibles.add(collectible);
-
         CollectibleController.countDownCollectible(10, collectible);//collectible will disappear in 10 seconds
     }
 

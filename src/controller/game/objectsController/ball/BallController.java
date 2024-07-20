@@ -3,7 +3,11 @@ package controller.game.objectsController.ball;
 import controller.game.FrameOfObject;
 import model.entity.BallModel;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import static controller.game.GameController.ball;
+import static controller.game.GameController.newArchmire;
 import static view.phase2.GameInternalFrame.createdFrames;
 
 public class BallController {
@@ -47,6 +51,40 @@ public class BallController {
             }
         }
         return false;
+    }
+
+    public static void checkIfBallInArchmire() {
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                if (ball.ballInArchmire) {
+                    ball.HP -= 10;
+                }
+//                if (stopWave) {
+//                    timer.cancel();
+//                }
+            }
+
+        };
+        timer.scheduleAtFixedRate(task, 500, 1000);
+    }
+
+    public static void checkIfBallInArchmireTrace() {
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                if (ball.ballInArchmireTrace) {
+                    ball.HP -= 2;
+                }
+//                if (stopWave) {
+//                    timer.cancel();
+//                }
+            }
+
+        };
+        timer.scheduleAtFixedRate(task, 500, 1000);
     }
 
 

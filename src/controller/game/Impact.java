@@ -3,6 +3,8 @@ package controller.game;
 import model.entity.BallModel;
 import model.entity.enemy.EnemyModel1;
 import model.entity.enemy.EnemyModel2;
+import model.entity.enemy.NecropickModel;
+import model.entity.enemy.OmenoctModel;
 
 public class Impact {
     public static void turnOnImpact(double x1, double y1, double x2, double y2) {
@@ -12,6 +14,8 @@ public class Impact {
 
         impactEnemy1(xImpactPoint, yImpactPoint);
         impactEnemy2(xImpactPoint, yImpactPoint);
+        impactOmenoct(xImpactPoint, yImpactPoint);
+        impactNecropick(xImpactPoint, yImpactPoint);
         impactBall(xImpactPoint, yImpactPoint);
     }
 
@@ -40,6 +44,37 @@ public class Impact {
                         enemy2.ay = Math.sqrt(Math.pow(EnemyModel1.enemyAcceleration, 2) - Math.pow(enemy2.ax, 2));
                     } else {
                         enemy2.ay = -Math.sqrt(Math.pow(EnemyModel1.enemyAcceleration, 2) - Math.pow(enemy2.ax, 2));
+                    }
+                }
+            }
+        }
+    }
+
+    public static void impactOmenoct(double xImpactPoint, double yImpactPoint) {
+        for (OmenoctModel omenoct : GameController.omenoctEnemies) {
+            if (omenoct.enemyHealth > 0) {
+                if (Math.pow((Math.abs(omenoct.x) - Math.abs(xImpactPoint)), 2) + Math.pow((Math.abs(omenoct.y) - Math.abs(yImpactPoint)), 2) < 8100) {
+                    omenoct.ax = ((omenoct.x - xImpactPoint) / Math.sqrt(Math.pow((omenoct.x - xImpactPoint), 2) + Math.pow((omenoct.y - yImpactPoint), 2))) * EnemyModel1.enemyAcceleration;
+                    if (yImpactPoint < omenoct.y) {
+                        omenoct.ay = Math.sqrt(Math.pow(OmenoctModel.enemyAcceleration, 2) - Math.pow(omenoct.ax, 2));
+                    } else {
+                        omenoct.ay = -Math.sqrt(Math.pow(OmenoctModel.enemyAcceleration, 2) - Math.pow(omenoct.ax, 2));
+                    }
+                }
+            }
+        }
+    }
+
+
+    public static void impactNecropick(double xImpactPoint, double yImpactPoint) {
+        for (NecropickModel necropick : GameController.necropickEnemies) {
+            if (necropick.enemyHealth > 0 && !necropick.hide) {
+                if (Math.pow((Math.abs(necropick.x) - Math.abs(xImpactPoint)), 2) + Math.pow((Math.abs(necropick.y) - Math.abs(yImpactPoint)), 2) < 8100) {
+                    necropick.ax = ((necropick.x - xImpactPoint) / Math.sqrt(Math.pow((necropick.x - xImpactPoint), 2) + Math.pow((necropick.y - yImpactPoint), 2))) * EnemyModel1.enemyAcceleration;
+                    if (yImpactPoint < necropick.y) {
+                        necropick.ay = Math.sqrt(Math.pow(NecropickModel.enemyAcceleration, 2) - Math.pow(necropick.ax, 2));
+                    } else {
+                        necropick.ay = -Math.sqrt(Math.pow(NecropickModel.enemyAcceleration, 2) - Math.pow(necropick.ax, 2));
                     }
                 }
             }

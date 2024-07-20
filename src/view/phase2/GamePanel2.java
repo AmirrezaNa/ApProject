@@ -11,8 +11,10 @@ import controller.game.objectsController.ball.BallAngleController;
 import controller.game.objectsController.ball.BallController;
 import controller.game.objectsController.ball.BallDirectionController;
 import controller.game.objectsController.ball.BulletController;
+import controller.game.objectsController.ball.enemies.ArchmireController;
 import controller.game.objectsController.ball.enemies.NecropickController;
 import controller.game.objectsController.ball.enemies.OmenoctController;
+import controller.game.objectsController.ball.enemies.WyrmController;
 import model.entity.*;
 import model.entity.enemy.*;
 
@@ -48,10 +50,14 @@ public class GamePanel2 extends JPanel implements Runnable {
 
         ball = GameController.ball;
         BallController.getBallIntoFrame2();
+        BallController.checkIfBallInArchmire();
+        BallController.checkIfBallInArchmireTrace();
         ballDirection = GameController.createBallDirection();
         ballAngle = GameController.createBallAngle();
         omenoct = WaveController.setTimerForOmenoct();
         necropick = WaveController.setTimerForNecropick();
+        archmire = WaveController.setTimerForArchmire();
+        wyrm = WaveController.setTimerForWyrm();
 
 
 
@@ -100,6 +106,8 @@ public class GamePanel2 extends JPanel implements Runnable {
         BulletController.updateEnemyBullet();
         OmenoctController.updateOmenoct();
         NecropickController.update();
+        ArchmireController.updateArchmire();
+        WyrmController.updateWyrm();
         FrameOfObject.FrameOfBullet();
         FrameCollisions2.checkFramesCollisions2();
         ObjectCollisions2.checkCollisionsPhase2();
@@ -110,6 +118,7 @@ public class GamePanel2 extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         drawFrames(g);
+        drawArchmireTrace(g);
         drawBall(g);
         drawBallAngle(g);
         drawBallDirection(g);
@@ -117,6 +126,8 @@ public class GamePanel2 extends JPanel implements Runnable {
         drawEnemyBullet(g);
         drawOmenoct(g);
         drawNecropick(g);
+        drawArchmire(g);
+        drawWyrm(g);
         drawCollectible(g);
         revalidate();
         repaint();
@@ -266,6 +277,46 @@ public class GamePanel2 extends JPanel implements Runnable {
         }
         repaint();
         repaint();
+    }
+
+
+    public void drawArchmire(Graphics g) {
+        if (!GameController.archmireEnemies.isEmpty()) {
+            for (int i = 0; i < GameController.archmireEnemies.size(); i++) {
+                if (GameController.archmireEnemies.get(i).enemyHealth > 0) {
+                    super.paintComponent(g);
+                    g.drawImage(ArchmireModel.image,
+                            (int)GameController.archmireEnemies.get(i).x,
+                            (int)GameController.archmireEnemies.get(i).y,
+                            ArchmireModel.archmireSize,
+                            ArchmireModel.archmireSize,
+                            null);
+                }
+            }
+        }
+        repaint();
+        repaint();
+    }
+
+    public void drawArchmireTrace(Graphics g) {
+        if (!GameController.archmirePoints.isEmpty()) {
+            for (int i = 0; i < GameController.archmirePoints.size(); i++) {
+                if (GameController.archmirePoints.get(i).archmirePointTimer > 0) {
+                    super.paintComponent(g);
+                    g.setColor(new Color(0x4B2828));
+                    g.fillOval((int)GameController.archmirePoints.get(i).x - (ArchmireModel.archmireSize/2),
+                            (int)GameController.archmirePoints.get(i).y - (ArchmireModel.archmireSize/2),
+                            ArchmireModel.archmireSize,
+                            ArchmireModel.archmireSize);
+                }
+            }
+        }
+        repaint();
+        repaint();
+    }
+
+    public void drawWyrm(Graphics g) {
+
     }
 
 }

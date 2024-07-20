@@ -232,4 +232,53 @@ public class WaveController {
         return necropick;
     }
 
+    public static ArchmireModel setTimerForArchmire() {
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                newArchmire();
+//                if (stopWave) {
+//                    timer.cancel();
+//                }
+            }
+
+        };
+        timer.scheduleAtFixedRate(task, 500, 20000);
+
+        return archmire;
+    }
+
+    public static WyrmModel setTimerForWyrm() {
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                if (wyrmEnemies.isEmpty()) {
+                    newWyrm();
+                }
+                if (!wyrmEnemies.isEmpty()) {
+                    boolean createNewOne = true;
+                    for (int i = 0; i < wyrmEnemies.size(); i++) {
+                        if (wyrmEnemies.get(i).enemyHealth > 0) {
+                            createNewOne = false;
+                            break;
+                        }
+                    }
+                    if (createNewOne) {
+                        newWyrm();
+                    }
+
+                }
+//                if (stopWave) {
+//                    timer.cancel();
+//                }
+            }
+
+        };
+        timer.scheduleAtFixedRate(task, 5000, 5000);
+
+        return wyrm;
+    }
+
 }

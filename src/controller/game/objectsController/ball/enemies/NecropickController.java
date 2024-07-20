@@ -20,7 +20,6 @@ public class NecropickController {
                         necropickEnemies.get(i).hide = true;
                     }
                     else if (necropickEnemies.get(i).hidingTime <= 12) {
-                        System.out.println("hi");
                         necropickEnemies.get(i).hide = false;
                     }
                 }

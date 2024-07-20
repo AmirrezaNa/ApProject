@@ -11,6 +11,8 @@ public class BallModel {
     public static double ballAcceleration;
     public static int ballRadius = 20;
     public int HP;
+    public boolean ballInArchmire;
+    public boolean ballInArchmireTrace;
 
     private static BallModel instance;
 
@@ -19,6 +21,8 @@ public class BallModel {
         this.y = y;
         ballAcceleration = 3;
         this.HP = 100;
+        this.ballInArchmire = false;
+        this.ballInArchmireTrace = false;
     }
 
     // Static method to get the singleton instance
