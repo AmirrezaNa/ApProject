@@ -11,10 +11,7 @@ import controller.game.objectsController.ball.BallAngleController;
 import controller.game.objectsController.ball.BallController;
 import controller.game.objectsController.ball.BallDirectionController;
 import controller.game.objectsController.ball.BulletController;
-import controller.game.objectsController.ball.enemies.ArchmireController;
-import controller.game.objectsController.ball.enemies.NecropickController;
-import controller.game.objectsController.ball.enemies.OmenoctController;
-import controller.game.objectsController.ball.enemies.WyrmController;
+import controller.game.objectsController.ball.enemies.*;
 import model.entity.*;
 import model.entity.enemy.*;
 
@@ -27,7 +24,8 @@ public class GamePanel2 extends JPanel implements Runnable {
     public static BallDirection ballDirection;
     public static BallAngle ballAngle;
     public static ArchmireModel archmire;
-    public static BarricadosModel barricados;
+    public static BarricadosModel1 barricados1;
+    public static BarricadosModel2 barricados2;
     public static BlackOrbModel blackOrb;
     public static OmenoctModel omenoct;
     public static WyrmModel wyrm;
@@ -58,7 +56,8 @@ public class GamePanel2 extends JPanel implements Runnable {
         necropick = WaveController.setTimerForNecropick();
         archmire = WaveController.setTimerForArchmire();
         wyrm = WaveController.setTimerForWyrm();
-
+        barricados1 = WaveController.setTimerForBarricados1();
+        barricados2 = WaveController.setTimerForBarricados2();
 
 
 
@@ -99,18 +98,25 @@ public class GamePanel2 extends JPanel implements Runnable {
 
     public void update() {
         mainFrame = FrameOfObject.getFrameOfBall();
+
         BallController.updateTheBall();
         BallDirectionController.updateBallDirectionPanel2();
         BallAngleController.updateBallAngle();
+
         BulletController.updateBullet();
         BulletController.updateEnemyBullet();
+
         OmenoctController.updateOmenoct();
         NecropickController.update();
         ArchmireController.updateArchmire();
         WyrmController.updateWyrm();
+        BarricadosController1.updateBarricados1();
+        BarricadosController2.updateBarricados2();
+
         FrameOfObject.FrameOfBullet();
         FrameCollisions2.checkFramesCollisions2();
         ObjectCollisions2.checkCollisionsPhase2();
+
         revalidate();
         repaint();
     }
@@ -118,17 +124,26 @@ public class GamePanel2 extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         drawFrames(g);
+
         drawArchmireTrace(g);
+
+        drawCollectible(g);
+
         drawBall(g);
         drawBallAngle(g);
         drawBallDirection(g);
+
         drawBullet(g);
         drawEnemyBullet(g);
+
         drawOmenoct(g);
         drawNecropick(g);
         drawArchmire(g);
         drawWyrm(g);
-        drawCollectible(g);
+        drawBarricados1(g);
+        drawBarricados2(g);
+
+
         revalidate();
         repaint();
     }
@@ -205,7 +220,14 @@ public class GamePanel2 extends JPanel implements Runnable {
 
     public void drawBullet(Graphics g) {
         if (!GameController.bullets.isEmpty()) {
-            for (int i = 0; i < GameController.bullets.size(); i++) {
+            int size;
+            if (GameController.bullets.size() > 15) {
+                size = 15;
+            }
+            else {
+                size = GameController.bullets.size();
+            }
+            for (int i = 0; i < size; i++) {
                 if (GameController.bullets.get(i).bulletHealth > 0) {
                     if (BulletController.isBulletInAFrame(GameController.bullets.get(i))) {
                         g.setColor(new Color(0xEF8506));
@@ -223,7 +245,14 @@ public class GamePanel2 extends JPanel implements Runnable {
 
     public void drawEnemyBullet(Graphics g) {
         if (!GameController.enemyBullets.isEmpty()) {
-            for (int i = 0; i < GameController.enemyBullets.size(); i++) {
+            int size;
+            if (GameController.enemyBullets.size() > 10) {
+                size = 10;
+            }
+            else {
+                size = GameController.bullets.size();
+            }
+            for (int i = 0; i < size; i++) {
                 if (GameController.enemyBullets.get(i).bulletHealth > 0) {
                     if (BulletController.isBulletInAFrame(GameController.enemyBullets.get(i))) {
                         g.setColor(new Color(0x8C0101));
@@ -325,6 +354,43 @@ public class GamePanel2 extends JPanel implements Runnable {
                             (int)GameController.wyrmEnemies.get(i).y,
                             WyrmModel.wyrmSize,
                             WyrmModel.wyrmSize,
+                            null);
+                }
+            }
+        }
+        repaint();
+        repaint();
+    }
+
+    public void drawBarricados1(Graphics g) {
+        if (!GameController.barricadosEnemies1.isEmpty()) {
+            for (int i = 0; i < GameController.barricadosEnemies1.size(); i++) {
+                if (GameController.barricadosEnemies1.get(i).enemyTimer > 0) {
+                    super.paintComponent(g);
+                    g.drawImage(BarricadosModel1.image,
+                            (int)GameController.barricadosEnemies1.get(i).x,
+                            (int)GameController.barricadosEnemies1.get(i).y,
+                            BarricadosModel1.barricadosSize,
+                            BarricadosModel1.barricadosSize,
+                            null);
+                }
+            }
+        }
+        repaint();
+        repaint();
+    }
+
+
+    public void drawBarricados2(Graphics g) {
+        if (!GameController.barricadosEnemies2.isEmpty()) {
+            for (int i = 0; i < GameController.barricadosEnemies2.size(); i++) {
+                if (GameController.barricadosEnemies2.get(i).enemyTimer > 0) {
+                    super.paintComponent(g);
+                    g.drawImage(BarricadosModel2.image,
+                            (int)GameController.barricadosEnemies2.get(i).x,
+                            (int)GameController.barricadosEnemies2.get(i).y,
+                            BarricadosModel2.barricadosSize,
+                            BarricadosModel2.barricadosSize,
                             null);
                 }
             }

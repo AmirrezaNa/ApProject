@@ -281,4 +281,70 @@ public class WaveController {
         return wyrm;
     }
 
+
+    public static BarricadosModel1 setTimerForBarricados1() {
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                if (barricadosEnemies1.isEmpty()) {
+                    newBarricados1();
+                }
+                if (!barricadosEnemies1.isEmpty()) {
+                    boolean createNewOne = true;
+                    for (int i = 0; i < barricadosEnemies1.size(); i++) {
+                        if (barricadosEnemies1.get(i).enemyTimer > 0) {
+                            createNewOne = false;
+                            break;
+                        }
+                    }
+                    if (createNewOne) {
+                        newBarricados1();
+                    }
+
+                }
+//                if (stopWave) {
+//                    timer.cancel();
+//                }
+            }
+
+        };
+        timer.scheduleAtFixedRate(task, 5000, 5000);
+
+        return barricados1;
+    }
+
+
+    public static BarricadosModel2 setTimerForBarricados2() {
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                if (barricadosEnemies2.isEmpty()) {
+                    newBarricados2();
+                }
+                if (!barricadosEnemies2.isEmpty()) {
+                    boolean createNewOne = true;
+                    for (int i = 0; i < barricadosEnemies2.size(); i++) {
+                        if (barricadosEnemies2.get(i).enemyTimer > 0) {
+                            createNewOne = false;
+                            break;
+                        }
+                    }
+                    if (createNewOne) {
+                        newBarricados2();
+                    }
+
+                }
+//                if (stopWave) {
+//                    timer.cancel();
+//                }
+            }
+
+        };
+        timer.scheduleAtFixedRate(task, 15000, 5000);
+
+        return barricados2;
+    }
+
 }

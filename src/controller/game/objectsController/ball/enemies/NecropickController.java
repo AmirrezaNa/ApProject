@@ -63,7 +63,7 @@ public class NecropickController {
             Point point = new Point();
             point.setLocation(necropick.x + ((double) NecropickModel.necropickSize / 2), necropick.y + ((double) NecropickModel.necropickSize / 2));
             Point goal = new Point();
-            goal.setLocation(ball.x, ball.y + ((Math.pow(-1,i) * i * 50)));
+            goal.setLocation(ball.x, ball.y + 30 + ((Math.pow(-1,i) * i * 100)));
             GameController.newNecropickBullet(point, goal);
         }
     }

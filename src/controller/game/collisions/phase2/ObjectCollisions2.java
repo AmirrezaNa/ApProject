@@ -7,10 +7,7 @@ import controller.game.Impact;
 import model.entity.BallAngle;
 import model.entity.BallModel;
 import model.entity.BulletModel;
-import model.entity.enemy.ArchmireModel;
-import model.entity.enemy.NecropickModel;
-import model.entity.enemy.OmenoctModel;
-import model.entity.enemy.WyrmModel;
+import model.entity.enemy.*;
 import view.settings.SettingsPanel;
 
 import static controller.game.GameController.*;
@@ -19,25 +16,44 @@ public class ObjectCollisions2 {
 
 
     public static void checkCollisionsPhase2() {
+        // bullets collisions
         checkCollisionBallEnemyBullet();
-
         checkBulletOmenoctCollision();
+        checkBulletNecropickCollision();
+        checkBulletWyrmCollision();
+        checkBulletArchmireCollision();
+        checkBulletBarricados1Collision();
+        checkBulletBarricados2Collision();
+
+
+
+        //ball collisions
         checkCollisionBallOmenoct();
+        checkCollisionBallNecropick();
+        checkCollisionBallArchmire();
+        checkCollisionBallArchmirePoints();
+        checkCollisionBallWyrm();
+        checkCollisionBallBarricados1();
+        checkCollisionBallBarricados1();
+
+
+
+        //ball-angle collisions
+        checkCollisionBallAngleNecropick();
         checkCollisionBallAngleOmenoct();
 
-        checkBulletNecropickCollision();
-        checkCollisionBallNecropick();
-        checkCollisionBallAngleNecropick();
 
-        checkCollisionBallArchmire();
-        checkBulletArchmireCollision();
-        checkCollisionBallArchmirePoints();
 
-        checkBulletWyrmCollision();
+        //enemies collisions
         checkCollisionWyrmOmenoct();
-        checkCollisionBallWyrm();
+
+
+
 
     }
+
+
+    // =========================     bullets collisions    ==========================
 
 
     public static void checkCollisionBallEnemyBullet() {
@@ -45,9 +61,16 @@ public class ObjectCollisions2 {
         double xMax2 = ball.x + BallModel.ballRadius;
         double yMin2 = ball.y - BallModel.ballRadius;
         double yMax2 = ball.y + BallModel.ballRadius;
+        int size;
+        if (enemyBullets.size() >= 15) {
+            size = 15;
+        }
+        else {
+            size = enemyBullets.size();
+        }
 
         if (!enemyBullets.isEmpty()) {
-            for (int j = 0; j < enemyBullets.size(); j++) {
+            for (int j = 0; j < size; j++) {
                 if (enemyBullets.get(j).bulletHealth > 0) {
 
                     double xMin1 = enemyBullets.get(j).x;
@@ -87,7 +110,14 @@ public class ObjectCollisions2 {
 
     public static void checkBulletOmenoctCollision() {
         if (!GameController.bullets.isEmpty()) {
-            for (int j = 0; j < GameController.bullets.size(); j++) {
+            int size;
+            if (bullets.size() >= 15) {
+                size = 15;
+            }
+            else {
+                size = bullets.size();
+            }
+            for (int j = 0; j < size; j++) {
                 if (GameController.bullets.get(j).bulletHealth > 0) {
 
                     double xMin1 = GameController.bullets.get(j).x;
@@ -135,7 +165,14 @@ public class ObjectCollisions2 {
 
     public static void checkBulletNecropickCollision() {
         if (!GameController.bullets.isEmpty()) {
-            for (int j = 0; j < GameController.bullets.size(); j++) {
+            int size;
+            if (bullets.size() >= 15) {
+                size = 15;
+            }
+            else {
+                size = bullets.size();
+            }
+            for (int j = 0; j < size; j++) {
                 if (GameController.bullets.get(j).bulletHealth > 0) {
 
                     double xMin1 = GameController.bullets.get(j).x;
@@ -183,7 +220,14 @@ public class ObjectCollisions2 {
 
     public static void checkBulletArchmireCollision() {
         if (!GameController.bullets.isEmpty()) {
-            for (int j = 0; j < GameController.bullets.size(); j++) {
+            int size;
+            if (bullets.size() >= 15) {
+                size = 15;
+            }
+            else {
+                size = bullets.size();
+            }
+            for (int j = 0; j < size; j++) {
                 if (GameController.bullets.get(j).bulletHealth > 0) {
 
                     double xMin1 = GameController.bullets.get(j).x;
@@ -228,7 +272,14 @@ public class ObjectCollisions2 {
 
     public static void checkBulletWyrmCollision() {
         if (!GameController.bullets.isEmpty()) {
-            for (int j = 0; j < GameController.bullets.size(); j++) {
+            int size;
+            if (bullets.size() >= 15) {
+                size = 15;
+            }
+            else {
+                size = bullets.size();
+            }
+            for (int j = 0; j < size; j++) {
                 if (GameController.bullets.get(j).bulletHealth > 0) {
 
                     double xMin1 = GameController.bullets.get(j).x;
@@ -272,6 +323,105 @@ public class ObjectCollisions2 {
             }
         }
     }
+
+
+    public static void checkBulletBarricados1Collision() {
+        if (!GameController.bullets.isEmpty()) {
+            int size;
+            if (bullets.size() >= 15) {
+                size = 15;
+            }
+            else {
+                size = bullets.size();
+            }
+            for (int j = 0; j < size; j++) {
+                if (GameController.bullets.get(j).bulletHealth > 0) {
+
+                    double xMin1 = GameController.bullets.get(j).x;
+                    double xMax1 = GameController.bullets.get(j).x + BulletModel.bulletSize;
+                    double yMin1 = GameController.bullets.get(j).y;
+                    double yMax1 = GameController.bullets.get(j).y + BulletModel.bulletSize;
+                    for (int k = 0; k < barricadosEnemies1.size(); k++) {
+                        if (barricadosEnemies1.get(k).enemyTimer > 0) {
+
+                            double xMin2 = barricadosEnemies1.get(k).x;
+                            double xMax2 = barricadosEnemies1.get(k).x + BarricadosModel1.barricadosSize;
+                            double yMin2 = barricadosEnemies1.get(k).y;
+                            double yMax2 = barricadosEnemies1.get(k).y + BarricadosModel1.barricadosSize;
+
+                            if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                    || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                    || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
+                                    || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
+
+                                GameController.bullets.get(j).bulletHealth = 0;
+
+                                Impact.turnOnImpact(GameController.bullets.get(j).x + ((double) BulletModel.bulletSize / 2),
+                                        GameController.bullets.get(j).y + ((double) BulletModel.bulletSize / 2),
+                                        barricadosEnemies1.get(k).x + ((double) BarricadosModel1.barricadosSize / 2),
+                                        barricadosEnemies1.get(k).y + ((double) BarricadosModel1.barricadosSize / 2));
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    public static void checkBulletBarricados2Collision() {
+        if (!GameController.bullets.isEmpty()) {
+            int size;
+            if (bullets.size() >= 15) {
+                size = 15;
+            }
+            else {
+                size = bullets.size();
+            }
+            for (int j = 0; j < size; j++) {
+                if (GameController.bullets.get(j).bulletHealth > 0) {
+
+                    double xMin1 = GameController.bullets.get(j).x;
+                    double xMax1 = GameController.bullets.get(j).x + BulletModel.bulletSize;
+                    double yMin1 = GameController.bullets.get(j).y;
+                    double yMax1 = GameController.bullets.get(j).y + BulletModel.bulletSize;
+                    for (int k = 0; k < barricadosEnemies2.size(); k++) {
+                        if (barricadosEnemies2.get(k).enemyTimer > 0) {
+
+                            double xMin2 = barricadosEnemies2.get(k).x;
+                            double xMax2 = barricadosEnemies2.get(k).x + BarricadosModel2.barricadosSize;
+                            double yMin2 = barricadosEnemies2.get(k).y;
+                            double yMax2 = barricadosEnemies2.get(k).y + BarricadosModel2.barricadosSize;
+
+                            if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                    || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                    || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
+                                    || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
+
+                                GameController.bullets.get(j).bulletHealth = 0;
+
+                                Impact.turnOnImpact(GameController.bullets.get(j).x + ((double) BulletModel.bulletSize / 2),
+                                        GameController.bullets.get(j).y + ((double) BulletModel.bulletSize / 2),
+                                        barricadosEnemies2.get(k).x + ((double) BarricadosModel2.barricadosSize / 2),
+                                        barricadosEnemies2.get(k).y + ((double) BarricadosModel2.barricadosSize / 2));
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+
+    // =========================     ball collisions    ==========================
+
 
 
     public static void checkCollisionBallOmenoct() {
@@ -434,40 +584,76 @@ public class ObjectCollisions2 {
         }
     }
 
-    public static void checkCollisionWyrmOmenoct() {
-        if (!wyrmEnemies.isEmpty()) {
-            for (int i = 0; i < wyrmEnemies.size(); i++) {
-                if (wyrmEnemies.get(i).enemyHealth > 0) {
+    public static void checkCollisionBallBarricados1() {
+        double xMin1 = GameController.ball.x - BallModel.ballRadius;
+        double xMax1 = GameController.ball.x + BallModel.ballRadius;
+        double yMin1 = GameController.ball.y - BallModel.ballRadius;
+        double yMax1 = GameController.ball.y + BallModel.ballRadius;
+        for (int k = 0; k < barricadosEnemies1.size(); k++) {
+            if (barricadosEnemies1.get(k).enemyTimer > 0) {
 
-                    double xMin1 = wyrmEnemies.get(i).x;
-                    double xMax1 = wyrmEnemies.get(i).x + WyrmModel.wyrmSize;
-                    double yMin1 = wyrmEnemies.get(i).y;
-                    double yMax1 = wyrmEnemies.get(i).y + WyrmModel.wyrmSize;
+                double xMin2 = barricadosEnemies1.get(k).x;
+                double xMax2 = barricadosEnemies1.get(k).x + BarricadosModel1.barricadosSize;
+                double yMin2 = barricadosEnemies1.get(k).y;
+                double yMax2 = barricadosEnemies1.get(k).y + BarricadosModel1.barricadosSize;
 
-                    for (int k = 0; k < omenoctEnemies.size(); k++) {
-                        if (omenoctEnemies.get(k).enemyHealth > 0) {
+                if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                        || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                        || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
+                        || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
 
-                            double xMin2 = omenoctEnemies.get(k).xAngles[6];
-                            double xMax2 = omenoctEnemies.get(k).xAngles[2];
-                            double yMin2 = omenoctEnemies.get(k).yAngles[0];
-                            double yMax2 = omenoctEnemies.get(k).yAngles[4];
+                    Impact.turnOnImpact(GameController.ball.x,
+                            GameController.ball.y,
+                            barricadosEnemies1.get(k).x + ((double) BarricadosModel1.barricadosSize / 2),
+                            barricadosEnemies1.get(k).y + ((double) BarricadosModel1.barricadosSize / 2));
 
-                            if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
-                                    || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
-                                    || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
-                                    || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
 
-                                Impact.turnOnImpact(wyrmEnemies.get(i).x + ((double) WyrmModel.wyrmSize / 2),
-                                        wyrmEnemies.get(i).y + ((double) WyrmModel.wyrmSize / 2),
-                                        omenoctEnemies.get(k).x,
-                                        omenoctEnemies.get(k).y + OmenoctModel.distanceToCenter);
-                            }
-                        }
-                    }
                 }
             }
         }
     }
+
+
+    public static void checkCollisionBallBarricados2() {
+        double xMin1 = GameController.ball.x - BallModel.ballRadius;
+        double xMax1 = GameController.ball.x + BallModel.ballRadius;
+        double yMin1 = GameController.ball.y - BallModel.ballRadius;
+        double yMax1 = GameController.ball.y + BallModel.ballRadius;
+        for (int k = 0; k < barricadosEnemies2.size(); k++) {
+            if (barricadosEnemies2.get(k).enemyTimer > 0) {
+
+                double xMin2 = barricadosEnemies2.get(k).x;
+                double xMax2 = barricadosEnemies2.get(k).x + BarricadosModel2.barricadosSize;
+                double yMin2 = barricadosEnemies2.get(k).y;
+                double yMax2 = barricadosEnemies2.get(k).y + BarricadosModel2.barricadosSize;
+
+                if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                        || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                        || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
+                        || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
+
+                    Impact.turnOnImpact(GameController.ball.x,
+                            GameController.ball.y,
+                            barricadosEnemies2.get(k).x + ((double) BarricadosModel2.barricadosSize / 2),
+                            barricadosEnemies2.get(k).y + ((double) BarricadosModel2.barricadosSize / 2));
+
+
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+    // =========================     ball-angle collisions    ==========================
+
 
 
     public static void checkCollisionBallAngleOmenoct() {
@@ -546,6 +732,51 @@ public class ObjectCollisions2 {
             }
         }
     }
+
+
+
+
+
+
+    // =========================     enemies collisions    ==========================
+
+
+    public static void checkCollisionWyrmOmenoct() {
+        if (!wyrmEnemies.isEmpty()) {
+            for (int i = 0; i < wyrmEnemies.size(); i++) {
+                if (wyrmEnemies.get(i).enemyHealth > 0) {
+
+                    double xMin1 = wyrmEnemies.get(i).x;
+                    double xMax1 = wyrmEnemies.get(i).x + WyrmModel.wyrmSize;
+                    double yMin1 = wyrmEnemies.get(i).y;
+                    double yMax1 = wyrmEnemies.get(i).y + WyrmModel.wyrmSize;
+
+                    for (int k = 0; k < omenoctEnemies.size(); k++) {
+                        if (omenoctEnemies.get(k).enemyHealth > 0) {
+
+                            double xMin2 = omenoctEnemies.get(k).xAngles[6];
+                            double xMax2 = omenoctEnemies.get(k).xAngles[2];
+                            double yMin2 = omenoctEnemies.get(k).yAngles[0];
+                            double yMax2 = omenoctEnemies.get(k).yAngles[4];
+
+                            if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                    || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                    || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
+                                    || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
+
+                                Impact.turnOnImpact(wyrmEnemies.get(i).x + ((double) WyrmModel.wyrmSize / 2),
+                                        wyrmEnemies.get(i).y + ((double) WyrmModel.wyrmSize / 2),
+                                        omenoctEnemies.get(k).x,
+                                        omenoctEnemies.get(k).y + OmenoctModel.distanceToCenter);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
 
 
 }

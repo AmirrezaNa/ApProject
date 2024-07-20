@@ -3,9 +3,7 @@ package controller.game;
 import controller.Constants;
 import controller.data.controller.SoundEffects;
 import controller.game.objectsController.ball.CollectibleController;
-import controller.game.objectsController.ball.enemies.ArchmireController;
-import controller.game.objectsController.ball.enemies.OmenoctController;
-import controller.game.objectsController.ball.enemies.WyrmController;
+import controller.game.objectsController.ball.enemies.*;
 import model.entity.*;
 import model.entity.enemy.*;
 import view.phase1.GameFrame;
@@ -23,7 +21,8 @@ public class GameController {
     static EnemyModel1 enemy1;
     static EnemyModel2 enemy2;
     static ArchmireModel archmire;
-    static BarricadosModel barricados;
+    static BarricadosModel1 barricados1;
+    static BarricadosModel2 barricados2;
     static BlackOrbModel blackOrb;
     static OmenoctModel omenoct;
     static WyrmModel wyrm;
@@ -37,7 +36,8 @@ public class GameController {
     public static ArrayList<EnemyModel2> enemies2 = new ArrayList<>();
     public static ArrayList<ArchmireModel> archmireEnemies = new ArrayList<>();
     public static ArrayList<ArchmirePoints> archmirePoints = new ArrayList<>();
-    public static ArrayList<BarricadosModel> barricadosEnemies = new ArrayList<>();
+    public static ArrayList<BarricadosModel1> barricadosEnemies1 = new ArrayList<>();
+    public static ArrayList<BarricadosModel2> barricadosEnemies2 = new ArrayList<>();
     public static ArrayList<BlackOrbModel> blackOrbEnemies = new ArrayList<>();
     public static ArrayList<OmenoctModel> omenoctEnemies = new ArrayList<>();
     public static ArrayList<WyrmModel> wyrmEnemies = new ArrayList<>();
@@ -94,7 +94,7 @@ public class GameController {
     public static BulletModel newOmenoctBullet(Point point) {
         if (!gameOver) {
             bullet = new BulletModel(point.x, point.y);
-            bullet.dx = -((point.x - (ball.x)) / Math.sqrt(Math.pow((point.x - (ball.x)), 2) + Math.pow((point.y - (ball.y)), 2))) * BulletModel.bulletSpeed;
+            bullet.dx = -((point.x - (ball.x + 20)) / Math.sqrt(Math.pow((point.x - (ball.x + 20)), 2) + Math.pow((point.y - (ball.y + 20)), 2))) * BulletModel.bulletSpeed;
             if (ball.y > point.y) {
                 bullet.dy = Math.sqrt(Math.pow(BulletModel.bulletSpeed, 2) - Math.pow(bullet.dx, 2));
             } else {
@@ -155,7 +155,7 @@ public class GameController {
 
 
     public static void newArchmire() {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 1; i < 3; i++) {
             ArchmireModel archmireModel = new ArchmireModel(createdFrames[i].x + (double) (createdFrames[i].width / 2),
                     createdFrames[i].y + (double) (createdFrames[i].height / 2));
             ArchmireController.setTrace(archmireModel);
@@ -165,8 +165,30 @@ public class GameController {
 
     }
 
-    public static void newBarricados() {
+    public static void newBarricados1() {
+        if (GamePanel.phase1over) {
+            SoundEffects.playSound(Constants.ENEMY_ENTER_SOUND_PATH);
+            int x = createdFrames[2].x + (createdFrames[2].width/2);
+            int y = createdFrames[2].y + createdFrames[2].height - (BarricadosModel1.barricadosSize/2);
+            barricados1 = new BarricadosModel1(x, y);
+            if (barricadosEnemies1.isEmpty()) {
+                BarricadosController1.setTimerForBarricados1(barricados1);
+            }
+            barricadosEnemies1.add(barricados1);
+        }
+    }
 
+    public static void newBarricados2() {
+        if (GamePanel.phase1over) {
+            SoundEffects.playSound(Constants.ENEMY_ENTER_SOUND_PATH);
+            int x = createdFrames[1].x + (createdFrames[1].width/2);
+            int y = createdFrames[1].y + createdFrames[1].height - (BarricadosModel2.barricadosSize/2);
+            barricados2 = new BarricadosModel2(x, y);
+            if (barricadosEnemies2.isEmpty()) {
+                BarricadosController2.setTimerForBarricados2(barricados2);
+            }
+            barricadosEnemies2.add(barricados2);
+        }
     }
 
 
