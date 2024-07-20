@@ -1,10 +1,10 @@
 package controller.game;
 
-import view.phase2.GameInternalFrame;
-import view.phase2.GamePanel2;
+import view.phase2.normalAndMiniBossEnemies.GameInternalFrame;
+import view.phase2.normalAndMiniBossEnemies.GamePanel2;
 
 import static controller.game.GameController.bullets;
-import static view.phase2.GameInternalFrame.createdFrames;
+import static view.phase2.normalAndMiniBossEnemies.GameInternalFrame.createdFrames;
 
 public class FrameOfObject {
 

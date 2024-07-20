@@ -1,7 +1,6 @@
 package controller.game.objectsController.ball;
 
 import controller.game.GameController;
-import model.entity.BallModel;
 import model.entity.BulletModel;
 import view.phase1.GamePanel;
 
@@ -9,8 +8,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import static controller.game.GameController.*;
-import static controller.game.GameController.ball;
-import static view.phase2.GameInternalFrame.createdFrames;
+import static view.phase2.normalAndMiniBossEnemies.GameInternalFrame.createdFrames;
 
 public class BulletController {
 

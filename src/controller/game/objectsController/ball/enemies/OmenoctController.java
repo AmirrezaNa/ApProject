@@ -10,7 +10,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import static controller.game.GameController.*;
-import static view.phase2.GameInternalFrame.createdFrames;
+import static view.phase2.normalAndMiniBossEnemies.GameInternalFrame.createdFrames;
 
 public class OmenoctController {
 

@@ -7,7 +7,7 @@ import controller.data.controller.DataManager;
 import controller.data.controller.SoundEffects;
 import controller.game.GameController;
 import model.entity.BallModel;
-import view.phase2.GameFrame2;
+import view.phase2.normalAndMiniBossEnemies.GameFrame2;
 import view.startPage.EnterNamePage;
 
 import javax.swing.*;

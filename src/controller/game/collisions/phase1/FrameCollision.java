@@ -8,7 +8,6 @@ import model.entity.BulletModel;
 import view.phase1.GameFrame;
 
 import static controller.game.GameController.*;
-import static view.phase2.GameInternalFrame.createdFrames;
 
 public class FrameCollision {
 

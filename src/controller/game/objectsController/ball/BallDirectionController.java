@@ -1,12 +1,8 @@
 package controller.game.objectsController.ball;
 
-import controller.game.GameController;
 import controller.game.listener.MouseInputListener;
 import view.phase1.GamePanel;
-import view.phase2.GamePanel2;
-
-import static view.phase1.GamePanel.ball;
-import static view.phase1.GamePanel.ballDirection;
+import view.phase2.normalAndMiniBossEnemies.GamePanel2;
 
 public class BallDirectionController {
 

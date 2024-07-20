@@ -12,7 +12,7 @@ import view.phase1.GamePanel;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static view.phase2.GameInternalFrame.createdFrames;
+import static view.phase2.normalAndMiniBossEnemies.GameInternalFrame.createdFrames;
 
 public class GameController {
 

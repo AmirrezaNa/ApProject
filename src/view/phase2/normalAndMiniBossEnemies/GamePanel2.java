@@ -1,4 +1,4 @@
-package view.phase2;
+package view.phase2.normalAndMiniBossEnemies;
 
 import controller.game.FrameOfObject;
 import controller.game.GameController;

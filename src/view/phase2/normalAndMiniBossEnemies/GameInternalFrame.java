@@ -1,8 +1,6 @@
-package view.phase2;
+package view.phase2.normalAndMiniBossEnemies;
 
-import controller.game.FrameOfObject;
 import controller.game.GameController;
-import controller.game.collisions.phase1.FrameCollision;
 import controller.game.collisions.phase2.FrameCollisions2;
 
 import javax.swing.*;
@@ -31,10 +29,10 @@ public class GameInternalFrame extends JInternalFrame {
 
     public GameInternalFrame() {
         GameController.gameOver = false;
-        createAndShowGUI();
+        createInternalFrames();
     }
 
-    private static void createAndShowGUI() {
+    private static void createInternalFrames() {
         createFrames0 = new CreateFrames(450, 100, 400, 300);
         frame0 = new JInternalFrame();
         frame0.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

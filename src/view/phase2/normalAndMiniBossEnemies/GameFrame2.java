@@ -1,4 +1,4 @@
-package view.phase2;
+package view.phase2.normalAndMiniBossEnemies;
 
 import controller.Constants;
 import controller.data.controller.DataManager;

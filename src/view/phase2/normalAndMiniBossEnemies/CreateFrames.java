@@ -1,4 +1,4 @@
-package view.phase2;
+package view.phase2.normalAndMiniBossEnemies;
 
 public class CreateFrames {
     public int x;

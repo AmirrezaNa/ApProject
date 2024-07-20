@@ -1,14 +1,12 @@
 package controller.game.objectsController.ball;
 
-import controller.game.FrameOfObject;
 import model.entity.BallModel;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 import static controller.game.GameController.ball;
-import static controller.game.GameController.newArchmire;
-import static view.phase2.GameInternalFrame.createdFrames;
+import static view.phase2.normalAndMiniBossEnemies.GameInternalFrame.createdFrames;
 
 public class BallController {
 
