@@ -5,6 +5,7 @@ import controller.data.controller.SoundEffects;
 import controller.game.objectsController.ball.CollectibleController;
 import controller.game.objectsController.ball.enemies.ArchmireController;
 import controller.game.objectsController.ball.enemies.OmenoctController;
+import controller.game.objectsController.ball.enemies.WyrmController;
 import model.entity.*;
 import model.entity.enemy.*;
 import view.phase1.GameFrame;
@@ -189,7 +190,16 @@ public class GameController {
 
 
     public static void newWyrm() {
-
+        if (GamePanel.phase1over) {
+            SoundEffects.playSound(Constants.ENEMY_ENTER_SOUND_PATH);
+            int x = createdFrames[3].x + (createdFrames[3].width/2);
+            int y = createdFrames[3].y + createdFrames[3].height - (WyrmModel.wyrmSize/2);
+            wyrm = new WyrmModel(x, y);
+            if (wyrmEnemies.isEmpty()) {
+                WyrmController.shotBullet();
+            }
+            wyrmEnemies.add(wyrm);
+        }
     }
 
     public static void newNecropick() {

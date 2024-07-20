@@ -316,7 +316,21 @@ public class GamePanel2 extends JPanel implements Runnable {
     }
 
     public void drawWyrm(Graphics g) {
-
+        if (!GameController.wyrmEnemies.isEmpty()) {
+            for (int i = 0; i < GameController.wyrmEnemies.size(); i++) {
+                if (GameController.wyrmEnemies.get(i).enemyHealth > 0) {
+                    super.paintComponent(g);
+                    g.drawImage(WyrmModel.image,
+                            (int)GameController.wyrmEnemies.get(i).x,
+                            (int)GameController.wyrmEnemies.get(i).y,
+                            WyrmModel.wyrmSize,
+                            WyrmModel.wyrmSize,
+                            null);
+                }
+            }
+        }
+        repaint();
+        repaint();
     }
 
 }

@@ -10,6 +10,7 @@ import model.entity.BulletModel;
 import model.entity.enemy.ArchmireModel;
 import model.entity.enemy.NecropickModel;
 import model.entity.enemy.OmenoctModel;
+import model.entity.enemy.WyrmModel;
 import view.settings.SettingsPanel;
 
 import static controller.game.GameController.*;
@@ -31,6 +32,10 @@ public class ObjectCollisions2 {
         checkCollisionBallArchmire();
         checkBulletArchmireCollision();
         checkCollisionBallArchmirePoints();
+
+        checkBulletWyrmCollision();
+        checkCollisionWyrmOmenoct();
+        checkCollisionBallWyrm();
 
     }
 
@@ -211,6 +216,55 @@ public class ObjectCollisions2 {
                                     GameController.newCollectible(archmireEnemies.get(k).x, archmireEnemies.get(k).y);
                                 }
 
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    public static void checkBulletWyrmCollision() {
+        if (!GameController.bullets.isEmpty()) {
+            for (int j = 0; j < GameController.bullets.size(); j++) {
+                if (GameController.bullets.get(j).bulletHealth > 0) {
+
+                    double xMin1 = GameController.bullets.get(j).x;
+                    double xMax1 = GameController.bullets.get(j).x + BulletModel.bulletSize;
+                    double yMin1 = GameController.bullets.get(j).y;
+                    double yMax1 = GameController.bullets.get(j).y + BulletModel.bulletSize;
+                    for (int k = 0; k < wyrmEnemies.size(); k++) {
+                        if (wyrmEnemies.get(k).enemyHealth > 0) {
+
+                            double xMin2 = wyrmEnemies.get(k).x;
+                            double xMax2 = wyrmEnemies.get(k).x + WyrmModel.wyrmSize;
+                            double yMin2 = wyrmEnemies.get(k).y;
+                            double yMax2 = wyrmEnemies.get(k).y + WyrmModel.wyrmSize;
+
+                            if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                    || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                    || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
+                                    || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
+
+                                GameController.bullets.get(j).bulletHealth = 0;
+                                if (GameController.bulletAres) {
+                                    wyrmEnemies.get(k).enemyHealth -= 7;
+                                }
+                                if (!GameController.bulletAres) {
+                                    wyrmEnemies.get(k).enemyHealth -= 5;
+                                }
+                                SoundEffects.playSound(Constants.HURT_SOUND_PATH);
+                                if (wyrmEnemies.get(k).enemyHealth <= 0) {
+                                    SoundEffects.playSound(Constants.HIT_SOUND_PATH);
+                                    GameController.newCollectible(archmireEnemies.get(k).x, archmireEnemies.get(k).y);
+                                }
+                                Impact.turnOnImpact(GameController.bullets.get(j).x + ((double) BulletModel.bulletSize / 2),
+                                        GameController.bullets.get(j).y + ((double) BulletModel.bulletSize / 2),
+                                        wyrmEnemies.get(k).x + ((double) WyrmModel.wyrmSize / 2),
+                                        wyrmEnemies.get(k).y + ((double) WyrmModel.wyrmSize / 2));
+
                             }
                         }
                     }
@@ -325,6 +379,7 @@ public class ObjectCollisions2 {
         }
     }
 
+
     public static void checkCollisionBallArchmirePoints() {
         double xMin1 = GameController.ball.x - BallModel.ballRadius;
         double xMax1 = GameController.ball.x + BallModel.ballRadius;
@@ -350,6 +405,69 @@ public class ObjectCollisions2 {
         }
     }
 
+    public static void checkCollisionBallWyrm() {
+        double xMin1 = GameController.ball.x - BallModel.ballRadius;
+        double xMax1 = GameController.ball.x + BallModel.ballRadius;
+        double yMin1 = GameController.ball.y - BallModel.ballRadius;
+        double yMax1 = GameController.ball.y + BallModel.ballRadius;
+        for (int k = 0; k < wyrmEnemies.size(); k++) {
+            if (wyrmEnemies.get(k).enemyHealth > 0) {
+
+                double xMin2 = wyrmEnemies.get(k).x;
+                double xMax2 = wyrmEnemies.get(k).x + WyrmModel.wyrmSize;
+                double yMin2 = wyrmEnemies.get(k).y;
+                double yMax2 = wyrmEnemies.get(k).y + WyrmModel.wyrmSize;
+
+                if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                        || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                        || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
+                        || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
+
+                    Impact.turnOnImpact(GameController.ball.x,
+                            GameController.ball.y,
+                            wyrmEnemies.get(k).x + ((double) WyrmModel.wyrmSize / 2),
+                            wyrmEnemies.get(k).y + ((double) WyrmModel.wyrmSize / 2));
+
+
+                }
+            }
+        }
+    }
+
+    public static void checkCollisionWyrmOmenoct() {
+        if (!wyrmEnemies.isEmpty()) {
+            for (int i = 0; i < wyrmEnemies.size(); i++) {
+                if (wyrmEnemies.get(i).enemyHealth > 0) {
+
+                    double xMin1 = wyrmEnemies.get(i).x;
+                    double xMax1 = wyrmEnemies.get(i).x + WyrmModel.wyrmSize;
+                    double yMin1 = wyrmEnemies.get(i).y;
+                    double yMax1 = wyrmEnemies.get(i).y + WyrmModel.wyrmSize;
+
+                    for (int k = 0; k < omenoctEnemies.size(); k++) {
+                        if (omenoctEnemies.get(k).enemyHealth > 0) {
+
+                            double xMin2 = omenoctEnemies.get(k).xAngles[6];
+                            double xMax2 = omenoctEnemies.get(k).xAngles[2];
+                            double yMin2 = omenoctEnemies.get(k).yAngles[0];
+                            double yMax2 = omenoctEnemies.get(k).yAngles[4];
+
+                            if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                    || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                    || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
+                                    || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
+
+                                Impact.turnOnImpact(wyrmEnemies.get(i).x + ((double) WyrmModel.wyrmSize / 2),
+                                        wyrmEnemies.get(i).y + ((double) WyrmModel.wyrmSize / 2),
+                                        omenoctEnemies.get(k).x,
+                                        omenoctEnemies.get(k).y + OmenoctModel.distanceToCenter);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
 
     public static void checkCollisionBallAngleOmenoct() {
@@ -419,8 +537,8 @@ public class ObjectCollisions2 {
                         }
                         Impact.turnOnImpact(GameController.ball.x,
                                 GameController.ball.y,
-                                necropickEnemies.get(k).x + ((double) NecropickModel.necropickSize /2),
-                                necropickEnemies.get(k).y + ((double) NecropickModel.necropickSize /2));
+                                necropickEnemies.get(k).x + ((double) NecropickModel.necropickSize / 2),
+                                necropickEnemies.get(k).y + ((double) NecropickModel.necropickSize / 2));
 
                     }
                 }
@@ -428,7 +546,6 @@ public class ObjectCollisions2 {
             }
         }
     }
-
 
 
 }
