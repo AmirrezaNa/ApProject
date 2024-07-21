@@ -6,6 +6,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import static controller.game.GameController.ball;
+import static controller.game.GameController.smiley;
 import static view.gameLoop.phase2.finalBoss.EpsilonFrame.epsilonFrame;
 import static view.gameLoop.phase2.normalAndMiniBossEnemies.GameInternalFrame.createdFrames;
 
@@ -14,22 +15,39 @@ public class BallController {
     public static void updateTheBall() {
         ball.x += ball.ax;
         ball.y += ball.ay;
-
-        if (ball.ax != 0) {
-            if (ball.ax > 0) {
-                ball.ax -= 0.05;
-            } else {
-                ball.ax += 0.05;
+        if (smiley != null && smiley.quakeAttack) {
+            if (ball.ax != 0) {
+                if (ball.ax > 0) {
+                    ball.ax -= 0.0005;
+                } else {
+                    ball.ax += 0.0005;
+                }
+            }
+            if (ball.ay != 0) {
+                if (ball.ay > 0) {
+                    ball.ay -= 0.0005;
+                } else {
+                    ball.ay += 0.0005;
+                }
             }
         }
-        if (ball.ay != 0) {
-            if (ball.ay > 0) {
-                ball.ay -= 0.05;
-            } else {
-                ball.ay += 0.05;
+
+        else {
+            if (ball.ax != 0) {
+                if (ball.ax > 0) {
+                    ball.ax -= 0.05;
+                } else {
+                    ball.ax += 0.05;
+                }
+            }
+            if (ball.ay != 0) {
+                if (ball.ay > 0) {
+                    ball.ay -= 0.05;
+                } else {
+                    ball.ay += 0.05;
+                }
             }
         }
-
     }
 
     public static void getBallIntoFrame2() {

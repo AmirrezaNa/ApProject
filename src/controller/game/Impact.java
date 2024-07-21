@@ -6,7 +6,10 @@ import model.entity.enemy.normalAndMiniBoss.EnemyModel2;
 import model.entity.enemy.normalAndMiniBoss.NecropickModel;
 import model.entity.enemy.normalAndMiniBoss.OmenoctModel;
 
+import static controller.game.GameController.smiley;
+import static view.gameLoop.phase1.GamePanel.ball;
 import static view.gameLoop.phase1.GamePanel.phase1over;
+import static view.gameLoop.phase2.finalBoss.EpsilonFrame.epsilonFrame;
 import static view.gameLoop.phase2.normalAndMiniBossEnemies.GamePanel2.phase2Over;
 
 public class Impact {
@@ -91,12 +94,14 @@ public class Impact {
         double yBallCenter = GameController.ball.y;
         if (Math.pow((Math.abs(xBallCenter) - Math.abs(xImpactPoint)), 2) +
                 Math.pow((Math.abs(yBallCenter) - Math.abs(yImpactPoint)), 2) < 8100) {
+
             GameController.ball.ax = ((xBallCenter - xImpactPoint) / Math.sqrt(Math.pow((xBallCenter - xImpactPoint), 2) + Math.pow((yBallCenter - yImpactPoint), 2))) * BallModel.ballAcceleration;
             if (yImpactPoint < yBallCenter) {
                 GameController.ball.ay = Math.sqrt(Math.pow(BallModel.ballAcceleration, 2) - Math.pow(GameController.ball.ax, 2));
             } else {
                 GameController.ball.ay = -Math.sqrt(Math.pow(BallModel.ballAcceleration, 2) - Math.pow(GameController.ball.ax, 2));
             }
+
         }
     }
 
@@ -133,6 +138,20 @@ public class Impact {
         }
 
 
+    }
+
+
+    public static void impactQuakeAttack() {
+        double xImpactPoint = epsilonFrame.x + ((double) epsilonFrame.width /2);
+        double yImpactPoint = epsilonFrame.y;
+        double xBallCenter = GameController.ball.x;
+        double yBallCenter = GameController.ball.y;
+        GameController.ball.ax = ((xBallCenter - xImpactPoint) / Math.sqrt(Math.pow((xBallCenter - xImpactPoint), 2) + Math.pow((yBallCenter - yImpactPoint), 2))) * BallModel.ballAcceleration;
+        if (yImpactPoint < yBallCenter) {
+            GameController.ball.ay =  Math.sqrt(Math.pow(BallModel.ballAcceleration, 2) - Math.pow(GameController.ball.ax, 2));
+        } else {
+            GameController.ball.ay = - Math.sqrt(Math.pow(BallModel.ballAcceleration, 2) - Math.pow(GameController.ball.ax, 2));
+        }
     }
 
 }

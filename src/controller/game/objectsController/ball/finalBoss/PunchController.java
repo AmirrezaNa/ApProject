@@ -7,7 +7,7 @@ public class PunchController {
 
     public static void updatePunch() {
         if (punch != null) {
-            if (smiley.powerPunchAttack) {
+            if (smiley.powerPunchAttack || smiley.quakeAttack) {
                 if ((punch.y < epsilonFrame.y)) {
                     punch.y += punch.dy;
                 }

@@ -20,6 +20,7 @@ public class SmileyAttacksController {
         startSqueezeAttack();
         startProjectileAttack();
         startVomitAttack();
+        startQuakeAttack();
     }
 
 
@@ -68,7 +69,7 @@ public class SmileyAttacksController {
                 }
             }
         };
-        timer.scheduleAtFixedRate(task, 20000, 120000);
+        timer.scheduleAtFixedRate(task, 22000, 120000);
     }
 
     public static void timerForProjectileAttack() {
@@ -131,7 +132,7 @@ public class SmileyAttacksController {
                 timerForVomitAttack();
             }
         };
-        timer.scheduleAtFixedRate(task, 25000, 120000);
+        timer.scheduleAtFixedRate(task, 30000, 120000);
     }
 
     public static void timerForVomitAttack() {
@@ -168,7 +169,7 @@ public class SmileyAttacksController {
                 }
             }
         };
-        timer.scheduleAtFixedRate(task, 10000, 120000);
+        timer.scheduleAtFixedRate(task, 40000, 120000);
     }
 
     public static void timerForPowerPunchAttack() {
@@ -188,7 +189,38 @@ public class SmileyAttacksController {
 
 
 
+    // ==========================================================================
 
+
+    // =====================     Quake Attack     =======================================
+
+
+    public static void startQuakeAttack() {
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                if (smiley.punchExists) {
+                    smiley.quakeAttack = true;
+                    Impact.impactQuakeAttack();
+                    timerForQuakeAttack();
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(task, 55000, 120000);
+    }
+
+    public static void timerForQuakeAttack() {
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+
+                smiley.quakeAttack = false;
+            }
+        };
+        timer.scheduleAtFixedRate(task, 8000, 15000);
+    }
 
 
 

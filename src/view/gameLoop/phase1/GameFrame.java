@@ -197,8 +197,8 @@ public class GameFrame extends JFrame {
                     }
                     SoundEffects.playSound(Constants.END_SOUND_PATH);
 //                GameOverFrame gameOverFrame = new GameOverFrame();
-//                    FinalBossFrame finalBossFrame = new FinalBossFrame();
-                    GameFrame2 gameFrame2 = new GameFrame2();
+                    FinalBossFrame finalBossFrame = new FinalBossFrame();
+//                    GameFrame2 gameFrame2 = new GameFrame2();
                 }
             }
         }
