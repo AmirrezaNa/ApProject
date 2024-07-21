@@ -2,13 +2,13 @@ package controller.game.objectsController.ball;
 
 import controller.game.GameController;
 import model.entity.BulletModel;
-import view.phase1.GamePanel;
+import view.gameLoop.phase1.GamePanel;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 import static controller.game.GameController.*;
-import static view.phase2.normalAndMiniBossEnemies.GameInternalFrame.createdFrames;
+import static view.gameLoop.phase2.normalAndMiniBossEnemies.GameInternalFrame.createdFrames;
 
 public class BulletController {
 

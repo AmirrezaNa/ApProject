@@ -1,10 +1,10 @@
 package controller.game;
 
 import model.entity.BallModel;
-import model.entity.enemy.EnemyModel1;
-import model.entity.enemy.EnemyModel2;
-import model.entity.enemy.NecropickModel;
-import model.entity.enemy.OmenoctModel;
+import model.entity.enemy.normalAndMiniBoss.EnemyModel1;
+import model.entity.enemy.normalAndMiniBoss.EnemyModel2;
+import model.entity.enemy.normalAndMiniBoss.NecropickModel;
+import model.entity.enemy.normalAndMiniBoss.OmenoctModel;
 
 public class Impact {
     public static void turnOnImpact(double x1, double y1, double x2, double y2) {

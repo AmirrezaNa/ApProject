@@ -1,7 +1,7 @@
 package view.startPage;
 
 import controller.Constants;
-import view.phase1.GameFrame;
+import view.gameLoop.phase1.GameFrame;
 import view.settings.SettingsFrame;
 import view.skillTree.SkillTreeFrame;
 

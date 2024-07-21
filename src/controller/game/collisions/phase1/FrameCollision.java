@@ -2,10 +2,10 @@ package controller.game.collisions.phase1;
 
 import controller.game.GameController;
 import controller.game.Impact;
-import view.phase1.GamePanel;
+import view.gameLoop.phase1.GamePanel;
 import model.entity.BallModel;
 import model.entity.BulletModel;
-import view.phase1.GameFrame;
+import view.gameLoop.phase1.GameFrame;
 
 import static controller.game.GameController.*;
 

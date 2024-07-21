@@ -6,7 +6,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import static controller.game.GameController.ball;
-import static view.phase2.normalAndMiniBossEnemies.GameInternalFrame.createdFrames;
+import static view.gameLoop.phase2.finalBoss.EpsilonFrame.epsilonFrame;
+import static view.gameLoop.phase2.normalAndMiniBossEnemies.GameInternalFrame.createdFrames;
 
 public class BallController {
 
@@ -34,6 +35,11 @@ public class BallController {
     public static void getBallIntoFrame2() {
         ball.x = createdFrames[0].x + ((double) createdFrames[0].width /2);
         ball.y = createdFrames[0].y + ((double) createdFrames[0].height /2);
+    }
+
+    public static void getBallIntoFinalFrame() {
+        ball.x = epsilonFrame.x + ((double) epsilonFrame.width /2);
+        ball.y = epsilonFrame.y + ((double) epsilonFrame.height /2);
     }
 
 

@@ -1,6 +1,6 @@
 package controller.game;
 
-import view.phase1.GamePanel;
+import view.gameLoop.phase1.GamePanel;
 import view.startPage.EnterNamePage;
 
 import java.util.Timer;

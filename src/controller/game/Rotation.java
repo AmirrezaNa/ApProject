@@ -1,7 +1,7 @@
 package controller.game;
 
-import model.entity.enemy.EnemyModel1;
-import model.entity.enemy.EnemyModel2;
+import model.entity.enemy.normalAndMiniBoss.EnemyModel1;
+import model.entity.enemy.normalAndMiniBoss.EnemyModel2;
 
 public class Rotation {
 

@@ -1,13 +1,14 @@
 package controller.game;
 
-import controller.game.objectsController.ball.enemies.NecropickController;
-import model.entity.enemy.*;
-import view.phase1.GameFrame;
+import controller.game.objectsController.ball.enemies.normalAndMiniBoss.NecropickController;
+import model.entity.enemy.normalAndMiniBoss.*;
+import view.gameLoop.phase1.GameFrame;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 import static controller.game.GameController.*;
+import static view.gameLoop.phase2.normalAndMiniBossEnemies.GamePanel2.phase2Over;
 
 public class WaveController {
     GameController gameController = new GameController();
@@ -170,21 +171,23 @@ public class WaveController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (omenoctEnemies.isEmpty()) {
-                    newOmenoct();
-                }
-                if (!omenoctEnemies.isEmpty()) {
-                    boolean createNewOne = true;
-                    for (int i = 0; i < omenoctEnemies.size(); i++) {
-                        if (omenoctEnemies.get(i).enemyHealth > 0) {
-                            createNewOne = false;
-                            break;
-                        }
-                    }
-                    if (createNewOne) {
+                if (!phase2Over) {
+                    if (omenoctEnemies.isEmpty()) {
                         newOmenoct();
                     }
+                    if (!omenoctEnemies.isEmpty()) {
+                        boolean createNewOne = true;
+                        for (int i = 0; i < omenoctEnemies.size(); i++) {
+                            if (omenoctEnemies.get(i).enemyHealth > 0) {
+                                createNewOne = false;
+                                break;
+                            }
+                        }
+                        if (createNewOne) {
+                            newOmenoct();
+                        }
 
+                    }
                 }
 //                if (stopWave) {
 //                    timer.cancel();
@@ -203,23 +206,26 @@ public class WaveController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (necropickEnemies.isEmpty()) {
-                    newNecropick();
-                    NecropickController.setNecropickHidingTime();
-                }
-                if (!necropickEnemies.isEmpty()) {
-                    boolean createNewOne = true;
-                    for (int i = 0; i < necropickEnemies.size(); i++) {
-                        if (necropickEnemies.get(i).enemyHealth > 0) {
-                            createNewOne = false;
-                            break;
-                        }
-                    }
-                    if (createNewOne) {
+                if (!phase2Over) {
+
+                    if (necropickEnemies.isEmpty()) {
                         newNecropick();
                         NecropickController.setNecropickHidingTime();
                     }
+                    if (!necropickEnemies.isEmpty()) {
+                        boolean createNewOne = true;
+                        for (int i = 0; i < necropickEnemies.size(); i++) {
+                            if (necropickEnemies.get(i).enemyHealth > 0) {
+                                createNewOne = false;
+                                break;
+                            }
+                        }
+                        if (createNewOne) {
+                            newNecropick();
+                            NecropickController.setNecropickHidingTime();
+                        }
 
+                    }
                 }
 //                if (stopWave) {
 //                    timer.cancel();
@@ -237,7 +243,10 @@ public class WaveController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                newArchmire();
+                if (!phase2Over) {
+
+                    newArchmire();
+                }
 //                if (stopWave) {
 //                    timer.cancel();
 //                }
@@ -254,21 +263,24 @@ public class WaveController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (wyrmEnemies.isEmpty()) {
-                    newWyrm();
-                }
-                if (!wyrmEnemies.isEmpty()) {
-                    boolean createNewOne = true;
-                    for (int i = 0; i < wyrmEnemies.size(); i++) {
-                        if (wyrmEnemies.get(i).enemyHealth > 0) {
-                            createNewOne = false;
-                            break;
-                        }
-                    }
-                    if (createNewOne) {
+                if (!phase2Over) {
+
+                    if (wyrmEnemies.isEmpty()) {
                         newWyrm();
                     }
+                    if (!wyrmEnemies.isEmpty()) {
+                        boolean createNewOne = true;
+                        for (int i = 0; i < wyrmEnemies.size(); i++) {
+                            if (wyrmEnemies.get(i).enemyHealth > 0) {
+                                createNewOne = false;
+                                break;
+                            }
+                        }
+                        if (createNewOne) {
+                            newWyrm();
+                        }
 
+                    }
                 }
 //                if (stopWave) {
 //                    timer.cancel();
@@ -287,21 +299,24 @@ public class WaveController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (barricadosEnemies1.isEmpty()) {
-                    newBarricados1();
-                }
-                if (!barricadosEnemies1.isEmpty()) {
-                    boolean createNewOne = true;
-                    for (int i = 0; i < barricadosEnemies1.size(); i++) {
-                        if (barricadosEnemies1.get(i).enemyTimer > 0) {
-                            createNewOne = false;
-                            break;
-                        }
-                    }
-                    if (createNewOne) {
+                if (!phase2Over) {
+
+                    if (barricadosEnemies1.isEmpty()) {
                         newBarricados1();
                     }
+                    if (!barricadosEnemies1.isEmpty()) {
+                        boolean createNewOne = true;
+                        for (int i = 0; i < barricadosEnemies1.size(); i++) {
+                            if (barricadosEnemies1.get(i).enemyTimer > 0) {
+                                createNewOne = false;
+                                break;
+                            }
+                        }
+                        if (createNewOne) {
+                            newBarricados1();
+                        }
 
+                    }
                 }
 //                if (stopWave) {
 //                    timer.cancel();
@@ -320,21 +335,23 @@ public class WaveController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (barricadosEnemies2.isEmpty()) {
-                    newBarricados2();
-                }
-                if (!barricadosEnemies2.isEmpty()) {
-                    boolean createNewOne = true;
-                    for (int i = 0; i < barricadosEnemies2.size(); i++) {
-                        if (barricadosEnemies2.get(i).enemyTimer > 0) {
-                            createNewOne = false;
-                            break;
-                        }
-                    }
-                    if (createNewOne) {
+                if (!phase2Over) {
+
+                    if (barricadosEnemies2.isEmpty()) {
                         newBarricados2();
                     }
-
+                    if (!barricadosEnemies2.isEmpty()) {
+                        boolean createNewOne = true;
+                        for (int i = 0; i < barricadosEnemies2.size(); i++) {
+                            if (barricadosEnemies2.get(i).enemyTimer > 0) {
+                                createNewOne = false;
+                                break;
+                            }
+                        }
+                        if (createNewOne) {
+                            newBarricados2();
+                        }
+                    }
                 }
 //                if (stopWave) {
 //                    timer.cancel();
@@ -353,21 +370,24 @@ public class WaveController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (blackOrbEnemies.isEmpty()) {
-                    newBlackOrb();
-                }
-                if (!blackOrbEnemies.isEmpty()) {
-                    boolean createNewOne = true;
-                    for (int i = 0; i < blackOrbEnemies.size(); i++) {
-                        if (blackOrbEnemies.get(i).enemyHealth > 0) {
-                            createNewOne = false;
-                            break;
-                        }
-                    }
-                    if (createNewOne) {
+                if (!phase2Over) {
+
+                    if (blackOrbEnemies.isEmpty()) {
                         newBlackOrb();
                     }
+                    if (!blackOrbEnemies.isEmpty()) {
+                        boolean createNewOne = true;
+                        for (int i = 0; i < blackOrbEnemies.size(); i++) {
+                            if (blackOrbEnemies.get(i).enemyHealth > 0) {
+                                createNewOne = false;
+                                break;
+                            }
+                        }
+                        if (createNewOne) {
+                            newBlackOrb();
+                        }
 
+                    }
                 }
 //                if (stopWave) {
 //                    timer.cancel();

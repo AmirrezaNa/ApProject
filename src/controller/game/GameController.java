@@ -3,16 +3,17 @@ package controller.game;
 import controller.Constants;
 import controller.data.controller.SoundEffects;
 import controller.game.objectsController.ball.CollectibleController;
-import controller.game.objectsController.ball.enemies.*;
+import controller.game.objectsController.ball.enemies.normalAndMiniBoss.*;
 import model.entity.*;
-import model.entity.enemy.*;
-import view.phase1.GameFrame;
-import view.phase1.GamePanel;
+import model.entity.enemy.normalAndMiniBoss.*;
+import view.gameLoop.phase1.GameFrame;
+import view.gameLoop.phase1.GamePanel;
+import view.gameLoop.phase2.finalBoss.FinalBossPanel;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-import static view.phase2.normalAndMiniBossEnemies.GameInternalFrame.createdFrames;
+import static view.gameLoop.phase2.normalAndMiniBossEnemies.GameInternalFrame.createdFrames;
 
 public class GameController {
 
@@ -77,7 +78,8 @@ public class GameController {
 
 
     public static BulletModel newBullet(Point point) {
-        if (!gameOver) {
+        if (!gameOver || !FinalBossPanel.finalBossOver) {
+            System.out.println("hi");
             bullet = new BulletModel(ball.x, ball.y);
             bullet.dx = ((point.x - (ball.x)) / Math.sqrt(Math.pow((point.x - (ball.x)), 2) + Math.pow((point.y - (ball.y)), 2))) * BulletModel.bulletSpeed;
             if (bullet.y < point.y) {

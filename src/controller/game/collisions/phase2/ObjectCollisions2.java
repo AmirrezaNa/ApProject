@@ -7,7 +7,7 @@ import controller.game.Impact;
 import model.entity.BallAngle;
 import model.entity.BallModel;
 import model.entity.BulletModel;
-import model.entity.enemy.*;
+import model.entity.enemy.normalAndMiniBoss.*;
 import view.settings.SettingsPanel;
 
 import static controller.game.GameController.*;

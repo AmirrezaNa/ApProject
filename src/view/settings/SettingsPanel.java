@@ -1,11 +1,10 @@
 package view.settings;
 
 import controller.Constants;
-import view.GameOver.GameOverFrame;
 import controller.data.controller.SoundEffects;
 import model.entity.BallModel;
-import model.entity.enemy.EnemyModel1;
-import model.entity.enemy.EnemyModel2;
+import model.entity.enemy.normalAndMiniBoss.EnemyModel1;
+import model.entity.enemy.normalAndMiniBoss.EnemyModel2;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;

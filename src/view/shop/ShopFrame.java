@@ -2,7 +2,7 @@ package view.shop;
 
 import controller.Constants;
 import controller.game.GameController;
-import view.phase1.GamePanel;
+import view.gameLoop.phase1.GamePanel;
 import view.startPage.EnterNamePage;
 
 import javax.swing.*;

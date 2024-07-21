@@ -1,7 +1,7 @@
 package controller.game;
 
 import model.entity.BallModel;
-import view.phase1.GameFrame;
+import view.gameLoop.phase1.GameFrame;
 
 import static controller.game.GameController.*;
 

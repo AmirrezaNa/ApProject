@@ -4,7 +4,7 @@ import controller.Constants;
 import controller.data.controller.SoundEffects;
 import controller.game.GameController;
 import controller.game.Impact;
-import view.phase1.GamePanel;
+import view.gameLoop.phase1.GamePanel;
 import model.entity.BallAngle;
 import model.entity.BallModel;
 import model.entity.BulletModel;

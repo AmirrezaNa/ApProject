@@ -6,12 +6,12 @@ import controller.game.objectsController.ball.BallController;
 import controller.game.objectsController.ball.BulletController;
 import model.entity.BallModel;
 import model.entity.BulletModel;
-import view.phase2.normalAndMiniBossEnemies.GameFrame2;
-import view.phase2.normalAndMiniBossEnemies.GameInternalFrame;
-import view.phase2.normalAndMiniBossEnemies.GamePanel2;
+import view.gameLoop.phase2.normalAndMiniBossEnemies.GameFrame2;
+import view.gameLoop.phase2.normalAndMiniBossEnemies.GameInternalFrame;
+import view.gameLoop.phase2.normalAndMiniBossEnemies.GamePanel2;
 
 import static controller.game.GameController.*;
-import static view.phase2.normalAndMiniBossEnemies.GameInternalFrame.createdFrames;
+import static view.gameLoop.phase2.normalAndMiniBossEnemies.GameInternalFrame.createdFrames;
 
 public class FrameCollisions2 {
 
