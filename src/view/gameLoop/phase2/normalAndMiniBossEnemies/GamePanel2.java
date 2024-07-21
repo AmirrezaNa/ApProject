@@ -257,13 +257,7 @@ public class GamePanel2 extends JPanel implements Runnable {
 
     public void drawEnemyBullet(Graphics g) {
         if (!GameController.enemyBullets.isEmpty()) {
-            int size;
-            if (GameController.enemyBullets.size() > 10) {
-                size = 10;
-            }
-            else {
-                size = GameController.enemyBullets.size();
-            }
+            int size = Math.min(GameController.enemyBullets.size(), 10);
             for (int i = 0; i < size; i++) {
                 if (GameController.enemyBullets.get(i).bulletHealth > 0) {
                     if (BulletController.isBulletInAFrame(GameController.enemyBullets.get(i))) {

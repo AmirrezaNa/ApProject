@@ -34,23 +34,4 @@ public class SmileyController {
         }
     }
 
-
-    public static void shotBullet() {
-        Timer timer = new Timer();
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                for (int i = 0; i < 10; i++) {
-                    Point point = new Point();
-                    point.setLocation(smiley.x, smiley.y);
-                    Point goal = new Point();
-                    goal.setLocation(ball.x + 30 + ((Math.pow(-1,i) * i * 100)), ball.y);
-                    GameController.newNecropickBullet(point, goal);
-                }
-
-            }
-
-        };
-        timer.scheduleAtFixedRate(task, 5000, 5000);
-    }
 }

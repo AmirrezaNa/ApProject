@@ -33,6 +33,8 @@ public class ObjectCollisions2 {
         checkBulletArchmireCollision();
         checkBulletBarricados1Collision();
         checkBulletBarricados2Collision();
+        checkBulletBlackOrbCollision();
+
     }
 
     public static void checkBallCollisions() {
@@ -69,13 +71,7 @@ public class ObjectCollisions2 {
         double xMax2 = ball.x + BallModel.ballRadius;
         double yMin2 = ball.y - BallModel.ballRadius;
         double yMax2 = ball.y + BallModel.ballRadius;
-        int size;
-        if (enemyBullets.size() >= 15) {
-            size = 15;
-        }
-        else {
-            size = enemyBullets.size();
-        }
+        int size = Math.min(enemyBullets.size(), 20);
 
         if (!enemyBullets.isEmpty()) {
             for (int j = 0; j < size; j++) {
@@ -118,13 +114,7 @@ public class ObjectCollisions2 {
 
     public static void checkBulletOmenoctCollision() {
         if (!GameController.bullets.isEmpty()) {
-            int size;
-            if (bullets.size() >= 15) {
-                size = 15;
-            }
-            else {
-                size = bullets.size();
-            }
+            int size = Math.min(bullets.size(), 15);
             for (int j = 0; j < size; j++) {
                 if (GameController.bullets.get(j).bulletHealth > 0) {
 
@@ -173,13 +163,7 @@ public class ObjectCollisions2 {
 
     public static void checkBulletNecropickCollision() {
         if (!GameController.bullets.isEmpty()) {
-            int size;
-            if (bullets.size() >= 15) {
-                size = 15;
-            }
-            else {
-                size = bullets.size();
-            }
+            int size = Math.min(bullets.size(), 15);
             for (int j = 0; j < size; j++) {
                 if (GameController.bullets.get(j).bulletHealth > 0) {
 
@@ -228,13 +212,7 @@ public class ObjectCollisions2 {
 
     public static void checkBulletArchmireCollision() {
         if (!GameController.bullets.isEmpty()) {
-            int size;
-            if (bullets.size() >= 15) {
-                size = 15;
-            }
-            else {
-                size = bullets.size();
-            }
+            int size = Math.min(bullets.size(), 15);
             for (int j = 0; j < size; j++) {
                 if (GameController.bullets.get(j).bulletHealth > 0) {
 
@@ -280,13 +258,7 @@ public class ObjectCollisions2 {
 
     public static void checkBulletWyrmCollision() {
         if (!GameController.bullets.isEmpty()) {
-            int size;
-            if (bullets.size() >= 15) {
-                size = 15;
-            }
-            else {
-                size = bullets.size();
-            }
+            int size = Math.min(bullets.size(), 15);
             for (int j = 0; j < size; j++) {
                 if (GameController.bullets.get(j).bulletHealth > 0) {
 
@@ -335,13 +307,7 @@ public class ObjectCollisions2 {
 
     public static void checkBulletBarricados1Collision() {
         if (!GameController.bullets.isEmpty()) {
-            int size;
-            if (bullets.size() >= 15) {
-                size = 15;
-            }
-            else {
-                size = bullets.size();
-            }
+            int size = Math.min(bullets.size(), 15);
             for (int j = 0; j < size; j++) {
                 if (GameController.bullets.get(j).bulletHealth > 0) {
 
@@ -380,13 +346,7 @@ public class ObjectCollisions2 {
 
     public static void checkBulletBarricados2Collision() {
         if (!GameController.bullets.isEmpty()) {
-            int size;
-            if (bullets.size() >= 15) {
-                size = 15;
-            }
-            else {
-                size = bullets.size();
-            }
+            int size = Math.min(bullets.size(), 15);
             for (int j = 0; j < size; j++) {
                 if (GameController.bullets.get(j).bulletHealth > 0) {
 
@@ -421,6 +381,60 @@ public class ObjectCollisions2 {
             }
         }
     }
+
+
+    public static void checkBulletBlackOrbCollision() {
+        if (!GameController.bullets.isEmpty()) {
+            int size = Math.min(bullets.size(), 15);
+            for (int j = 0; j < size; j++) {
+                if (GameController.bullets.get(j).bulletHealth > 0) {
+
+                    double xMin1 = GameController.bullets.get(j).x;
+                    double xMax1 = GameController.bullets.get(j).x + BulletModel.bulletSize;
+                    double yMin1 = GameController.bullets.get(j).y;
+                    double yMax1 = GameController.bullets.get(j).y + BulletModel.bulletSize;
+                    for (int k = 0; k < blackOrbEnemies.size(); k++) {
+                        if (blackOrbEnemies.get(k).enemyHealth > 0) {
+
+                            double xMin2 = blackOrbEnemies.get(k).x;
+                            double xMax2 = blackOrbEnemies.get(k).x + BlackOrbModel.blackOrbSize;
+                            double yMin2 = blackOrbEnemies.get(k).y;
+                            double yMax2 = blackOrbEnemies.get(k).y + BlackOrbModel.blackOrbSize;
+
+                            if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                    || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                    || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
+                                    || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
+
+                                GameController.bullets.get(j).bulletHealth = 0;
+                                if (GameController.bulletAres) {
+                                    blackOrbEnemies.get(k).enemyHealth -= 7;
+                                }
+                                if (!GameController.bulletAres) {
+                                    blackOrbEnemies.get(k).enemyHealth -= 5;
+                                }
+                                SoundEffects.playSound(Constants.HURT_SOUND_PATH);
+                                if (blackOrbEnemies.get(k).enemyHealth <= 0) {
+                                    SoundEffects.playSound(Constants.HIT_SOUND_PATH);
+                                    GameController.newCollectible(blackOrbEnemies.get(k).x, blackOrbEnemies.get(k).y);
+                                }
+
+
+                                Impact.turnOnImpact(GameController.bullets.get(j).x + ((double) BulletModel.bulletSize / 2),
+                                        GameController.bullets.get(j).y + ((double) BulletModel.bulletSize / 2),
+                                        blackOrbEnemies.get(k).x + ((double) BlackOrbModel.blackOrbSize / 2),
+                                        blackOrbEnemies.get(k).y + ((double) BlackOrbModel.blackOrbSize / 2));
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+
 
 
 
@@ -693,11 +707,6 @@ public class ObjectCollisions2 {
             }
         }
     }
-
-
-
-
-
 
 
 

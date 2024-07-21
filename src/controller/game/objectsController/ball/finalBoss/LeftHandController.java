@@ -14,16 +14,19 @@ public class LeftHandController {
 
     public static void updateLeftHand() {
         if (leftHand != null) {
-            if ((leftHand.x < epsilonFrame.x) && smiley.squeezeAttack) {
+            if (smiley.squeezeAttack) {
+                if ((leftHand.x < epsilonFrame.x)) {
+                    leftHand.x += leftHand.dx;
+                }
+                else {
+                    leftHand.x -= leftHand.dx;
+                }
+
+            } else if (leftHand.x < 400) {
                 leftHand.x += leftHand.dx;
-            }
-            else if (leftHand.x < 400) {
-                leftHand.x += leftHand.dx;
-            }
-            else if (leftHand.x > 400) {
+            } else if (leftHand.x > 400) {
                 leftHand.x -= leftHand.dx;
-            }
-            else {
+            } else {
                 if (leftHand.dy > 0) {
                     if (leftHand.y > 500) {
                         leftHand.dy = -leftHand.dy;

@@ -3,6 +3,7 @@ package view.gameLoop.phase2.finalBoss;
 import controller.game.GameController;
 import controller.game.SmileyAttacksController;
 import controller.game.collisions.bossFight.FrameCollisionBossFight;
+import controller.game.collisions.bossFight.ObjectCollisionBossFight;
 import controller.game.listener.KeyInputListener;
 import controller.game.listener.MouseInputListener;
 import controller.game.objectsController.ball.BallAngleController;
@@ -19,6 +20,7 @@ import model.entity.BulletModel;
 import model.entity.enemy.boss.LeftHandModel;
 import model.entity.enemy.boss.RightHandModel;
 import model.entity.enemy.boss.SmileyModel;
+import model.entity.enemy.normalAndMiniBoss.ArchmireModel;
 import view.gameLoop.phase2.normalAndMiniBossEnemies.GameFrame2;
 
 import javax.swing.*;
@@ -108,15 +110,15 @@ public class FinalBossPanel extends JPanel implements Runnable {
         BallAngleController.updateBallAngle();
 
         BulletController.updateBullet();
+        BulletController.updateEnemyBullet();
 
         SmileyController.updateSmiley();
         RightHandController.updateRightHand();
         LeftHandController.updateLeftHand();
 
 
-
-
-
+        ObjectCollisionBossFight.checkCollisionsPhase2();
+        FrameCollisionBossFight.checkBossFightFrameCollisions();
 
         revalidate();
         repaint();
@@ -137,6 +139,7 @@ public class FinalBossPanel extends JPanel implements Runnable {
 
 
         drawBullet(g);
+        drawEnemyBullet(g);
 
 
 
@@ -219,6 +222,41 @@ public class FinalBossPanel extends JPanel implements Runnable {
         repaint();
     }
 
+
+    public void drawEnemyBullet(Graphics g) {
+        if (!GameController.enemyBullets.isEmpty()) {
+            int size = Math.min(GameController.enemyBullets.size(), 20);
+            for (int i = 0; i < size; i++) {
+                if (GameController.enemyBullets.get(i).bulletHealth > 0) {
+                    g.setColor(new Color(0x8C0101));
+                    g.fillOval((int) GameController.enemyBullets.get(i).x,
+                            (int) GameController.enemyBullets.get(i).y,
+                            BulletModel.bulletSize,
+                            BulletModel.bulletSize);
+                }
+            }
+        }
+        repaint();
+        repaint();
+    }
+
+
+    public void drawArchmireTrace(Graphics g) {
+        if (!GameController.archmirePoints.isEmpty()) {
+            for (int i = 0; i < GameController.archmirePoints.size(); i++) {
+                if (GameController.archmirePoints.get(i).archmirePointTimer > 0) {
+                    super.paintComponent(g);
+                    g.setColor(new Color(0x4B2828));
+                    g.fillOval((int)GameController.archmirePoints.get(i).x - (ArchmireModel.archmireSize/2),
+                            (int)GameController.archmirePoints.get(i).y - (ArchmireModel.archmireSize/2),
+                            ArchmireModel.archmireSize,
+                            ArchmireModel.archmireSize);
+                }
+            }
+        }
+        repaint();
+        repaint();
+    }
 
     public void drawSmiley(Graphics g) {
         if (GameController.smiley != null) {

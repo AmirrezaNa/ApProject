@@ -15,8 +15,14 @@ public class RightHandController {
     public static void updateRightHand() {
         if (rightHand != null) {
 
-            if ((rightHand.x > (epsilonFrame.x + epsilonFrame.width)) && smiley.squeezeAttack) {
-                rightHand.x += rightHand.dx;
+            if (smiley.squeezeAttack) {
+                if ((rightHand.x > (epsilonFrame.x + epsilonFrame.width))) {
+                    rightHand.x += rightHand.dx;
+                }
+                else {
+                    rightHand.x -= rightHand.dx;
+                }
+
             } else if (rightHand.x > 1000) {
                 rightHand.x += rightHand.dx;
             } else if (rightHand.x < 1000) {

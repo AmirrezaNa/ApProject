@@ -85,7 +85,6 @@ public class GameController {
 
     public static BulletModel newBullet(Point point) {
         if (!gameOver || !FinalBossPanel.finalBossOver) {
-            System.out.println("hi");
             bullet = new BulletModel(ball.x, ball.y);
             bullet.dx = ((point.x - (ball.x)) / Math.sqrt(Math.pow((point.x - (ball.x)), 2) + Math.pow((point.y - (ball.y)), 2))) * BulletModel.bulletSpeed;
             if (bullet.y < point.y) {
@@ -101,6 +100,7 @@ public class GameController {
 
     public static BulletModel newOmenoctBullet(Point point) {
         if (!gameOver || !FinalBossPanel.finalBossOver) {
+            BulletModel.bulletSpeed = 3;
             bullet = new BulletModel(point.x, point.y);
             bullet.dx = -((point.x - (ball.x + 20)) / Math.sqrt(Math.pow((point.x - (ball.x + 20)), 2) + Math.pow((point.y - (ball.y + 20)), 2))) * BulletModel.bulletSpeed;
             if (ball.y > point.y) {
@@ -109,6 +109,7 @@ public class GameController {
                 bullet.dy = -(Math.sqrt(Math.pow(BulletModel.bulletSpeed, 2) - Math.pow(bullet.dx, 2)));
             }
             enemyBullets.add(0, bullet);
+            BulletModel.bulletSpeed = 15;
             return bullet;
         }
         return null;
@@ -116,6 +117,7 @@ public class GameController {
 
     public static BulletModel newNecropickBullet(Point point, Point goal) {
         if (!gameOver || !FinalBossPanel.finalBossOver) {
+            BulletModel.bulletSpeed = 3;
             bullet = new BulletModel(point.x, point.y);
             bullet.dx = -((point.x - (goal.x)) / Math.sqrt(Math.pow((point.x - (goal.x)), 2) + Math.pow((point.y - (goal.y)), 2))) * BulletModel.bulletSpeed;
             if (goal.y > point.y) {
@@ -124,6 +126,7 @@ public class GameController {
                 bullet.dy = -(Math.sqrt(Math.pow(BulletModel.bulletSpeed, 2) - Math.pow(bullet.dx, 2)));
             }
             enemyBullets.add(0, bullet);
+            BulletModel.bulletSpeed = 15;
             return bullet;
         }
         return null;
