@@ -52,7 +52,7 @@ public class FrameCollisionBossFight {
                             bullets.get(i).dy = 0;
                             bullets.get(i).bulletHealth = 0;
                             epsilonFrame.width += 20;
-                            epsilonFrame.x += 5;
+                            epsilonFrame.x += 3;
                         }
 
                         else if (bullets.get(i).x < epsilonFrame.x &&
@@ -61,7 +61,7 @@ public class FrameCollisionBossFight {
                             bullets.get(i).dy = 0;
                             bullets.get(i).bulletHealth = 0;
                             epsilonFrame.x -= 20;
-                            epsilonFrame.width += 5;
+                            epsilonFrame.width += 10;
 
                         }
 

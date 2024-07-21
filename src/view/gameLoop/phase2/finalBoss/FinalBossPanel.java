@@ -128,6 +128,7 @@ public class FinalBossPanel extends JPanel implements Runnable {
         super.paintComponent(g);
 
         drawEpsilonFrame(g);
+        drawArchmireTrace(g);
 
         drawBall(g);
         drawBallDirection(g);
@@ -242,8 +243,9 @@ public class FinalBossPanel extends JPanel implements Runnable {
 
 
     public void drawArchmireTrace(Graphics g) {
+        int size = Math.min(30, GameController.archmirePoints.size());
         if (!GameController.archmirePoints.isEmpty()) {
-            for (int i = 0; i < GameController.archmirePoints.size(); i++) {
+            for (int i = 0; i < size; i++) {
                 if (GameController.archmirePoints.get(i).archmirePointTimer > 0) {
                     super.paintComponent(g);
                     g.setColor(new Color(0x4B2828));

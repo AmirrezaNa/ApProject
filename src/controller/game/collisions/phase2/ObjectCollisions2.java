@@ -57,10 +57,16 @@ public class ObjectCollisions2 {
 
     public static void checkEnemyCollisions() {
         //enemies collisions
+        checkCollisionNecropickOmenoct();
         checkCollisionWyrmOmenoct();
+        checkCollisionBarricados1Omenoct();
+        checkCollisionBarricados2Omenoct();
+        checkCollisionNecropickWyrm();
+        checkCollisionBarricados1Necropick();
+        checkCollisionBarricados2Necropick();
+        checkCollisionBarricados1Wyrm();
+        checkCollisionBarricados2Wyrm();
     }
-
-
 
 
     // =========================     bullets collisions    ==========================
@@ -434,16 +440,7 @@ public class ObjectCollisions2 {
     }
 
 
-
-
-
-
-
-
-
-
     // =========================     ball collisions    ==========================
-
 
 
     public static void checkCollisionBallOmenoct() {
@@ -546,8 +543,7 @@ public class ObjectCollisions2 {
 
                     ball.ballInArchmire = true;
 
-                }
-                else {
+                } else {
                     ball.ballInArchmire = false;
                 }
             }
@@ -564,8 +560,7 @@ public class ObjectCollisions2 {
             int size;
             if (archmirePoints.size() > 20) {
                 size = 20;
-            }
-            else {
+            } else {
                 size = archmirePoints.size();
             }
             for (int k = 0; k < size; k++) {
@@ -625,25 +620,27 @@ public class ObjectCollisions2 {
         double xMax1 = GameController.ball.x + BallModel.ballRadius;
         double yMin1 = GameController.ball.y - BallModel.ballRadius;
         double yMax1 = GameController.ball.y + BallModel.ballRadius;
-        for (int k = 0; k < barricadosEnemies1.size(); k++) {
-            if (barricadosEnemies1.get(k).enemyTimer > 0) {
+        if (!barricadosEnemies1.isEmpty()) {
+            for (int k = 0; k < barricadosEnemies1.size(); k++) {
+                if (barricadosEnemies1.get(k).enemyTimer > 0) {
 
-                double xMin2 = barricadosEnemies1.get(k).x;
-                double xMax2 = barricadosEnemies1.get(k).x + BarricadosModel1.barricadosSize;
-                double yMin2 = barricadosEnemies1.get(k).y;
-                double yMax2 = barricadosEnemies1.get(k).y + BarricadosModel1.barricadosSize;
+                    double xMin2 = barricadosEnemies1.get(k).x;
+                    double xMax2 = barricadosEnemies1.get(k).x + BarricadosModel1.barricadosSize;
+                    double yMin2 = barricadosEnemies1.get(k).y;
+                    double yMax2 = barricadosEnemies1.get(k).y + BarricadosModel1.barricadosSize;
 
-                if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
-                        || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
-                        || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
-                        || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
+                    if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                            || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                            || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
+                            || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
 
-                    Impact.turnOnImpact(GameController.ball.x,
-                            GameController.ball.y,
-                            barricadosEnemies1.get(k).x + ((double) BarricadosModel1.barricadosSize / 2),
-                            barricadosEnemies1.get(k).y + ((double) BarricadosModel1.barricadosSize / 2));
+                        Impact.turnOnImpact(GameController.ball.x,
+                                GameController.ball.y,
+                                barricadosEnemies1.get(k).x + ((double) BarricadosModel1.barricadosSize / 2),
+                                barricadosEnemies1.get(k).y + ((double) BarricadosModel1.barricadosSize / 2));
 
 
+                    }
                 }
             }
         }
@@ -700,8 +697,7 @@ public class ObjectCollisions2 {
 
                     ball.ballInBlackOrb = true;
 
-                }
-                else {
+                } else {
                     ball.ballInBlackOrb = false;
                 }
             }
@@ -709,14 +705,7 @@ public class ObjectCollisions2 {
     }
 
 
-
-
-
-
-
-
     // =========================     ball-angle collisions    ==========================
-
 
 
     public static void checkCollisionBallAngleOmenoct() {
@@ -797,10 +786,6 @@ public class ObjectCollisions2 {
     }
 
 
-
-
-
-
     // =========================     enemies collisions    ==========================
 
 
@@ -840,6 +825,301 @@ public class ObjectCollisions2 {
     }
 
 
+    public static void checkCollisionNecropickOmenoct() {
+        for (int i = 0; i < necropickEnemies.size(); i++) {
+            if (necropickEnemies.get(i).enemyHealth > 0 && !necropickEnemies.get(i).hide) {
+
+                double xMin1 = necropickEnemies.get(i).xAngles[0];
+                double xMax1 = necropickEnemies.get(i).xAngles[1];
+                double yMin1 = necropickEnemies.get(i).yAngles[0];
+                double yMax1 = necropickEnemies.get(i).yAngles[1];
+
+                for (int k = 0; k < omenoctEnemies.size(); k++) {
+                    if (omenoctEnemies.get(k).enemyHealth > 0) {
+
+                        double xMin2 = omenoctEnemies.get(k).xAngles[6];
+                        double xMax2 = omenoctEnemies.get(k).xAngles[2];
+                        double yMin2 = omenoctEnemies.get(k).yAngles[0];
+                        double yMax2 = omenoctEnemies.get(k).yAngles[4];
+
+                        if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
+                                || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
+
+                            Impact.turnOnImpact(necropickEnemies.get(i).x + ((double) NecropickModel.necropickSize / 2),
+                                    necropickEnemies.get(i).y + ((double) NecropickModel.necropickSize / 2),
+                                    omenoctEnemies.get(k).x,
+                                    omenoctEnemies.get(k).y + OmenoctModel.distanceToCenter);
+                        }
+                    }
+                }
+            }
+        }
+    }
 
 
+    public static void checkCollisionBarricados1Omenoct() {
+        if (!barricadosEnemies1.isEmpty()) {
+            for (int i = 0; i < barricadosEnemies1.size(); i++) {
+                if (barricadosEnemies1.get(i).enemyTimer > 0) {
+
+                    double xMin1 = barricadosEnemies1.get(i).x;
+                    double xMax1 = barricadosEnemies1.get(i).x + BarricadosModel1.barricadosSize;
+                    double yMin1 = barricadosEnemies1.get(i).y;
+                    double yMax1 = barricadosEnemies1.get(i).y + BarricadosModel1.barricadosSize;
+
+                    for (int k = 0; k < omenoctEnemies.size(); k++) {
+                        if (omenoctEnemies.get(k).enemyHealth > 0) {
+
+                            double xMin2 = omenoctEnemies.get(k).xAngles[6];
+                            double xMax2 = omenoctEnemies.get(k).xAngles[2];
+                            double yMin2 = omenoctEnemies.get(k).yAngles[0];
+                            double yMax2 = omenoctEnemies.get(k).yAngles[4];
+
+                            if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                    || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                    || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
+                                    || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
+
+                                Impact.turnOnImpact(barricadosEnemies1.get(i).x + ((double) BarricadosModel1.barricadosSize / 2),
+                                        barricadosEnemies1.get(i).y + ((double) BarricadosModel1.barricadosSize / 2),
+                                        omenoctEnemies.get(k).x,
+                                        omenoctEnemies.get(k).y + OmenoctModel.distanceToCenter);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public static void checkCollisionBarricados2Omenoct() {
+        if (!barricadosEnemies2.isEmpty()) {
+            for (int i = 0; i < barricadosEnemies2.size(); i++) {
+                if (barricadosEnemies2.get(i).enemyTimer > 0) {
+
+                    double xMin1 = barricadosEnemies2.get(i).x;
+                    double xMax1 = barricadosEnemies2.get(i).x + BarricadosModel2.barricadosSize;
+                    double yMin1 = barricadosEnemies2.get(i).y;
+                    double yMax1 = barricadosEnemies2.get(i).y + BarricadosModel2.barricadosSize;
+
+                    for (int k = 0; k < omenoctEnemies.size(); k++) {
+                        if (omenoctEnemies.get(k).enemyHealth > 0) {
+
+                            double xMin2 = omenoctEnemies.get(k).xAngles[6];
+                            double xMax2 = omenoctEnemies.get(k).xAngles[2];
+                            double yMin2 = omenoctEnemies.get(k).yAngles[0];
+                            double yMax2 = omenoctEnemies.get(k).yAngles[4];
+
+                            if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                    || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                    || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
+                                    || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
+
+                                Impact.turnOnImpact(barricadosEnemies2.get(i).x + ((double) BarricadosModel2.barricadosSize / 2),
+                                        barricadosEnemies2.get(i).y + ((double) BarricadosModel2.barricadosSize / 2),
+                                        omenoctEnemies.get(k).x,
+                                        omenoctEnemies.get(k).y + OmenoctModel.distanceToCenter);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    public static void checkCollisionNecropickWyrm() {
+        if (!necropickEnemies.isEmpty()) {
+            for (int i = 0; i < necropickEnemies.size(); i++) {
+                if (necropickEnemies.get(i).enemyHealth > 0 && !necropickEnemies.get(i).hide) {
+
+                    double xMin1 = necropickEnemies.get(i).xAngles[0];
+                    double xMax1 = necropickEnemies.get(i).xAngles[1];
+                    double yMin1 = necropickEnemies.get(i).yAngles[0];
+                    double yMax1 = necropickEnemies.get(i).yAngles[1];
+
+                    if (!wyrmEnemies.isEmpty()) {
+                        for (int j = 0; j < wyrmEnemies.size(); j++) {
+                            if (wyrmEnemies.get(j).enemyHealth > 0) {
+
+                                double xMin2 = wyrmEnemies.get(j).x;
+                                double xMax2 = wyrmEnemies.get(j).x + WyrmModel.wyrmSize;
+                                double yMin2 = wyrmEnemies.get(j).y;
+                                double yMax2 = wyrmEnemies.get(j).y + WyrmModel.wyrmSize;
+
+                                if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                        || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                        || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
+                                        || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
+
+                                    Impact.turnOnImpact(necropickEnemies.get(j).x + ((double) NecropickModel.necropickSize / 2),
+                                            necropickEnemies.get(j).y + ((double) NecropickModel.necropickSize / 2),
+                                            wyrmEnemies.get(j).x,
+                                            wyrmEnemies.get(j).y + (double) WyrmModel.wyrmSize / 2);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+
+    public static void checkCollisionBarricados1Necropick() {
+        if (!barricadosEnemies1.isEmpty()) {
+            for (int i = 0; i < barricadosEnemies1.size(); i++) {
+                if (barricadosEnemies1.get(i).enemyTimer > 0) {
+
+                    double xMin1 = barricadosEnemies1.get(i).x;
+                    double xMax1 = barricadosEnemies1.get(i).x + BarricadosModel1.barricadosSize;
+                    double yMin1 = barricadosEnemies1.get(i).y;
+                    double yMax1 = barricadosEnemies1.get(i).y + BarricadosModel1.barricadosSize;
+
+                    if (!necropickEnemies.isEmpty()) {
+                        for (int j = 0; j < necropickEnemies.size(); j++) {
+                            if (necropickEnemies.get(j).enemyHealth > 0 && !necropickEnemies.get(j).hide) {
+
+                                double xMin2 = necropickEnemies.get(j).xAngles[0];
+                                double xMax2 = necropickEnemies.get(j).xAngles[1];
+                                double yMin2 = necropickEnemies.get(j).yAngles[0];
+                                double yMax2 = necropickEnemies.get(j).yAngles[1];
+
+                                if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                        || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                        || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
+                                        || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
+
+                                    Impact.turnOnImpact(barricadosEnemies1.get(j).x + ((double) BarricadosModel1.barricadosSize / 2),
+                                            barricadosEnemies1.get(j).y + ((double) BarricadosModel1.barricadosSize / 2),
+                                            necropickEnemies.get(j).x + (double) NecropickModel.necropickSize / 2,
+                                            necropickEnemies.get(j).y + (double) NecropickModel.necropickSize / 2);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public static void checkCollisionBarricados2Necropick() {
+        if (!barricadosEnemies2.isEmpty()) {
+            for (int i = 0; i < barricadosEnemies2.size(); i++) {
+                if (barricadosEnemies2.get(i).enemyTimer > 0) {
+
+                    double xMin1 = barricadosEnemies2.get(i).x;
+                    double xMax1 = barricadosEnemies2.get(i).x + BarricadosModel2.barricadosSize;
+                    double yMin1 = barricadosEnemies2.get(i).y;
+                    double yMax1 = barricadosEnemies2.get(i).y + BarricadosModel2.barricadosSize;
+
+                    if (!necropickEnemies.isEmpty()) {
+                        for (int j = 0; j < necropickEnemies.size(); j++) {
+                            if (necropickEnemies.get(j).enemyHealth > 0 && !necropickEnemies.get(j).hide) {
+
+                                double xMin2 = necropickEnemies.get(j).xAngles[0];
+                                double xMax2 = necropickEnemies.get(j).xAngles[1];
+                                double yMin2 = necropickEnemies.get(j).yAngles[0];
+                                double yMax2 = necropickEnemies.get(j).yAngles[1];
+
+                                if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                        || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                        || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
+                                        || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
+
+                                    Impact.turnOnImpact(barricadosEnemies2.get(j).x + ((double) BarricadosModel2.barricadosSize / 2),
+                                            barricadosEnemies2.get(j).y + ((double) BarricadosModel2.barricadosSize / 2),
+                                            necropickEnemies.get(j).x + (double) NecropickModel.necropickSize / 2,
+                                            necropickEnemies.get(j).y + (double) NecropickModel.necropickSize / 2);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+
+    public static void checkCollisionBarricados2Wyrm() {
+        if (!barricadosEnemies2.isEmpty()) {
+            for (int i = 0; i < barricadosEnemies2.size(); i++) {
+                if (barricadosEnemies2.get(i).enemyTimer > 0) {
+
+                    double xMin1 = barricadosEnemies2.get(i).x;
+                    double xMax1 = barricadosEnemies2.get(i).x + BarricadosModel2.barricadosSize;
+                    double yMin1 = barricadosEnemies2.get(i).y;
+                    double yMax1 = barricadosEnemies2.get(i).y + BarricadosModel2.barricadosSize;
+
+                    if (!wyrmEnemies.isEmpty()) {
+                        for (int j = 0; j < wyrmEnemies.size(); j++) {
+                            if (wyrmEnemies.get(j).enemyHealth > 0) {
+
+                                double xMin2 = wyrmEnemies.get(j).x;
+                                double xMax2 = wyrmEnemies.get(j).x + WyrmModel.wyrmSize;
+                                double yMin2 = wyrmEnemies.get(j).y;
+                                double yMax2 = wyrmEnemies.get(j).y + WyrmModel.wyrmSize;
+
+                                if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                        || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                        || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
+                                        || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
+
+                                    Impact.turnOnImpact(barricadosEnemies2.get(j).x + ((double) BarricadosModel2.barricadosSize / 2),
+                                            barricadosEnemies2.get(j).y + ((double) BarricadosModel2.barricadosSize / 2),
+                                            wyrmEnemies.get(j).x + (double) WyrmModel.wyrmSize / 2,
+                                            wyrmEnemies.get(j).y + (double) WyrmModel.wyrmSize / 2);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+
+
+    public static void checkCollisionBarricados1Wyrm() {
+        if (!barricadosEnemies1.isEmpty()) {
+            for (int i = 0; i < barricadosEnemies1.size(); i++) {
+                if (barricadosEnemies1.get(i).enemyTimer > 0) {
+
+                    double xMin1 = barricadosEnemies1.get(i).x;
+                    double xMax1 = barricadosEnemies1.get(i).x + BarricadosModel1.barricadosSize;
+                    double yMin1 = barricadosEnemies1.get(i).y;
+                    double yMax1 = barricadosEnemies1.get(i).y + BarricadosModel1.barricadosSize;
+
+                    if (!wyrmEnemies.isEmpty()) {
+                        for (int j = 0; j < wyrmEnemies.size(); j++) {
+                            if (wyrmEnemies.get(j).enemyHealth > 0) {
+
+                                double xMin2 = wyrmEnemies.get(j).x;
+                                double xMax2 = wyrmEnemies.get(j).x + WyrmModel.wyrmSize;
+                                double yMin2 = wyrmEnemies.get(j).y;
+                                double yMax2 = wyrmEnemies.get(j).y + WyrmModel.wyrmSize;
+
+                                if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                        || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                                        || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
+                                        || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
+
+                                    Impact.turnOnImpact(barricadosEnemies1.get(j).x + ((double) BarricadosModel1.barricadosSize / 2),
+                                            barricadosEnemies1.get(j).y + ((double) BarricadosModel1.barricadosSize / 2),
+                                            wyrmEnemies.get(j).x + (double) WyrmModel.wyrmSize / 2,
+                                            wyrmEnemies.get(j).y + (double) WyrmModel.wyrmSize / 2);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
 }

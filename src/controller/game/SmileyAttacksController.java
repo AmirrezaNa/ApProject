@@ -12,12 +12,14 @@ import java.util.TimerTask;
 
 import static controller.game.GameController.*;
 import static controller.game.objectsController.ball.enemies.normalAndMiniBoss.ArchmireController.setTimerForPoint;
+import static view.gameLoop.phase2.finalBoss.EpsilonFrame.epsilonFrame;
 
 public class SmileyAttacksController {
 
     public static void startSmileyAttacks() {
         startSqueezeAttack();
         startProjectileAttack();
+        startVomitAttack();
     }
 
 
@@ -127,11 +129,14 @@ public class SmileyAttacksController {
             @Override
             public void run() {
                 if (smiley.vomitAttack) {
-                    for (int i = 0; i < 10; i++) {
-                        Point point = new Point();
-                        point.setLocation(ball.x + 30 + ((Math.pow(-1,i) * i * 50)),
-                                ball.y + 30 + ((Math.pow(-1,i) * i * 50)));
-                        setTrace(point.x, point.y);
+                    for (int i = 0; i < 3; i++) {
+                        for (int j = 0; j < 3; j++) {
+                            Point point = new Point();
+                            point.setLocation((epsilonFrame.x + 30 + ( i * 100)),
+                                    epsilonFrame.y + 30 + (j*150));
+                            setTrace(point.x, point.y);
+                        }
+
                     }
                 }
                 smiley.vomitAttack = false;
@@ -147,11 +152,9 @@ public class SmileyAttacksController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (archmire.enemyHealth > 0) {
-                    ArchmirePoints vomitPoint = new ArchmirePoints(x , y);
-                    archmirePoints.add(0, vomitPoint);
-                    setTimerForPoint(vomitPoint);
-                }
+                ArchmirePoints vomitPoint = new ArchmirePoints(x , y);
+                archmirePoints.add(0, vomitPoint);
+                setTimerForPoint(vomitPoint);
 //                if (stopWave) {
 //                    timer.cancel();
 //                }
