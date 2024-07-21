@@ -60,7 +60,7 @@ public class ArchmireController {
             public void run() {
                 if (archmire.enemyHealth > 0) {
                     ArchmirePoints archmirePoint = new ArchmirePoints(archmire.x + ((double) ArchmireModel.archmireSize / 2), archmire.y + ((double) ArchmireModel.archmireSize / 2));
-                    archmirePoints.add(archmirePoint);
+                    archmirePoints.add(0, archmirePoint);
                     setTimerForPoint(archmirePoint);
                 }
 //                if (stopWave) {

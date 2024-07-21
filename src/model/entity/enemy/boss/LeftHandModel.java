@@ -16,17 +16,18 @@ public class LeftHandModel {
     public static int leftHandSize = 150;
     public static String imageIcon = "E:\\java projects\\ApProjectPhase1\\src\\controller\\data\\store\\apIcons\\LeftHand.png";
     public static Image image = new ImageIcon(imageIcon).getImage();
+    public boolean leftHandExists;
 
 
     public LeftHandModel(double x, double y) {
         this.x = x;
         this.y = y;
-        this.dx = 0;
-        this.dy = 0;
+        this.dx = 1;
+        this.dy = 1;
         this.ax = 0;
         this.ay = 0;
         enemyAcceleration = 3;
         this.enemyHealth = 100;
-
+        this.leftHandExists = true;
     }
 }

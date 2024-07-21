@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static controller.game.GameController.smiley;
+
 public class EpsilonFrame extends JInternalFrame {
     public static CreateFrames epsilonFrame;
     static JInternalFrame frame;
@@ -17,7 +19,7 @@ public class EpsilonFrame extends JInternalFrame {
     }
 
     private static void createEpsilonFrame() {
-        epsilonFrame = new CreateFrames(450, 100, 400, 300);
+        epsilonFrame = new CreateFrames(450, 300, 400, 400);
         frame = new JInternalFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBounds(epsilonFrame.x, epsilonFrame.y, epsilonFrame.width, epsilonFrame.height);
@@ -60,21 +62,13 @@ public class EpsilonFrame extends JInternalFrame {
                     int y = epsilonFrame.y;
                     int width = epsilonFrame.width;
                     int height = epsilonFrame.height;
-                    if (width > 300) {
+                    if (width > 300 && !smiley.squeezeAttack) {
                         // reduce width gradually
                         x++;
                         width--;
                         frame.setBounds(x, y, width, height);
                         epsilonFrame.x = x;
                         epsilonFrame.width = width;
-                    }
-                    if (height > 250) {
-                        // reduce height gradually
-                        y += 1;
-                        height--;
-                        frame.setBounds(x, y, width, height);
-                        epsilonFrame.y = y;
-                        epsilonFrame.height = height;
                     }
                 }
             }

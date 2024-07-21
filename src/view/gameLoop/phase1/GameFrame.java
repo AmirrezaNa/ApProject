@@ -7,6 +7,7 @@ import controller.data.controller.DataManager;
 import controller.data.controller.SoundEffects;
 import controller.game.GameController;
 import model.entity.BallModel;
+import view.gameLoop.phase2.finalBoss.FinalBossFrame;
 import view.gameLoop.phase2.normalAndMiniBossEnemies.GameFrame2;
 import view.startPage.EnterNamePage;
 
@@ -196,7 +197,7 @@ public class GameFrame extends JFrame {
                     }
                     SoundEffects.playSound(Constants.END_SOUND_PATH);
 //                GameOverFrame gameOverFrame = new GameOverFrame();
-                    GameFrame2 gameFrame2 = new GameFrame2();
+                    FinalBossFrame finalBossFrame = new FinalBossFrame();
                 }
             }
         }

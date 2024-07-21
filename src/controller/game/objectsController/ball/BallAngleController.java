@@ -5,11 +5,10 @@ import controller.game.listener.MouseInputListener;
 import model.entity.BallModel;
 
 import static controller.game.GameController.ballAngle;
-import static view.gameLoop.phase1.GamePanel.ball;
+import static controller.game.GameController.ball;
 
 public class BallAngleController {
 
-    GameController gameController = new GameController();
 
     public static void updateBallAngle() {
         if (ballAngle.angleExists) {

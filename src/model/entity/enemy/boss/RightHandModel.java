@@ -16,17 +16,17 @@ public class RightHandModel {
     public static int rightHandSize = 150;
     public static String imageIcon = "E:\\java projects\\ApProjectPhase1\\src\\controller\\data\\store\\apIcons\\RightHand.png";
     public static Image image = new ImageIcon(imageIcon).getImage();
+    public boolean rightHandExists;
 
 
     public RightHandModel(double x, double y) {
         this.x = x;
         this.y = y;
-        this.dx = 0;
-        this.dy = 0;
-        this.ax = 0;
-        this.ay = 0;
+        this.dx = -1;
+        this.dy = 1;
         enemyAcceleration = 3;
         this.enemyHealth = 100;
+        this.rightHandExists = true;
 
     }
 }

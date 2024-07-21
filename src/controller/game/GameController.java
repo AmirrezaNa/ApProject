@@ -5,6 +5,9 @@ import controller.data.controller.SoundEffects;
 import controller.game.objectsController.ball.CollectibleController;
 import controller.game.objectsController.ball.enemies.normalAndMiniBoss.*;
 import model.entity.*;
+import model.entity.enemy.boss.LeftHandModel;
+import model.entity.enemy.boss.RightHandModel;
+import model.entity.enemy.boss.SmileyModel;
 import model.entity.enemy.normalAndMiniBoss.*;
 import view.gameLoop.phase1.GameFrame;
 import view.gameLoop.phase1.GamePanel;
@@ -16,6 +19,9 @@ import java.util.ArrayList;
 import static view.gameLoop.phase2.normalAndMiniBossEnemies.GameInternalFrame.createdFrames;
 
 public class GameController {
+    public static SmileyModel smiley;
+    public static RightHandModel rightHand;
+    public static LeftHandModel leftHand;
 
     public static BallModel ball;
     static BulletModel bullet;
@@ -94,7 +100,7 @@ public class GameController {
     }
 
     public static BulletModel newOmenoctBullet(Point point) {
-        if (!gameOver) {
+        if (!gameOver || !FinalBossPanel.finalBossOver) {
             bullet = new BulletModel(point.x, point.y);
             bullet.dx = -((point.x - (ball.x + 20)) / Math.sqrt(Math.pow((point.x - (ball.x + 20)), 2) + Math.pow((point.y - (ball.y + 20)), 2))) * BulletModel.bulletSpeed;
             if (ball.y > point.y) {
@@ -109,7 +115,7 @@ public class GameController {
     }
 
     public static BulletModel newNecropickBullet(Point point, Point goal) {
-        if (!gameOver) {
+        if (!gameOver || !FinalBossPanel.finalBossOver) {
             bullet = new BulletModel(point.x, point.y);
             bullet.dx = -((point.x - (goal.x)) / Math.sqrt(Math.pow((point.x - (goal.x)), 2) + Math.pow((point.y - (goal.y)), 2))) * BulletModel.bulletSpeed;
             if (goal.y > point.y) {
@@ -244,6 +250,25 @@ public class GameController {
         collectible = new Collectible(x, y);
         collectibles.add(collectible);
         CollectibleController.countDownCollectible(10, collectible);//collectible will disappear in 10 seconds
+    }
+
+
+
+    // this part is for boss-fight ======================================================
+
+    public static SmileyModel newSmiley(double x, double y) {
+        smiley = new SmileyModel(x, y);
+        return smiley;
+    }
+
+    public static RightHandModel newRightHand(double x, double y) {
+        rightHand = new RightHandModel(x, y);
+        return rightHand;
+    }
+
+    public static LeftHandModel newLeftHand(double x, double y) {
+        leftHand = new LeftHandModel(x, y);
+        return leftHand;
     }
 
 

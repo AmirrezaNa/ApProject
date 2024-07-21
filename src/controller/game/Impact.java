@@ -6,16 +6,21 @@ import model.entity.enemy.normalAndMiniBoss.EnemyModel2;
 import model.entity.enemy.normalAndMiniBoss.NecropickModel;
 import model.entity.enemy.normalAndMiniBoss.OmenoctModel;
 
+import static view.gameLoop.phase1.GamePanel.phase1over;
+import static view.gameLoop.phase2.normalAndMiniBossEnemies.GamePanel2.phase2Over;
+
 public class Impact {
     public static void turnOnImpact(double x1, double y1, double x2, double y2) {
         double xImpactPoint = (x1 + x2) / 2;
         double yImpactPoint = (y1 + y2) / 2;
 
-
-        impactEnemy1(xImpactPoint, yImpactPoint);
-        impactEnemy2(xImpactPoint, yImpactPoint);
-        impactOmenoct(xImpactPoint, yImpactPoint);
-        impactNecropick(xImpactPoint, yImpactPoint);
+        if (!phase1over) {
+            impactEnemy1(xImpactPoint, yImpactPoint);
+            impactEnemy2(xImpactPoint, yImpactPoint);
+        } else if (!phase2Over) {
+            impactOmenoct(xImpactPoint, yImpactPoint);
+            impactNecropick(xImpactPoint, yImpactPoint);
+        }
         impactBall(xImpactPoint, yImpactPoint);
     }
 

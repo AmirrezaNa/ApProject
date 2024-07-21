@@ -52,6 +52,7 @@ public class GamePanel2 extends JPanel implements Runnable {
         BallController.getBallIntoFrame2();
         BallController.checkIfBallInArchmire();
         BallController.checkIfBallInArchmireTrace();
+        BallController.checkIfBallInBlackOrb();
         ballDirection = GameController.createBallDirection();
         ballAngle = GameController.createBallAngle();
         omenoct = WaveController.setTimerForOmenoct();

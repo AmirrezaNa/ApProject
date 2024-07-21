@@ -13,6 +13,7 @@ public class BallModel {
     public int HP;
     public boolean ballInArchmire;
     public boolean ballInArchmireTrace;
+    public boolean ballInBlackOrb;
 
     private static BallModel instance;
 
@@ -23,6 +24,7 @@ public class BallModel {
         this.HP = 100;
         this.ballInArchmire = false;
         this.ballInArchmireTrace = false;
+        this.ballInBlackOrb = false;
     }
 
     // Static method to get the singleton instance

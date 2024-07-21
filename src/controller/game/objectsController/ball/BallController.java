@@ -91,6 +91,23 @@ public class BallController {
         timer.scheduleAtFixedRate(task, 500, 1000);
     }
 
+    public static void checkIfBallInBlackOrb() {
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                if (ball.ballInBlackOrb) {
+                    ball.HP -= 12;
+                }
+//                if (stopWave) {
+//                    timer.cancel();
+//                }
+            }
+
+        };
+        timer.scheduleAtFixedRate(task, 500, 1000);
+    }
+
 
 
 }

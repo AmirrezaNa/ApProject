@@ -16,6 +16,15 @@ public class ObjectCollisions2 {
 
 
     public static void checkCollisionsPhase2() {
+        checkBulletCollisions();
+        checkBallCollisions();
+        checkBallAngleCollisions();
+        checkEnemyCollisions();
+
+
+    }
+
+    public static void checkBulletCollisions() {
         // bullets collisions
         checkCollisionBallEnemyBullet();
         checkBulletOmenoctCollision();
@@ -24,9 +33,9 @@ public class ObjectCollisions2 {
         checkBulletArchmireCollision();
         checkBulletBarricados1Collision();
         checkBulletBarricados2Collision();
+    }
 
-
-
+    public static void checkBallCollisions() {
         //ball collisions
         checkCollisionBallOmenoct();
         checkCollisionBallNecropick();
@@ -34,23 +43,22 @@ public class ObjectCollisions2 {
         checkCollisionBallArchmirePoints();
         checkCollisionBallWyrm();
         checkCollisionBallBarricados1();
-        checkCollisionBallBarricados1();
+        checkCollisionBallBarricados2();
+        checkCollisionBallBlackOrb();
+    }
 
-
-
+    public static void checkBallAngleCollisions() {
         //ball-angle collisions
         checkCollisionBallAngleNecropick();
         checkCollisionBallAngleOmenoct();
+    }
 
-
-
+    public static void checkEnemyCollisions() {
         //enemies collisions
         checkCollisionWyrmOmenoct();
-
-
-
-
     }
+
+
 
 
     // =========================     bullets collisions    ==========================
@@ -495,8 +503,8 @@ public class ObjectCollisions2 {
 
                     Impact.turnOnImpact(GameController.ball.x,
                             GameController.ball.y,
-                            omenoctEnemies.get(k).x,
-                            omenoctEnemies.get(k).y);
+                            necropickEnemies.get(k).x,
+                            necropickEnemies.get(k).y);
 
                 }
             }
@@ -525,31 +533,45 @@ public class ObjectCollisions2 {
                     ball.ballInArchmire = true;
 
                 }
+                else {
+                    ball.ballInArchmire = false;
+                }
             }
         }
     }
 
 
     public static void checkCollisionBallArchmirePoints() {
-        double xMin1 = GameController.ball.x - BallModel.ballRadius;
-        double xMax1 = GameController.ball.x + BallModel.ballRadius;
-        double yMin1 = GameController.ball.y - BallModel.ballRadius;
-        double yMax1 = GameController.ball.y + BallModel.ballRadius;
-        for (int k = 0; k < archmirePoints.size(); k++) {
-            if (archmirePoints.get(k).archmirePointTimer > 0) {
+        if (!archmirePoints.isEmpty()) {
+            double xMin1 = GameController.ball.x - BallModel.ballRadius;
+            double xMax1 = GameController.ball.x + BallModel.ballRadius;
+            double yMin1 = GameController.ball.y - BallModel.ballRadius;
+            double yMax1 = GameController.ball.y + BallModel.ballRadius;
+            int size;
+            if (archmirePoints.size() > 20) {
+                size = 20;
+            }
+            else {
+                size = archmirePoints.size();
+            }
+            for (int k = 0; k < size; k++) {
+                if (archmirePoints.get(k).archmirePointTimer > 0) {
 
-                double xMin2 = archmirePoints.get(k).x;
-                double xMax2 = archmirePoints.get(k).x + ArchmireModel.archmireSize;
-                double yMin2 = archmirePoints.get(k).y;
-                double yMax2 = archmirePoints.get(k).y + ArchmireModel.archmireSize;
+                    double xMin2 = archmirePoints.get(k).x;
+                    double xMax2 = archmirePoints.get(k).x + ArchmireModel.archmireSize;
+                    double yMin2 = archmirePoints.get(k).y;
+                    double yMax2 = archmirePoints.get(k).y + ArchmireModel.archmireSize;
 
-                if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
-                        || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
-                        || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
-                        || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
+                    if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                            || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                            || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
+                            || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
 
-                    ball.ballInArchmireTrace = true;
+                        ball.ballInArchmireTrace = true;
 
+                    } else {
+                        ball.ballInArchmireTrace = false;
+                    }
                 }
             }
         }
@@ -642,6 +664,38 @@ public class ObjectCollisions2 {
             }
         }
     }
+
+
+    public static void checkCollisionBallBlackOrb() {
+        double xMin1 = GameController.ball.x - BallModel.ballRadius;
+        double xMax1 = GameController.ball.x + BallModel.ballRadius;
+        double yMin1 = GameController.ball.y - BallModel.ballRadius;
+        double yMax1 = GameController.ball.y + BallModel.ballRadius;
+        for (int k = 0; k < blackOrbEnemies.size(); k++) {
+            if (blackOrbEnemies.get(k).enemyHealth > 0) {
+
+                double xMin2 = blackOrbEnemies.get(k).x;
+                double xMax2 = blackOrbEnemies.get(k).x + BlackOrbModel.blackOrbSize;
+                double yMin2 = blackOrbEnemies.get(k).y;
+                double yMax2 = blackOrbEnemies.get(k).y + BlackOrbModel.blackOrbSize;
+
+                if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                        || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
+                        || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
+                        || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
+
+                    ball.ballInBlackOrb = true;
+
+                }
+                else {
+                    ball.ballInBlackOrb = false;
+                }
+            }
+        }
+    }
+
+
+
 
 
 
