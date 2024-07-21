@@ -7,6 +7,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import static controller.game.GameController.*;
+import static view.gameLoop.phase2.normalAndMiniBossEnemies.GameInternalFrame.createdFrames;
 
 public class BarricadosController2 {
 
@@ -68,5 +69,19 @@ public class BarricadosController2 {
 
         };
         timer.scheduleAtFixedRate(task, 0, 1000);
+    }
+
+    public static boolean isBarricados2InFrame(int k) {
+        if (!barricadosEnemies2.isEmpty()) {
+            for (int i = 0; i < barricadosEnemies2.size(); i++) {
+                if (barricadosEnemies2.get(i).x >= createdFrames[i].x &&
+                        barricadosEnemies2.get(i).x <= createdFrames[i].x + createdFrames[i].width &&
+                        barricadosEnemies2.get(i).y >= createdFrames[i].y &&
+                        barricadosEnemies2.get(i).y <= createdFrames[i].y + createdFrames[i].height) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

@@ -11,6 +11,7 @@ import controller.game.objectsController.ball.BallController;
 import controller.game.objectsController.ball.BallDirectionController;
 import controller.game.objectsController.ball.BulletController;
 import controller.game.objectsController.ball.finalBoss.LeftHandController;
+import controller.game.objectsController.ball.finalBoss.PunchController;
 import controller.game.objectsController.ball.finalBoss.RightHandController;
 import controller.game.objectsController.ball.finalBoss.SmileyController;
 import model.entity.BallAngle;
@@ -18,6 +19,7 @@ import model.entity.BallDirection;
 import model.entity.BallModel;
 import model.entity.BulletModel;
 import model.entity.enemy.boss.LeftHandModel;
+import model.entity.enemy.boss.PunchModel;
 import model.entity.enemy.boss.RightHandModel;
 import model.entity.enemy.boss.SmileyModel;
 import model.entity.enemy.normalAndMiniBoss.ArchmireModel;
@@ -26,13 +28,14 @@ import view.gameLoop.phase2.normalAndMiniBossEnemies.GameFrame2;
 import javax.swing.*;
 import java.awt.*;
 
-import static controller.game.GameController.rightHand;
+import static controller.game.GameController.punch;
 
 public class FinalBossPanel extends JPanel implements Runnable {
 
     public static SmileyModel smiley;
     public static RightHandModel rightHand;
     public static LeftHandModel leftHand;
+    public static PunchModel punch;
 
     public static BallModel ball;
     public static BallDirection ballDirection;
@@ -115,6 +118,7 @@ public class FinalBossPanel extends JPanel implements Runnable {
         SmileyController.updateSmiley();
         RightHandController.updateRightHand();
         LeftHandController.updateLeftHand();
+        PunchController.updatePunch();
 
 
         ObjectCollisionBossFight.checkCollisionsPhase2();
@@ -137,6 +141,7 @@ public class FinalBossPanel extends JPanel implements Runnable {
         drawSmiley(g);
         drawRightHand(g);
         drawLeftHand(g);
+        drawPunch(g);
 
 
         drawBullet(g);
@@ -291,6 +296,19 @@ public class FinalBossPanel extends JPanel implements Runnable {
                     (int) (leftHand.y - (LeftHandModel.leftHandSize/2)),
                     LeftHandModel.leftHandSize,
                     LeftHandModel.leftHandSize, null);
+        }
+        revalidate();
+        repaint();
+    }
+
+
+    public void drawPunch(Graphics g) {
+        if (GameController.smiley.punchExists && punch != null) {
+            g.drawImage(PunchModel.image,
+                    (int) (punch.x - (PunchModel.punchSize / 2)),
+                    (int) (punch.y - PunchModel.punchSize),
+                    PunchModel.punchSize,
+                    PunchModel.punchSize, null);
         }
         revalidate();
         repaint();

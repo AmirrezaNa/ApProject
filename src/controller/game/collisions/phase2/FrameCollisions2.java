@@ -4,6 +4,7 @@ import controller.game.FrameOfObject;
 import controller.game.Impact;
 import controller.game.objectsController.ball.BallController;
 import controller.game.objectsController.ball.BulletController;
+import controller.game.objectsController.ball.enemies.normalAndMiniBoss.BarricadosController2;
 import model.entity.BallModel;
 import model.entity.BulletModel;
 import view.gameLoop.phase2.normalAndMiniBossEnemies.GameFrame2;
@@ -22,28 +23,19 @@ public class FrameCollisions2 {
         checkEnemyBulletOut();
     }
 
-    public static int frameCollided(int k) {//this method checks if a frame has a collision with another frame
+    public static boolean frameCollided(int k) {//this method checks if a frame has a collision with another frame
+        int numOfFramesCollided = 0;
         for (int i = 0; i < createdFrames.length; i++) {
-            if (i == k) {
-                continue;
-            }
-            int xMini = createdFrames[i].x + 3;
-            int yMini = createdFrames[i].y + 3;
-            int xMaxi = createdFrames[i].x + createdFrames[i].width - 3;
-            int yMaxi = createdFrames[i].y + createdFrames[i].height - 3;
-
-
-            int xMink = createdFrames[k].x + 3;
-            int yMink = createdFrames[k].y + 3;
-            int xMaxk = createdFrames[k].x + createdFrames[k].width - 3;
-            int yMaxk = createdFrames[k].y + createdFrames[k].height - 3;
-
-            if (((xMini >= xMink && xMini <= xMaxk) || (xMink >= xMini && xMink <= xMaxi))
-                    && ((yMini >= yMink && yMini <= yMaxk) || (yMink >= yMini && yMink <= yMaxi))) {
-                return i;
+            int x = createdFrames[i].x;
+            int y = createdFrames[i].y;
+            int width = createdFrames[i].width;
+            int height = createdFrames[i].height;
+            if ((ball.x >= (x + BallModel.ballRadius)) && (ball.x <= (x + width - BallModel.ballRadius))
+                    && (ball.y > (y + BallModel.ballRadius)) && (ball.y < (y + height - BallModel.ballRadius))) {
+                numOfFramesCollided++;
             }
         }
-        return -1;
+        return numOfFramesCollided >= 2;
     }
 
 
@@ -64,9 +56,11 @@ public class FrameCollisions2 {
                                 bullets.get(i).dx = 0;
                                 bullets.get(i).dy = 0;
                                 bullets.get(i).bulletHealth = 0;
+                                if (!BarricadosController2.isBarricados2InFrame(k)) {
 
-                                createdFrames[k].width += 20;
-                                createdFrames[k].x += 5;
+                                    createdFrames[k].width += 20;
+                                    createdFrames[k].x += 5;
+                                }
                                 Impact.turnOnImpact(bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
                                         bullets.get(i).y + ((double) BulletModel.bulletSize / 2),
                                         bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
@@ -78,9 +72,10 @@ public class FrameCollisions2 {
                                 bullets.get(i).dx = 0;
                                 bullets.get(i).dy = 0;
                                 bullets.get(i).bulletHealth = 0;
-
-                                createdFrames[k].height += 20;
-                                createdFrames[k].y += 5;
+                                if (!BarricadosController2.isBarricados2InFrame(k)) {
+                                    createdFrames[k].height += 20;
+                                    createdFrames[k].y += 5;
+                                }
                                 Impact.turnOnImpact(bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
                                         bullets.get(i).y + ((double) BulletModel.bulletSize / 2),
                                         bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
@@ -92,9 +87,11 @@ public class FrameCollisions2 {
                                 bullets.get(i).dx = 0;
                                 bullets.get(i).dy = 0;
                                 bullets.get(i).bulletHealth = 0;
+                                if (!BarricadosController2.isBarricados2InFrame(k)) {
 
-                                createdFrames[k].x -= 20;
-                                createdFrames[k].width += 10;
+                                    createdFrames[k].x -= 20;
+                                    createdFrames[k].width += 10;
+                                }
                                 Impact.turnOnImpact(bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
                                         bullets.get(i).y + ((double) BulletModel.bulletSize / 2),
                                         bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
@@ -106,8 +103,11 @@ public class FrameCollisions2 {
                                 bullets.get(i).dx = 0;
                                 bullets.get(i).dy = 0;
                                 bullets.get(i).bulletHealth = 0;
-                                createdFrames[k].y -= 20;
-                                createdFrames[k].height += 10;
+                                if (!BarricadosController2.isBarricados2InFrame(k)) {
+
+                                    createdFrames[k].y -= 20;
+                                    createdFrames[k].height += 10;
+                                }
                                 Impact.turnOnImpact(bullets.get(i).x + ((double) BulletModel.bulletSize / 2),
                                         bullets.get(i).y + ((double) BulletModel.bulletSize / 2),
                                         bullets.get(i).x + ((double) BulletModel.bulletSize / 2),

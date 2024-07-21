@@ -51,7 +51,7 @@ public class FrameCollisionBossFight {
                             bullets.get(i).dx = 0;
                             bullets.get(i).dy = 0;
                             bullets.get(i).bulletHealth = 0;
-                            epsilonFrame.width += 20;
+                            epsilonFrame.width += 30;
                             epsilonFrame.x += 3;
                         }
 
@@ -60,8 +60,8 @@ public class FrameCollisionBossFight {
                             bullets.get(i).dx = 0;
                             bullets.get(i).dy = 0;
                             bullets.get(i).bulletHealth = 0;
-                            epsilonFrame.x -= 20;
-                            epsilonFrame.width += 10;
+                            epsilonFrame.x -= 40;
+                            epsilonFrame.width += 30;
 
                         }
 

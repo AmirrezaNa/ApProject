@@ -6,6 +6,7 @@ import controller.game.objectsController.ball.CollectibleController;
 import controller.game.objectsController.ball.enemies.normalAndMiniBoss.*;
 import model.entity.*;
 import model.entity.enemy.boss.LeftHandModel;
+import model.entity.enemy.boss.PunchModel;
 import model.entity.enemy.boss.RightHandModel;
 import model.entity.enemy.boss.SmileyModel;
 import model.entity.enemy.normalAndMiniBoss.*;
@@ -22,6 +23,7 @@ public class GameController {
     public static SmileyModel smiley;
     public static RightHandModel rightHand;
     public static LeftHandModel leftHand;
+    public static PunchModel punch;
 
     public static BallModel ball;
     static BulletModel bullet;
@@ -272,6 +274,11 @@ public class GameController {
     public static LeftHandModel newLeftHand(double x, double y) {
         leftHand = new LeftHandModel(x, y);
         return leftHand;
+    }
+
+    public static PunchModel newPunch(double x, double y) {
+        punch = new PunchModel(x, y);
+        return punch;
     }
 
 

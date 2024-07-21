@@ -117,6 +117,17 @@ public class SmileyAttacksController {
             @Override
             public void run() {
                 smiley.vomitAttack = true;
+                for (int i = 0; i < 3; i++) {
+                    for (int j = 0; j < 3; j++) {
+                        Point point = new Point();
+                        point.setLocation((epsilonFrame.x + 30 + ( i * 100)),
+                                epsilonFrame.y + 30 + (j*150));
+                        ArchmirePoints vomitPoint = new ArchmirePoints(point.x , point.y);
+                        archmirePoints.add(0, vomitPoint);
+                        setTimerForPoint(vomitPoint);
+                    }
+
+                }
                 timerForVomitAttack();
             }
         };
@@ -128,17 +139,6 @@ public class SmileyAttacksController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (smiley.vomitAttack) {
-                    for (int i = 0; i < 3; i++) {
-                        for (int j = 0; j < 3; j++) {
-                            Point point = new Point();
-                            point.setLocation((epsilonFrame.x + 30 + ( i * 100)),
-                                    epsilonFrame.y + 30 + (j*150));
-                            setTrace(point.x, point.y);
-                        }
-
-                    }
-                }
                 smiley.vomitAttack = false;
             }
         };
@@ -147,22 +147,48 @@ public class SmileyAttacksController {
 
 
 
-    public static void setTrace(double x, double y) {
+
+
+    // ==========================================================================
+
+
+    // =====================     PowerPunch Attack     =======================================
+
+
+    public static void startPowerPunchAttack() {
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                ArchmirePoints vomitPoint = new ArchmirePoints(x , y);
-                archmirePoints.add(0, vomitPoint);
-                setTimerForPoint(vomitPoint);
-//                if (stopWave) {
-//                    timer.cancel();
-//                }
+                if (smiley.punchExists) {
+                    smiley.powerPunchAttack = true;
+                    timerForPowerPunchAttack();
+                    epsilonFrame.y += 50;
+                    epsilonFrame.height -= 50;
+                }
             }
-
         };
-        timer.scheduleAtFixedRate(task, 0, 500);
+        timer.scheduleAtFixedRate(task, 10000, 120000);
     }
+
+    public static void timerForPowerPunchAttack() {
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+
+                smiley.powerPunchAttack = false;
+            }
+        };
+        timer.scheduleAtFixedRate(task, 10000, 15000);
+    }
+
+
+
+
+
+
+
 
 
 

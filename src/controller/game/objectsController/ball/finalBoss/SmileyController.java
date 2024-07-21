@@ -1,6 +1,8 @@
 package controller.game.objectsController.ball.finalBoss;
 
 import controller.game.GameController;
+import controller.game.SmileyAttacksController;
+import view.gameLoop.phase2.finalBoss.FinalBossPanel;
 
 import java.awt.*;
 import java.util.Timer;
@@ -30,6 +32,11 @@ public class SmileyController {
                     }
                 }
                 smiley.x += smiley.dx;
+            }
+            if (smiley.enemyHealth < 100 && !smiley.punchExists) {
+                smiley.punchExists = true;
+                FinalBossPanel.punch = GameController.newPunch(550, 0);
+                SmileyAttacksController.startPowerPunchAttack();
             }
         }
     }

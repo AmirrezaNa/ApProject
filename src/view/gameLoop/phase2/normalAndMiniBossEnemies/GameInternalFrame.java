@@ -2,6 +2,7 @@ package view.gameLoop.phase2.normalAndMiniBossEnemies;
 
 import controller.game.GameController;
 import controller.game.collisions.phase2.FrameCollisions2;
+import controller.game.objectsController.ball.enemies.normalAndMiniBoss.BarricadosController2;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -130,42 +131,30 @@ public class GameInternalFrame extends JInternalFrame {
 
     public static void changeGameFrameSize(JInternalFrame frame, int i) {
         // this timer reduces the frame size ========================================
-        timer = new Timer(100, new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-//                try {
-//                    checkGameOver();
-//                } catch (IOException ex) {
-//                    throw new RuntimeException(ex);
-//                }
-                synchronized (lock) {
-                    if (FrameCollisions2.frameCollided(i) != -1) {
-                        int x = createdFrames[i].x;
-                        int y = createdFrames[i].y;
-                        int width = createdFrames[i].width;
-                        int height = createdFrames[i].height;
-                        if (width > 300) {
-                            // reduce width gradually
-                            x++;
-                            width--;
-                            frames[i].setBounds(x, y, width, height);
-                            createdFrames[i].x = x;
-                            createdFrames[i].width = width;
-                        }
-                        if (height > 250) {
-                            // reduce height gradually
-                            y += 1;
-                            height--;
-                            frames[i].setBounds(x, y, width, height);
-                            createdFrames[i].y = y;
-                            createdFrames[i].height = height;
-                        }
-                    }
+        synchronized (lock) {
+            if (!FrameCollisions2.frameCollided(i)) {
+                int x = createdFrames[i].x;
+                int y = createdFrames[i].y;
+                int width = createdFrames[i].width;
+                int height = createdFrames[i].height;
+                if (width > 300) {
+                    // reduce width gradually
+                    x++;
+                    width--;
+                    frames[i].setBounds(x, y, width, height);
+                    createdFrames[i].x = x;
+                    createdFrames[i].width = width;
+                }
+                if (height > 250) {
+                    // reduce height gradually
+                    y += 1;
+                    height--;
+                    frames[i].setBounds(x, y, width, height);
+                    createdFrames[i].y = y;
+                    createdFrames[i].height = height;
                 }
             }
-        });
-        timer.start();
+        }
 
         // ==========================================================================
 

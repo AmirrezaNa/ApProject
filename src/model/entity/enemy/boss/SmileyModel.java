@@ -12,6 +12,7 @@ public class SmileyModel {
     public int enemyHealth;
     public static double enemySpeed = 0.3;
     public static int smileySize = 400;
+    public boolean punchExists;
     public static String imageIcon = "E:\\java projects\\ApProjectPhase1\\src\\controller\\data\\store\\apIcons\\smiley.png";
     public static Image image = new ImageIcon(imageIcon).getImage();
     public boolean squeezeAttack;
@@ -30,7 +31,8 @@ public class SmileyModel {
         this.y = y;
         this.dx = 0;
         this.dy = 1;
-        this.enemyHealth = 300;
+        this.enemyHealth = 10;
+        this.punchExists = false;
         this.squeezeAttack = false;
         this.projectileAttack = false;
         this.vomitAttack = false;
