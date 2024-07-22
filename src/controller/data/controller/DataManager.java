@@ -17,7 +17,7 @@ public class DataManager {
         while (fileScanner.hasNextLine()) {
             String line = fileScanner.nextLine();
             String[] parts = line.split(",");
-            if (parts.length >= 11 && parts[0].equals(name)) {
+            if (parts.length >= 12 && parts[0].equals(name)) {
                 fileScanner.close();
                 return true;
             }
@@ -31,19 +31,23 @@ public class DataManager {
         while (fileScanner.hasNextLine()) {
             String line = fileScanner.nextLine();
             String[] parts = line.split(",");
-            if (parts.length >= 11 && parts[0].equals(name)) {
+            if (parts.length >= 12 && parts[0].equals(name)) {
                 if (EnterNamePage.player != null) {
                     EnterNamePage.player.setName(parts[0]);
                     EnterNamePage.player.setXP(Integer.parseInt(parts[1]));
+
                     EnterNamePage.player.setWritOfAres(Boolean.parseBoolean(parts[2]));
                     EnterNamePage.player.setWritOfAstrape(Boolean.parseBoolean(parts[3]));
                     EnterNamePage.player.setWritOfCerberus(Boolean.parseBoolean(parts[4]));
+
                     EnterNamePage.player.setWritOfAceso(Boolean.parseBoolean(parts[5]));
                     EnterNamePage.player.setWritOfMelampus(Boolean.parseBoolean(parts[6]));
                     EnterNamePage.player.setWritOfChiron(Boolean.parseBoolean(parts[7]));
-                    EnterNamePage.player.setWritOfProteus(Boolean.parseBoolean(parts[8]));
-                    EnterNamePage.player.setWritOfEmpusa(Boolean.parseBoolean(parts[9]));
-                    EnterNamePage.player.setWritOfDolus(Boolean.parseBoolean(parts[10]));
+                    EnterNamePage.player.setWritOfAthena(Boolean.parseBoolean(parts[8]));
+
+                    EnterNamePage.player.setWritOfProteus(Boolean.parseBoolean(parts[9]));
+                    EnterNamePage.player.setWritOfEmpusa(Boolean.parseBoolean(parts[10]));
+                    EnterNamePage.player.setWritOfDolus(Boolean.parseBoolean(parts[11]));
 
                 }
 
@@ -55,7 +59,7 @@ public class DataManager {
         FileWriter writer = new FileWriter(dataFile, true);
         writer.write(EnterNamePage.player.getName() + "," + player.getXP() + ","
                 + player.isWritOfAres() + "," + player.isWritOfAstrape() + "," + player.isWritOfCerberus() + ","
-                + player.isWritOfAceso() + "," + player.isWritOfMelampus() + "," + player.isWritOfChiron() + ","
+                + player.isWritOfAceso() + "," + player.isWritOfMelampus() + "," + player.isWritOfChiron() + "," + player.isWritOfAthena() + ","
                 + player.isWritOfProteus() + "," + player.isWritOfEmpusa() + "," + player.isWritOfDolus()+ "\n");
         writer.close();
     }
@@ -75,10 +79,11 @@ public class DataManager {
                 parts[5] = String.valueOf(Boolean.parseBoolean(String.valueOf(EnterNamePage.player.isWritOfAceso())));
                 parts[6] = String.valueOf(Boolean.parseBoolean(String.valueOf(EnterNamePage.player.isWritOfMelampus())));
                 parts[7] = String.valueOf(Boolean.parseBoolean(String.valueOf(EnterNamePage.player.isWritOfChiron())));
+                parts[8] = String.valueOf(Boolean.parseBoolean(String.valueOf(EnterNamePage.player.isWritOfAthena())));
 
-                parts[8] = String.valueOf(Boolean.parseBoolean(String.valueOf(EnterNamePage.player.isWritOfProteus())));
-                parts[9] = String.valueOf(Boolean.parseBoolean(String.valueOf(EnterNamePage.player.isWritOfEmpusa())));
-                parts[10] = String.valueOf(Boolean.parseBoolean(String.valueOf(EnterNamePage.player.isWritOfDolus())));
+                parts[9] = String.valueOf(Boolean.parseBoolean(String.valueOf(EnterNamePage.player.isWritOfProteus())));
+                parts[10] = String.valueOf(Boolean.parseBoolean(String.valueOf(EnterNamePage.player.isWritOfEmpusa())));
+                parts[11] = String.valueOf(Boolean.parseBoolean(String.valueOf(EnterNamePage.player.isWritOfDolus())));
             }
             content.append(String.join(",", parts)).append("\n");
         }
