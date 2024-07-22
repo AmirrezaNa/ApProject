@@ -1170,8 +1170,8 @@ public class ObjectCollisions2 {
                                         || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
                                         || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
 
-                                    Impact.turnOnImpact(barricadosEnemies2.get(j).x + ((double) BarricadosModel2.barricadosSize / 2),
-                                            barricadosEnemies2.get(j).y + ((double) BarricadosModel2.barricadosSize / 2),
+                                    Impact.turnOnImpact(barricadosEnemies2.get(i).x + ((double) BarricadosModel2.barricadosSize / 2),
+                                            barricadosEnemies2.get(i).y + ((double) BarricadosModel2.barricadosSize / 2),
                                             wyrmEnemies.get(j).x + (double) WyrmModel.wyrmSize / 2,
                                             wyrmEnemies.get(j).y + (double) WyrmModel.wyrmSize / 2);
                                 }
@@ -1210,8 +1210,8 @@ public class ObjectCollisions2 {
                                         || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
                                         || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
 
-                                    Impact.turnOnImpact(barricadosEnemies1.get(j).x + ((double) BarricadosModel1.barricadosSize / 2),
-                                            barricadosEnemies1.get(j).y + ((double) BarricadosModel1.barricadosSize / 2),
+                                    Impact.turnOnImpact(barricadosEnemies1.get(i).x + ((double) BarricadosModel1.barricadosSize / 2),
+                                            barricadosEnemies1.get(i).y + ((double) BarricadosModel1.barricadosSize / 2),
                                             wyrmEnemies.get(j).x + (double) WyrmModel.wyrmSize / 2,
                                             wyrmEnemies.get(j).y + (double) WyrmModel.wyrmSize / 2);
                                 }

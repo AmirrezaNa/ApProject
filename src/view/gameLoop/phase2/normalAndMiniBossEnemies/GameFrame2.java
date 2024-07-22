@@ -102,7 +102,6 @@ public class GameFrame2 extends JFrame implements ActionListener{
             if (GameController.ball.HP <= 0) {
                 if (!phase2Over) {
                     phase2Over = true;
-                    GameController.pause = false;
                     this.dispose();
                     GameRestart.restartGame();
                     gamePanel.revalidate();
@@ -126,19 +125,19 @@ public class GameFrame2 extends JFrame implements ActionListener{
             if (GameController.omenoctEnemies.size() + GameController.necropickEnemies.size()
                     + GameController.archmireEnemies.size() + GameController.wyrmEnemies.size()
                     + GameController.blackOrbEnemies.size() + GameController.barricadosEnemies1.size()
-                    + GameController.barricadosEnemies2.size() < 120){
+                    + GameController.barricadosEnemies2.size() < 20){
                 playerHasWonPhase2 = false;
             }
             if (GameController.omenoctEnemies.size() + GameController.necropickEnemies.size()
                     + GameController.archmireEnemies.size() + GameController.wyrmEnemies.size()
                     + GameController.blackOrbEnemies.size() + GameController.barricadosEnemies1.size()
-                    + GameController.barricadosEnemies2.size() == 50 && GameController.wave == 4){
+                    + GameController.barricadosEnemies2.size() == 10 && GameController.wave == 4){
                 GameController.wave++;
             }
             if (GameController.omenoctEnemies.size() + GameController.necropickEnemies.size()
                     + GameController.archmireEnemies.size() + GameController.wyrmEnemies.size()
                     + GameController.blackOrbEnemies.size() + GameController.barricadosEnemies1.size()
-                    + GameController.barricadosEnemies2.size() == 120) {
+                    + GameController.barricadosEnemies2.size() == 20) {
                 for (int i = 0; i < GameController.omenoctEnemies.size(); i++) {
                     if (GameController.omenoctEnemies.get(i).enemyHealth > 0) {
                         playerHasWonPhase2 = false;

@@ -22,6 +22,7 @@ public class NecropickModel {
     public int hidingTime;
     public boolean hide;
     public boolean allowShot;
+    public boolean necropickAlert;
 
     public NecropickModel(double x, double y) {
         xAngles = new double[]{x, (x + necropickSize), (x + necropickSize), x};
@@ -37,5 +38,6 @@ public class NecropickModel {
         this.hidingTime = 0;
         this.hide = false;
         this.allowShot = false;
+        this.necropickAlert = false;
     }
 }

@@ -2,6 +2,7 @@ package controller.game.objectsController.ball.enemies.normalAndMiniBoss;
 
 import controller.game.GameController;
 import model.entity.enemy.normalAndMiniBoss.WyrmModel;
+import view.gameLoop.phase2.normalAndMiniBossEnemies.GamePanel2;
 
 import java.awt.*;
 import java.util.Timer;
@@ -90,12 +91,14 @@ public class WyrmController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                for (int i = 0; i < wyrmEnemies.size(); i++) {
-                    if (wyrmEnemies.get(i).enemyHealth > 0 && !GameController.pause) {
-                        Point point = new Point();
-                        point.setLocation(wyrmEnemies.get(i).x + ((double) WyrmModel.wyrmSize /2),
-                                wyrmEnemies.get(i).y + ((double) WyrmModel.wyrmSize /2));
-                        newOmenoctBullet(point);
+                if (!GamePanel2.phase2Over) {
+                    for (int i = 0; i < wyrmEnemies.size(); i++) {
+                        if (wyrmEnemies.get(i).enemyHealth > 0 && !GameController.pause) {
+                            Point point = new Point();
+                            point.setLocation(wyrmEnemies.get(i).x + ((double) WyrmModel.wyrmSize / 2),
+                                    wyrmEnemies.get(i).y + ((double) WyrmModel.wyrmSize / 2));
+                            newOmenoctBullet(point);
+                        }
                     }
                 }
             }

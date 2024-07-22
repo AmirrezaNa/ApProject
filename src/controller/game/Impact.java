@@ -1,10 +1,7 @@
 package controller.game;
 
 import model.entity.BallModel;
-import model.entity.enemy.normalAndMiniBoss.EnemyModel1;
-import model.entity.enemy.normalAndMiniBoss.EnemyModel2;
-import model.entity.enemy.normalAndMiniBoss.NecropickModel;
-import model.entity.enemy.normalAndMiniBoss.OmenoctModel;
+import model.entity.enemy.normalAndMiniBoss.*;
 
 import static view.gameLoop.phase1.GamePanel.phase1over;
 import static view.gameLoop.phase2.finalBoss.EpsilonFrame.epsilonFrame;
@@ -21,6 +18,8 @@ public class Impact {
         } else if (!phase2Over) {
             impactOmenoct(xImpactPoint, yImpactPoint);
             impactNecropick(xImpactPoint, yImpactPoint);
+            impactBarricados1(xImpactPoint, yImpactPoint);
+            impactBarricados2(xImpactPoint, yImpactPoint);
         }
         impactBall(xImpactPoint, yImpactPoint);
     }
@@ -86,6 +85,38 @@ public class Impact {
             }
         }
     }
+
+    public static void impactBarricados1(double xImpactPoint, double yImpactPoint) {
+        for (BarricadosModel1 barricados : GameController.barricadosEnemies1) {
+            if (barricados.enemyTimer > 0) {
+                if (Math.pow((Math.abs(barricados.x) - Math.abs(xImpactPoint)), 2) + Math.pow((Math.abs(barricados.y) - Math.abs(yImpactPoint)), 2) < 8100) {
+                    barricados.ax = ((barricados.x - xImpactPoint) / Math.sqrt(Math.pow((barricados.x - xImpactPoint), 2) + Math.pow((barricados.y - yImpactPoint), 2))) * EnemyModel1.enemyAcceleration;
+                    if (yImpactPoint < barricados.y) {
+                        barricados.ay = Math.sqrt(Math.pow(NecropickModel.enemyAcceleration, 2) - Math.pow(barricados.ax, 2));
+                    } else {
+                        barricados.ay = -Math.sqrt(Math.pow(NecropickModel.enemyAcceleration, 2) - Math.pow(barricados.ax, 2));
+                    }
+                }
+            }
+        }
+    }
+
+
+    public static void impactBarricados2(double xImpactPoint, double yImpactPoint) {
+        for (BarricadosModel2 barricados : GameController.barricadosEnemies2) {
+            if (barricados.enemyTimer > 0) {
+                if (Math.pow((Math.abs(barricados.x) - Math.abs(xImpactPoint)), 2) + Math.pow((Math.abs(barricados.y) - Math.abs(yImpactPoint)), 2) < 8100) {
+                    barricados.ax = ((barricados.x - xImpactPoint) / Math.sqrt(Math.pow((barricados.x - xImpactPoint), 2) + Math.pow((barricados.y - yImpactPoint), 2))) * EnemyModel1.enemyAcceleration;
+                    if (yImpactPoint < barricados.y) {
+                        barricados.ay = Math.sqrt(Math.pow(NecropickModel.enemyAcceleration, 2) - Math.pow(barricados.ax, 2));
+                    } else {
+                        barricados.ay = -Math.sqrt(Math.pow(NecropickModel.enemyAcceleration, 2) - Math.pow(barricados.ax, 2));
+                    }
+                }
+            }
+        }
+    }
+
 
     public static void impactBall(double xImpactPoint, double yImpactPoint) {
         double xBallCenter = GameController.ball.x;

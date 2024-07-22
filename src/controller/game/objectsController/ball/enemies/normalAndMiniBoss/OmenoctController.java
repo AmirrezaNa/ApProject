@@ -5,6 +5,7 @@ import controller.game.GameController;
 import controller.game.Rotation;
 import model.entity.enemy.normalAndMiniBoss.EnemyModel1;
 import model.entity.enemy.normalAndMiniBoss.OmenoctModel;
+import view.gameLoop.phase2.normalAndMiniBossEnemies.GamePanel2;
 
 
 import java.awt.*;
@@ -94,12 +95,14 @@ public class OmenoctController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                for (int i = 0; i < omenoctEnemies.size(); i++) {
-                    if (omenoctEnemies.get(i).enemyHealth > 0 && !GameController.pause) {
-                        Point point = new Point();
-                        point.setLocation(omenoctEnemies.get(i).x + OmenoctModel.distanceToCenter,
-                                omenoctEnemies.get(i).y + OmenoctModel.distanceToCenter);
-                        newOmenoctBullet(point);
+                if (!GamePanel2.phase2Over) {
+                    for (int i = 0; i < omenoctEnemies.size(); i++) {
+                        if (omenoctEnemies.get(i).enemyHealth > 0 && !GameController.pause) {
+                            Point point = new Point();
+                            point.setLocation(omenoctEnemies.get(i).x + OmenoctModel.distanceToCenter,
+                                    omenoctEnemies.get(i).y + OmenoctModel.distanceToCenter);
+                            newOmenoctBullet(point);
+                        }
                     }
                 }
             }

@@ -21,6 +21,7 @@ public class SmileyAttacksController {
         startVomitAttack();
         startQuakeAttack();
         startRapidFireAttack();
+        startSlapAttack();
     }
 
 
@@ -31,7 +32,7 @@ public class SmileyAttacksController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (!phase2Over && !GameController.pause) {
+                if (phase2Over && !GameController.pause) {
 
                     if (leftHand.leftHandExists && rightHand.rightHandExists) {
                         smiley.squeezeAttack = true;
@@ -66,7 +67,7 @@ public class SmileyAttacksController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (!phase2Over && !GameController.pause) {
+                if (phase2Over && !GameController.pause) {
 
                     if (leftHand.leftHandExists && rightHand.rightHandExists) {
                         smiley.projectileAttack = true;
@@ -83,7 +84,7 @@ public class SmileyAttacksController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (!phase2Over && !GameController.pause) {
+                if (phase2Over && !GameController.pause) {
 
                     if (smiley.projectileAttack) {
                         for (int i = 0; i < 5; i++) {
@@ -126,7 +127,7 @@ public class SmileyAttacksController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (!phase2Over && !GameController.pause) {
+                if (phase2Over && !GameController.pause) {
 
                     smiley.vomitAttack = true;
                     for (int i = 0; i < 3; i++) {
@@ -173,7 +174,7 @@ public class SmileyAttacksController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (!phase2Over && !GameController.pause) {
+                if (phase2Over && !GameController.pause) {
 
                     if (smiley.punchExists) {
                         smiley.powerPunchAttack = true;
@@ -215,7 +216,7 @@ public class SmileyAttacksController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (!phase2Over && !GameController.pause) {
+                if (phase2Over && !GameController.pause) {
 
                     if (smiley.punchExists) {
                         smiley.quakeAttack = true;
@@ -256,7 +257,7 @@ public class SmileyAttacksController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (!phase2Over && !GameController.pause) {
+                if (phase2Over && !GameController.pause) {
 
                     smiley.rapidFireAttack = true;
                     shotRapidFireAttackBullets();
@@ -272,7 +273,7 @@ public class SmileyAttacksController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (!phase2Over && !GameController.pause) {
+                if (phase2Over && !GameController.pause) {
 
                     if (smiley.rapidFireAttack) {
                         for (int i = 0; i < 5; i++) {
@@ -318,7 +319,7 @@ public class SmileyAttacksController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (!phase2Over && !GameController.pause) {
+                if (phase2Over && !GameController.pause) {
 
                     if (smiley.punchExists) {
                         smiley.slapAttack = true;

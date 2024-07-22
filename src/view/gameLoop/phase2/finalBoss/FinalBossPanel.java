@@ -25,6 +25,7 @@ import model.entity.enemy.boss.SmileyModel;
 import model.entity.enemy.normalAndMiniBoss.ArchmireModel;
 import view.gameLoop.phase1.GamePanel;
 import view.gameLoop.phase2.normalAndMiniBossEnemies.GameFrame2;
+import view.gameLoop.phase2.normalAndMiniBossEnemies.GamePanel2;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,6 +52,7 @@ public class FinalBossPanel extends JPanel implements Runnable {
 
 
     public FinalBossPanel() {
+        GamePanel2.phase2Over = true;
         finalBossOver = false;
         this.setBounds(0, 0, GameFrame2.width, GameFrame2.height);
 

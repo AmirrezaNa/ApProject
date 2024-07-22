@@ -41,6 +41,7 @@ public class GamePanel2 extends JPanel implements Runnable {
     public static boolean ballBetweenFrames;
     public static int mainFrame;//shows the frame of the ball
     public static boolean phase2Over;
+
     public GamePanel2() {
 
         this.setBounds(0, 0, GameFrame2.width, GameFrame2.height);
@@ -65,8 +66,6 @@ public class GamePanel2 extends JPanel implements Runnable {
         blackOrb = WaveController.setTimerForBlackOrb();
 
 
-
-
         this.setOpaque(false);
         keyInputListener = new KeyInputListener();
         this.addKeyListener(keyInputListener);
@@ -81,12 +80,10 @@ public class GamePanel2 extends JPanel implements Runnable {
     @Override
     public void run() {
 
-        while (true) {
+        while (!phase2Over) {
 
 
             update();
-
-
 
 
             repaint();
@@ -133,8 +130,8 @@ public class GamePanel2 extends JPanel implements Runnable {
     }
 
     public void paintComponent(Graphics g) {
-        super.paintComponent(g);
         if (!phase2Over) {
+            super.paintComponent(g);
 
             drawFrames(g);
 
@@ -156,12 +153,11 @@ public class GamePanel2 extends JPanel implements Runnable {
             drawBarricados1(g);
             drawBarricados2(g);
             drawBlackOrb(g);
+
+
+            revalidate();
+            repaint();
         }
-
-
-        revalidate();
-        repaint();
-
     }
 
 
@@ -239,8 +235,7 @@ public class GamePanel2 extends JPanel implements Runnable {
             int size;
             if (GameController.bullets.size() > 15) {
                 size = 15;
-            }
-            else {
+            } else {
                 size = GameController.bullets.size();
             }
             for (int i = 0; i < size; i++) {
@@ -279,18 +274,16 @@ public class GamePanel2 extends JPanel implements Runnable {
     }
 
 
-
-
     public void drawOmenoct(Graphics g) {
         if (!GameController.omenoctEnemies.isEmpty()) {
             for (int i = 0; i < GameController.omenoctEnemies.size(); i++) {
                 if (GameController.omenoctEnemies.get(i).enemyHealth > 0) {
                     super.paintComponent(g);
                     g.drawImage(OmenoctModel.image,
-                            (int)GameController.omenoctEnemies.get(i).x - OmenoctModel.distanceToCenter,
-                            (int)GameController.omenoctEnemies.get(i).y,
-                            2*OmenoctModel.distanceToCenter,
-                            2*OmenoctModel.distanceToCenter,
+                            (int) GameController.omenoctEnemies.get(i).x - OmenoctModel.distanceToCenter,
+                            (int) GameController.omenoctEnemies.get(i).y,
+                            2 * OmenoctModel.distanceToCenter,
+                            2 * OmenoctModel.distanceToCenter,
                             null);
                 }
             }
@@ -300,18 +293,26 @@ public class GamePanel2 extends JPanel implements Runnable {
     }
 
     public void drawNecropick(Graphics g) {
+        super.paintComponent(g);
         if (!GameController.necropickEnemies.isEmpty()) {
             for (int i = 0; i < GameController.necropickEnemies.size(); i++) {
                 if (GameController.necropickEnemies.get(i).enemyHealth > 0 &&
                         !GameController.necropickEnemies.get(i).hide) {
-                    super.paintComponent(g);
                     g.drawImage(NecropickModel.image,
-                            (int)GameController.necropickEnemies.get(i).x,
-                            (int)GameController.necropickEnemies.get(i).y,
+                            (int) GameController.necropickEnemies.get(i).x,
+                            (int) GameController.necropickEnemies.get(i).y,
                             NecropickModel.necropickSize,
                             NecropickModel.necropickSize,
                             null);
+                } else if (GameController.necropickEnemies.get(i).enemyHealth > 0 &&
+                        GameController.necropickEnemies.get(i).hide) {
+                    g.setColor(new Color(0x464642));
+                    g.fillOval((int) GameController.necropickEnemies.get(i).x,
+                            (int) GameController.necropickEnemies.get(i).y,
+                            NecropickModel.necropickSize,
+                            NecropickModel.necropickSize);
                 }
+
             }
         }
         repaint();
@@ -325,8 +326,8 @@ public class GamePanel2 extends JPanel implements Runnable {
                 if (GameController.archmireEnemies.get(i).enemyHealth > 0) {
                     super.paintComponent(g);
                     g.drawImage(ArchmireModel.image,
-                            (int)GameController.archmireEnemies.get(i).x,
-                            (int)GameController.archmireEnemies.get(i).y,
+                            (int) GameController.archmireEnemies.get(i).x,
+                            (int) GameController.archmireEnemies.get(i).y,
                             ArchmireModel.archmireSize,
                             ArchmireModel.archmireSize,
                             null);
@@ -344,8 +345,8 @@ public class GamePanel2 extends JPanel implements Runnable {
                 if (GameController.archmirePoints.get(i).archmirePointTimer > 0) {
                     super.paintComponent(g);
                     g.setColor(new Color(0x4B2828));
-                    g.fillOval((int)GameController.archmirePoints.get(i).x - (ArchmireModel.archmireSize/2),
-                            (int)GameController.archmirePoints.get(i).y - (ArchmireModel.archmireSize/2),
+                    g.fillOval((int) GameController.archmirePoints.get(i).x - (ArchmireModel.archmireSize / 2),
+                            (int) GameController.archmirePoints.get(i).y - (ArchmireModel.archmireSize / 2),
                             ArchmireModel.archmireSize,
                             ArchmireModel.archmireSize);
                 }
@@ -361,8 +362,8 @@ public class GamePanel2 extends JPanel implements Runnable {
                 if (GameController.wyrmEnemies.get(i).enemyHealth > 0) {
                     super.paintComponent(g);
                     g.drawImage(WyrmModel.image,
-                            (int)GameController.wyrmEnemies.get(i).x,
-                            (int)GameController.wyrmEnemies.get(i).y,
+                            (int) GameController.wyrmEnemies.get(i).x,
+                            (int) GameController.wyrmEnemies.get(i).y,
                             WyrmModel.wyrmSize,
                             WyrmModel.wyrmSize,
                             null);
@@ -379,8 +380,8 @@ public class GamePanel2 extends JPanel implements Runnable {
                 if (GameController.barricadosEnemies1.get(i).enemyTimer > 0) {
                     super.paintComponent(g);
                     g.drawImage(BarricadosModel1.image,
-                            (int)GameController.barricadosEnemies1.get(i).x,
-                            (int)GameController.barricadosEnemies1.get(i).y,
+                            (int) GameController.barricadosEnemies1.get(i).x,
+                            (int) GameController.barricadosEnemies1.get(i).y,
                             BarricadosModel1.barricadosSize,
                             BarricadosModel1.barricadosSize,
                             null);
@@ -398,8 +399,8 @@ public class GamePanel2 extends JPanel implements Runnable {
                 if (GameController.barricadosEnemies2.get(i).enemyTimer > 0) {
                     super.paintComponent(g);
                     g.drawImage(BarricadosModel2.image,
-                            (int)GameController.barricadosEnemies2.get(i).x,
-                            (int)GameController.barricadosEnemies2.get(i).y,
+                            (int) GameController.barricadosEnemies2.get(i).x,
+                            (int) GameController.barricadosEnemies2.get(i).y,
                             BarricadosModel2.barricadosSize,
                             BarricadosModel2.barricadosSize,
                             null);
@@ -418,15 +419,15 @@ public class GamePanel2 extends JPanel implements Runnable {
                     int x = (int) GameController.blackOrbEnemies.get(i).x;
                     int y = (int) GameController.blackOrbEnemies.get(i).y;
                     int x1 = x;
-                    int x2 = (int) (x + (BlackOrbModel.blackOrbSize * Math.cos(Math.PI/10)));
-                    int x3 = (int) (x + (BlackOrbModel.blackOrbSize * Math.sin(Math.PI/10)));
-                    int x4 = (int) (x - (BlackOrbModel.blackOrbSize * Math.sin(Math.PI/10)));
-                    int x5 = (int) (x - (BlackOrbModel.blackOrbSize * Math.cos(Math.PI/10)));
+                    int x2 = (int) (x + (BlackOrbModel.blackOrbSize * Math.cos(Math.PI / 10)));
+                    int x3 = (int) (x + (BlackOrbModel.blackOrbSize * Math.sin(Math.PI / 10)));
+                    int x4 = (int) (x - (BlackOrbModel.blackOrbSize * Math.sin(Math.PI / 10)));
+                    int x5 = (int) (x - (BlackOrbModel.blackOrbSize * Math.cos(Math.PI / 10)));
                     int y1 = (int) y - BlackOrbModel.blackOrbSize;
-                    int y2 = (int) (y - (BlackOrbModel.blackOrbSize * Math.sin(Math.PI/10)));
-                    int y3 = (int) (y + (BlackOrbModel.blackOrbSize * Math.cos(Math.PI/10)));
-                    int y4 = (int) (y + (BlackOrbModel.blackOrbSize * Math.cos(Math.PI/10)));
-                    int y5 = (int) (y - (BlackOrbModel.blackOrbSize * Math.sin(Math.PI/10)));
+                    int y2 = (int) (y - (BlackOrbModel.blackOrbSize * Math.sin(Math.PI / 10)));
+                    int y3 = (int) (y + (BlackOrbModel.blackOrbSize * Math.cos(Math.PI / 10)));
+                    int y4 = (int) (y + (BlackOrbModel.blackOrbSize * Math.cos(Math.PI / 10)));
+                    int y5 = (int) (y - (BlackOrbModel.blackOrbSize * Math.sin(Math.PI / 10)));
                     super.paintComponent(g);
                     g.setColor(new Color(0x575555));
                     Graphics2D g2d = (Graphics2D) g;
@@ -463,7 +464,6 @@ public class GamePanel2 extends JPanel implements Runnable {
         repaint();
         repaint();
     }
-
 
 
 }

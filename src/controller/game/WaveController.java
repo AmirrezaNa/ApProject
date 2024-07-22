@@ -324,7 +324,7 @@ public class WaveController {
             }
 
         };
-        timer.scheduleAtFixedRate(task, 5000, 5000);
+        timer.scheduleAtFixedRate(task, 5000, 180000);
 
         return barricados1;
     }
@@ -359,7 +359,7 @@ public class WaveController {
             }
 
         };
-        timer.scheduleAtFixedRate(task, 15000, 5000);
+        timer.scheduleAtFixedRate(task, 15000, 180000);
 
         return barricados2;
     }

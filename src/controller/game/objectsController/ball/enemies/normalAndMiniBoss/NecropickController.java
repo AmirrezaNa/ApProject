@@ -2,6 +2,7 @@ package controller.game.objectsController.ball.enemies.normalAndMiniBoss;
 
 import controller.game.GameController;
 import model.entity.enemy.normalAndMiniBoss.NecropickModel;
+import view.gameLoop.phase2.normalAndMiniBossEnemies.GamePanel2;
 
 import java.awt.*;
 import java.util.Timer;
@@ -21,6 +22,13 @@ public class NecropickController {
                     }
                     else if (necropickEnemies.get(i).hidingTime <= 12) {
                         necropickEnemies.get(i).hide = false;
+
+                    }
+                    if (necropickEnemies.get(i).hidingTime >= 2 && necropickEnemies.get(i).hidingTime <= 4) {
+                        necropickEnemies.get(i).necropickAlert = true;
+                    }
+                    else {
+                        necropickEnemies.get(i).necropickAlert = false;
                     }
                 }
             }
@@ -33,17 +41,19 @@ public class NecropickController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (!necropickEnemies.isEmpty()) {
-                    for (int i = 0; i < necropickEnemies.size(); i++) {
-                        if (necropickEnemies.get(i).enemyHealth > 0 && !GameController.pause) {
-                            necropickEnemies.get(i).hidingTime++;
-                            if (necropickEnemies.get(i).hidingTime == 6) {
-                                shotNecropickBullets(necropickEnemies.get(i));
-                            }
-                            if (necropickEnemies.get(i).hidingTime == 12) {
-                                necropickEnemies.get(i).x = ball.x - 200;
-                                necropickEnemies.get(i).y = ball.y;
-                                necropickEnemies.get(i).hidingTime = 0;
+                if (!GamePanel2.phase2Over) {
+                    if (!necropickEnemies.isEmpty()) {
+                        for (int i = 0; i < necropickEnemies.size(); i++) {
+                            if (necropickEnemies.get(i).enemyHealth > 0 && !GameController.pause) {
+                                necropickEnemies.get(i).hidingTime++;
+                                if (necropickEnemies.get(i).hidingTime == 6) {
+                                    shotNecropickBullets(necropickEnemies.get(i));
+                                }
+                                if (necropickEnemies.get(i).hidingTime == 12) {
+                                    necropickEnemies.get(i).x = ball.x - 200;
+                                    necropickEnemies.get(i).y = ball.y;
+                                    necropickEnemies.get(i).hidingTime = 0;
+                                }
                             }
                         }
                     }

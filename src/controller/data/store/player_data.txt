@@ -2,5 +2,5 @@
 Mohammad,85,false,false,false
 Amir,5,false,false,false
 Name,70,false,false,false
-amir,70,false,false,false
+amir,210,false,false,false
 amirreza,0,false,false,false

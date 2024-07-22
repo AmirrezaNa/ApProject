@@ -30,7 +30,7 @@ public class BallModel {
         this.x = x;
         this.y = y;
         ballAcceleration = 3;
-        this.HP = 100;
+        this.HP = 10;
         this.ballInArchmire = false;
         this.ballInArchmireTrace = false;
         this.ballInBlackOrb = false;
