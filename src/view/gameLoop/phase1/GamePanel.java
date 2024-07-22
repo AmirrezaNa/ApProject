@@ -138,6 +138,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        drawBallCerberus(g);
         drawBall(g);
         drawBallAngle(g);
         drawBallDirection(g);
@@ -172,6 +173,20 @@ public class GamePanel extends JPanel implements Runnable {
                         (int) (ballAngle.y - BallAngle.ballAngleRadius),
                         2 * BallAngle.ballAngleRadius,
                         2 * BallAngle.ballAngleRadius);
+            }
+        }
+    }
+
+    public static void drawBallCerberus(Graphics g) {
+        if (ball != null) {
+            if (ball.ballCerberus) {
+                g.setColor(new Color(0x132F46));
+                g.fillOval((int) ball.x - BallModel.ballRadius, (int) ball.y - (2* BallModel.ballRadius),
+                        BallModel.ballRadius, BallModel.ballRadius);
+                g.fillOval((int) ball.x + (BallModel.ballRadius), (int) ball.y - (BallModel.ballRadius),
+                        BallModel.ballRadius, BallModel.ballRadius);
+                g.fillOval((int) ball.x - BallModel.ballRadius, (int) ball.y + (BallModel.ballRadius),
+                        BallModel.ballRadius, BallModel.ballRadius);
             }
         }
     }

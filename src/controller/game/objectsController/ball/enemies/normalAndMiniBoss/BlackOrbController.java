@@ -6,8 +6,8 @@ import model.entity.enemy.normalAndMiniBoss.BlackOrbModel;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static controller.game.GameController.ball;
-import static controller.game.GameController.blackOrbEnemies;
+import static controller.game.GameController.*;
+import static controller.game.GameController.barricadosEnemies1;
 
 public class BlackOrbController {
 
@@ -21,6 +21,10 @@ public class BlackOrbController {
                         blackOrbEnemies.get(i).dy = -Math.sqrt(Math.pow(BlackOrbModel.enemySpeed, 2) - Math.pow(blackOrbEnemies.get(i).dx, 2));
                     } else {
                         blackOrbEnemies.get(i).dy = Math.sqrt(Math.pow(BlackOrbModel.enemySpeed, 2) - Math.pow(blackOrbEnemies.get(i).dx, 2));
+                    }
+                    if (ball.ballDismay) {
+                        blackOrbEnemies.get(i).dx = -blackOrbEnemies.get(i).dx;
+                        blackOrbEnemies.get(i).dy = -blackOrbEnemies.get(i).dy;
                     }
                 }
             }

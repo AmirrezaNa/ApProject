@@ -73,7 +73,7 @@ public class GameInternalFrame extends JInternalFrame {
         new Thread(() -> {
             while (true) {
                 synchronized (frame0) {
-                    changeGameFrameSize(frame0, 0);
+                    changeGameFrameSize(0);
                 }
                 try {
                     Thread.sleep(3000);
@@ -86,7 +86,7 @@ public class GameInternalFrame extends JInternalFrame {
         new Thread(() -> {
             while (true) {
                 synchronized (frame1) {
-                    changeGameFrameSize(frame1, 1);
+                    changeGameFrameSize(1);
                 }
                 try {
                     Thread.sleep(3000);
@@ -99,7 +99,7 @@ public class GameInternalFrame extends JInternalFrame {
         new Thread(() -> {
             while (true) {
                 synchronized (frame2) {
-                    changeGameFrameSize(frame2, 2);
+                    changeGameFrameSize(2);
                 }
                 try {
                     Thread.sleep(3000);
@@ -112,7 +112,7 @@ public class GameInternalFrame extends JInternalFrame {
         new Thread(() -> {
             while (true) {
                 synchronized (frame3) {
-                    changeGameFrameSize(frame3, 3);
+                    changeGameFrameSize(3);
                 }
                 try {
                     Thread.sleep(3000);
@@ -129,32 +129,42 @@ public class GameInternalFrame extends JInternalFrame {
     static Timer timer;
     private static final Object lock = new Object();
 
-    public static void changeGameFrameSize(JInternalFrame frame, int i) {
-        // this timer reduces the frame size ========================================
-        synchronized (lock) {
-            if (!FrameCollisions2.frameCollided(i) && !GameController.pause) {
-                int x = createdFrames[i].x;
-                int y = createdFrames[i].y;
-                int width = createdFrames[i].width;
-                int height = createdFrames[i].height;
-                if (width > 300) {
-                    // reduce width gradually
-                    x++;
-                    width--;
-                    frames[i].setBounds(x, y, width, height);
-                    createdFrames[i].x = x;
-                    createdFrames[i].width = width;
-                }
-                if (height > 250) {
-                    // reduce height gradually
-                    y += 1;
-                    height--;
-                    frames[i].setBounds(x, y, width, height);
-                    createdFrames[i].y = y;
-                    createdFrames[i].height = height;
+    public static void changeGameFrameSize(int i) {
+
+        timer = new Timer(100, new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+
+                // this timer reduces the frame size ========================================
+                synchronized (lock) {
+                    if (!FrameCollisions2.frameCollided(i) && !GameController.pause) {
+                        int x = createdFrames[i].x;
+                        int y = createdFrames[i].y;
+                        int width = createdFrames[i].width;
+                        int height = createdFrames[i].height;
+                        if (width > 300) {
+                            // reduce width gradually
+                            x++;
+                            width--;
+                            frames[i].setBounds(x, y, width, height);
+                            createdFrames[i].x = x;
+                            createdFrames[i].width = width;
+                        }
+                        if (height > 250) {
+                            // reduce height gradually
+                            y += 1;
+                            height--;
+                            frames[i].setBounds(x, y, width, height);
+                            createdFrames[i].y = y;
+                            createdFrames[i].height = height;
+                        }
+                    }
                 }
             }
-        }
+        });
+        timer.start();
 
         // ==========================================================================
 

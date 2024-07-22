@@ -3,6 +3,7 @@ package controller.game.objectsController.ball.enemies.normalAndMiniBoss;
 import controller.game.FrameOfObject;
 import controller.game.GameController;
 import controller.game.Rotation;
+import model.entity.enemy.normalAndMiniBoss.EnemyModel1;
 import model.entity.enemy.normalAndMiniBoss.OmenoctModel;
 
 
@@ -35,8 +36,30 @@ public class OmenoctController {
         }
     }
 
+    public static void setDirectionWhileDismay() {
+        if (!omenoctEnemies.isEmpty()) {
+            for (int i = 0; i < omenoctEnemies.size(); i++) {
+                if (omenoctEnemies.get(i).enemyHealth > 0) {
+                    omenoctEnemies.get(i).dx = -((omenoctEnemies.get(i).x - ball.x) / Math.sqrt(Math.pow((omenoctEnemies.get(i).x - ball.x), 2) + Math.pow((omenoctEnemies.get(i).y - ball.y), 2))) * EnemyModel1.enemySpeed;
+                    if (ball.y < omenoctEnemies.get(i).y) {
+                        omenoctEnemies.get(i).dy = -Math.sqrt(Math.pow(EnemyModel1.enemySpeed, 2) - Math.pow(omenoctEnemies.get(i).dx, 2));
+                    } else {
+                        omenoctEnemies.get(i).dy = Math.sqrt(Math.pow(EnemyModel1.enemySpeed, 2) - Math.pow(omenoctEnemies.get(i).dx, 2));
+                    }
+                    if (ball.ballDismay) {
+                        omenoctEnemies.get(i).dx = -omenoctEnemies.get(i).dx;
+                        omenoctEnemies.get(i).dy = -omenoctEnemies.get(i).dy;
+                    }
+                }
+            }
+        }
+    }
+
 
     public static void updateOmenoct() {
+        if (ball.ballDismay) {
+            setDirectionWhileDismay();
+        }
         setDirectionForOmenoct();
         if (!omenoctEnemies.isEmpty()) {
             for (int i = 0; i < omenoctEnemies.size(); i++) {
@@ -64,40 +87,6 @@ public class OmenoctController {
         }
 
     }
-
-
-//    public static boolean isOmenoctInFrame(OmenoctModel omnoct) {
-//        for (int i = 0; i < createdFrames.length; i++) {
-//            int x = createdFrames[i].x;
-//            int y = createdFrames[i].y;
-//            int width = createdFrames[i].width;
-//            int height = createdFrames[i].height;
-//
-//            double xMin = omnoct.xAngles[0];
-//            double xMax = omnoct.xAngles[0];
-//            double yMin = omnoct.yAngles[0];
-//            double yMax = omnoct.yAngles[0];
-//            for (int j = 0; j < 8; j++) {
-//                if (omnoct.xAngles[i] < xMin) {
-//                    xMin = omnoct.xAngles[i];
-//                }
-//                if (omnoct.xAngles[i] > xMax) {
-//                    xMax = omnoct.xAngles[i];
-//                }
-//                if (omnoct.yAngles[i] < yMin) {
-//                    yMin = omnoct.yAngles[i];
-//                }
-//                if (omnoct.yAngles[i] > yMax) {
-//                    yMax = omnoct.yAngles[i];
-//                }
-//            }
-//            if ((xMin >= x) && (xMax <= (x + width))
-//                    && (yMin >= y) && (yMax < (y + height))) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
 
 
     public static void shotBullet() {

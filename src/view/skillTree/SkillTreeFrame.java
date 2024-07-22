@@ -87,7 +87,7 @@ public class SkillTreeFrame extends JFrame implements ActionListener {
         writOfMelampus = new JButton();
         writOfMelampus.setFocusable(false);
         writOfMelampus.setBackground(new Color(0x8F0404));
-        writOfMelampus.setText("writOfMelampus   :  750 XP");
+        writOfMelampus.setText("writOfMelampus  : 750 XP");
         writOfMelampus.setForeground(Color.BLACK);
         writOfMelampus.setBounds(150, 230, 150, 40);
         writOfMelampus.addActionListener(this);

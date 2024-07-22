@@ -22,6 +22,10 @@ public class WyrmController {
                         wyrmEnemies.get(i).dy = Math.sqrt(Math.pow(WyrmModel.enemySpeed, 2) - Math.pow(wyrmEnemies.get(i).dx, 2));
                     }
                 }
+                if (ball.ballDismay) {
+                    wyrmEnemies.get(i).dx = -wyrmEnemies.get(i).dx;
+                    wyrmEnemies.get(i).dy = -wyrmEnemies.get(i).dy;
+                }
             }
         }
     }

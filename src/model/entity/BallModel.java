@@ -1,5 +1,9 @@
 package model.entity;
 
+import controller.game.SkillTreeController;
+import view.skillTree.SkillTreeFrame;
+import view.startPage.EnterNamePage;
+
 public class BallModel {
 
     public double x;
@@ -14,6 +18,10 @@ public class BallModel {
     public boolean ballInArchmire;
     public boolean ballInArchmireTrace;
     public boolean ballInBlackOrb;
+    public boolean ballCerberus;
+    public boolean ballChiron;
+    public boolean ballDismay;
+    public boolean ballSlumber;
 
     private static BallModel instance;
 
@@ -25,6 +33,10 @@ public class BallModel {
         this.ballInArchmire = false;
         this.ballInArchmireTrace = false;
         this.ballInBlackOrb = false;
+        this.ballCerberus = false;
+        this.ballChiron = EnterNamePage.player.isWritOfChiron();
+        this.ballDismay = false;
+        this.ballSlumber = false;
     }
 
     // Static method to get the singleton instance

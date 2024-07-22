@@ -23,6 +23,7 @@ import model.entity.enemy.boss.PunchModel;
 import model.entity.enemy.boss.RightHandModel;
 import model.entity.enemy.boss.SmileyModel;
 import model.entity.enemy.normalAndMiniBoss.ArchmireModel;
+import view.gameLoop.phase1.GamePanel;
 import view.gameLoop.phase2.normalAndMiniBossEnemies.GameFrame2;
 
 import javax.swing.*;
@@ -137,6 +138,7 @@ public class FinalBossPanel extends JPanel implements Runnable {
         drawEpsilonFrame(g);
         drawArchmireTrace(g);
 
+        GamePanel.drawBallCerberus(g);
         drawBall(g);
         drawBallDirection(g);
         drawBallAngle(g);

@@ -14,6 +14,7 @@ import controller.game.objectsController.ball.BulletController;
 import controller.game.objectsController.ball.enemies.normalAndMiniBoss.*;
 import model.entity.*;
 import model.entity.enemy.normalAndMiniBoss.*;
+import view.gameLoop.phase1.GamePanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -135,7 +136,7 @@ public class GamePanel2 extends JPanel implements Runnable {
             drawFrames(g);
 
             drawArchmireTrace(g);
-
+            GamePanel.drawBallCerberus(g);
             drawCollectible(g);
 
             drawBall(g);

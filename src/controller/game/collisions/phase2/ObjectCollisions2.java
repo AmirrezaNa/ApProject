@@ -151,6 +151,9 @@ public class ObjectCollisions2 {
                                 if (!GameController.bulletAres) {
                                     omenoctEnemies.get(k).enemyHealth -= 5;
                                 }
+                                if (ball.ballChiron) {
+                                    ball.HP += 3;
+                                }
                                 SoundEffects.playSound(Constants.HURT_SOUND_PATH);
                                 if (omenoctEnemies.get(k).enemyHealth <= 0) {
                                     SoundEffects.playSound(Constants.HIT_SOUND_PATH);
@@ -199,6 +202,9 @@ public class ObjectCollisions2 {
                                 }
                                 if (!GameController.bulletAres) {
                                     necropickEnemies.get(k).enemyHealth -= 5;
+                                }
+                                if (ball.ballChiron) {
+                                    ball.HP += 3;
                                 }
                                 SoundEffects.playSound(Constants.HURT_SOUND_PATH);
                                 if (necropickEnemies.get(k).enemyHealth <= 0) {
@@ -249,6 +255,9 @@ public class ObjectCollisions2 {
                                 if (!GameController.bulletAres) {
                                     archmireEnemies.get(k).enemyHealth -= 5;
                                 }
+                                if (ball.ballChiron) {
+                                    ball.HP += 3;
+                                }
                                 SoundEffects.playSound(Constants.HURT_SOUND_PATH);
                                 if (archmireEnemies.get(k).enemyHealth <= 0) {
                                     SoundEffects.playSound(Constants.HIT_SOUND_PATH);
@@ -294,6 +303,9 @@ public class ObjectCollisions2 {
                                 }
                                 if (!GameController.bulletAres) {
                                     wyrmEnemies.get(k).enemyHealth -= 5;
+                                }
+                                if (ball.ballChiron) {
+                                    ball.HP += 3;
                                 }
                                 SoundEffects.playSound(Constants.HURT_SOUND_PATH);
                                 if (wyrmEnemies.get(k).enemyHealth <= 0) {
@@ -422,6 +434,9 @@ public class ObjectCollisions2 {
                                 if (!GameController.bulletAres) {
                                     blackOrbEnemies.get(k).enemyHealth -= 5;
                                 }
+                                if (ball.ballChiron) {
+                                    ball.HP += 3;
+                                }
                                 SoundEffects.playSound(Constants.HURT_SOUND_PATH);
                                 if (blackOrbEnemies.get(k).enemyHealth <= 0) {
                                     SoundEffects.playSound(Constants.HIT_SOUND_PATH);
@@ -474,6 +489,16 @@ public class ObjectCollisions2 {
                     }
                     if (EnterNamePage.player.isWritOfAstrape()) {
                         omenoctEnemies.get(k).enemyHealth -= 2;
+                        if (ball.ballChiron) {
+                            ball.HP += 3;
+                        }
+                    }
+                    if (ball.ballCerberus) {
+                        omenoctEnemies.get(k).enemyHealth -= 10;
+                        ball.ballCerberus = false;
+                        if (ball.ballChiron) {
+                            ball.HP += 3;
+                        }
                     }
 
                     SoundEffects.playSound(Constants.HURT_SOUND_PATH);
@@ -509,6 +534,16 @@ public class ObjectCollisions2 {
 
                     if (EnterNamePage.player.isWritOfAstrape()) {
                         necropickEnemies.get(k).enemyHealth -= 2;
+                        if (ball.ballChiron) {
+                            ball.HP += 3;
+                        }
+                    }
+                    if (ball.ballCerberus) {
+                        necropickEnemies.get(k).enemyHealth -= 10;
+                        ball.ballCerberus = false;
+                        if (ball.ballChiron) {
+                            ball.HP += 3;
+                        }
                     }
 
                     Impact.turnOnImpact(GameController.ball.x,
@@ -542,6 +577,16 @@ public class ObjectCollisions2 {
 
                     if (EnterNamePage.player.isWritOfAstrape()) {
                         archmireEnemies.get(k).enemyHealth -= 2;
+                        if (ball.ballChiron) {
+                            ball.HP += 3;
+                        }
+                    }
+                    if (ball.ballCerberus) {
+                        archmireEnemies.get(k).enemyHealth -= 10;
+                        ball.ballCerberus = false;
+                        if (ball.ballChiron) {
+                            ball.HP += 3;
+                        }
                     }
                     ball.ballInArchmire = true;
 
@@ -608,6 +653,16 @@ public class ObjectCollisions2 {
 
                     if (EnterNamePage.player.isWritOfAstrape()) {
                         wyrmEnemies.get(k).enemyHealth -= 2;
+                        if (ball.ballChiron) {
+                            ball.HP += 3;
+                        }
+                    }
+                    if (ball.ballCerberus) {
+                        wyrmEnemies.get(k).enemyHealth -= 10;
+                        if (ball.ballChiron) {
+                            ball.HP += 3;
+                        }
+                        ball.ballCerberus = false;
                     }
 
                     Impact.turnOnImpact(GameController.ball.x,
@@ -703,6 +758,16 @@ public class ObjectCollisions2 {
 
                     if (EnterNamePage.player.isWritOfAstrape()) {
                         blackOrbEnemies.get(k).enemyHealth -= 2;
+                        if (ball.ballChiron) {
+                            ball.HP += 3;
+                        }
+                    }
+                    if (ball.ballCerberus) {
+                        blackOrbEnemies.get(k).enemyHealth -= 10;
+                        ball.ballCerberus = false;
+                        if (ball.ballChiron) {
+                            ball.HP += 3;
+                        }
                     }
 
                     ball.ballInBlackOrb = true;
@@ -740,6 +805,9 @@ public class ObjectCollisions2 {
 
 
                         omenoctEnemies.get(k).enemyHealth -= 10;
+                        if (ball.ballChiron) {
+                            ball.HP += 3;
+                        }
                         SoundEffects.playSound(Constants.HURT_SOUND_PATH);
                         if (omenoctEnemies.get(k).enemyHealth <= 0) {
                             SoundEffects.playSound(Constants.HIT_SOUND_PATH);
@@ -779,6 +847,9 @@ public class ObjectCollisions2 {
 
 
                         necropickEnemies.get(k).enemyHealth -= 10;
+                        if (ball.ballChiron) {
+                            ball.HP += 3;
+                        }
                         SoundEffects.playSound(Constants.HURT_SOUND_PATH);
                         if (necropickEnemies.get(k).enemyHealth <= 0) {
                             SoundEffects.playSound(Constants.HIT_SOUND_PATH);

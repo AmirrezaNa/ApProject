@@ -83,6 +83,25 @@ public class SkillTreeController {
         }
     }
 
+
+    public static void turnOnWritOfCerberus() {
+
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                if (EnterNamePage.player.isWritOfCerberus()) {
+                    if (!GameController.pause) {
+                        ball.ballCerberus = true;
+                    }
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, 15000);
+
+    }
+
+
 }
 
 

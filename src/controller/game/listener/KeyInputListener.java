@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.*;
 
+import static controller.game.GameController.ball;
 import static controller.game.GameController.smiley;
 
 public class KeyInputListener implements KeyListener {
@@ -24,8 +25,11 @@ public class KeyInputListener implements KeyListener {
     public static int rightKey = KeyEvent.VK_RIGHT;
     public static int banishKey = KeyEvent.VK_B;
     public static int writOfAresKey = KeyEvent.VK_S;
+    public static int writOfCerberus = KeyEvent.VK_C;
     public static int writOfAcesoKey = KeyEvent.VK_O;
     public static int writOfProteusKey = KeyEvent.VK_P;
+    public static int writOfEmpusa = KeyEvent.VK_E;
+    public static int writOfDolus = KeyEvent.VK_D;
 
 
     @Override
@@ -35,14 +39,17 @@ public class KeyInputListener implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        pressedKeys.add(e.getKeyCode());
+        if (!GameController.pause) {
+            pressedKeys.add(e.getKeyCode());
 
-        if (smiley != null && smiley.quakeAttack && !GameController.pause) {
-            handleKeyPressedCombinationDuringQuakeAttack();
+            if (smiley != null && smiley.quakeAttack && !GameController.pause) {
+                handleKeyPressedCombinationDuringQuakeAttack();
+            }
+            else if (!GameController.pause){
+                handleKeyPressedCombination();
+            }
         }
-        else if (!GameController.pause){
-            handleKeyPressedCombination();
-        }
+
     }
 
     @Override
@@ -108,20 +115,63 @@ public class KeyInputListener implements KeyListener {
             }
             else if (pressedKeys.contains(writOfProteusKey)) {
                 if (EnterNamePage.player.getXP() >= 100) {
-                    EnterNamePage.player.setXP(EnterNamePage.player.getXP() - 100);
-                    SkillTreeController.turnOnWritOfProteus();
+                    if (EnterNamePage.player.isWritOfProteus()) {
+                        EnterNamePage.player.setXP(EnterNamePage.player.getXP() - 100);
+                        SkillTreeController.turnOnWritOfProteus();
+                    }
                 }
             }
             else if (pressedKeys.contains(writOfAresKey)) {
                 if (EnterNamePage.player.getXP() >= 100) {
-                    EnterNamePage.player.setXP(EnterNamePage.player.getXP() - 100);
-                    SkillTreeController.turnOnWritOfAres();
+                    if (EnterNamePage.player.isWritOfAres()) {
+                        EnterNamePage.player.setXP(EnterNamePage.player.getXP() - 100);
+                        SkillTreeController.turnOnWritOfAres();
+                    }
+
                 }
             }
             else if (pressedKeys.contains(writOfAcesoKey)) {
                 if (EnterNamePage.player.getXP() >= 100) {
+                    if (EnterNamePage.player.isWritOfAceso()) {
+                        EnterNamePage.player.setXP(EnterNamePage.player.getXP() - 100);
+                        SkillTreeController.turnOnWritOfAceso();
+                    }
+
+                }
+            }
+            else if (pressedKeys.contains(writOfCerberus)) {
+                if (EnterNamePage.player.getXP() >= 100) {
+                    if (EnterNamePage.player.isWritOfCerberus()) {
+                        EnterNamePage.player.setXP(EnterNamePage.player.getXP() - 100);
+                        SkillTreeController.turnOnWritOfCerberus();
+                    }
+
+                }
+            }
+            else if (pressedKeys.contains(writOfEmpusa)) {
+                if (EnterNamePage.player.getXP() >= 100) {
                     EnterNamePage.player.setXP(EnterNamePage.player.getXP() - 100);
-                    SkillTreeController.turnOnWritOfAceso();
+                    BallModel.ballRadius = (int) (0.9 * BallModel.ballRadius);
+                }
+            }
+            else if (pressedKeys.contains(writOfDolus)) {
+                if (EnterNamePage.player.getXP() >= 100) {
+                    EnterNamePage.player.setXP(EnterNamePage.player.getXP() - 100);
+                    int i = 0;
+                    if (EnterNamePage.player.isWritOfEmpusa()) {
+                        i++;
+                        BallModel.ballRadius = (int) (0.9 * BallModel.ballRadius);
+                    }
+                    if (EnterNamePage.player.isWritOfChiron()) {
+                        i++;
+                        ball.ballChiron = true;
+                    }
+                    if (EnterNamePage.player.isWritOfCerberus() && i < 2) {
+                        SkillTreeController.turnOnWritOfCerberus();
+                    }
+                    if (EnterNamePage.player.isWritOfAres() && i < 2) {
+                        SkillTreeController.turnOnWritOfAres();
+                    }
                 }
             }
 
@@ -246,27 +296,6 @@ public class KeyInputListener implements KeyListener {
                     GameController.ball.x += 2 * GameController.ball.dx;
                 }
 
-            }
-            else if (pressedKeys.contains(writOfProteusKey)) {
-                Impact.banishImpact(GameController.ball.x, GameController.ball.y, GameController.ball.x, GameController.ball.y);
-            }
-            else if (pressedKeys.contains(banishKey)) {
-                if (EnterNamePage.player.getXP() >= 100) {
-                    EnterNamePage.player.setXP(EnterNamePage.player.getXP() - 100);
-                    SkillTreeController.turnOnWritOfProteus();
-                }
-            }
-            else if (pressedKeys.contains(writOfAcesoKey)) {
-                if (EnterNamePage.player.getXP() >= 100) {
-                    EnterNamePage.player.setXP(EnterNamePage.player.getXP() - 100);
-                    SkillTreeController.turnOnWritOfAres();
-                }
-            }
-            else if (pressedKeys.contains(writOfAresKey)) {
-                if (EnterNamePage.player.getXP() >= 100) {
-                    EnterNamePage.player.setXP(EnterNamePage.player.getXP() - 100);
-                    SkillTreeController.turnOnWritOfAceso();
-                }
             }
 
         } else {

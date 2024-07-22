@@ -17,9 +17,19 @@ public class Player {
     public Player() {
         this.name = "";
         this.XP = 0;
+
         this.writOfAres = false;
+        this.writOfAstrape = false;
+        this.writOfCerberus = false;
+
         this.writOfAceso = false;
+        this.writOfMelampus = false;
+        this.writOfChiron = false;
+
         this.writOfProteus = false;
+        this.writOfEmpusa = false;
+        this.writOfDolus = false;
+
     }
 
 

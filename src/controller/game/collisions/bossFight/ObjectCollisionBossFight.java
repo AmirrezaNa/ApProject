@@ -92,6 +92,9 @@ public class ObjectCollisionBossFight {
                             if (!GameController.bulletAres) {
                                 rightHand.enemyHealth -= 5;
                             }
+                            if (ball.ballChiron) {
+                                ball.HP += 3;
+                            }
                         }
 
                         SoundEffects.playSound(Constants.HURT_SOUND_PATH);
@@ -140,6 +143,9 @@ public class ObjectCollisionBossFight {
                             if (!GameController.bulletAres) {
                                 leftHand.enemyHealth -= 5;
                             }
+                            if (ball.ballChiron) {
+                                ball.HP += 3;
+                            }
                         }
 
                         SoundEffects.playSound(Constants.HURT_SOUND_PATH);
@@ -180,6 +186,9 @@ public class ObjectCollisionBossFight {
                             }
                             if (!GameController.bulletAres) {
                                 smiley.enemyHealth -= 5;
+                            }
+                            if (ball.ballChiron) {
+                                ball.HP += 3;
                             }
                         }
 
@@ -223,6 +232,13 @@ public class ObjectCollisionBossFight {
             if (EnterNamePage.player.isWritOfAstrape()) {
                 rightHand.enemyHealth -= 2;
             }
+            if (ball.ballCerberus) {
+                rightHand.enemyHealth -= 10;
+                ball.ballCerberus = false;
+            }
+            if (ball.ballChiron) {
+                ball.HP += 3;
+            }
 
             Impact.turnOnImpact(GameController.ball.x,
                     GameController.ball.y,
@@ -250,6 +266,13 @@ public class ObjectCollisionBossFight {
 
             if (EnterNamePage.player.isWritOfAstrape()) {
                 leftHand.enemyHealth -= 2;
+            }
+            if (ball.ballCerberus) {
+                leftHand.enemyHealth -= 10;
+                ball.ballCerberus = false;
+            }
+            if (ball.ballChiron) {
+                ball.HP += 3;
             }
 
             Impact.turnOnImpact(GameController.ball.x,

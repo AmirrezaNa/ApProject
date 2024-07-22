@@ -3,8 +3,9 @@ package controller.game.objectsController.ball.enemies.normalAndMiniBoss;
 import controller.game.GameController;
 import controller.game.Rotation;
 import model.entity.enemy.normalAndMiniBoss.EnemyModel2;
-import static controller.game.GameController.ball;
-import static controller.game.GameController.enemies2;
+
+import static controller.game.GameController.*;
+import static controller.game.GameController.enemies1;
 
 public class Enemy2Controller {
 
@@ -18,6 +19,10 @@ public class Enemy2Controller {
                         enemies2.get(i).dy = -Math.sqrt(Math.pow(EnemyModel2.enemySpeed, 2) - Math.pow(enemies2.get(i).dx, 2));
                     } else {
                         enemies2.get(i).dy = Math.sqrt(Math.pow(EnemyModel2.enemySpeed, 2) - Math.pow(enemies2.get(i).dx, 2));
+                    }
+                    if (ball.ballDismay) {
+                        enemies2.get(i).dx = -enemies2.get(i).dx;
+                        enemies2.get(i).dy = -enemies2.get(i).dy;
                     }
                 }
             }

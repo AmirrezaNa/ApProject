@@ -28,6 +28,8 @@ public class GameController {
     public static PunchModel punch;
 
     public static BallModel ball;
+    static BallDirection ballDirection;
+    public static BallAngle ballAngle;
     static BulletModel bullet;
     static EnemyModel1 enemy1;
     static EnemyModel2 enemy2;
@@ -39,8 +41,6 @@ public class GameController {
     static WyrmModel wyrm;
     static NecropickModel necropick;
     static Collectible collectible;
-    static BallDirection ballDirection;
-    public static BallAngle ballAngle;
     public static ArrayList<BulletModel> bullets = new ArrayList<>();
     public static ArrayList<BulletModel> enemyBullets = new ArrayList<>();
     public static ArrayList<EnemyModel1> enemies1 = new ArrayList<>();
@@ -84,6 +84,7 @@ public class GameController {
         ballAngle = new BallAngle(ball.x, ball.y);
         return ballAngle;
     }
+
 
 
     // creating the bullets ================================================

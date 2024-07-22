@@ -35,6 +35,25 @@ public class ShopPanel extends JPanel {
         if (EnterNamePage.player.isWritOfAceso()) {
             g.drawString("WritOfAceso", 200, 80);
         }
+        if (EnterNamePage.player.isWritOfAstrape()) {
+            g.drawString("WritOfAstrape", 200, 100);
+        }
+        if (EnterNamePage.player.isWritOfCerberus()) {
+            g.drawString("WritOfCerberus", 200, 120);
+        }
+        if (EnterNamePage.player.isWritOfMelampus()) {
+            g.drawString("WritOfMelampus", 200, 140);
+        }
+        if (EnterNamePage.player.isWritOfChiron()) {
+            g.drawString("WritOfChiron", 200, 160);
+        }
+        if (EnterNamePage.player.isWritOfEmpusa()) {
+            g.drawString("WritOfEmpusa", 200, 180);
+        }
+        if (EnterNamePage.player.isWritOfDolus()) {
+            g.drawString("WritOfDolus", 200, 200);
+        }
+
 
     }
 }

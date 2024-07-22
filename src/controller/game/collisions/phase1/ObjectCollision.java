@@ -17,21 +17,24 @@ import static controller.game.GameController.*;
 public class ObjectCollision {
 
 
-
     // ===========  Here is where we are checking the intersections of different types of objects ===============
 
 
     public static void checkObjectsCollisions() {
-            checkCollisionEnemy1Enemy2();
-            checkCollisionEnemy1Enemy1();
-            checkCollisionEnemy2Enemy2();
-            checkCollisionBallEnemy1();
-            checkCollisionBallEnemy2();
-            checkCollisionBulletEnemy1();
-            checkCollisionBulletEnemy2();
-            checkCollisionBallCollectible();
-            checkCollisionBallAngleEnemy1();
-            checkCollisionBallAngleEnemy2();
+        checkCollisionEnemy1Enemy2();
+        checkCollisionEnemy1Enemy1();
+        checkCollisionEnemy2Enemy2();
+
+        checkCollisionBallEnemy1();
+        checkCollisionBallEnemy2();
+        checkCollisionBallCollectible();
+
+        checkCollisionBulletEnemy1();
+        checkCollisionBulletEnemy2();
+
+
+        checkCollisionBallAngleEnemy1();
+        checkCollisionBallAngleEnemy2();
 
     }
 
@@ -293,6 +296,10 @@ public class ObjectCollision {
                     if (EnterNamePage.player.isWritOfAstrape()) {
                         enemies1.get(k).enemyHealth -= 2;
                     }
+                    if (ball.ballCerberus) {
+                        enemies1.get(k).enemyHealth -= 10;
+                        ball.ballCerberus = false;
+                    }
 
                     GameController.enemies1.get(k).dash = false;
                     GameController.enemies1.get(k).dAngle = Math.PI;
@@ -365,6 +372,10 @@ public class ObjectCollision {
                     if (EnterNamePage.player.isWritOfAstrape()) {
                         enemies2.get(k).enemyHealth -= 2;
                     }
+                    if (ball.ballCerberus) {
+                        enemies2.get(k).enemyHealth -= 10;
+                        ball.ballCerberus = false;
+                    }
 
                     GameController.enemies2.get(k).dAngle = Math.PI;
                     Impact.turnOnImpact(GameController.ball.x,
@@ -422,6 +433,9 @@ public class ObjectCollision {
                                 }
                                 if (!GameController.bulletAres) {
                                     GameController.enemies1.get(k).enemyHealth -= 5;
+                                }
+                                if (ball.ballChiron) {
+                                    ball.HP += 3;
                                 }
                                 SoundEffects.playSound(Constants.HURT_SOUND_PATH);
                                 if (GameController.enemies1.get(k).enemyHealth <= 0) {
@@ -483,6 +497,9 @@ public class ObjectCollision {
                                 if (!GameController.bulletAres) {
                                     GameController.enemies2.get(k).enemyHealth -= 5;
                                 }
+                                if (ball.ballChiron) {
+                                    ball.HP += 3;
+                                }
                                 SoundEffects.playSound(Constants.HURT_SOUND_PATH);
                                 if (GameController.enemies2.get(k).enemyHealth <= 0) {
                                     SoundEffects.playSound(Constants.HIT_SOUND_PATH);
@@ -511,10 +528,10 @@ public class ObjectCollision {
         double yMin1 = GameController.ball.y - BallModel.ballRadius;
         double yMax1 = GameController.ball.y + BallModel.ballRadius;
         if (SettingsPanel.level == 1) {
-            xMin1 = GameController.ball.x - ((double) (BallModel.ballRadius * 3) /2);
-            xMax1 = GameController.ball.x + ((double) (BallModel.ballRadius * 3) /2);
-            yMin1 = GameController.ball.y - ((double) (BallModel.ballRadius * 3) /2);
-            yMax1 = GameController.ball.y + ((double) (BallModel.ballRadius * 3) /2);
+            xMin1 = GameController.ball.x - ((double) (BallModel.ballRadius * 3) / 2);
+            xMax1 = GameController.ball.x + ((double) (BallModel.ballRadius * 3) / 2);
+            yMin1 = GameController.ball.y - ((double) (BallModel.ballRadius * 3) / 2);
+            yMax1 = GameController.ball.y + ((double) (BallModel.ballRadius * 3) / 2);
         }
 
         if (!GameController.collectibles.isEmpty()) {
@@ -526,10 +543,10 @@ public class ObjectCollision {
                     double yMax2 = GameController.collectibles.get(i).y + Collectible.collectibleSize;
 
                     if (SettingsPanel.level == 1) {
-                        xMin2 = GameController.collectibles.get(i).x - (Collectible.collectibleSize/2);
-                        xMax2 = GameController.collectibles.get(i).x + (Collectible.collectibleSize * 3/2);
-                        yMin2 = GameController.collectibles.get(i).y - (Collectible.collectibleSize/2);
-                        yMax2 = GameController.collectibles.get(i).y + (Collectible.collectibleSize * 3/2);
+                        xMin2 = GameController.collectibles.get(i).x - (Collectible.collectibleSize / 2);
+                        xMax2 = GameController.collectibles.get(i).x + (Collectible.collectibleSize * 3 / 2);
+                        yMin2 = GameController.collectibles.get(i).y - (Collectible.collectibleSize / 2);
+                        yMax2 = GameController.collectibles.get(i).y + (Collectible.collectibleSize * 3 / 2);
                     }
 
                     if (((xMin2 >= xMin1 && xMin2 <= xMax1) && (yMin2 >= yMin1 && yMin2 <= yMax1))
@@ -537,7 +554,7 @@ public class ObjectCollision {
                             || ((xMin2 >= xMin1 && xMin2 <= xMax1) && (yMax2 >= yMin1 && yMax2 <= yMax1))
                             || ((xMin2 <= xMin1 && xMax2 >= xMin1) && (yMax2 >= yMin1 && yMax2 <= yMax1))) {
                         GameController.collectibles.get(i).collectibleHealth = 0;
-                        EnterNamePage.player.setXP(EnterNamePage.player.getXP()+5);
+                        EnterNamePage.player.setXP(EnterNamePage.player.getXP() + 5);
 
                     }
                 }
@@ -590,6 +607,9 @@ public class ObjectCollision {
                         GameController.enemies1.get(k).dash = false;
                         GameController.enemies1.get(k).dAngle = Math.PI;
                         GameController.enemies1.get(k).enemyHealth -= 10;
+                        if (ball.ballChiron) {
+                            ball.HP += 3;
+                        }
                         SoundEffects.playSound(Constants.HURT_SOUND_PATH);
                         if (GameController.enemies1.get(k).enemyHealth <= 0) {
                             SoundEffects.playSound(Constants.HIT_SOUND_PATH);
@@ -645,6 +665,9 @@ public class ObjectCollision {
 
                         GameController.enemies2.get(k).dAngle = Math.PI;
                         GameController.enemies2.get(k).enemyHealth -= 10;
+                        if (ball.ballChiron) {
+                            ball.HP += 3;
+                        }
                         SoundEffects.playSound(Constants.HURT_SOUND_PATH);
                         if (GameController.enemies2.get(k).enemyHealth <= 0) {
                             SoundEffects.playSound(Constants.HIT_SOUND_PATH);

@@ -21,6 +21,10 @@ public class BarricadosController2 {
                     } else {
                         barricadosEnemies2.get(i).dy = Math.sqrt(Math.pow(BarricadosModel2.enemySpeed, 2) - Math.pow(barricadosEnemies2.get(i).dx, 2));
                     }
+                    if (ball.ballDismay) {
+                        barricadosEnemies2.get(i).dx = -barricadosEnemies2.get(i).dx;
+                        barricadosEnemies2.get(i).dy = -barricadosEnemies2.get(i).dy;
+                    }
                 }
             }
         }
