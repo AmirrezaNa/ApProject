@@ -13,12 +13,12 @@ public class FrameCollision {
 
 
     public static void checkFrameCollisions() {
-        if (!GamePanel.phase1over) {
-            checkBulletHitFrame();
-            checkBallCollisionToFrame();
-            checkEnemy1CollisionToFrame();
-            checkEnemy2CollisionToFrame();
-        }
+
+        checkBulletHitFrame();
+        checkBallCollisionToFrame();
+        checkEnemy1CollisionToFrame();
+        checkEnemy2CollisionToFrame();
+
     }
 
 

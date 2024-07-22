@@ -45,24 +45,26 @@ public class EpsilonFrame extends JInternalFrame {
 //                } catch (IOException ex) {
 //                    throw new RuntimeException(ex);
 //                }
-                int x = epsilonFrame.x;
-                int y = epsilonFrame.y;
-                int width = epsilonFrame.width;
-                int height = epsilonFrame.height;
-                if (width > 300 && !smiley.squeezeAttack) {
-                    // reduce width gradually
-                    x += 3;
-                    width -= 6;
-                    frame.setBounds(x, y, width, height);
-                    epsilonFrame.x = x;
-                    epsilonFrame.width = width;
-                }
-                if (height < 400 && !smiley.squeezeAttack) {
-                    y--;
-                    height += 2;
-                    frame.setBounds(x, y, width, height);
-                    epsilonFrame.y = y;
-                    epsilonFrame.height = height;
+                if (!GameController.pause) {
+                    int x = epsilonFrame.x;
+                    int y = epsilonFrame.y;
+                    int width = epsilonFrame.width;
+                    int height = epsilonFrame.height;
+                    if (width > 300 && !smiley.squeezeAttack) {
+                        // reduce width gradually
+                        x += 3;
+                        width -= 6;
+                        frame.setBounds(x, y, width, height);
+                        epsilonFrame.x = x;
+                        epsilonFrame.width = width;
+                    }
+                    if (height < 400 && !smiley.squeezeAttack) {
+                        y--;
+                        height += 2;
+                        frame.setBounds(x, y, width, height);
+                        epsilonFrame.y = y;
+                        epsilonFrame.height = height;
+                    }
                 }
             }
         });

@@ -35,7 +35,7 @@ public class NecropickController {
             public void run() {
                 if (!necropickEnemies.isEmpty()) {
                     for (int i = 0; i < necropickEnemies.size(); i++) {
-                        if (necropickEnemies.get(i).enemyHealth > 0) {
+                        if (necropickEnemies.get(i).enemyHealth > 0 && !GameController.pause) {
                             necropickEnemies.get(i).hidingTime++;
                             if (necropickEnemies.get(i).hidingTime == 6) {
                                 shotNecropickBullets(necropickEnemies.get(i));

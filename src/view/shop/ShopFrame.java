@@ -12,7 +12,6 @@ import java.awt.event.ActionListener;
 
 public class ShopFrame extends JFrame implements ActionListener {
 
-    GameController gameController = new GameController();
     JButton Resume;
     JButton Banish;
     JButton Empower;
@@ -80,7 +79,7 @@ public class ShopFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == Resume) {
-            GamePanel.phase1over = false;
+            GameController.pause = false;
             this.dispose();
         }
         if (e.getSource() == Banish) {

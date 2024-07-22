@@ -11,11 +11,9 @@ import static controller.game.GameController.ballAngle;
 
 public class SkillTreeController {
 
-    GameController gameController = new GameController();
-
     public static void turnOnWritOfProteus() {
         if (EnterNamePage.player.isWritOfProteus()) {
-            if (!GamePanel.phase1over) {
+            if (!GameController.pause) {
                 ballAngle.angleExists = true;
                 Timer timer = new Timer();
                 int[] countDownEmpower = {300};
@@ -40,7 +38,7 @@ public class SkillTreeController {
 
     public static void turnOnWritOfAceso() {
         if (EnterNamePage.player.isWritOfAceso()) {
-            if (!GamePanel.phase1over) {
+            if (!GameController.pause) {
                 Timer timer = new Timer();
                 int[] countDownEmpower = {300};
                 TimerTask task = new TimerTask() {
@@ -63,7 +61,7 @@ public class SkillTreeController {
 
     public static void turnOnWritOfAres() {
         if (EnterNamePage.player.isWritOfAres()) {
-            if (!GamePanel.phase1over) {
+            if (!GameController.pause) {
                 GameController.bulletAres = true;
                 Timer timer = new Timer();
                 int[] countDownEmpower = {300};

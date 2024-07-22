@@ -1,5 +1,6 @@
 package controller.game.objectsController.ball.enemies.normalAndMiniBoss;
 
+import controller.game.GameController;
 import model.entity.enemy.normalAndMiniBoss.WyrmModel;
 
 import java.awt.*;
@@ -86,7 +87,7 @@ public class WyrmController {
             @Override
             public void run() {
                 for (int i = 0; i < wyrmEnemies.size(); i++) {
-                    if (wyrmEnemies.get(i).enemyHealth > 0) {
+                    if (wyrmEnemies.get(i).enemyHealth > 0 && !GameController.pause) {
                         Point point = new Point();
                         point.setLocation(wyrmEnemies.get(i).x + ((double) WyrmModel.wyrmSize /2),
                                 wyrmEnemies.get(i).y + ((double) WyrmModel.wyrmSize /2));

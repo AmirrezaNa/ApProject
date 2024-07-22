@@ -17,6 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+import static view.gameLoop.phase1.GamePanel.ball;
 import static view.gameLoop.phase1.GamePanel.phase1over;
 
 public class GameFrame extends JFrame {
@@ -26,12 +27,11 @@ public class GameFrame extends JFrame {
     public static int x = 300;
     public static int y = 50;
     GamePanel gamePanel;
-    static boolean GameIsRunning = true;
     GameFrameStuff gameFrameStuff;
     public static Thread thread;
 
     public GameFrame() {
-        phase1over = false;
+        GameController.gameTime();
         GamePanel.closeAllWindows();
         // after minimizing all windows setting the state to normal prevents minimizing the game frame
         this.setState(JFrame.NORMAL);
@@ -95,7 +95,7 @@ public class GameFrame extends JFrame {
                         throw new RuntimeException(ex);
                     }
 
-                    if (width > 300 && !phase1over) {
+                    if (width > 300 && !GameController.pause) {
                         // reduce width gradually
                         x += 1;
                         width -= 2;
@@ -103,7 +103,7 @@ public class GameFrame extends JFrame {
                         gamePanel.revalidate();
                         gamePanel.repaint();
                     }
-                    if (height > 300 && !phase1over) {
+                    if (height > 300 && !GameController.pause) {
                         // reduce height gradually
                         y += 1;
                         height -= 2;
@@ -262,6 +262,7 @@ public class GameFrame extends JFrame {
                         isAnimationComplete = true;
                         ((Timer) e.getSource()).stop();
                         displayEndOfPhase1();
+                        GameController.wave++;
                         GameFrame2 gameFrame2 = new GameFrame2();
                     }
                 }
@@ -276,7 +277,9 @@ public class GameFrame extends JFrame {
             this.dispose();
             gameFrameStuff.dispose();
             phase1over = true;
+            int hp = ball.HP;
             GameRestart.restartGame();
+            ball.HP = hp;
             gamePanel.revalidate();
             gamePanel.repaint();
         }

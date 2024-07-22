@@ -132,7 +132,7 @@ public class GameInternalFrame extends JInternalFrame {
     public static void changeGameFrameSize(JInternalFrame frame, int i) {
         // this timer reduces the frame size ========================================
         synchronized (lock) {
-            if (!FrameCollisions2.frameCollided(i)) {
+            if (!FrameCollisions2.frameCollided(i) && !GameController.pause) {
                 int x = createdFrames[i].x;
                 int y = createdFrames[i].y;
                 int width = createdFrames[i].width;

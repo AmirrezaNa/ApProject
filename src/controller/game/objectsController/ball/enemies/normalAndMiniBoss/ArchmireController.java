@@ -1,5 +1,6 @@
 package controller.game.objectsController.ball.enemies.normalAndMiniBoss;
 
+import controller.game.GameController;
 import model.entity.enemy.normalAndMiniBoss.ArchmireModel;
 import model.entity.enemy.normalAndMiniBoss.ArchmirePoints;
 
@@ -58,7 +59,7 @@ public class ArchmireController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (archmire.enemyHealth > 0) {
+                if (archmire.enemyHealth > 0  && !GameController.pause) {
                     ArchmirePoints archmirePoint = new ArchmirePoints(archmire.x + ((double) ArchmireModel.archmireSize / 2), archmire.y + ((double) ArchmireModel.archmireSize / 2));
                     archmirePoints.add(0, archmirePoint);
                     setTimerForPoint(archmirePoint);
@@ -78,7 +79,10 @@ public class ArchmireController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                archmirePoint.archmirePointTimer--;
+                if (!GameController.pause) {
+                    archmirePoint.archmirePointTimer--;
+                }
+
 //                if (stopWave) {
 //                    timer.cancel();
 //                }

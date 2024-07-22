@@ -1,5 +1,6 @@
 package controller.game.objectsController.ball.enemies.normalAndMiniBoss;
 
+import controller.game.GameController;
 import model.entity.enemy.normalAndMiniBoss.BlackOrbModel;
 
 import java.util.Timer;
@@ -78,7 +79,10 @@ public class BlackOrbController {
                 if (blackOrb.blackOrbTimer == 0) {
                     blackOrb.draw5 = true;
                 }
-                blackOrb.blackOrbTimer--;
+                if (!GameController.pause) {
+                    blackOrb.blackOrbTimer--;
+                }
+
             }
         };
         timer.scheduleAtFixedRate(task, 0, 1000);

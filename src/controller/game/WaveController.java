@@ -171,7 +171,7 @@ public class WaveController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (!phase2Over) {
+                if (!phase2Over && !GameController.pause) {
                     if (omenoctEnemies.isEmpty()) {
                         newOmenoct();
                     }
@@ -206,7 +206,7 @@ public class WaveController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (!phase2Over) {
+                if (!phase2Over && !GameController.pause) {
 
                     if (necropickEnemies.isEmpty()) {
                         newNecropick();
@@ -243,7 +243,7 @@ public class WaveController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (!phase2Over) {
+                if (!phase2Over && !GameController.pause) {
 
                     newArchmire();
                 }
@@ -263,7 +263,7 @@ public class WaveController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (!phase2Over) {
+                if (!phase2Over && !GameController.pause) {
 
                     if (wyrmEnemies.isEmpty()) {
                         newWyrm();
@@ -299,7 +299,7 @@ public class WaveController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (!phase2Over) {
+                if (!phase2Over && !GameController.pause) {
 
                     if (barricadosEnemies1.isEmpty()) {
                         newBarricados1();
@@ -335,7 +335,7 @@ public class WaveController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (!phase2Over) {
+                if (!phase2Over && !GameController.pause) {
 
                     if (barricadosEnemies2.isEmpty()) {
                         newBarricados2();
@@ -370,7 +370,7 @@ public class WaveController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (!phase2Over) {
+                if (!phase2Over && !GameController.pause) {
 
                     if (blackOrbEnemies.isEmpty()) {
                         newBlackOrb();

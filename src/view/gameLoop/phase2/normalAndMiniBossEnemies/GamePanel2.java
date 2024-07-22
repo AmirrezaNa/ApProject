@@ -80,7 +80,7 @@ public class GamePanel2 extends JPanel implements Runnable {
     @Override
     public void run() {
 
-        while (!phase2Over) {
+        while (true) {
 
 
             update();
@@ -101,7 +101,7 @@ public class GamePanel2 extends JPanel implements Runnable {
 
 
     public void update() {
-        if (!phase2Over) {
+        if (!GameController.pause) {
             mainFrame = FrameOfObject.getFrameOfBall();
 
             BallController.updateTheBall();

@@ -6,8 +6,6 @@ import model.entity.enemy.normalAndMiniBoss.EnemyModel2;
 import model.entity.enemy.normalAndMiniBoss.NecropickModel;
 import model.entity.enemy.normalAndMiniBoss.OmenoctModel;
 
-import static controller.game.GameController.smiley;
-import static view.gameLoop.phase1.GamePanel.ball;
 import static view.gameLoop.phase1.GamePanel.phase1over;
 import static view.gameLoop.phase2.finalBoss.EpsilonFrame.epsilonFrame;
 import static view.gameLoop.phase2.normalAndMiniBossEnemies.GamePanel2.phase2Over;

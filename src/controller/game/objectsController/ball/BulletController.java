@@ -41,7 +41,7 @@ public class BulletController {
 
 
     public static void empowerBullet() {
-        if (!GamePanel.phase1over) {
+        if (!GameController.pause) {
             GameController.empowerBullet = true;
             Timer timer = new Timer();
             int[] countDownEmpower = {10};

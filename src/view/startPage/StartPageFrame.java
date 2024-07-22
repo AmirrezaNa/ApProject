@@ -1,7 +1,9 @@
 package view.startPage;
 
 import controller.Constants;
+import controller.game.GameController;
 import view.gameLoop.phase1.GameFrame;
+import view.gameLoop.phase1.GamePanel;
 import view.settings.SettingsFrame;
 import view.skillTree.SkillTreeFrame;
 
@@ -100,6 +102,8 @@ public class StartPageFrame extends JFrame implements ActionListener {
             soundThread.start();
             this.dispose();
             SwingUtilities.invokeLater(() -> {
+                GameController.pause = false;
+                GamePanel.phase1over = false;
                 GameFrame gameFrame = new GameFrame();
             });
 

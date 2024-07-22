@@ -7,6 +7,7 @@ import controller.game.GameController;
 import controller.game.GameRestart;
 import view.gameLoop.phase1.GamePanel;
 import view.gameLoop.phase2.finalBoss.FinalBossFrame;
+import view.shop.ShopFrame;
 import view.startPage.EnterNamePage;
 
 import javax.swing.*;
@@ -15,12 +16,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+import static view.gameLoop.phase1.GamePanel.ball;
+import static view.gameLoop.phase1.GamePanel.phase1over;
 import static view.gameLoop.phase2.normalAndMiniBossEnemies.GamePanel2.phase2Over;
 
-public class GameFrame2 extends JFrame{
+public class GameFrame2 extends JFrame implements ActionListener{
 
 
     GamePanel2 gamePanel;
+    JButton storeButton;
 
     static Toolkit toolkit = Toolkit.getDefaultToolkit();
     static Dimension screenSize = toolkit.getScreenSize();
@@ -28,6 +32,7 @@ public class GameFrame2 extends JFrame{
     public static int height = screenSize.height;
 
     public GameFrame2() {
+        GamePanel.phase1over = true;
         this.setBounds(0, 0, width, height);
 //        this.setExtendedState(JFrame.MAXIMIZED_BOTH); // Set to fullscreen
         this.setUndecorated(true); // Remove window decorations
@@ -41,12 +46,32 @@ public class GameFrame2 extends JFrame{
         thread.start();
 
 
+
+        storeButton = new JButton();
+        storeButton.setFocusable(false);
+        storeButton.setBackground(new Color(0x8F0404));
+        storeButton.setText("Store");
+        storeButton.setForeground(Color.BLACK);
+        storeButton.setBounds(width - 60, 10, 50, 50);
+        storeButton.addActionListener(this);
+        storeButton.setBorder(BorderFactory.createEtchedBorder());
+
+
+
+        this.add(storeButton);
         this.add(gamePanel);
-
-
-
         this.setVisible(true);
         check();
+    }
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        if (e.getSource() == storeButton) {
+            GameController.pause = true;
+            ShopFrame shopFrame = new ShopFrame();
+        }
     }
 
 
@@ -77,7 +102,7 @@ public class GameFrame2 extends JFrame{
             if (GameController.ball.HP <= 0) {
                 if (!phase2Over) {
                     phase2Over = true;
-                    GamePanel.phase1over = true;
+                    GameController.pause = false;
                     this.dispose();
                     GameRestart.restartGame();
                     gamePanel.revalidate();
@@ -98,22 +123,69 @@ public class GameFrame2 extends JFrame{
     public void checkWinner() {
         if (GameController.ball != null) {
             boolean playerHasWonPhase2 = true;
-            if (GameController.enemies1.size() + GameController.enemies2.size() < 35) {
+            if (GameController.omenoctEnemies.size() + GameController.necropickEnemies.size()
+                    + GameController.archmireEnemies.size() + GameController.wyrmEnemies.size()
+                    + GameController.blackOrbEnemies.size() + GameController.barricadosEnemies1.size()
+                    + GameController.barricadosEnemies2.size() < 120){
                 playerHasWonPhase2 = false;
             }
-            if (GameController.enemies1.size() + GameController.enemies2.size() == 35) {
-                for (int i = 0; i < GameController.enemies1.size(); i++) {
-                    if (GameController.enemies1.get(i).enemyHealth > 0) {
+            if (GameController.omenoctEnemies.size() + GameController.necropickEnemies.size()
+                    + GameController.archmireEnemies.size() + GameController.wyrmEnemies.size()
+                    + GameController.blackOrbEnemies.size() + GameController.barricadosEnemies1.size()
+                    + GameController.barricadosEnemies2.size() == 50 && GameController.wave == 4){
+                GameController.wave++;
+            }
+            if (GameController.omenoctEnemies.size() + GameController.necropickEnemies.size()
+                    + GameController.archmireEnemies.size() + GameController.wyrmEnemies.size()
+                    + GameController.blackOrbEnemies.size() + GameController.barricadosEnemies1.size()
+                    + GameController.barricadosEnemies2.size() == 120) {
+                for (int i = 0; i < GameController.omenoctEnemies.size(); i++) {
+                    if (GameController.omenoctEnemies.get(i).enemyHealth > 0) {
                         playerHasWonPhase2 = false;
+                        break;
                     }
                 }
-                for (int j = 0; j < GameController.enemies2.size(); j++) {
-                    if (GameController.enemies2.get(j).enemyHealth > 0) {
+                for (int j = 0; j < GameController.necropickEnemies.size(); j++) {
+                    if (GameController.necropickEnemies.get(j).enemyHealth > 0) {
                         playerHasWonPhase2 = false;
+                        break;
+                    }
+                }
+                for (int i = 0; i < GameController.archmireEnemies.size(); i++) {
+                    if (GameController.archmireEnemies.get(i).enemyHealth > 0) {
+                        playerHasWonPhase2 = false;
+                        break;
+                    }
+                }
+                for (int j = 0; j < GameController.wyrmEnemies.size(); j++) {
+                    if (GameController.wyrmEnemies.get(j).enemyHealth > 0) {
+                        playerHasWonPhase2 = false;
+                        break;
+                    }
+                }
+                for (int i = 0; i < GameController.blackOrbEnemies.size(); i++) {
+                    if (GameController.blackOrbEnemies.get(i).enemyHealth > 0) {
+                        playerHasWonPhase2 = false;
+                        break;
+                    }
+                }
+                for (int j = 0; j < GameController.barricadosEnemies1.size(); j++) {
+                    if (GameController.barricadosEnemies1.get(j).enemyTimer > 0) {
+                        playerHasWonPhase2 = false;
+                        break;
+                    }
+                }
+                for (int j = 0; j < GameController.barricadosEnemies2.size(); j++) {
+                    if (GameController.barricadosEnemies2.get(j).enemyTimer > 0) {
+                        playerHasWonPhase2 = false;
+                        break;
                     }
                 }
             }
-            if (playerHasWonPhase2) {
+            if (playerHasWonPhase2 && GameController.wave == 5) {
+                GameController.wave++;
+                displayEndOfPhase2();
+                FinalBossFrame finalBossFrame = new FinalBossFrame();
                 // in this part should create the bossFight frame
             }
 
@@ -121,61 +193,18 @@ public class GameFrame2 extends JFrame{
     }
 
 
-//    Timer timer1;
-//    boolean isAnimationComplete = false;
-//
-//    public void displayWin() {
-//        GamePanel.phase1over = true;
-//        timer1 = new Timer(100, new ActionListener() {
-//
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                if (!isAnimationComplete) {
-//                    if (width >= 0) {
-//                        // reduce width gradually
-//                        x += 1;
-//                        BallModel.ballRadius++;
-//                        width -= 2;
-//                        setBounds(x, y, width, height);
-//                        gamePanel.revalidate();
-//                        gamePanel.repaint();
-//                    }
-//                    if (height >= 0) {
-//                        // reduce height gradually
-//                        BallModel.ballRadius++;
-//                        y += 1;
-//                        height -= 2;
-//                        setBounds(x, y, width, height);
-//                        gamePanel.revalidate();
-//                        gamePanel.repaint();
-//                    }
-//                    if (width <= 0 && height <= 0) {
-//                        isAnimationComplete = true;
-//                        ((Timer) e.getSource()).stop();
-//                        displayWinnerWindow();
-//                    }
-//                }
-//            }
-//        });
-//        timer1.start();
-//    }
-//
-//
-//    public void displayWinnerWindow() {
-//        if (GameController.ball != null) {
-//            this.dispose();
-//            try {
-//                if (DataManager.checkPlayerExists(EnterNamePage.player.getName())) {
-//                    DataManager.updatePlayerData();
-//                } else {
-//                    DataManager.createPlayerData(EnterNamePage.player);
-//                }
-//            } catch (IOException ex) {
-//                throw new RuntimeException(ex);
-//            }
-//            SoundEffects.playSound(Constants.WINNER_SOUND_PATH);
-//
-//            WinnerFrame winnerFrame = new WinnerFrame();
-//        }
-//    }
+    public void displayEndOfPhase2() {
+        if (GameController.ball != null) {
+            int hp = ball.HP;
+            GameRestart.restartGame();
+            ball.HP = hp;
+
+            phase2Over = true;
+            GameController.pause = false;
+            this.dispose();
+            gamePanel.revalidate();
+            gamePanel.repaint();
+        }
+    }
+
 }

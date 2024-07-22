@@ -4,6 +4,7 @@ import controller.Constants;
 import controller.data.controller.SoundEffects;
 import controller.game.GameController;
 import controller.game.Impact;
+import controller.game.collisions.phase1.ObjectCollision;
 import model.entity.BallAngle;
 import model.entity.BallModel;
 import model.entity.BulletModel;
@@ -47,6 +48,7 @@ public class ObjectCollisions2 {
         checkCollisionBallBarricados1();
         checkCollisionBallBarricados2();
         checkCollisionBallBlackOrb();
+        ObjectCollision.checkCollisionBallCollectible();
     }
 
     public static void checkBallAngleCollisions() {

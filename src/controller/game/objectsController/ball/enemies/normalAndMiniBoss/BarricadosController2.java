@@ -59,7 +59,7 @@ public class BarricadosController2 {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (barricados2.enemyTimer > 0) {
+                if (barricados2.enemyTimer > 0 && !GameController.pause) {
                     barricados2.enemyTimer--;
                 }
 //                if (stopWave) {

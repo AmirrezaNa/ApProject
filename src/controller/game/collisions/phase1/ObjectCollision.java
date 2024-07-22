@@ -20,7 +20,6 @@ public class ObjectCollision {
 
 
     public static void checkObjectsCollisions() {
-        if (!GamePanel.phase1over) {
             checkCollisionEnemy1Enemy2();
             checkCollisionEnemy1Enemy1();
             checkCollisionEnemy2Enemy2();
@@ -31,7 +30,6 @@ public class ObjectCollision {
             checkCollisionBallCollectible();
             checkCollisionBallAngleEnemy1();
             checkCollisionBallAngleEnemy2();
-        }
 
     }
 

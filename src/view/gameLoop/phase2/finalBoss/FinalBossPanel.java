@@ -29,6 +29,7 @@ import javax.swing.*;
 import java.awt.*;
 
 import static controller.game.GameController.punch;
+import static view.gameLoop.phase2.normalAndMiniBossEnemies.GamePanel2.phase2Over;
 
 public class FinalBossPanel extends JPanel implements Runnable {
 
@@ -83,7 +84,7 @@ public class FinalBossPanel extends JPanel implements Runnable {
     @Override
     public void run() {
 
-        while (true) {
+        while (!finalBossOver) {
 
 
             update();
@@ -105,27 +106,29 @@ public class FinalBossPanel extends JPanel implements Runnable {
 
 
     public void update() {
+        if (!GameController.pause) {
 
-        FrameCollisionBossFight.checkBossFightFrameCollisions();
+            FrameCollisionBossFight.checkBossFightFrameCollisions();
 
-        BallController.updateTheBall();
-        BallDirectionController.updateBallDirectionFinalBoss();
-        BallAngleController.updateBallAngle();
+            BallController.updateTheBall();
+            BallDirectionController.updateBallDirectionFinalBoss();
+            BallAngleController.updateBallAngle();
 
-        BulletController.updateBullet();
-        BulletController.updateEnemyBullet();
+            BulletController.updateBullet();
+            BulletController.updateEnemyBullet();
 
-        SmileyController.updateSmiley();
-        RightHandController.updateRightHand();
-        LeftHandController.updateLeftHand();
-        PunchController.updatePunch();
+            SmileyController.updateSmiley();
+            RightHandController.updateRightHand();
+            LeftHandController.updateLeftHand();
+            PunchController.updatePunch();
 
 
-        ObjectCollisionBossFight.checkCollisionsPhase2();
-        FrameCollisionBossFight.checkBossFightFrameCollisions();
+            ObjectCollisionBossFight.checkCollisionsPhase2();
+            FrameCollisionBossFight.checkBossFightFrameCollisions();
 
-        revalidate();
-        repaint();
+            revalidate();
+            repaint();
+        }
     }
 
     public void paintComponent(Graphics g) {

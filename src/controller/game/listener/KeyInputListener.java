@@ -37,10 +37,10 @@ public class KeyInputListener implements KeyListener {
     public void keyPressed(KeyEvent e) {
         pressedKeys.add(e.getKeyCode());
 
-        if (smiley.quakeAttack) {
+        if (smiley != null && smiley.quakeAttack && !GameController.pause) {
             handleKeyPressedCombinationDuringQuakeAttack();
         }
-        else {
+        else if (!GameController.pause){
             handleKeyPressedCombination();
         }
     }

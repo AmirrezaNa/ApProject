@@ -42,7 +42,6 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void initPanel() {
-        GameFrame.GameIsRunning = true;
         //changeGamePanelSize();
         this.setBackground(Color.BLACK);
         ball = GameController.newBall();
@@ -65,7 +64,7 @@ public class GamePanel extends JPanel implements Runnable {
     @Override
     public void run() {
 
-        while (GameFrame.GameIsRunning) {
+        while (!phase1over) {
 
 
             update();
@@ -86,7 +85,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 
     public static void update() {
-        if (!phase1over) {
+        if (!GameController.pause) {
             BallController.updateTheBall();
             BallDirectionController.updateBallDirection();
             BallAngleController.updateBallAngle();

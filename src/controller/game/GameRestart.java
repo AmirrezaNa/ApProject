@@ -11,6 +11,7 @@ public class GameRestart {
     // restarting the game ================================================================
 
     public static void restartGame() {
+        numberOfBullets = bullets.size();
         bullets.clear();
         enemies2.clear();
         enemies1.clear();

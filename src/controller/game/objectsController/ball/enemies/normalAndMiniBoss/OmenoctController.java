@@ -1,6 +1,7 @@
 package controller.game.objectsController.ball.enemies.normalAndMiniBoss;
 
 import controller.game.FrameOfObject;
+import controller.game.GameController;
 import controller.game.Rotation;
 import model.entity.enemy.normalAndMiniBoss.OmenoctModel;
 
@@ -105,7 +106,7 @@ public class OmenoctController {
             @Override
             public void run() {
                 for (int i = 0; i < omenoctEnemies.size(); i++) {
-                    if (omenoctEnemies.get(i).enemyHealth > 0) {
+                    if (omenoctEnemies.get(i).enemyHealth > 0 && !GameController.pause) {
                         Point point = new Point();
                         point.setLocation(omenoctEnemies.get(i).x + OmenoctModel.distanceToCenter,
                                 omenoctEnemies.get(i).y + OmenoctModel.distanceToCenter);

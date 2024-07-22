@@ -8,7 +8,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class CollectibleController {
-    GameController gameController = new GameController();
 
 
     public static void countDownCollectible(int seconds, Collectible collectible1) {

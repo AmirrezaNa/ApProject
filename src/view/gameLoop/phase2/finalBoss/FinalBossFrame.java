@@ -5,7 +5,10 @@ import controller.data.controller.DataManager;
 import controller.data.controller.SoundEffects;
 import controller.game.GameController;
 import controller.game.GameRestart;
-import view.gameLoop.phase1.GamePanel;
+import model.entity.BallModel;
+import model.entity.enemy.boss.SmileyModel;
+import view.gameWinner.WinnerFrame;
+import view.shop.ShopFrame;
 import view.startPage.EnterNamePage;
 
 import javax.swing.*;
@@ -14,16 +17,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-public class FinalBossFrame extends JFrame {
+public class FinalBossFrame extends JFrame implements ActionListener {
     FinalBossPanel gamePanel;
+    JButton storeButton;
 
     static Toolkit toolkit = Toolkit.getDefaultToolkit();
     static Dimension screenSize = toolkit.getScreenSize();
+    public static int x = 0;
+    public static int y = 0;
     public static int width = screenSize.width;
     public static int height = screenSize.height;
 
     public FinalBossFrame() {
-        this.setBounds(0, 0, width, height);
+        this.setBounds(x, y, width, height);
 //        this.setExtendedState(JFrame.MAXIMIZED_BOTH); // Set to fullscreen
         this.setUndecorated(true); // Remove window decorations
         this.setBackground(new Color(0, 0, 0, 0)); // Set transparent background
@@ -36,17 +42,35 @@ public class FinalBossFrame extends JFrame {
         thread.start();
 
 
+        storeButton = new JButton();
+        storeButton.setFocusable(false);
+        storeButton.setBackground(new Color(0x8F0404));
+        storeButton.setText("Store");
+        storeButton.setForeground(Color.BLACK);
+        storeButton.setBounds(width - 60, 10, 50, 50);
+        storeButton.addActionListener(this);
+        storeButton.setBorder(BorderFactory.createEtchedBorder());
+
+
+        this.add(storeButton);
         this.add(gamePanel);
-
-
-
         this.setVisible(true);
-//        check();
+        check();
+    }
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        if (e.getSource() == storeButton) {
+            GameController.pause = true;
+            ShopFrame shopFrame = new ShopFrame();
+        }
     }
 
 
     public void check() {
-        Timer timer1 = new Timer(100, new ActionListener(){
+        Timer timer1 = new Timer(100, new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -67,7 +91,7 @@ public class FinalBossFrame extends JFrame {
     public void checkGameOver() throws IOException {
         if (GameController.ball != null) {
             if (GameController.ball.HP <= 0) {
-                GamePanel.phase1over = true;
+                GameController.pause = true;
                 this.dispose();
                 GameRestart.restartGame();
                 gamePanel.revalidate();
@@ -86,26 +110,71 @@ public class FinalBossFrame extends JFrame {
 
     public void checkWinner() {
         if (GameController.ball != null) {
-            boolean playerHasWonPhase2 = true;
-            if (GameController.enemies1.size() + GameController.enemies2.size() < 35) {
-                playerHasWonPhase2 = false;
-            }
-            if (GameController.enemies1.size() + GameController.enemies2.size() == 35) {
-                for (int i = 0; i < GameController.enemies1.size(); i++) {
-                    if (GameController.enemies1.get(i).enemyHealth > 0) {
-                        playerHasWonPhase2 = false;
-                    }
-                }
-                for (int j = 0; j < GameController.enemies2.size(); j++) {
-                    if (GameController.enemies2.get(j).enemyHealth > 0) {
-                        playerHasWonPhase2 = false;
-                    }
-                }
-            }
-            if (playerHasWonPhase2) {
-                // in this part should create the bossFight frame
+            boolean playerHasWonFinalBoss = GameController.smiley.enemyHealth <= 0;
+            if (playerHasWonFinalBoss) {
+                SmileyModel.imageIcon = "E:\\java projects\\ApProjectPhase1\\src\\controller\\data\\store\\apIcons\\dead.png";
+                displayWin();
             }
 
+        }
+    }
+
+
+    Timer timer1;
+    boolean isAnimationComplete = false;
+
+    public void displayWin() {
+        FinalBossPanel.finalBossOver = true;
+        timer1 = new Timer(100, new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!isAnimationComplete) {
+                    if (width >= 0) {
+                        // reduce width gradually
+                        x += 1;
+                        BallModel.ballRadius++;
+                        width -= 2;
+                        setBounds(x, y, width, height);
+                        gamePanel.revalidate();
+                        gamePanel.repaint();
+                    }
+                    if (height >= 0) {
+                        // reduce height gradually
+                        BallModel.ballRadius++;
+                        y += 1;
+                        height -= 2;
+                        setBounds(x, y, width, height);
+                        gamePanel.revalidate();
+                        gamePanel.repaint();
+                    }
+                    if (width <= 0 && height <= 0) {
+                        isAnimationComplete = true;
+                        ((Timer) e.getSource()).stop();
+                        displayWinnerWindow();
+                    }
+                }
+            }
+        });
+        timer1.start();
+    }
+
+
+    public void displayWinnerWindow() {
+        if (GameController.ball != null) {
+            this.dispose();
+            try {
+                if (DataManager.checkPlayerExists(EnterNamePage.player.getName())) {
+                    DataManager.updatePlayerData();
+                } else {
+                    DataManager.createPlayerData(EnterNamePage.player);
+                }
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            SoundEffects.playSound(Constants.WINNER_SOUND_PATH);
+
+            WinnerFrame winnerFrame = new WinnerFrame();
         }
     }
 }

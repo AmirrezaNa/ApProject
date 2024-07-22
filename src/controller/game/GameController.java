@@ -16,6 +16,8 @@ import view.gameLoop.phase2.finalBoss.FinalBossPanel;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static view.gameLoop.phase2.normalAndMiniBossEnemies.GameInternalFrame.createdFrames;
 
@@ -57,6 +59,10 @@ public class GameController {
     public static int Empower = 0;
     public static boolean bulletAres;
     public static boolean gameOver;
+    public static boolean pause;
+
+    public static int elapsedTime;
+    public static int numberOfBullets;
 
     // ===============================================================================
 
@@ -86,7 +92,7 @@ public class GameController {
 
 
     public static BulletModel newBullet(Point point) {
-        if (!gameOver || !FinalBossPanel.finalBossOver) {
+        if ((!gameOver || !FinalBossPanel.finalBossOver) && !GameController.pause) {
             bullet = new BulletModel(ball.x, ball.y);
             bullet.dx = ((point.x - (ball.x)) / Math.sqrt(Math.pow((point.x - (ball.x)), 2) + Math.pow((point.y - (ball.y)), 2))) * BulletModel.bulletSpeed;
             if (bullet.y < point.y) {
@@ -101,7 +107,7 @@ public class GameController {
     }
 
     public static BulletModel newOmenoctBullet(Point point) {
-        if (!gameOver || !FinalBossPanel.finalBossOver) {
+        if ((!gameOver || !FinalBossPanel.finalBossOver)  && !GameController.pause) {
             BulletModel.bulletSpeed = 3;
             bullet = new BulletModel(point.x, point.y);
             bullet.dx = -((point.x - (ball.x + 20)) / Math.sqrt(Math.pow((point.x - (ball.x + 20)), 2) + Math.pow((point.y - (ball.y + 20)), 2))) * BulletModel.bulletSpeed;
@@ -118,7 +124,7 @@ public class GameController {
     }
 
     public static BulletModel newNecropickBullet(Point point, Point goal) {
-        if (!gameOver || !FinalBossPanel.finalBossOver) {
+        if ((!gameOver || !FinalBossPanel.finalBossOver)  && !GameController.pause) {
             BulletModel.bulletSpeed = 3;
             bullet = new BulletModel(point.x, point.y);
             bullet.dx = -((point.x - (goal.x)) / Math.sqrt(Math.pow((point.x - (goal.x)), 2) + Math.pow((point.y - (goal.y)), 2))) * BulletModel.bulletSpeed;
@@ -139,7 +145,7 @@ public class GameController {
     // creating the enemies ================================================
 
     public static void newEnemy1() {
-        if (!GamePanel.phase1over) {
+        if (!GamePanel.phase1over && !GameController.pause) {
             SoundEffects.playSound(Constants.ENEMY_ENTER_SOUND_PATH);
             if (enemies1.size() % 2 == 0) {
                 enemy1 = new EnemyModel1(50, (double) GameFrame.height / 2);
@@ -153,7 +159,7 @@ public class GameController {
     }
 
     public static void newEnemy2() {
-        if (!GamePanel.phase1over) {
+        if (!GamePanel.phase1over && !GameController.pause) {
             SoundEffects.playSound(Constants.ENEMY_ENTER_SOUND_PATH);
             if (enemies2.size() % 2 == 0) {
                 enemy2 = new EnemyModel2((double) GameFrame.width - 60, (double) GameFrame.height / 2);
@@ -168,6 +174,7 @@ public class GameController {
 
 
     public static void newArchmire() {
+        if (!GameController.pause)
         for (int i = 1; i < 3; i++) {
             ArchmireModel archmireModel = new ArchmireModel(createdFrames[i].x + (double) (createdFrames[i].width / 2),
                     createdFrames[i].y + (double) (createdFrames[i].height / 2));
@@ -179,7 +186,7 @@ public class GameController {
     }
 
     public static void newBarricados1() {
-        if (GamePanel.phase1over) {
+        if (!GameController.pause) {
             SoundEffects.playSound(Constants.ENEMY_ENTER_SOUND_PATH);
             int x = createdFrames[2].x + (createdFrames[2].width/2);
             int y = createdFrames[2].y + createdFrames[2].height - (BarricadosModel1.barricadosSize/2);
@@ -190,7 +197,7 @@ public class GameController {
     }
 
     public static void newBarricados2() {
-        if (GamePanel.phase1over) {
+        if (!GameController.pause) {
             SoundEffects.playSound(Constants.ENEMY_ENTER_SOUND_PATH);
             int x = createdFrames[1].x + (createdFrames[1].width/2);
             int y = createdFrames[1].y + createdFrames[1].height - (BarricadosModel2.barricadosSize/2);
@@ -202,7 +209,7 @@ public class GameController {
 
 
     public static void newBlackOrb() {
-        if (GamePanel.phase1over) {
+        if (!GameController.pause) {
             SoundEffects.playSound(Constants.ENEMY_ENTER_SOUND_PATH);
             int x = createdFrames[3].x + (createdFrames[3].width/2);
             int y = createdFrames[3].y + (createdFrames[3].height/2);
@@ -214,7 +221,7 @@ public class GameController {
 
 
     public static void newOmenoct() {
-        if (GamePanel.phase1over) {
+        if (!GameController.pause) {
             SoundEffects.playSound(Constants.ENEMY_ENTER_SOUND_PATH);
             int x = createdFrames[FrameOfObject.getFrameOfBall()].x + createdFrames[FrameOfObject.getFrameOfBall()].width - (ArchmireModel.archmireSize / 2);
             int y = createdFrames[FrameOfObject.getFrameOfBall()].y + createdFrames[FrameOfObject.getFrameOfBall()].height/2;
@@ -228,7 +235,7 @@ public class GameController {
 
 
     public static void newWyrm() {
-        if (GamePanel.phase1over) {
+        if (!GameController.pause) {
             SoundEffects.playSound(Constants.ENEMY_ENTER_SOUND_PATH);
             int x = createdFrames[3].x + (createdFrames[3].width/2);
             int y = createdFrames[3].y + createdFrames[3].height - (WyrmModel.wyrmSize/2);
@@ -241,7 +248,7 @@ public class GameController {
     }
 
     public static void newNecropick() {
-        if (GamePanel.phase1over) {
+        if (!GameController.pause) {
             SoundEffects.playSound(Constants.ENEMY_ENTER_SOUND_PATH);
             necropick = new NecropickModel((int) (ball.x - 200), (int) ball.y);
             necropickEnemies.add(necropick);
@@ -282,6 +289,18 @@ public class GameController {
     }
 
 
+    public static void gameTime() {
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                if (!GameController.pause) {
+                    elapsedTime++;
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, 1000);
+    }
 
 
 }

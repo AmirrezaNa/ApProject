@@ -1,5 +1,6 @@
 package controller.game.objectsController.ball;
 
+import controller.game.GameController;
 import model.entity.BallModel;
 
 import java.util.Timer;
@@ -80,7 +81,7 @@ public class BallController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (ball.ballInArchmire) {
+                if (ball.ballInArchmire && !GameController.pause) {
                     ball.HP -= 10;
                 }
 //                if (stopWave) {
@@ -97,7 +98,7 @@ public class BallController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (ball.ballInArchmireTrace) {
+                if (ball.ballInArchmireTrace && !GameController.pause) {
                     ball.HP -= 2;
                 }
 //                if (stopWave) {
@@ -114,7 +115,7 @@ public class BallController {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (ball.ballInBlackOrb) {
+                if (ball.ballInBlackOrb && !GameController.pause) {
                     ball.HP -= 12;
                 }
 //                if (stopWave) {
