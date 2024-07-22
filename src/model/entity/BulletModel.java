@@ -12,6 +12,7 @@ public class BulletModel {
     public static int bulletSize = 10;
     public boolean bulletOut;
     public int bulletFrame;
+    public static boolean bulletSlaughter = false;
 
     public BulletModel(double x, double y) {
         this.x = x;

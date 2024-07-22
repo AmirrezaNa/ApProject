@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import static controller.game.GameController.smiley;
+import static view.gameLoop.phase1.GamePanel.ball;
 
 public class EpsilonFrame extends JInternalFrame {
     public static CreateFrames epsilonFrame;
@@ -45,7 +46,7 @@ public class EpsilonFrame extends JInternalFrame {
 //                } catch (IOException ex) {
 //                    throw new RuntimeException(ex);
 //                }
-                if (!GameController.pause) {
+                if (!GameController.pause && !ball.ballSlumber) {
                     int x = epsilonFrame.x;
                     int y = epsilonFrame.y;
                     int width = epsilonFrame.width;

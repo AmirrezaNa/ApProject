@@ -22,6 +22,7 @@ public class BallModel {
     public boolean ballChiron;
     public boolean ballDismay;
     public boolean ballSlumber;
+    public boolean ballSlaughter;
 
     private static BallModel instance;
 
@@ -37,6 +38,7 @@ public class BallModel {
         this.ballChiron = EnterNamePage.player.isWritOfChiron();
         this.ballDismay = false;
         this.ballSlumber = false;
+        this.ballSlaughter = false;
     }
 
     // Static method to get the singleton instance

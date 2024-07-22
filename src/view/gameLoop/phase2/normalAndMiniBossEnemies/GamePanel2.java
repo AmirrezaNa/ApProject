@@ -110,15 +110,18 @@ public class GamePanel2 extends JPanel implements Runnable {
             BallAngleController.updateBallAngle();
 
             BulletController.updateBullet();
-            BulletController.updateEnemyBullet();
+            if (!GameController.ball.ballSlumber) {
+                BulletController.updateEnemyBullet();
 
-            OmenoctController.updateOmenoct();
-            NecropickController.update();
-            ArchmireController.updateArchmire();
-            WyrmController.updateWyrm();
-            BarricadosController1.updateBarricados1();
-            BarricadosController2.updateBarricados2();
-            BlackOrbController.updateBlackOrb();
+                OmenoctController.updateOmenoct();
+                NecropickController.update();
+                ArchmireController.updateArchmire();
+                WyrmController.updateWyrm();
+                BarricadosController1.updateBarricados1();
+                BarricadosController2.updateBarricados2();
+                BlackOrbController.updateBlackOrb();
+
+            }
 
             FrameOfObject.FrameOfBullet();
             FrameCollisions2.checkFramesCollisions2();

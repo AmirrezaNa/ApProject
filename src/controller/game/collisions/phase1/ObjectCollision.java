@@ -437,6 +437,10 @@ public class ObjectCollision {
                                 if (ball.ballChiron) {
                                     ball.HP += 3;
                                 }
+                                if (BulletModel.bulletSlaughter) {
+                                    enemies1.get(k).enemyHealth -= 50;
+                                    BulletModel.bulletSlaughter = false;
+                                }
                                 SoundEffects.playSound(Constants.HURT_SOUND_PATH);
                                 if (GameController.enemies1.get(k).enemyHealth <= 0) {
                                     SoundEffects.playSound(Constants.HIT_SOUND_PATH);
@@ -499,6 +503,10 @@ public class ObjectCollision {
                                 }
                                 if (ball.ballChiron) {
                                     ball.HP += 3;
+                                }
+                                if (BulletModel.bulletSlaughter) {
+                                    enemies2.get(k).enemyHealth -= 50;
+                                    BulletModel.bulletSlaughter = false;
                                 }
                                 SoundEffects.playSound(Constants.HURT_SOUND_PATH);
                                 if (GameController.enemies2.get(k).enemyHealth <= 0) {

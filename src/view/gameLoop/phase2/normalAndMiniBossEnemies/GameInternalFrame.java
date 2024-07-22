@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import java.util.HashSet;
 import java.util.Set;
 
+import static view.gameLoop.phase1.GamePanel.ball;
+
 public class GameInternalFrame extends JInternalFrame {
 
     public static CreateFrames[] createdFrames = new CreateFrames[4];
@@ -139,7 +141,7 @@ public class GameInternalFrame extends JInternalFrame {
 
                 // this timer reduces the frame size ========================================
                 synchronized (lock) {
-                    if (!FrameCollisions2.frameCollided(i) && !GameController.pause) {
+                    if (!FrameCollisions2.frameCollided(i) && !GameController.pause && !ball.ballSlumber) {
                         int x = createdFrames[i].x;
                         int y = createdFrames[i].y;
                         int width = createdFrames[i].width;

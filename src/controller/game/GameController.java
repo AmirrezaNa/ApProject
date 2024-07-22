@@ -108,7 +108,7 @@ public class GameController {
     }
 
     public static BulletModel newOmenoctBullet(Point point) {
-        if ((!gameOver || !FinalBossPanel.finalBossOver)  && !GameController.pause) {
+        if ((!gameOver || !FinalBossPanel.finalBossOver)  && !GameController.pause && !ball.ballSlumber) {
             BulletModel.bulletSpeed = 3;
             bullet = new BulletModel(point.x, point.y);
             bullet.dx = -((point.x - (ball.x + 20)) / Math.sqrt(Math.pow((point.x - (ball.x + 20)), 2) + Math.pow((point.y - (ball.y + 20)), 2))) * BulletModel.bulletSpeed;
@@ -125,7 +125,7 @@ public class GameController {
     }
 
     public static BulletModel newNecropickBullet(Point point, Point goal) {
-        if ((!gameOver || !FinalBossPanel.finalBossOver)  && !GameController.pause) {
+        if ((!gameOver || !FinalBossPanel.finalBossOver)  && !GameController.pause && !ball.ballSlumber) {
             BulletModel.bulletSpeed = 3;
             bullet = new BulletModel(point.x, point.y);
             bullet.dx = -((point.x - (goal.x)) / Math.sqrt(Math.pow((point.x - (goal.x)), 2) + Math.pow((point.y - (goal.y)), 2))) * BulletModel.bulletSpeed;
@@ -146,7 +146,7 @@ public class GameController {
     // creating the enemies ================================================
 
     public static void newEnemy1() {
-        if (!GamePanel.phase1over && !GameController.pause) {
+        if (!GamePanel.phase1over && !GameController.pause && !ball.ballSlumber) {
             SoundEffects.playSound(Constants.ENEMY_ENTER_SOUND_PATH);
             if (enemies1.size() % 2 == 0) {
                 enemy1 = new EnemyModel1(50, (double) GameFrame.height / 2);
@@ -160,7 +160,7 @@ public class GameController {
     }
 
     public static void newEnemy2() {
-        if (!GamePanel.phase1over && !GameController.pause) {
+        if (!GamePanel.phase1over && !GameController.pause && !ball.ballSlumber) {
             SoundEffects.playSound(Constants.ENEMY_ENTER_SOUND_PATH);
             if (enemies2.size() % 2 == 0) {
                 enemy2 = new EnemyModel2((double) GameFrame.width - 60, (double) GameFrame.height / 2);
@@ -175,7 +175,7 @@ public class GameController {
 
 
     public static void newArchmire() {
-        if (!GameController.pause)
+        if (!GameController.pause && !ball.ballSlumber)
         for (int i = 1; i < 3; i++) {
             ArchmireModel archmireModel = new ArchmireModel(createdFrames[i].x + (double) (createdFrames[i].width / 2),
                     createdFrames[i].y + (double) (createdFrames[i].height / 2));
@@ -187,7 +187,7 @@ public class GameController {
     }
 
     public static void newBarricados1() {
-        if (!GameController.pause) {
+        if (!GameController.pause && !ball.ballSlumber) {
             SoundEffects.playSound(Constants.ENEMY_ENTER_SOUND_PATH);
             int x = createdFrames[2].x + (createdFrames[2].width/2);
             int y = createdFrames[2].y + createdFrames[2].height - (BarricadosModel1.barricadosSize/2);
@@ -198,7 +198,7 @@ public class GameController {
     }
 
     public static void newBarricados2() {
-        if (!GameController.pause) {
+        if (!GameController.pause && !ball.ballSlumber) {
             SoundEffects.playSound(Constants.ENEMY_ENTER_SOUND_PATH);
             int x = createdFrames[1].x + (createdFrames[1].width/2);
             int y = createdFrames[1].y + createdFrames[1].height - (BarricadosModel2.barricadosSize/2);
@@ -210,7 +210,7 @@ public class GameController {
 
 
     public static void newBlackOrb() {
-        if (!GameController.pause) {
+        if (!GameController.pause && !ball.ballSlumber) {
             SoundEffects.playSound(Constants.ENEMY_ENTER_SOUND_PATH);
             int x = createdFrames[3].x + (createdFrames[3].width/2);
             int y = createdFrames[3].y + (createdFrames[3].height/2);
@@ -222,7 +222,7 @@ public class GameController {
 
 
     public static void newOmenoct() {
-        if (!GameController.pause) {
+        if (!GameController.pause && !ball.ballSlumber) {
             SoundEffects.playSound(Constants.ENEMY_ENTER_SOUND_PATH);
             int x = createdFrames[FrameOfObject.getFrameOfBall()].x + createdFrames[FrameOfObject.getFrameOfBall()].width - (ArchmireModel.archmireSize / 2);
             int y = createdFrames[FrameOfObject.getFrameOfBall()].y + createdFrames[FrameOfObject.getFrameOfBall()].height/2;
@@ -236,7 +236,7 @@ public class GameController {
 
 
     public static void newWyrm() {
-        if (!GameController.pause) {
+        if (!GameController.pause && !ball.ballSlumber) {
             SoundEffects.playSound(Constants.ENEMY_ENTER_SOUND_PATH);
             int x = createdFrames[3].x + (createdFrames[3].width/2);
             int y = createdFrames[3].y + createdFrames[3].height - (WyrmModel.wyrmSize/2);
@@ -249,7 +249,7 @@ public class GameController {
     }
 
     public static void newNecropick() {
-        if (!GameController.pause) {
+        if (!GameController.pause && !ball.ballSlumber) {
             SoundEffects.playSound(Constants.ENEMY_ENTER_SOUND_PATH);
             necropick = new NecropickModel((int) (ball.x - 200), (int) ball.y);
             necropickEnemies.add(necropick);

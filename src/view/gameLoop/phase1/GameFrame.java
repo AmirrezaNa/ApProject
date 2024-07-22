@@ -95,7 +95,7 @@ public class GameFrame extends JFrame {
                         throw new RuntimeException(ex);
                     }
 
-                    if (width > 300 && !GameController.pause) {
+                    if (width > 300 && !GameController.pause && !ball.ballSlumber) {
                         // reduce width gradually
                         x += 1;
                         width -= 2;
@@ -103,7 +103,7 @@ public class GameFrame extends JFrame {
                         gamePanel.revalidate();
                         gamePanel.repaint();
                     }
-                    if (height > 300 && !GameController.pause) {
+                    if (height > 300 && !GameController.pause && !ball.ballSlumber) {
                         // reduce height gradually
                         y += 1;
                         height -= 2;

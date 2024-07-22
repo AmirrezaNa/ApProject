@@ -26,6 +26,16 @@ public class ShopController {
         };
         timer.schedule(task, 10000);
     }
+    public static void TimerForSlaughter() {
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                GameController.ball.ballSlaughter = false;
+            }
+        };
+        timer.schedule(task, 120000);
+    }
 
 
 }

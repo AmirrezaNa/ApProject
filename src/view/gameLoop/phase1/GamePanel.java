@@ -92,8 +92,10 @@ public class GamePanel extends JPanel implements Runnable {
             BulletController.updateBullet();
             FrameCollision.checkFrameCollisions();
             ObjectCollision.checkObjectsCollisions();
-            Enemy1Controller.updateEnemy1();
-            Enemy2Controller.updateEnemy2();
+            if (!GameController.ball.ballSlumber) {
+                Enemy1Controller.updateEnemy1();
+                Enemy2Controller.updateEnemy2();
+            }
         }
     }
 

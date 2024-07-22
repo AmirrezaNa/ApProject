@@ -3,6 +3,7 @@ package view.shop;
 import controller.Constants;
 import controller.game.GameController;
 import controller.game.ShopController;
+import model.entity.BulletModel;
 import view.gameLoop.phase1.GamePanel;
 import view.startPage.EnterNamePage;
 
@@ -119,7 +120,7 @@ public class ShopFrame extends JFrame implements ActionListener {
             GameController.pause = false;
             this.dispose();
         }
-        if (!GameController.ball.ballSlumber) {
+        if (!GameController.ball.ballSlumber && !GameController.ball.ballSlaughter) {
             if (e.getSource() == Banish) {
                 if (EnterNamePage.player.getXP() >= 100) {
                     GameController.Banish++;
@@ -158,6 +159,16 @@ public class ShopFrame extends JFrame implements ActionListener {
                     EnterNamePage.player.setXP(EnterNamePage.player.getXP() - 150);
                     GameController.ball.ballSlumber = true;
                     ShopController.TimerForSlumber();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Not Enough XP!");
+                }
+            }
+            if (e.getSource() == Slaughter) {
+                if (EnterNamePage.player.getXP() >= 200) {
+                    EnterNamePage.player.setXP(EnterNamePage.player.getXP() - 200);
+                    GameController.ball.ballSlumber = true;
+                    ShopController.TimerForSlaughter();
+                    BulletModel.bulletSlaughter = true;
                 } else {
                     JOptionPane.showMessageDialog(null, "Not Enough XP!");
                 }

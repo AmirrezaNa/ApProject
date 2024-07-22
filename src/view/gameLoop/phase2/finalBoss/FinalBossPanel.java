@@ -116,13 +116,14 @@ public class FinalBossPanel extends JPanel implements Runnable {
             BallAngleController.updateBallAngle();
 
             BulletController.updateBullet();
-            BulletController.updateEnemyBullet();
+            if (!GameController.ball.ballSlumber) {
+                BulletController.updateEnemyBullet();
 
-            SmileyController.updateSmiley();
-            RightHandController.updateRightHand();
-            LeftHandController.updateLeftHand();
-            PunchController.updatePunch();
-
+                SmileyController.updateSmiley();
+                RightHandController.updateRightHand();
+                LeftHandController.updateLeftHand();
+                PunchController.updatePunch();
+            }
 
             ObjectCollisionBossFight.checkCollisionsPhase2();
             FrameCollisionBossFight.checkBossFightFrameCollisions();

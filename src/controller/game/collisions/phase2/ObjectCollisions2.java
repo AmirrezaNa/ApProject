@@ -154,6 +154,10 @@ public class ObjectCollisions2 {
                                 if (ball.ballChiron) {
                                     ball.HP += 3;
                                 }
+                                if (BulletModel.bulletSlaughter) {
+                                    omenoctEnemies.get(k).enemyHealth -= 50;
+                                    BulletModel.bulletSlaughter = false;
+                                }
                                 SoundEffects.playSound(Constants.HURT_SOUND_PATH);
                                 if (omenoctEnemies.get(k).enemyHealth <= 0) {
                                     SoundEffects.playSound(Constants.HIT_SOUND_PATH);
@@ -205,6 +209,10 @@ public class ObjectCollisions2 {
                                 }
                                 if (ball.ballChiron) {
                                     ball.HP += 3;
+                                }
+                                if (BulletModel.bulletSlaughter) {
+                                    necropickEnemies.get(k).enemyHealth -= 50;
+                                    BulletModel.bulletSlaughter = false;
                                 }
                                 SoundEffects.playSound(Constants.HURT_SOUND_PATH);
                                 if (necropickEnemies.get(k).enemyHealth <= 0) {
@@ -258,6 +266,10 @@ public class ObjectCollisions2 {
                                 if (ball.ballChiron) {
                                     ball.HP += 3;
                                 }
+                                if (BulletModel.bulletSlaughter) {
+                                    archmireEnemies.get(k).enemyHealth -= 50;
+                                    BulletModel.bulletSlaughter = false;
+                                }
                                 SoundEffects.playSound(Constants.HURT_SOUND_PATH);
                                 if (archmireEnemies.get(k).enemyHealth <= 0) {
                                     SoundEffects.playSound(Constants.HIT_SOUND_PATH);
@@ -306,6 +318,10 @@ public class ObjectCollisions2 {
                                 }
                                 if (ball.ballChiron) {
                                     ball.HP += 3;
+                                }
+                                if (BulletModel.bulletSlaughter) {
+                                    wyrmEnemies.get(k).enemyHealth -= 50;
+                                    BulletModel.bulletSlaughter = false;
                                 }
                                 SoundEffects.playSound(Constants.HURT_SOUND_PATH);
                                 if (wyrmEnemies.get(k).enemyHealth <= 0) {
@@ -436,6 +452,10 @@ public class ObjectCollisions2 {
                                 }
                                 if (ball.ballChiron) {
                                     ball.HP += 3;
+                                }
+                                if (BulletModel.bulletSlaughter) {
+                                    blackOrbEnemies.get(k).enemyHealth -= 50;
+                                    BulletModel.bulletSlaughter = false;
                                 }
                                 SoundEffects.playSound(Constants.HURT_SOUND_PATH);
                                 if (blackOrbEnemies.get(k).enemyHealth <= 0) {

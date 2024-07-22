@@ -95,6 +95,10 @@ public class ObjectCollisionBossFight {
                             if (ball.ballChiron) {
                                 ball.HP += 3;
                             }
+                            if (BulletModel.bulletSlaughter) {
+                                rightHand.enemyHealth -= 50;
+                                BulletModel.bulletSlaughter = false;
+                            }
                         }
 
                         SoundEffects.playSound(Constants.HURT_SOUND_PATH);
@@ -146,6 +150,10 @@ public class ObjectCollisionBossFight {
                             if (ball.ballChiron) {
                                 ball.HP += 3;
                             }
+                            if (BulletModel.bulletSlaughter) {
+                                leftHand.enemyHealth -= 50;
+                                BulletModel.bulletSlaughter = false;
+                            }
                         }
 
                         SoundEffects.playSound(Constants.HURT_SOUND_PATH);
@@ -189,6 +197,10 @@ public class ObjectCollisionBossFight {
                             }
                             if (ball.ballChiron) {
                                 ball.HP += 3;
+                            }
+                            if (BulletModel.bulletSlaughter) {
+                                smiley.enemyHealth -= 50;
+                                BulletModel.bulletSlaughter = false;
                             }
                         }
 
