@@ -259,8 +259,8 @@ public class GameController {
 
     // this part is for collectibles ====================================================
 
-    public static void newCollectible(double x, double y) {
-        collectible = new Collectible(x, y);
+    public static void newCollectible(double x, double y, int xp) {
+        collectible = new Collectible(x, y, xp);
         collectibles.add(collectible);
         CollectibleController.countDownCollectible(10, collectible);//collectible will disappear in 10 seconds
     }

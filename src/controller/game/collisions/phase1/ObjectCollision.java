@@ -444,7 +444,7 @@ public class ObjectCollision {
                                 SoundEffects.playSound(Constants.HURT_SOUND_PATH);
                                 if (GameController.enemies1.get(k).enemyHealth <= 0) {
                                     SoundEffects.playSound(Constants.HIT_SOUND_PATH);
-                                    GameController.newCollectible(GameController.enemies1.get(k).x, GameController.enemies1.get(k).y);
+                                    GameController.newCollectible(GameController.enemies1.get(k).x, GameController.enemies1.get(k).y, 5);
                                 }
                                 Impact.turnOnImpact(GameController.bullets.get(j).x + ((double) BulletModel.bulletSize / 2),
                                         GameController.bullets.get(j).y + ((double) BulletModel.bulletSize / 2),
@@ -511,8 +511,8 @@ public class ObjectCollision {
                                 SoundEffects.playSound(Constants.HURT_SOUND_PATH);
                                 if (GameController.enemies2.get(k).enemyHealth <= 0) {
                                     SoundEffects.playSound(Constants.HIT_SOUND_PATH);
-                                    GameController.newCollectible(GameController.enemies2.get(k).x, GameController.enemies2.get(k).y);
-                                    GameController.newCollectible(GameController.enemies2.get(k).x + Collectible.collectibleSize, GameController.enemies2.get(k).y + Collectible.collectibleSize);
+                                    GameController.newCollectible(GameController.enemies2.get(k).x, GameController.enemies2.get(k).y, 5);
+                                    GameController.newCollectible(GameController.enemies2.get(k).x + Collectible.collectibleSize, GameController.enemies2.get(k).y + Collectible.collectibleSize, 5);
                                 }
                                 Impact.turnOnImpact(GameController.bullets.get(j).x + ((double) BulletModel.bulletSize / 2),
                                         GameController.bullets.get(j).y + ((double) BulletModel.bulletSize / 2),
@@ -562,7 +562,7 @@ public class ObjectCollision {
                             || ((xMin2 >= xMin1 && xMin2 <= xMax1) && (yMax2 >= yMin1 && yMax2 <= yMax1))
                             || ((xMin2 <= xMin1 && xMax2 >= xMin1) && (yMax2 >= yMin1 && yMax2 <= yMax1))) {
                         GameController.collectibles.get(i).collectibleHealth = 0;
-                        EnterNamePage.player.setXP(EnterNamePage.player.getXP() + 5);
+                        EnterNamePage.player.setXP(EnterNamePage.player.getXP() + collectibles.get(i).xp);
 
                     }
                 }

@@ -134,10 +134,10 @@ public class ObjectCollisions2 {
                     for (int k = 0; k < omenoctEnemies.size(); k++) {
                         if (omenoctEnemies.get(k).enemyHealth > 0) {
 
-                            double xMin2 = omenoctEnemies.get(k).xAngles[6];
-                            double xMax2 = omenoctEnemies.get(k).xAngles[2];
-                            double yMin2 = omenoctEnemies.get(k).yAngles[0];
-                            double yMax2 = omenoctEnemies.get(k).yAngles[4];
+                            double xMin2 = omenoctEnemies.get(k).x - OmenoctModel.distanceToCenter;
+                            double xMax2 = omenoctEnemies.get(k).x + OmenoctModel.distanceToCenter;
+                            double yMin2 = omenoctEnemies.get(k).y;
+                            double yMax2 = omenoctEnemies.get(k).y + (2*OmenoctModel.distanceToCenter);
 
                             if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
                                     || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
@@ -161,7 +161,15 @@ public class ObjectCollisions2 {
                                 SoundEffects.playSound(Constants.HURT_SOUND_PATH);
                                 if (omenoctEnemies.get(k).enemyHealth <= 0) {
                                     SoundEffects.playSound(Constants.HIT_SOUND_PATH);
-                                    GameController.newCollectible(omenoctEnemies.get(k).x, omenoctEnemies.get(k).y);
+                                    GameController.newCollectible(omenoctEnemies.get(k).x, omenoctEnemies.get(k).y, 4);
+                                    GameController.newCollectible(omenoctEnemies.get(k).x+2, omenoctEnemies.get(k).y+1, 4);
+                                    GameController.newCollectible(omenoctEnemies.get(k).x+4, omenoctEnemies.get(k).y-1, 4);
+                                    GameController.newCollectible(omenoctEnemies.get(k).x+5, omenoctEnemies.get(k).y, 4);
+                                    GameController.newCollectible(omenoctEnemies.get(k).x, omenoctEnemies.get(k).y+2, 4);
+                                    GameController.newCollectible(omenoctEnemies.get(k).x+1, omenoctEnemies.get(k).y+3, 4);
+                                    GameController.newCollectible(omenoctEnemies.get(k).x+2, omenoctEnemies.get(k).y+4, 4);
+                                    GameController.newCollectible(omenoctEnemies.get(k).x, omenoctEnemies.get(k).y+3, 4);
+
                                 }
                                 Impact.turnOnImpact(GameController.bullets.get(j).x + ((double) BulletModel.bulletSize / 2),
                                         GameController.bullets.get(j).y + ((double) BulletModel.bulletSize / 2),
@@ -190,10 +198,10 @@ public class ObjectCollisions2 {
                     for (int k = 0; k < necropickEnemies.size(); k++) {
                         if (necropickEnemies.get(k).enemyHealth > 0) {
 
-                            double xMin2 = necropickEnemies.get(k).xAngles[0];
-                            double xMax2 = necropickEnemies.get(k).xAngles[1];
-                            double yMin2 = necropickEnemies.get(k).yAngles[0];
-                            double yMax2 = necropickEnemies.get(k).yAngles[1];
+                            double xMin2 = necropickEnemies.get(k).x;
+                            double xMax2 = necropickEnemies.get(k).x + NecropickModel.necropickSize;
+                            double yMin2 = necropickEnemies.get(k).y;
+                            double yMax2 = necropickEnemies.get(k).y + NecropickModel.necropickSize;
 
                             if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
                                     || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
@@ -217,7 +225,10 @@ public class ObjectCollisions2 {
                                 SoundEffects.playSound(Constants.HURT_SOUND_PATH);
                                 if (necropickEnemies.get(k).enemyHealth <= 0) {
                                     SoundEffects.playSound(Constants.HIT_SOUND_PATH);
-                                    GameController.newCollectible(necropickEnemies.get(k).x, necropickEnemies.get(k).y);
+                                    GameController.newCollectible(necropickEnemies.get(k).x, necropickEnemies.get(k).y, 2);
+                                    GameController.newCollectible(necropickEnemies.get(k).x+1, necropickEnemies.get(k).y-1, 2);
+                                    GameController.newCollectible(necropickEnemies.get(k).x+1, necropickEnemies.get(k).y-1, 2);
+                                    GameController.newCollectible(necropickEnemies.get(k).x+2, necropickEnemies.get(k).y, 2);
                                 }
                                 Impact.turnOnImpact(GameController.bullets.get(j).x + ((double) BulletModel.bulletSize / 2),
                                         GameController.bullets.get(j).y + ((double) BulletModel.bulletSize / 2),
@@ -273,7 +284,11 @@ public class ObjectCollisions2 {
                                 SoundEffects.playSound(Constants.HURT_SOUND_PATH);
                                 if (archmireEnemies.get(k).enemyHealth <= 0) {
                                     SoundEffects.playSound(Constants.HIT_SOUND_PATH);
-                                    GameController.newCollectible(archmireEnemies.get(k).x, archmireEnemies.get(k).y);
+                                    GameController.newCollectible(archmireEnemies.get(k).x, archmireEnemies.get(k).y, 6);
+                                    GameController.newCollectible(archmireEnemies.get(k).x+1, archmireEnemies.get(k).y+1, 6);
+                                    GameController.newCollectible(archmireEnemies.get(k).x+2, archmireEnemies.get(k).y+1, 6);
+                                    GameController.newCollectible(archmireEnemies.get(k).x+2, archmireEnemies.get(k).y+2, 6);
+                                    GameController.newCollectible(archmireEnemies.get(k).x, archmireEnemies.get(k).y+2, 6);
                                 }
 
 
@@ -326,7 +341,8 @@ public class ObjectCollisions2 {
                                 SoundEffects.playSound(Constants.HURT_SOUND_PATH);
                                 if (wyrmEnemies.get(k).enemyHealth <= 0) {
                                     SoundEffects.playSound(Constants.HIT_SOUND_PATH);
-                                    GameController.newCollectible(wyrmEnemies.get(k).x, wyrmEnemies.get(k).y);
+                                    GameController.newCollectible(wyrmEnemies.get(k).x, wyrmEnemies.get(k).y, 8);
+                                    GameController.newCollectible(wyrmEnemies.get(k).x+4, wyrmEnemies.get(k).y, 8);
                                 }
                                 Impact.turnOnImpact(GameController.bullets.get(j).x + ((double) BulletModel.bulletSize / 2),
                                         GameController.bullets.get(j).y + ((double) BulletModel.bulletSize / 2),
@@ -460,7 +476,11 @@ public class ObjectCollisions2 {
                                 SoundEffects.playSound(Constants.HURT_SOUND_PATH);
                                 if (blackOrbEnemies.get(k).enemyHealth <= 0) {
                                     SoundEffects.playSound(Constants.HIT_SOUND_PATH);
-                                    GameController.newCollectible(blackOrbEnemies.get(k).x, blackOrbEnemies.get(k).y);
+                                    GameController.newCollectible(blackOrbEnemies.get(k).x, blackOrbEnemies.get(k).y, 30);
+                                    GameController.newCollectible(blackOrbEnemies.get(k).x+2, blackOrbEnemies.get(k).y-2, 30);
+                                    GameController.newCollectible(blackOrbEnemies.get(k).x+4, blackOrbEnemies.get(k).y, 30);
+                                    GameController.newCollectible(blackOrbEnemies.get(k).x+4, blackOrbEnemies.get(k).y+3, 30);
+                                    GameController.newCollectible(blackOrbEnemies.get(k).x, blackOrbEnemies.get(k).y+2, 30);
                                 }
 
 
@@ -520,6 +540,18 @@ public class ObjectCollisions2 {
                             ball.HP += 3;
                         }
                     }
+                    if (omenoctEnemies.get(k).enemyHealth <= 0) {
+                        SoundEffects.playSound(Constants.HIT_SOUND_PATH);
+                        GameController.newCollectible(omenoctEnemies.get(k).x, omenoctEnemies.get(k).y, 4);
+                        GameController.newCollectible(omenoctEnemies.get(k).x+2, omenoctEnemies.get(k).y+1, 4);
+                        GameController.newCollectible(omenoctEnemies.get(k).x+4, omenoctEnemies.get(k).y-1, 4);
+                        GameController.newCollectible(omenoctEnemies.get(k).x+5, omenoctEnemies.get(k).y, 4);
+                        GameController.newCollectible(omenoctEnemies.get(k).x, omenoctEnemies.get(k).y+2, 4);
+                        GameController.newCollectible(omenoctEnemies.get(k).x+1, omenoctEnemies.get(k).y+3, 4);
+                        GameController.newCollectible(omenoctEnemies.get(k).x+2, omenoctEnemies.get(k).y+4, 4);
+                        GameController.newCollectible(omenoctEnemies.get(k).x, omenoctEnemies.get(k).y+3, 4);
+
+                    }
 
                     SoundEffects.playSound(Constants.HURT_SOUND_PATH);
 
@@ -542,10 +574,10 @@ public class ObjectCollisions2 {
         for (int k = 0; k < necropickEnemies.size(); k++) {
             if (necropickEnemies.get(k).enemyHealth > 0 && !necropickEnemies.get(k).hide) {
 
-                double xMin2 = necropickEnemies.get(k).xAngles[0];
-                double xMax2 = necropickEnemies.get(k).xAngles[1];
-                double yMin2 = necropickEnemies.get(k).yAngles[0];
-                double yMax2 = necropickEnemies.get(k).yAngles[1];
+                double xMin2 = necropickEnemies.get(k).x;
+                double xMax2 = necropickEnemies.get(k).x + NecropickModel.necropickSize;
+                double yMin2 = necropickEnemies.get(k).y;
+                double yMax2 = necropickEnemies.get(k).y + NecropickModel.necropickSize;
 
                 if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
                         || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
@@ -564,6 +596,13 @@ public class ObjectCollisions2 {
                         if (ball.ballChiron) {
                             ball.HP += 3;
                         }
+                    }
+                    if (necropickEnemies.get(k).enemyHealth <= 0) {
+                        SoundEffects.playSound(Constants.HIT_SOUND_PATH);
+                        GameController.newCollectible(necropickEnemies.get(k).x, necropickEnemies.get(k).y, 2);
+                        GameController.newCollectible(necropickEnemies.get(k).x+1, necropickEnemies.get(k).y-1, 2);
+                        GameController.newCollectible(necropickEnemies.get(k).x+1, necropickEnemies.get(k).y-1, 2);
+                        GameController.newCollectible(necropickEnemies.get(k).x+2, necropickEnemies.get(k).y, 2);
                     }
 
                     Impact.turnOnImpact(GameController.ball.x,
@@ -607,6 +646,14 @@ public class ObjectCollisions2 {
                         if (ball.ballChiron) {
                             ball.HP += 3;
                         }
+                    }
+                    if (archmireEnemies.get(k).enemyHealth <= 0) {
+                        SoundEffects.playSound(Constants.HIT_SOUND_PATH);
+                        GameController.newCollectible(archmireEnemies.get(k).x, archmireEnemies.get(k).y, 6);
+                        GameController.newCollectible(archmireEnemies.get(k).x+1, archmireEnemies.get(k).y+1, 6);
+                        GameController.newCollectible(archmireEnemies.get(k).x+2, archmireEnemies.get(k).y+1, 6);
+                        GameController.newCollectible(archmireEnemies.get(k).x+2, archmireEnemies.get(k).y+2, 6);
+                        GameController.newCollectible(archmireEnemies.get(k).x, archmireEnemies.get(k).y+2, 6);
                     }
                     ball.ballInArchmire = true;
 
@@ -683,6 +730,11 @@ public class ObjectCollisions2 {
                             ball.HP += 3;
                         }
                         ball.ballCerberus = false;
+                    }
+                    if (wyrmEnemies.get(k).enemyHealth <= 0) {
+                        SoundEffects.playSound(Constants.HIT_SOUND_PATH);
+                        GameController.newCollectible(wyrmEnemies.get(k).x, wyrmEnemies.get(k).y, 8);
+                        GameController.newCollectible(wyrmEnemies.get(k).x+4, wyrmEnemies.get(k).y, 8);
                     }
 
                     Impact.turnOnImpact(GameController.ball.x,
@@ -789,6 +841,14 @@ public class ObjectCollisions2 {
                             ball.HP += 3;
                         }
                     }
+                    if (blackOrbEnemies.get(k).enemyHealth <= 0) {
+                        SoundEffects.playSound(Constants.HIT_SOUND_PATH);
+                        GameController.newCollectible(blackOrbEnemies.get(k).x, blackOrbEnemies.get(k).y, 30);
+                        GameController.newCollectible(blackOrbEnemies.get(k).x+2, blackOrbEnemies.get(k).y-2, 30);
+                        GameController.newCollectible(blackOrbEnemies.get(k).x+4, blackOrbEnemies.get(k).y, 30);
+                        GameController.newCollectible(blackOrbEnemies.get(k).x+4, blackOrbEnemies.get(k).y+3, 30);
+                        GameController.newCollectible(blackOrbEnemies.get(k).x, blackOrbEnemies.get(k).y+2, 30);
+                    }
 
                     ball.ballInBlackOrb = true;
 
@@ -831,6 +891,15 @@ public class ObjectCollisions2 {
                         SoundEffects.playSound(Constants.HURT_SOUND_PATH);
                         if (omenoctEnemies.get(k).enemyHealth <= 0) {
                             SoundEffects.playSound(Constants.HIT_SOUND_PATH);
+                            GameController.newCollectible(omenoctEnemies.get(k).x, omenoctEnemies.get(k).y, 4);
+                            GameController.newCollectible(omenoctEnemies.get(k).x+2, omenoctEnemies.get(k).y+1, 4);
+                            GameController.newCollectible(omenoctEnemies.get(k).x+4, omenoctEnemies.get(k).y-1, 4);
+                            GameController.newCollectible(omenoctEnemies.get(k).x+5, omenoctEnemies.get(k).y, 4);
+                            GameController.newCollectible(omenoctEnemies.get(k).x, omenoctEnemies.get(k).y+2, 4);
+                            GameController.newCollectible(omenoctEnemies.get(k).x+1, omenoctEnemies.get(k).y+3, 4);
+                            GameController.newCollectible(omenoctEnemies.get(k).x+2, omenoctEnemies.get(k).y+4, 4);
+                            GameController.newCollectible(omenoctEnemies.get(k).x, omenoctEnemies.get(k).y+3, 4);
+
                         }
                         Impact.turnOnImpact(GameController.ball.x,
                                 GameController.ball.y,
@@ -873,6 +942,10 @@ public class ObjectCollisions2 {
                         SoundEffects.playSound(Constants.HURT_SOUND_PATH);
                         if (necropickEnemies.get(k).enemyHealth <= 0) {
                             SoundEffects.playSound(Constants.HIT_SOUND_PATH);
+                            GameController.newCollectible(necropickEnemies.get(k).x, necropickEnemies.get(k).y, 2);
+                            GameController.newCollectible(necropickEnemies.get(k).x+1, necropickEnemies.get(k).y-1, 2);
+                            GameController.newCollectible(necropickEnemies.get(k).x+1, necropickEnemies.get(k).y-1, 2);
+                            GameController.newCollectible(necropickEnemies.get(k).x+2, necropickEnemies.get(k).y, 2);
                         }
                         Impact.turnOnImpact(GameController.ball.x,
                                 GameController.ball.y,

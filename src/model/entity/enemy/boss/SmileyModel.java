@@ -31,7 +31,7 @@ public class SmileyModel {
         this.y = y;
         this.dx = 0;
         this.dy = 1;
-        this.enemyHealth = 10;
+        this.enemyHealth = 300;
         this.punchExists = false;
         this.squeezeAttack = false;
         this.projectileAttack = false;
