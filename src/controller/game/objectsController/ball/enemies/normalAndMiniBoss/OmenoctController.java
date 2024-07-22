@@ -24,7 +24,8 @@ public class OmenoctController {
                 if (omenoctEnemies.get(i).enemyHealth > 0) {
                     if (FrameOfObject.getFrameOfBall() != -1) {
                         int x = createdFrames[FrameOfObject.getFrameOfBall()].x + createdFrames[FrameOfObject.getFrameOfBall()].width - (OmenoctModel.omenoctSize / 2);
-                        int y = createdFrames[FrameOfObject.getFrameOfBall()].y + createdFrames[FrameOfObject.getFrameOfBall()].height / 2;
+//                        int y = createdFrames[FrameOfObject.getFrameOfBall()].y + createdFrames[FrameOfObject.getFrameOfBall()].height / 2;
+                        int y = (int) ball.y;
                         omenoctEnemies.get(i).dx = -((omenoctEnemies.get(i).x - x) / Math.sqrt(Math.pow((omenoctEnemies.get(i).x - x), 2) + Math.pow((omenoctEnemies.get(i).y - y), 2))) * OmenoctModel.enemySpeed;
                         if (y < omenoctEnemies.get(i).y) {
                             omenoctEnemies.get(i).dy = -Math.sqrt(Math.pow(OmenoctModel.enemySpeed, 2) - Math.pow(omenoctEnemies.get(i).dx, 2));
