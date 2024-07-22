@@ -13,6 +13,7 @@ import model.entity.enemy.normalAndMiniBoss.BarricadosModel2;
 import model.entity.enemy.normalAndMiniBoss.BlackOrbModel;
 import model.entity.enemy.normalAndMiniBoss.OmenoctModel;
 import view.settings.SettingsPanel;
+import view.startPage.EnterNamePage;
 
 import static controller.game.GameController.*;
 
@@ -219,6 +220,10 @@ public class ObjectCollisionBossFight {
                 || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
                 || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
 
+            if (EnterNamePage.player.isWritOfAstrape()) {
+                rightHand.enemyHealth -= 2;
+            }
+
             Impact.turnOnImpact(GameController.ball.x,
                     GameController.ball.y,
                     rightHand.x + ((double) RightHandModel.rightHandSize / 2),
@@ -242,6 +247,10 @@ public class ObjectCollisionBossFight {
                 || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
                 || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
                 || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
+
+            if (EnterNamePage.player.isWritOfAstrape()) {
+                leftHand.enemyHealth -= 2;
+            }
 
             Impact.turnOnImpact(GameController.ball.x,
                     GameController.ball.y,

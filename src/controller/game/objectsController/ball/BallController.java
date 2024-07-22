@@ -2,6 +2,7 @@ package controller.game.objectsController.ball;
 
 import controller.game.GameController;
 import model.entity.BallModel;
+import view.startPage.EnterNamePage;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -48,6 +49,13 @@ public class BallController {
                     ball.ay += 0.05;
                 }
             }
+        }
+        checkForWritOfMelampus();
+    }
+
+    public static void checkForWritOfMelampus() {
+        if (EnterNamePage.player.isWritOfMelampus() && ball.HP % 20 == 0) {
+            ball.HP++;
         }
     }
 

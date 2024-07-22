@@ -6,6 +6,13 @@ public class Player {
     private boolean writOfAres;
     private boolean writOfAceso;
     private boolean writOfProteus;
+    private boolean writOfAstrape;
+    private boolean writOfCerberus;
+    private boolean writOfMelampus;
+    private boolean writOfChiron;
+    private boolean writOfEmpusa;
+    private boolean writOfDolus;
+
 
     public Player() {
         this.name = "";
@@ -54,5 +61,53 @@ public class Player {
 
     public void setWritOfProteus(boolean writOfProteus) {
         this.writOfProteus = writOfProteus;
+    }
+
+    public boolean isWritOfAstrape() {
+        return writOfAstrape;
+    }
+
+    public void setWritOfAstrape(boolean writOfAstrape) {
+        this.writOfAstrape = writOfAstrape;
+    }
+
+    public boolean isWritOfCerberus() {
+        return writOfCerberus;
+    }
+
+    public void setWritOfCerberus(boolean writOfCerberus) {
+        this.writOfCerberus = writOfCerberus;
+    }
+
+    public boolean isWritOfMelampus() {
+        return writOfMelampus;
+    }
+
+    public void setWritOfMelampus(boolean writOfMelampus) {
+        this.writOfMelampus = writOfMelampus;
+    }
+
+    public boolean isWritOfChiron() {
+        return writOfChiron;
+    }
+
+    public void setWritOfChiron(boolean writOfChiron) {
+        this.writOfChiron = writOfChiron;
+    }
+
+    public boolean isWritOfEmpusa() {
+        return writOfEmpusa;
+    }
+
+    public void setWritOfEmpusa(boolean writOfEmpusa) {
+        this.writOfEmpusa = writOfEmpusa;
+    }
+
+    public boolean isWritOfDolus() {
+        return writOfDolus;
+    }
+
+    public void setWritOfDolus(boolean writOfDolus) {
+        this.writOfDolus = writOfDolus;
     }
 }

@@ -12,6 +12,8 @@ import model.entity.Collectible;
 import view.settings.SettingsPanel;
 import view.startPage.EnterNamePage;
 
+import static controller.game.GameController.*;
+
 public class ObjectCollision {
 
 
@@ -288,6 +290,9 @@ public class ObjectCollision {
 
                         SoundEffects.playSound(Constants.HURT_SOUND_PATH);
                     }
+                    if (EnterNamePage.player.isWritOfAstrape()) {
+                        enemies1.get(k).enemyHealth -= 2;
+                    }
 
                     GameController.enemies1.get(k).dash = false;
                     GameController.enemies1.get(k).dAngle = Math.PI;
@@ -357,6 +362,10 @@ public class ObjectCollision {
                         }
                         SoundEffects.playSound(Constants.HURT_SOUND_PATH);
                     }
+                    if (EnterNamePage.player.isWritOfAstrape()) {
+                        enemies2.get(k).enemyHealth -= 2;
+                    }
+
                     GameController.enemies2.get(k).dAngle = Math.PI;
                     Impact.turnOnImpact(GameController.ball.x,
                             GameController.ball.y,

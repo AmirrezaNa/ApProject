@@ -10,6 +10,7 @@ import model.entity.BallModel;
 import model.entity.BulletModel;
 import model.entity.enemy.normalAndMiniBoss.*;
 import view.settings.SettingsPanel;
+import view.startPage.EnterNamePage;
 
 import static controller.game.GameController.*;
 
@@ -453,37 +454,29 @@ public class ObjectCollisions2 {
         for (int k = 0; k < omenoctEnemies.size(); k++) {
             if (omenoctEnemies.get(k).enemyHealth > 0) {
 
-                double xMin2 = omenoctEnemies.get(k).xAngles[6];
-                double xMax2 = omenoctEnemies.get(k).xAngles[2];
-                double yMin2 = omenoctEnemies.get(k).yAngles[0];
-                double yMax2 = omenoctEnemies.get(k).yAngles[4];
+                double xMin2 = omenoctEnemies.get(k).x - OmenoctModel.distanceToCenter;
+                double xMax2 = omenoctEnemies.get(k).x + OmenoctModel.distanceToCenter;
+                double yMin2 = omenoctEnemies.get(k).y;
+                double yMax2 = omenoctEnemies.get(k).y + (2*OmenoctModel.distanceToCenter);
 
                 if (((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
                         || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
                         || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
                         || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
-                    boolean angleCollided = false;
-                    for (int i = 0; i < 8; i++) {
-                        if ((xMin1 <= omenoctEnemies.get(k).xAngles[i]) &&
-                                (xMax1 >= omenoctEnemies.get(k).xAngles[i]) &&
-                                (yMin1 <= omenoctEnemies.get(k).yAngles[i]) &&
-                                (yMax1 >= omenoctEnemies.get(k).yAngles[i])) {
-                            angleCollided = true;
-                        }
+                    if (SettingsPanel.level == 1) {
+                        GameController.ball.HP -= 6;
                     }
-                    if (angleCollided) {
-                        if (SettingsPanel.level == 1) {
-                            GameController.ball.HP -= 6;
-                        }
-                        if (SettingsPanel.level == 2) {
-                            GameController.ball.HP -= 8;
-                        }
-                        if (SettingsPanel.level == 3) {
-                            GameController.ball.HP -= 10;
-                        }
+                    if (SettingsPanel.level == 2) {
+                        GameController.ball.HP -= 8;
+                    }
+                    if (SettingsPanel.level == 3) {
+                        GameController.ball.HP -= 10;
+                    }
+                    if (EnterNamePage.player.isWritOfAstrape()) {
+                        omenoctEnemies.get(k).enemyHealth -= 2;
+                    }
 
-                        SoundEffects.playSound(Constants.HURT_SOUND_PATH);
-                    }
+                    SoundEffects.playSound(Constants.HURT_SOUND_PATH);
 
                     Impact.turnOnImpact(GameController.ball.x,
                             GameController.ball.y,
@@ -514,6 +507,10 @@ public class ObjectCollisions2 {
                         || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
                         || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
 
+                    if (EnterNamePage.player.isWritOfAstrape()) {
+                        necropickEnemies.get(k).enemyHealth -= 2;
+                    }
+
                     Impact.turnOnImpact(GameController.ball.x,
                             GameController.ball.y,
                             necropickEnemies.get(k).x,
@@ -543,6 +540,9 @@ public class ObjectCollisions2 {
                         || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
                         || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
 
+                    if (EnterNamePage.player.isWritOfAstrape()) {
+                        archmireEnemies.get(k).enemyHealth -= 2;
+                    }
                     ball.ballInArchmire = true;
 
                 } else {
@@ -605,6 +605,10 @@ public class ObjectCollisions2 {
                         || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
                         || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
                         || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
+
+                    if (EnterNamePage.player.isWritOfAstrape()) {
+                        wyrmEnemies.get(k).enemyHealth -= 2;
+                    }
 
                     Impact.turnOnImpact(GameController.ball.x,
                             GameController.ball.y,
@@ -696,6 +700,10 @@ public class ObjectCollisions2 {
                         || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMin1 >= yMin2 && yMin1 <= yMax2))
                         || ((xMin1 >= xMin2 && xMin1 <= xMax2) && (yMax1 >= yMin2 && yMax1 <= yMax2))
                         || ((xMin1 <= xMin2 && xMax1 >= xMin2) && (yMax1 >= yMin2 && yMax1 <= yMax2))) {
+
+                    if (EnterNamePage.player.isWritOfAstrape()) {
+                        blackOrbEnemies.get(k).enemyHealth -= 2;
+                    }
 
                     ball.ballInBlackOrb = true;
 
