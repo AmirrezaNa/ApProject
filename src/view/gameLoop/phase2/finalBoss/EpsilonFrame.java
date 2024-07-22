@@ -2,6 +2,7 @@ package view.gameLoop.phase2.finalBoss;
 
 import controller.game.GameController;
 import view.gameLoop.phase2.normalAndMiniBossEnemies.CreateFrames;
+import view.startPage.EnterNamePage;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -19,7 +20,7 @@ public class EpsilonFrame extends JInternalFrame {
         createEpsilonFrame();
     }
 
-    private static void createEpsilonFrame() {
+    private void createEpsilonFrame() {
         epsilonFrame = new CreateFrames(450, 300, 400, 400);
         frame = new JInternalFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -34,8 +35,9 @@ public class EpsilonFrame extends JInternalFrame {
 
 
     static Timer timer;
+    int athena = 0;
 
-    public static void changeGameFrameSize(JInternalFrame frame) {
+    public void changeGameFrameSize(JInternalFrame frame) {
         // this timer reduces the frame size ========================================
         timer = new Timer(100, new ActionListener() {
 
@@ -46,25 +48,53 @@ public class EpsilonFrame extends JInternalFrame {
 //                } catch (IOException ex) {
 //                    throw new RuntimeException(ex);
 //                }
-                if (!GameController.pause && !ball.ballSlumber) {
-                    int x = epsilonFrame.x;
-                    int y = epsilonFrame.y;
-                    int width = epsilonFrame.width;
-                    int height = epsilonFrame.height;
-                    if (width > 300 && !smiley.squeezeAttack) {
-                        // reduce width gradually
-                        x += 3;
-                        width -= 6;
-                        frame.setBounds(x, y, width, height);
-                        epsilonFrame.x = x;
-                        epsilonFrame.width = width;
+                if (EnterNamePage.player.isWritOfAthena()) {
+                    athena++;
+                    if (athena % 5 != 0) {
+                        if (!GameController.pause && !ball.ballSlumber) {
+                            int x = epsilonFrame.x;
+                            int y = epsilonFrame.y;
+                            int width = epsilonFrame.width;
+                            int height = epsilonFrame.height;
+                            if (width > 300 && !smiley.squeezeAttack) {
+                                // reduce width gradually
+                                x += 3;
+                                width -= 6;
+                                frame.setBounds(x, y, width, height);
+                                epsilonFrame.x = x;
+                                epsilonFrame.width = width;
+                            }
+                            if (height < 400 && !smiley.squeezeAttack) {
+                                y--;
+                                height += 2;
+                                frame.setBounds(x, y, width, height);
+                                epsilonFrame.y = y;
+                                epsilonFrame.height = height;
+                            }
+                        }
                     }
-                    if (height < 400 && !smiley.squeezeAttack) {
-                        y--;
-                        height += 2;
-                        frame.setBounds(x, y, width, height);
-                        epsilonFrame.y = y;
-                        epsilonFrame.height = height;
+                }
+                else {
+                    if (!GameController.pause && !ball.ballSlumber) {
+                        int x = epsilonFrame.x;
+                        int y = epsilonFrame.y;
+                        int width = epsilonFrame.width;
+                        int height = epsilonFrame.height;
+                        if (width > 300 && !smiley.squeezeAttack) {
+                            // reduce width gradually
+                            x += 3;
+                            width -= 6;
+                            frame.setBounds(x, y, width, height);
+                            epsilonFrame.x = x;
+                            epsilonFrame.width = width;
+                        }
+                        if (height < 400 && !smiley.squeezeAttack) {
+                            y--;
+                            height += 2;
+                            frame.setBounds(x, y, width, height);
+                            epsilonFrame.y = y;
+                            epsilonFrame.height = height;
+                        }
                     }
                 }
             }

@@ -81,9 +81,10 @@ public class GameFrame extends JFrame {
     }
 
     Timer timer;
-
+    int athena = 0;
     public void changeGameFrameSize() {
         if (!countDown) {
+
             // this timer reduces the frame size ========================================
             timer = new Timer(100, new ActionListener() {
 
@@ -95,21 +96,46 @@ public class GameFrame extends JFrame {
                         throw new RuntimeException(ex);
                     }
 
-                    if (width > 300 && !GameController.pause && !ball.ballSlumber) {
-                        // reduce width gradually
-                        x += 1;
-                        width -= 2;
-                        setBounds(x, y, width, height);
-                        gamePanel.revalidate();
-                        gamePanel.repaint();
+                    if (EnterNamePage.player.isWritOfAthena()) {
+                        athena++;
+                        if (athena % 5 != 0) {
+                            if (width > 300 && !GameController.pause && !ball.ballSlumber) {
+                                // reduce width gradually
+                                x += 1;
+                                width -= 2;
+                                setBounds(x, y, width, height);
+                                gamePanel.revalidate();
+                                gamePanel.repaint();
+                            }
+                            if (height > 300 && !GameController.pause && !ball.ballSlumber) {
+                                // reduce height gradually
+                                y += 1;
+                                height -= 2;
+                                setBounds(x, y, width, height);
+                                gamePanel.revalidate();
+                                gamePanel.repaint();
+                            }
+                        }
+
                     }
-                    if (height > 300 && !GameController.pause && !ball.ballSlumber) {
-                        // reduce height gradually
-                        y += 1;
-                        height -= 2;
-                        setBounds(x, y, width, height);
-                        gamePanel.revalidate();
-                        gamePanel.repaint();
+                    else {
+
+                        if (width > 300 && !GameController.pause && !ball.ballSlumber) {
+                            // reduce width gradually
+                            x += 1;
+                            width -= 2;
+                            setBounds(x, y, width, height);
+                            gamePanel.revalidate();
+                            gamePanel.repaint();
+                        }
+                        if (height > 300 && !GameController.pause && !ball.ballSlumber) {
+                            // reduce height gradually
+                            y += 1;
+                            height -= 2;
+                            setBounds(x, y, width, height);
+                            gamePanel.revalidate();
+                            gamePanel.repaint();
+                        }
                     }
                     if (GameController.enemies1.size() + GameController.enemies2.size() == 10) {
                         countDown = true;

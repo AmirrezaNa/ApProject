@@ -1,7 +1,9 @@
 package view.gameLoop.phase2.normalAndMiniBossEnemies;
 
+import controller.game.FrameOfObject;
 import controller.game.GameController;
 import controller.game.collisions.phase2.FrameCollisions2;
+import controller.game.objectsController.ball.BallController;
 import controller.game.objectsController.ball.enemies.normalAndMiniBoss.BarricadosController2;
 
 import javax.swing.*;
@@ -130,6 +132,7 @@ public class GameInternalFrame extends JInternalFrame {
 
     static Timer timer;
     private static final Object lock = new Object();
+    static int athena = 0;
 
     public static void changeGameFrameSize(int i) {
 
@@ -142,25 +145,52 @@ public class GameInternalFrame extends JInternalFrame {
                 // this timer reduces the frame size ========================================
                 synchronized (lock) {
                     if (!FrameCollisions2.frameCollided(i) && !GameController.pause && !ball.ballSlumber) {
-                        int x = createdFrames[i].x;
-                        int y = createdFrames[i].y;
-                        int width = createdFrames[i].width;
-                        int height = createdFrames[i].height;
-                        if (width > 300) {
-                            // reduce width gradually
-                            x++;
-                            width--;
-                            frames[i].setBounds(x, y, width, height);
-                            createdFrames[i].x = x;
-                            createdFrames[i].width = width;
+                        if (i == FrameOfObject.getFrameOfBall()) {
+                            athena++;
+                            if (athena % 5 != 0) {
+                                int x = createdFrames[i].x;
+                                int y = createdFrames[i].y;
+                                int width = createdFrames[i].width;
+                                int height = createdFrames[i].height;
+                                if (width > 300) {
+                                    // reduce width gradually
+                                    x++;
+                                    width--;
+                                    frames[i].setBounds(x, y, width, height);
+                                    createdFrames[i].x = x;
+                                    createdFrames[i].width = width;
+                                }
+                                if (height > 250) {
+                                    // reduce height gradually
+                                    y += 1;
+                                    height--;
+                                    frames[i].setBounds(x, y, width, height);
+                                    createdFrames[i].y = y;
+                                    createdFrames[i].height = height;
+                                }
+                            }
                         }
-                        if (height > 250) {
-                            // reduce height gradually
-                            y += 1;
-                            height--;
-                            frames[i].setBounds(x, y, width, height);
-                            createdFrames[i].y = y;
-                            createdFrames[i].height = height;
+                        else {
+                            int x = createdFrames[i].x;
+                            int y = createdFrames[i].y;
+                            int width = createdFrames[i].width;
+                            int height = createdFrames[i].height;
+                            if (width > 300) {
+                                // reduce width gradually
+                                x++;
+                                width--;
+                                frames[i].setBounds(x, y, width, height);
+                                createdFrames[i].x = x;
+                                createdFrames[i].width = width;
+                            }
+                            if (height > 250) {
+                                // reduce height gradually
+                                y += 1;
+                                height--;
+                                frames[i].setBounds(x, y, width, height);
+                                createdFrames[i].y = y;
+                                createdFrames[i].height = height;
+                            }
                         }
                     }
                 }

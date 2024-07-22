@@ -21,6 +21,7 @@ public class SkillTreeFrame extends JFrame implements ActionListener {
     JButton writOfAceso;
     JButton writOfMelampus;
     JButton writOfChiron;
+    JButton writOfAthena;
 
     JButton writOfProteus;
     JButton writOfEmpusa;
@@ -54,7 +55,7 @@ public class SkillTreeFrame extends JFrame implements ActionListener {
         writOfAstrape.setBackground(new Color(0x8F0404));
         writOfAstrape.setText("writOfAstrape  :  1000 XP");
         writOfAstrape.setForeground(Color.BLACK);
-        writOfAstrape.setBounds(40, 70, 150, 40);
+        writOfAstrape.setBounds(40, 65, 150, 40);
         writOfAstrape.addActionListener(this);
         writOfAstrape.setBorder(BorderFactory.createEtchedBorder());
         this.add(writOfAstrape);
@@ -64,7 +65,7 @@ public class SkillTreeFrame extends JFrame implements ActionListener {
         writOfCerberus.setBackground(new Color(0x8F0404));
         writOfCerberus.setText("writOfCerberus : 1500 XP");
         writOfCerberus.setForeground(Color.BLACK);
-        writOfCerberus.setBounds(20, 120, 150, 40);
+        writOfCerberus.setBounds(20, 110, 150, 40);
         writOfCerberus.addActionListener(this);
         writOfCerberus.setBorder(BorderFactory.createEtchedBorder());
         this.add(writOfCerberus);
@@ -78,7 +79,7 @@ public class SkillTreeFrame extends JFrame implements ActionListener {
         writOfAceso.setBackground(new Color(0x8F0404));
         writOfAceso.setText("writOfAceso   :  500 XP");
         writOfAceso.setForeground(Color.BLACK);
-        writOfAceso.setBounds(170, 180, 150, 40);
+        writOfAceso.setBounds(170, 165, 150, 40);
         writOfAceso.addActionListener(this);
         writOfAceso.setBorder(BorderFactory.createEtchedBorder());
         this.add(writOfAceso);
@@ -89,7 +90,7 @@ public class SkillTreeFrame extends JFrame implements ActionListener {
         writOfMelampus.setBackground(new Color(0x8F0404));
         writOfMelampus.setText("writOfMelampus  : 750 XP");
         writOfMelampus.setForeground(Color.BLACK);
-        writOfMelampus.setBounds(150, 230, 150, 40);
+        writOfMelampus.setBounds(150, 210, 150, 40);
         writOfMelampus.addActionListener(this);
         writOfMelampus.setBorder(BorderFactory.createEtchedBorder());
         this.add(writOfMelampus);
@@ -99,10 +100,21 @@ public class SkillTreeFrame extends JFrame implements ActionListener {
         writOfChiron.setBackground(new Color(0x8F0404));
         writOfChiron.setText("writOfChiron   :  900 XP");
         writOfChiron.setForeground(Color.BLACK);
-        writOfChiron.setBounds(170, 280, 150, 40);
+        writOfChiron.setBounds(170, 255, 150, 40);
         writOfChiron.addActionListener(this);
         writOfChiron.setBorder(BorderFactory.createEtchedBorder());
         this.add(writOfChiron);
+
+
+        writOfAthena = new JButton();
+        writOfAthena.setFocusable(false);
+        writOfAthena.setBackground(new Color(0x8F0404));
+        writOfAthena.setText("writOfAthena  : 1200 XP");
+        writOfAthena.setForeground(Color.BLACK);
+        writOfAthena.setBounds(150, 300, 150, 40);
+        writOfAthena.addActionListener(this);
+        writOfAthena.setBorder(BorderFactory.createEtchedBorder());
+        this.add(writOfAthena);
 
 
 
@@ -114,7 +126,7 @@ public class SkillTreeFrame extends JFrame implements ActionListener {
         writOfProteus.setBackground(new Color(0x8F0404));
         writOfProteus.setText("writOfProteus   :  1000 XP");
         writOfProteus.setForeground(Color.BLACK);
-        writOfProteus.setBounds(20, 340, 150, 40);
+        writOfProteus.setBounds(20, 345, 150, 40);
         writOfProteus.addActionListener(this);
         writOfProteus.setBorder(BorderFactory.createEtchedBorder());
         this.add(writOfProteus);
@@ -134,7 +146,7 @@ public class SkillTreeFrame extends JFrame implements ActionListener {
         writOfDolus.setBackground(new Color(0x8F0404));
         writOfDolus.setText("writOfDolus   :  1500 XP");
         writOfDolus.setForeground(Color.BLACK);
-        writOfDolus.setBounds(20, 440, 150, 40);
+        writOfDolus.setBounds(20, 435, 150, 40);
         writOfDolus.addActionListener(this);
         writOfDolus.setBorder(BorderFactory.createEtchedBorder());
         this.add(writOfDolus);
@@ -236,6 +248,19 @@ public class SkillTreeFrame extends JFrame implements ActionListener {
             else if (EnterNamePage.player.getXP() >= 900) {
                 EnterNamePage.player.setWritOfChiron(true);
                 EnterNamePage.player.setXP(EnterNamePage.player.getXP()-900);
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Not Enough XP!");
+            }
+
+        }
+        if (e.getSource() == writOfChiron) {
+            if (!EnterNamePage.player.isWritOfAceso() || !EnterNamePage.player.isWritOfMelampus()) {
+                JOptionPane.showMessageDialog(null, "You have to buy the skills in order!");
+            }
+            else if (EnterNamePage.player.getXP() >= 1200) {
+                EnterNamePage.player.setWritOfAthena(true);
+                EnterNamePage.player.setXP(EnterNamePage.player.getXP()-1200);
             }
             else {
                 JOptionPane.showMessageDialog(null, "Not Enough XP!");

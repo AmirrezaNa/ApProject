@@ -12,6 +12,7 @@ public class Player {
     private boolean writOfChiron;
     private boolean writOfEmpusa;
     private boolean writOfDolus;
+    private boolean writOfAthena;
 
 
     public Player() {
@@ -119,5 +120,13 @@ public class Player {
 
     public void setWritOfDolus(boolean writOfDolus) {
         this.writOfDolus = writOfDolus;
+    }
+
+    public boolean isWritOfAthena() {
+        return writOfAthena;
+    }
+
+    public void setWritOfAthena(boolean writOfAthena) {
+        this.writOfAthena = writOfAthena;
     }
 }
